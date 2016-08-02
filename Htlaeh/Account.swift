@@ -72,12 +72,5 @@ struct Account {
       return account
       
    }
-    
-    /// This method is used to update the information in the keychain
-   func update() {
-      
-      
-      
-   }
-    
+   
 }

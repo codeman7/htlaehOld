@@ -213,17 +213,7 @@
 				24AFD1A91D50EFF4002DF526 /* Model */,
 				24AFD1A81D50EFEC002DF526 /* Controller */,
 				24AFD1A71D50EFE6002DF526 /* View */,
-				24311FD91D505F8F00CA7C20 /* AppDelegate.swift */,
-				24311FDD1D505F8F00CA7C20 /* Main.storyboard */,
-				24AFD1A51D50EFC5002DF526 /* Assets.xcassets */,
-				24311FE21D505F8F00CA7C20 /* LaunchScreen.storyboard */,
-				24AFD2081D50F751002DF526 /* GoogleService-Info.plist */,
-				24311FE51D505F8F00CA7C20 /* Info.plist */,
-				24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */,
-				24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */,
-				24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */,
-				24AFD19E1D50EED7002DF526 /* Roboto-Regular.ttf */,
-				24AFD19F1D50EED7002DF526 /* Roboto-Thin.ttf */,
+				24AFD2101D510BA5002DF526 /* Supporting Files */,
 			);
 			path = Htlaeh;
 			sourceTree = "<group>";
@@ -404,6 +394,24 @@
 			children = (
 			);
 			name = Realm;
+			sourceTree = "<group>";
+		};
+		24AFD2101D510BA5002DF526 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				24311FD91D505F8F00CA7C20 /* AppDelegate.swift */,
+				24311FDD1D505F8F00CA7C20 /* Main.storyboard */,
+				24AFD1A51D50EFC5002DF526 /* Assets.xcassets */,
+				24311FE21D505F8F00CA7C20 /* LaunchScreen.storyboard */,
+				24AFD2081D50F751002DF526 /* GoogleService-Info.plist */,
+				24311FE51D505F8F00CA7C20 /* Info.plist */,
+				24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */,
+				24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */,
+				24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */,
+				24AFD19E1D50EED7002DF526 /* Roboto-Regular.ttf */,
+				24AFD19F1D50EED7002DF526 /* Roboto-Thin.ttf */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3790563C1DA3B161CB1FFC5F /* Pods */ = {
