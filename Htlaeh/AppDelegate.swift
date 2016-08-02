@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Fabric
+import DigitsKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        Fabric.with([Digits.self])
+        FIRApp.configure()
+        let home = Sign()
+        self.window?.rootViewController = home
         return true
     }
 
