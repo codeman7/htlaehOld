@@ -9,9 +9,16 @@
 import Foundation
 import UIKit
 
+
+enum HomeDataState {
+   
+   case New, Rest, Standard
+   
+}
+
 class Home: Controller {
-   var fakeWorkout: Workout {
-      return self.createWorkout()
+   var workout: Workout? {
+      return WorkoutSets().getWorkout(date: "160803")
    }
    // MARK: Properties
    var statusBarHidden: Bool = false
@@ -28,24 +35,26 @@ class Home: Controller {
       super.viewDidLoad()
       // Do any additional setup after loading the view, typically from a nib.
       self.setupViews()
-      let b: Date = Date()
-      let a: String = "\(b.monthAsString()) \(b.day), \(b.year)"
-      print(a)
    }
    
-   
-   func createWorkout() -> Workout {
+   func determineState(workout: Workout?) -> HomeDataState {
       
-      let firstSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 1, reps: 8, restTime: 75, weight: 165, date: Date().today())
-      let secondSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 2, reps: 8, restTime: 60, weight: 165, date: Date().today())
-      let thirdSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 3, reps: 8, restTime: 60, weight: 165, date: Date().today())
-      let fourthSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 4, reps: 5, restTime: 60, weight: 175, date: Date().today())
-      let fifthSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 5, reps: 2, restTime: 60, weight: 190, date: Date().today())
-      let sixthSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 6, reps: 2, restTime: 60, weight: 190, date: Date().today())
-      let seventhSet: WeightSet = WeightSet.createStandardSet(name: "Squat", setCount: 7, reps: 1, restTime: 60, weight: 200, date: Date().today())
-      let workoutArray: [WeightSet] = [firstSet, secondSet, thirdSet, fourthSet, fifthSet, sixthSet, seventhSet]
-      let workout: Workout = Workout(sets: workoutArray)
-      return workout
+      // Check if workout is there
+      if workout != nil {
+         // It is there so return Standard
+         return .Standard
+      } else {
+         // No workout for today
+         // Check to see if any workouts are in the DB
+         let anyWorkouts = WorkoutSets().anyWorkouts()
+         if anyWorkouts == false {
+            // No workouts in the DB new user
+            return .New
+         } else {
+            // Workouts in the DB just none today
+            return .Rest
+         }
+      }
       
    }
    
@@ -77,14 +86,21 @@ extension Home: ViewSetup {
    func setupViews() {
       
       self.view.backgroundColor = Color().white
-      // Add the labels
-      self.addLabels()
-      // Add bottom buttons
-      self.addBottomButtons()
-      // Set up the menu bar
-      
       // Set up the header
       self.addHeader()
+      // Get the state of the data
+      let state: HomeDataState = self.determineState(self.workout)
+      switch state {
+      case .New:
+         self.addNewContent()
+      case .Rest:
+         self.addRestContent()
+      case .Standard:
+         self.addStandardContent()
+      }
+      // Add the menu bar
+      print("Fix adding menu bar in the setup views")
+      
    }
    
    /**
@@ -101,6 +117,23 @@ extension Home: ViewSetup {
       self.header = BoldHeader(frame: headerFrame, options: headerOptions)
       // Add the header to the VC
       self.view.addSubview(self.header!)
+      
+   }
+   
+   private func addNewContent() {
+      
+   }
+   
+   private func addRestContent() {
+      
+   }
+   
+   private func addStandardContent() {
+      
+      // Add the labels
+      self.addLabels()
+      // Add the bottom buttons
+      self.addBottomButtons()
       
    }
    
@@ -137,7 +170,7 @@ extension Home: ViewSetup {
       
       let exerciseFrame: CGRect = CGRect(x: self.width / 2 - 80, y: self.height / 2 - 107, width: 160, height: 48)
       let exerciseLabel: UILabel = UILabel(frame: exerciseFrame, properties: homeContent)
-      exerciseLabel.text = "\(self.fakeWorkout.sets[0].name)"
+      exerciseLabel.text = "\(self.workout!.sets[0].name)"
       self.view.addSubview(exerciseLabel)
       
       let repsX: CGFloat = self.width.halfCentered(side: .Left, size: 136)
@@ -148,7 +181,7 @@ extension Home: ViewSetup {
       
       let repsFrame: CGRect = CGRect(x: repsX, y: self.height / 2 - 24, width: 136, height: 48)
       let repsLabel: UILabel = UILabel(frame: repsFrame, properties: homeContent)
-      repsLabel.text = "\(self.fakeWorkout.sets[0].reps!)"
+      repsLabel.text = "\(self.workout!.sets[0].reps!)"
       self.view.addSubview(repsLabel)
       
       let weightX: CGFloat = self.width.halfCentered(side: .Right, size: 136)
@@ -159,7 +192,7 @@ extension Home: ViewSetup {
       
       let weightFrame: CGRect = CGRect(x: weightX, y: self.height / 2 - 24, width: 136, height: 48)
       let weightLabel: UILabel = UILabel(frame: weightFrame, properties: homeContent)
-      weightLabel.text = "\(Int(self.fakeWorkout.sets[0].weight!))"
+      weightLabel.text = "\(Int(self.workout!.sets[0].weight!))"
       self.view.addSubview(weightLabel)
       
       let restHintFrame: CGRect = CGRect(x: self.width / 2 - 68, y: self.height / 3 * 2 , width: 136, height: 16)
@@ -169,7 +202,7 @@ extension Home: ViewSetup {
       
       let restFrame: CGRect = CGRect(x: self.width / 2 - 68, y: self.height / 3 * 2 + 20, width: 136, height: 32)
       let restLabel: UILabel = UILabel(frame: restFrame, properties: homeAccent)
-      restLabel.text = "\(self.fakeWorkout.sets[0].restTime!.toString())"
+      restLabel.text = "\(self.workout!.sets[0].restTime!.toString())"
       self.view.addSubview(restLabel)
       
    }

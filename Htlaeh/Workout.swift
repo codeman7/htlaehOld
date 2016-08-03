@@ -62,6 +62,12 @@ struct Workout: WorkoutType {
       
    }
    
+   init() {
+      
+      self.sets = []
+      
+   }
+   
    init(sets: [WeightSet]) {
       
       self.sets = sets

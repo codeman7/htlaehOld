@@ -12,6 +12,7 @@
 		24311FE41D505F8F00CA7C20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24311FE21D505F8F00CA7C20 /* LaunchScreen.storyboard */; };
 		24311FEF1D505F8F00CA7C20 /* HtlaehTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24311FEE1D505F8F00CA7C20 /* HtlaehTests.swift */; };
 		24311FFA1D505F8F00CA7C20 /* HtlaehUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24311FF91D505F8F00CA7C20 /* HtlaehUITests.swift */; };
+		2481382C1D525CE00020D97C /* WorkoutSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481382B1D525CE00020D97C /* WorkoutSets.swift */; };
 		24AFD1A01D50EF07002DF526 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */; };
 		24AFD1A11D50EF07002DF526 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */; };
 		24AFD1A21D50EF07002DF526 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */; };
@@ -63,6 +64,7 @@
 		24AFD20B1D50FA09002DF526 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AFD20A1D50FA09002DF526 /* Account.swift */; };
 		24AFD20F1D5104CA002DF526 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AFD20E1D5104CA002DF526 /* Keychain.swift */; };
 		24E4B0431D5252430028BB5F /* TwitterDigits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4B0421D5252430028BB5F /* TwitterDigits.swift */; };
+		24E4B0451D5253A00028BB5F /* RealmSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4B0441D5253A00028BB5F /* RealmSet.swift */; };
 		92478F54BBE1C3A650CFF3FE /* Pods_Htlaeh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF33057B3BE1CB1E20EC65F /* Pods_Htlaeh.framework */; };
 		C44EEA33DA05421AD5CA0E48 /* Pods_HtlaehTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F16F94F66E8F4F2EFF74C5 /* Pods_HtlaehTests.framework */; };
 		DD9E8E03F9F66F2B8DB4E94C /* Pods_HtlaehUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7C01371891DC581DF5AF8F /* Pods_HtlaehUITests.framework */; };
@@ -98,6 +100,7 @@
 		24311FF51D505F8F00CA7C20 /* HtlaehUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HtlaehUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24311FF91D505F8F00CA7C20 /* HtlaehUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlaehUITests.swift; sourceTree = "<group>"; };
 		24311FFB1D505F8F00CA7C20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2481382B1D525CE00020D97C /* WorkoutSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSets.swift; sourceTree = "<group>"; };
 		24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
@@ -149,6 +152,7 @@
 		24AFD20A1D50FA09002DF526 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		24AFD20E1D5104CA002DF526 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		24E4B0421D5252430028BB5F /* TwitterDigits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDigits.swift; sourceTree = "<group>"; };
+		24E4B0441D5253A00028BB5F /* RealmSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSet.swift; sourceTree = "<group>"; };
 		3C7C01371891DC581DF5AF8F /* Pods_HtlaehUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtlaehUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC84A9ABAF7CD956A72762A /* Pods-HtlaehTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HtlaehTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HtlaehTests/Pods-HtlaehTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7BF33057B3BE1CB1E20EC65F /* Pods_Htlaeh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Htlaeh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -395,6 +399,8 @@
 		24AFD2071D50F33F002DF526 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				2481382B1D525CE00020D97C /* WorkoutSets.swift */,
+				24E4B0441D5253A00028BB5F /* RealmSet.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -727,6 +733,7 @@
 				24AFD1ED1D50F23B002DF526 /* Scroller.swift in Sources */,
 				24AFD1F11D50F24C002DF526 /* RevealAlpha.swift in Sources */,
 				24AFD1E91D50F23B002DF526 /* MaterialView.swift in Sources */,
+				2481382C1D525CE00020D97C /* WorkoutSets.swift in Sources */,
 				24AFD1AF1D50F1A0002DF526 /* Controller.swift in Sources */,
 				24AFD20F1D5104CA002DF526 /* Keychain.swift in Sources */,
 				24AFD1E51D50F23B002DF526 /* Dialog.swift in Sources */,
@@ -768,6 +775,7 @@
 				24AFD1E01D50F23B002DF526 /* BackgroundGrey.swift in Sources */,
 				24AFD1C51D50F21D002DF526 /* HomeHeader.swift in Sources */,
 				24AFD1E21D50F23B002DF526 /* Card.swift in Sources */,
+				24E4B0451D5253A00028BB5F /* RealmSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

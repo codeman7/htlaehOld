@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       Fabric.with([Digits.self])
       FIRApp.configure()
       let acc: Account? = Account().get()
+      print("Account Number = \(acc?.number) & session = \(acc?.uID)")
       let vc: UIViewController
       if acc == nil {
          vc = Sign()

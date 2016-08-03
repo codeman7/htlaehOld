@@ -68,6 +68,19 @@ struct WeightSet: WorkoutSet {
       
    }
    
+   init(workoutSet: RealmWorkout) {
+      
+      self.name = workoutSet.name
+      self.setCount = workoutSet.setCount
+      self.reps = workoutSet.reps.value
+      self.restTime = workoutSet.restTime.value
+      self.weight = workoutSet.weight.value
+      self.time = workoutSet.time.value
+      self.date = workoutSet.date
+      self.complete = workoutSet.complete
+      
+   }
+   
    // MARK: Creation Methods
    static func createStandardSet(name name: String, setCount: Int, reps: Int, restTime: Double, weight: Double, date: String) -> WeightSet {
       
