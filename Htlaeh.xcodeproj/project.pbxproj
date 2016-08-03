@@ -62,6 +62,7 @@
 		24AFD2091D50F751002DF526 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD2081D50F751002DF526 /* GoogleService-Info.plist */; };
 		24AFD20B1D50FA09002DF526 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AFD20A1D50FA09002DF526 /* Account.swift */; };
 		24AFD20F1D5104CA002DF526 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AFD20E1D5104CA002DF526 /* Keychain.swift */; };
+		24E4B0431D5252430028BB5F /* TwitterDigits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E4B0421D5252430028BB5F /* TwitterDigits.swift */; };
 		92478F54BBE1C3A650CFF3FE /* Pods_Htlaeh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF33057B3BE1CB1E20EC65F /* Pods_Htlaeh.framework */; };
 		C44EEA33DA05421AD5CA0E48 /* Pods_HtlaehTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F16F94F66E8F4F2EFF74C5 /* Pods_HtlaehTests.framework */; };
 		DD9E8E03F9F66F2B8DB4E94C /* Pods_HtlaehUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C7C01371891DC581DF5AF8F /* Pods_HtlaehUITests.framework */; };
@@ -147,6 +148,7 @@
 		24AFD2081D50F751002DF526 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		24AFD20A1D50FA09002DF526 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		24AFD20E1D5104CA002DF526 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		24E4B0421D5252430028BB5F /* TwitterDigits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDigits.swift; sourceTree = "<group>"; };
 		3C7C01371891DC581DF5AF8F /* Pods_HtlaehUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HtlaehUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FC84A9ABAF7CD956A72762A /* Pods-HtlaehTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HtlaehTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HtlaehTests/Pods-HtlaehTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7BF33057B3BE1CB1E20EC65F /* Pods_Htlaeh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Htlaeh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +371,7 @@
 			children = (
 				24AFD20E1D5104CA002DF526 /* Keychain.swift */,
 				24AFD20A1D50FA09002DF526 /* Account.swift */,
+				24E4B0421D5252430028BB5F /* TwitterDigits.swift */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -727,6 +730,7 @@
 				24AFD1AF1D50F1A0002DF526 /* Controller.swift in Sources */,
 				24AFD20F1D5104CA002DF526 /* Keychain.swift in Sources */,
 				24AFD1E51D50F23B002DF526 /* Dialog.swift in Sources */,
+				24E4B0431D5252430028BB5F /* TwitterDigits.swift in Sources */,
 				24AFD1F91D50F2BB002DF526 /* NavigationButton.swift in Sources */,
 				24AFD1E81D50F23B002DF526 /* Icon.swift in Sources */,
 				24AFD1B41D50F1C4002DF526 /* HomeTextPresentable.swift in Sources */,

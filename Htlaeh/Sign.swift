@@ -23,7 +23,7 @@ class Sign: Controller {
       
       let digits = Digits.sharedInstance()
       let config = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
-      config.appearance = self.digitsApperance()
+      config.appearance = TwitterDigits().digitsApperance()
       digits.authenticateWithViewController(nil, configuration: config, completion: { (session, error) in
          if let session = session {
             self.storeInKeychain(uid: session.userID, number: session.phoneNumber)
@@ -36,36 +36,39 @@ class Sign: Controller {
    func storeInKeychain(uid uid: String, number: String) {
       
       let account = Account(id: uid, number: number)
-      account.store()
-      
+      //account.store()
+      if account.store() == nil {
+         self.segueToHome()
+      } else {
+         print("An error occured in storing in the keychain")
+         self.showError()
+      }
    }
    
    func skipSignIn() {
       
       let dialogFrame: CGRect = CGRect(x: self.width / 2 - 120, y: self.height / 2 - 220, width: 240, height: 425)
-      let dialog: AccountDialog = AccountDialog(frame: self.view.frame, promptFrame: dialogFrame, action1: { self.segueToHome() }, action2: { self.digitsSignIn() })
+      let dialog: AccountDialog = AccountDialog(frame: self.view.frame, promptFrame: dialogFrame, action1: { self.signOut() }, action2: { self.digitsSignIn() })
       self.view.addSubview(dialog)
       dialog.showView()
     
    }
    
-   func digitsApperance() -> DGTAppearance {
+   func showError() {
       
-      let apperance = DGTAppearance()
-      apperance.backgroundColor = Color().white
-      apperance.accentColor = Color().blue
-      apperance.logoImage = Images.Htlaeh().logoSmooth
-      apperance.headerFont = Fonts.Regular().sixteen
-      apperance.labelFont = Fonts.Medium().fourteen
-      return apperance
+   }
+   
+   func signOut() {
+      
+      let digits = Digits.sharedInstance()
+      digits.logOut()
       
    }
    
    func segueToHome() {
       
       print("Segue home")
-      let digits = Digits.sharedInstance()
-      digits.logOut()
+      
       
    }
 }

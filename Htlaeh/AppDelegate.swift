@@ -19,11 +19,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        Fabric.with([Digits.self])
-        FIRApp.configure()
-        let home = Sign()
-        self.window?.rootViewController = home
-        return true
+      Fabric.with([Digits.self])
+      FIRApp.configure()
+      let acc: Account? = Account().get()
+      let vc: UIViewController
+      if acc == nil {
+         vc = Sign()
+      } else {
+         vc = Home()
+      }
+      self.window?.rootViewController = vc
+      return true
     }
 
     func applicationWillResignActive(application: UIApplication) {
