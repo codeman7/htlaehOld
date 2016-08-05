@@ -56,25 +56,51 @@ struct HomeWelcomeViews {
       let homeMessage: HomeMessage = HomeMessage()
       let label: UILabel = UILabel(frame: frame, properties: homeMessage)
       label.text = message
-      label.numberOfLines = 0
-      label.lineBreakMode = .ByWordWrapping
+      label.multipleLines()
       return (view: label, messageTop: yPos)
       
    }
    
    func createButtons(controllerView view: UIView, controller: Home) -> [UIView] {
-      
+      // Create the Show buttons frame
       let showFrame: CGRect = CGRect(x: view.frame.width - 140, y: view.frame.height - 56, width: 124, height: 40)
+      // Create the show button
       let showButton: Button = Button(frame: showFrame, type: .Raised)
+      // Set the show buttons title
       showButton.addTitle("SHOW ME", color: Color().white)
+      // Set the show buttons background color
       showButton.backgroundColor = Color().blue
+      // Set the action for the show button
       showButton.action = { controller.showTutorial() }
       
+      // Create the skip "no thanks" buttons frame
       let skipFrame: CGRect = CGRect(x: showFrame.origin.x - 140, y: view.frame.height - 56, width: 124, height: 40)
+      // Create teh skip "no thanks" button
       let skipButton: Button = Button(frame: skipFrame, type: .Flat)
+      // Set the buttons title
       skipButton.addTitle("NO THANKS", color: Color().blue)
+      // Set the action for the button
       skipButton.action = { controller.skipTutorial() }
+      // Return the array of the buttons
       return [showButton, skipButton]
+      
+   }
+   
+   func hideViews(content: [UIView]) {
+      
+      for view in content {
+         if view is Button {
+            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { view.alpha = 0.0 }, completion: nil)
+         }
+      }
+      
+   }
+   
+   func showViews(content: [UIView]) {
+      
+      for view in content {
+         UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { view.alpha = 1.0 }, completion: nil)
+      }
       
    }
    

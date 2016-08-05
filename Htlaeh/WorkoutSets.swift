@@ -30,7 +30,7 @@ struct WorkoutSets {
    func sortedBySetCount(date date: String) -> Workout {
       
       let results = self.setsForDate(date: date).sorted("setCount")
-      var returnWorkout: Workout = Workout()
+      let returnWorkout: Workout = Workout()
       for workoutSet in results {
          let weightSet: WeightSet = WeightSet(workoutSet: workoutSet)
          returnWorkout.addSetToWorkout(weightSet)

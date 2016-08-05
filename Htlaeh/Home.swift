@@ -16,6 +16,8 @@ class Home: Controller {
    var workout: Workout? {
       return WorkoutSets().getWorkout(date: "160803")
    }
+   // This property holds all the views that the content will contain
+   var contentViews: [UIView] = []
    // Property for the header
    private var header: BoldHeader?
    // Property for the menu
@@ -49,12 +51,38 @@ class Home: Controller {
    func showTutorial() {
       
       print("Show tutorial")
+      let tutorial: HomeTutorial = HomeTutorial()
+      let views: [ViewRepresentable] = tutorial.firstStep(controllerView: self.view)
+      self.view.layer.addSublayer(views[0] as! CAShapeLayer)
+      self.view.addSubview(views[1] as! UIView)
+      self.view.addSubview(views[2] as! UIView)
+      
       
    }
    
    func skipTutorial() {
       
-      print("Skip tutorial")
+      for iteration in 0..<contentViews.count {
+         
+         let last: Int = contentViews.count - 1
+         if iteration == last {
+            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: { Bool in
+               // Get all the views for the rest content
+               let views = self.addRestContent()
+               // Set all the views alpha
+               
+               // Add all the views for the rest content
+               for a in views {
+                  a.alpha = 0.0
+                  self.view.addSubview(a)
+                  UIView.animateWithDuration(0.3, delay: 0.3, options: .CurveEaseInOut, animations: { a.alpha = 1.0 }, completion: nil)
+               }
+            })
+         } else {
+            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: nil)
+         }
+         
+      }
       
    }
 }
@@ -77,6 +105,7 @@ extension Home: ViewSetup {
       // Iterate over all the views in the array and add them to the VC
       for view in views {
          self.view.addSubview(view)
+         contentViews += [view]
       }
       // Add the menu bar
       print("Fix adding menu bar in the setup views")

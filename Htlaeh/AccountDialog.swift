@@ -69,8 +69,7 @@ class AccountDialog: Dialog {
       let messageFrame: CGRect = CGRect(x: 16, y: view.frame.height - (height + 16), width: self.prompt.frame.width - 32, height: height)
       let message: UILabel = UILabel(frame: messageFrame, font: Fonts.Regular().eighteen, align: .Left, color: Color().white)
       message.text = "Why set up an account?"
-      message.numberOfLines = 0
-      message.lineBreakMode = .ByWordWrapping
+      message.multipleLines()
       view.addSubview(message)
       
    }

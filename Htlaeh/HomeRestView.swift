@@ -15,9 +15,9 @@ struct HomeRestViews {
    func createBigLabel(controllerView view: UIView) -> UIView {
       
       let frame: CGRect = CGRect(x: view.frame.width / 2 - 100, y: view.frame.height / 2 - 104, width: 200, height: 48)
-      let restLabel: UILabel = UILabel(frame: frame, properties: HomeContentLabel())
+      let bigLabel: HomeBigLabel = HomeBigLabel()
+      let restLabel: UILabel = UILabel(frame: frame, properties: bigLabel)
       restLabel.text = "Rest Day"
-      restLabel.font = Fonts.Bold().thirtySix
       return restLabel
       
    }
@@ -28,12 +28,10 @@ struct HomeRestViews {
       let text: String = "Did you want to see how you are doing, add a workout, or view upcoming workouts?"
       let height = text.heightWithConstrainedWidth(200, font: Fonts.Regular().sixteen)
       let messageFrame: CGRect = CGRect(x: view.frame.width / 2 - 120, y: view.frame.height / 2 - 40, width: 240, height: height)
-      let config: LabelConfig = LabelConfig(frame: messageFrame, font: Fonts.Regular().sixteen, alignment: .Center, color: Color().black)
-      let message: UILabel = UILabel(config: config)
+      let homeMessage: HomeMessage = HomeMessage()
+      let message: UILabel = UILabel(frame: messageFrame, properties: homeMessage)
       message.text = text
-      message.numberOfLines = 0
-      message.lineBreakMode = .ByWordWrapping
-      message.alpha = 0.54
+      message.multipleLines()
       return message
       
    }

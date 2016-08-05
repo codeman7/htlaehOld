@@ -41,6 +41,14 @@ extension UILabel {
       self.alpha = headerLabel.alpha
       self.textAlignment = headerLabel.alignment
    }
+   
+   /// Use this function if a label is going to have multiple lines
+   func multipleLines() {
+      
+      self.numberOfLines = 0
+      self.lineBreakMode = .ByWordWrapping
+      
+   }
 }
 
 struct LabelConfig {
