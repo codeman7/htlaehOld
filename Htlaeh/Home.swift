@@ -10,23 +10,14 @@ import Foundation
 import UIKit
 
 
-enum HomeDataState {
-   
-   case New, Rest, Standard
-   
-}
-
 class Home: Controller {
+   // MARK: Properties
+   // This holds the workout for the VC
    var workout: Workout? {
       return WorkoutSets().getWorkout(date: "160803")
    }
-   // MARK: Properties
-   var statusBarHidden: Bool = false
-   //var workout: Workout?
    // Property for the header
    private var header: BoldHeader?
-   // Property for the scroll view
-   private var scroller: Scroller?
    // Property for the menu
    private lazy var menu: Menu = self.createMenu()
    
@@ -35,27 +26,6 @@ class Home: Controller {
       super.viewDidLoad()
       // Do any additional setup after loading the view, typically from a nib.
       self.setupViews()
-   }
-   
-   func determineState(workout: Workout?) -> HomeDataState {
-      
-      // Check if workout is there
-      if workout != nil {
-         // It is there so return Standard
-         return .Standard
-      } else {
-         // No workout for today
-         // Check to see if any workouts are in the DB
-         let anyWorkouts = WorkoutSets().anyWorkouts()
-         if anyWorkouts == false {
-            // No workouts in the DB new user
-            return .New
-         } else {
-            // Workouts in the DB just none today
-            return .Rest
-         }
-      }
-      
    }
    
    func showMore() {
@@ -75,6 +45,18 @@ class Home: Controller {
       print("This set is done")
       
    }
+   
+   func showTutorial() {
+      
+      print("Show tutorial")
+      
+   }
+   
+   func skipTutorial() {
+      
+      print("Skip tutorial")
+      
+   }
 }
 
 
@@ -89,14 +71,12 @@ extension Home: ViewSetup {
       // Set up the header
       self.addHeader()
       // Get the state of the data
-      let state: HomeDataState = self.determineState(self.workout)
-      switch state {
-      case .New:
-         self.addNewContent()
-      case .Rest:
-         self.addRestContent()
-      case .Standard:
-         self.addStandardContent()
+      let data: HomeData = HomeData()
+      // Create the views and place them in an array
+      let views = data.addViews(self.workout, controller: self)
+      // Iterate over all the views in the array and add them to the VC
+      for view in views {
+         self.view.addSubview(view)
       }
       // Add the menu bar
       print("Fix adding menu bar in the setup views")
@@ -120,90 +100,55 @@ extension Home: ViewSetup {
       
    }
    
-   private func addNewContent() {
+   
+}
+
+// MARK: Add the views based on state
+extension Home {
+   
+   // This function creates and returns all the views for the new user state
+   func addNewContent() -> [UIView] {
+     
+      // Create the views array
+      var views: [UIView] = []
+      let welcomeViews: HomeWelcomeViews = HomeWelcomeViews()
+      views += welcomeViews.createMessages(controllerView: self.view)
+      views += welcomeViews.createButtons(controllerView: self.view, controller: self)
+      // Return the views
+      return views
+   }
+   
+   // This function creates and returns all the views for the rest state
+   func addRestContent() -> [UIView] {
+      
+      let restViews: HomeRestViews = HomeRestViews()
+      var views: [UIView] = []
+      let bigLabel = restViews.createBigLabel(controllerView: self.view)
+      views += [bigLabel]
+      let message = restViews.createMessage(controllerView: self.view)
+      views += [message]
+      let buttons = restViews.createButtons(controllerView: self.view, controller: self)
+      views += buttons
+      return views
       
    }
    
-   private func addRestContent() {
+   // This function creates and returns all the views for the standard content
+   func addStandardContent() -> [UIView] {
       
-   }
-   
-   private func addStandardContent() {
-      
-      // Add the labels
-      self.addLabels()
-      // Add the bottom buttons
-      self.addBottomButtons()
-      
-   }
-   
-   private func addBottomButtons() {
-      
-      let xL: CGFloat = self.width.halfCentered(side: .Left, size: 124)
-      let leftButtonFrame: CGRect = CGRect(x: xL, y: self.height - 88, width: 124, height: 40)
-      let leftButton: Button = Button(frame: leftButtonFrame, type: .Raised)
-      leftButton.action = { self.skipSet() }
-      leftButton.backgroundColor = Color().red
-      leftButton.addTitle("SKIP", color: Color().white)
-      self.view.addSubview(leftButton)
-      
-      
-      let xR: CGFloat = self.width.halfCentered(side: .Right, size: 124)
-      let rightButtonFrame: CGRect = CGRect(x: xR, y: self.height - 88, width: 124, height: 40)
-      let rightButton: Button = Button(frame: rightButtonFrame, type: .Raised)
-      rightButton.action = { self.setDone() }
-      rightButton.backgroundColor = Color().blue
-      rightButton.addTitle("DONE", color: Color().white)
-      self.view.addSubview(rightButton)
-      
-   }
-   
-   private func addLabels() {
-      
-      let homeHint: HomeHint = HomeHint()
-      let homeContent: HomeContentLabel = HomeContentLabel()
-      let homeAccent: HomeAccent = HomeAccent()
-      let exerciseHintFrame: CGRect = CGRect(x: self.width / 2 - 80, y: self.height / 2 - 134, width: 160, height: 19)
-      let exerciseHintLabel: UILabel = UILabel(frame: exerciseHintFrame, properties: homeHint)
-      exerciseHintLabel.text = "Exercise Name"
-      self.view.addSubview(exerciseHintLabel)
-      
-      let exerciseFrame: CGRect = CGRect(x: self.width / 2 - 80, y: self.height / 2 - 107, width: 160, height: 48)
-      let exerciseLabel: UILabel = UILabel(frame: exerciseFrame, properties: homeContent)
-      exerciseLabel.text = "\(self.workout!.sets[0].name)"
-      self.view.addSubview(exerciseLabel)
-      
-      let repsX: CGFloat = self.width.halfCentered(side: .Left, size: 136)
-      let repsHintFrame: CGRect = CGRect(x: repsX, y: self.height / 2 - 51, width: 136, height: 19)
-      let repsHint: UILabel = UILabel(frame: repsHintFrame, properties: homeHint)
-      repsHint.text = "Reps"
-      self.view.addSubview(repsHint)
-      
-      let repsFrame: CGRect = CGRect(x: repsX, y: self.height / 2 - 24, width: 136, height: 48)
-      let repsLabel: UILabel = UILabel(frame: repsFrame, properties: homeContent)
-      repsLabel.text = "\(self.workout!.sets[0].reps!)"
-      self.view.addSubview(repsLabel)
-      
-      let weightX: CGFloat = self.width.halfCentered(side: .Right, size: 136)
-      let weightHintFrame: CGRect = CGRect(x: weightX, y: self.height / 2 - 51, width: 136, height: 19)
-      let weightHint: UILabel = UILabel(frame: weightHintFrame, properties: homeHint)
-      weightHint.text = "Weight"
-      self.view.addSubview(weightHint)
-      
-      let weightFrame: CGRect = CGRect(x: weightX, y: self.height / 2 - 24, width: 136, height: 48)
-      let weightLabel: UILabel = UILabel(frame: weightFrame, properties: homeContent)
-      weightLabel.text = "\(Int(self.workout!.sets[0].weight!))"
-      self.view.addSubview(weightLabel)
-      
-      let restHintFrame: CGRect = CGRect(x: self.width / 2 - 68, y: self.height / 3 * 2 , width: 136, height: 16)
-      let restHint: UILabel = UILabel(frame: restHintFrame, properties: homeHint)
-      restHint.text = "Rest"
-      self.view.addSubview(restHint)
-      
-      let restFrame: CGRect = CGRect(x: self.width / 2 - 68, y: self.height / 3 * 2 + 20, width: 136, height: 32)
-      let restLabel: UILabel = UILabel(frame: restFrame, properties: homeAccent)
-      restLabel.text = "\(self.workout!.sets[0].restTime!.toString())"
-      self.view.addSubview(restLabel)
+      // Create the views array that will be returned
+      var views: [UIView] = []
+      // Create the standard view struct
+      let standardViews: HomeStandardViews = HomeStandardViews()
+      // Create all the labels
+      let labels: [UIView] = standardViews.addLabels(controllerView: self.view, controller: self)
+      // Add the labels to the view array
+      views += labels
+      // Create all the buttons
+      let buttons: [UIView] = standardViews.addBottomButtons(controllerView: self.view, controller: self)
+      // Add the buttons to the view array
+      views += buttons
+      return views
       
    }
    
@@ -239,18 +184,7 @@ extension Home {
    
 }
 
-extension Set {
-   
-   var name: String {
-      get {
-         return self.name
-      }
-      set(newValue) {
-         self.name = newValue
-      }
-   }
-   
-}
+
 
 
 

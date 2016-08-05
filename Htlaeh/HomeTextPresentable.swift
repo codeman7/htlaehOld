@@ -42,3 +42,13 @@ struct HomeAccent : HomeTextPresentable {
    let font: UIFont = Fonts.Regular().twentyFour
    let alpha: CGFloat = 0.54
 }
+
+struct HomeBigLabel : HomeTextPresentable {
+   let font: UIFont = Fonts.Bold().thirtySix
+   let alpha: CGFloat = 0.87
+}
+
+struct HomeMessage : HomeTextPresentable {
+   let font: UIFont = Fonts.Medium().sixteen
+   let alpha: CGFloat = 0.54
+}
