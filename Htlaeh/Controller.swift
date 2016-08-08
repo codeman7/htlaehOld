@@ -45,7 +45,13 @@ class Controller: UIViewController {
    var height: CGFloat {
       return self.view.frame.height
    }
+   
+   func segue(destination: NavigationDestinations) {
+      fatalError("Must be implemented in subclass")
+   }
 }
+
+
 
 protocol ViewSetup {
    func setupViews()

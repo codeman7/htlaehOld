@@ -68,21 +68,25 @@ class Home: Controller {
          if iteration == last {
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: { Bool in
                // Get all the views for the rest content
-               let views = self.addRestContent()
-               // Set all the views alpha
-               
+               let restViews: HomeRestViews = HomeRestViews()
                // Add all the views for the rest content
-               for a in views {
-                  a.alpha = 0.0
-                  self.view.addSubview(a)
-                  UIView.animateWithDuration(0.3, delay: 0.3, options: .CurveEaseInOut, animations: { a.alpha = 1.0 }, completion: nil)
-               }
-            })
+               restViews.addRestViewsToView(self.view, controller: self) })
          } else {
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: nil)
          }
          
       }
+      
+   }
+   
+   // MARK: Segues
+   /**
+      This function calls all the segues from a navigation button press
+      - parameter destination: Is the destination that we want to segue to
+   */
+   override func segue(destination: NavigationDestinations) {
+      
+      print("Please segue to \(destination.hashValue)")
       
    }
 }
@@ -185,29 +189,37 @@ extension Home {
 
 // MARK: Navigation Stuff
 extension Home {
-   
+   /**
+    This function creates the menu
+    The menu isn't created until it is needed
+   */
    private func createMenu() -> Menu {
-      
+      // Set the width for the menu
       let width: CGFloat = self.width + 240
+      // Set the frame for the menu
       let frame: CGRect = CGRect(x: -240, y: 0, width: width, height: self.height)
-      let icons: [UIImage] = [Images.Action().home, Images.Content().add, Images.Action().reorder]
-      let labels: [String] = ["Home", "New Workout", "All Workouts"]
-      let menu: Menu = Menu(frame: frame, icons: icons, labels: labels, actions: [])
+      // Create the menu
+      let menu: Menu = Menu(frame: frame, containingController: self)
+      // Return the menu
       return menu
       
    }
    
+   /**
+      This function is called when we want to show the menu
+      If the menu hasn't been show before then it is created and added to the subview
+   */
    private func showMenu() {
-      
+      // Add the menu as a subview of the view controller
       self.view.addSubview(menu)
+      // Show the menu
       self.menu.showView()
       
    }
    
    private func hideMenu() {
-      
+      // Hide the menu
       self.menu.hideView()
-      self.menu.removeFromSuperview()
       
    }
    

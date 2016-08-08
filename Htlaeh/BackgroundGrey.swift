@@ -47,14 +47,19 @@ extension BackgroundGrey: Touchable {
    
    var action: () -> () {
       return {
-         if let superView = self.superview as? Overlay {
-            superView.hideView()
+         if self.superview is Menu {
+            let menu = self.superview as! Menu
+            menu.hideView()
          }
+         if self.superview is Dialog {
+            let dialog = self.superview as! Dialog
+            dialog.hideView()
+         }
+         
       }
    }
    
    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-      
       self.action()
       
    }

@@ -15,33 +15,22 @@ class Menu: UIView {
    private lazy var backgroundGrey: BackgroundGrey = self.createBackgroundGrey()
    /// Property for the navigation bar
    private lazy var navigationBar: NavigationBar = self.createNavigationBar()
-   /// Property for the icons of the buttons in the Nav Bar
-   private let icons: [UIImage]
-   /// Property for the labels of the buttons in the Nav Bar
-   private let labels: [String]
-   /// Property for the actions of the buttons
-   private let actions: [()->()]
+   /// The property for the ViewController holds this menu
+   let containingController: Controller
    
    // MARK: Initializers
    /**
      Default Initalizer
      - parameter Frame:   The size of the entier menu
-     - parameter Icons:   The icons that will be in the Nav Bar
-     - parameter Labels:  The labels for the buttons in the Nav Bar
+     - parameter ContianingController: The ViewController that will contain this menu
    */
-   init(frame: CGRect, icons: [UIImage], labels: [String], actions: [() -> ()]) {
-      
-      // Set the icons property
-      self.icons = icons
-      // Set the labels property
-      self.labels = labels
-      // Set the actions property
-      self.actions = actions
+   init(frame: CGRect, containingController: Controller) {
+      // Set the conainting controller
+      self.containingController = containingController
       // Call the super initializer
       super.init(frame: frame)
       // Add the subviews
       self.addSubviews()
-      print(self.backgroundGrey.action)
       
    }
    /// Required by Apple NEVER USE
@@ -59,24 +48,24 @@ class Menu: UIView {
       
    }
    
-   //// This function is used to create the background grey property
+   /// This function is used to create the background grey property
    private func createBackgroundGrey() -> BackgroundGrey {
       // Set the view's frame to be the same size of the menu
       let frame: CGRect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
       // Create the view
       let view: BackgroundGrey = BackgroundGrey(frame: frame)
-      // Set the action for the background grey touch
-      //view.action = { print("Hello World") }
       // Return the view
       return view
       
    }
    
-   //// This function is used to create the navigation bar
+   /// This function is used to create the navigation bar
    private func createNavigationBar() -> NavigationBar {
-      
+      // Create the frame for the navigation bar
       let navigationFrame: CGRect = CGRect(x: 0, y: 0, width: 240, height: self.frame.height)
-      let navigationBar: NavigationBar = NavigationBar(frame: navigationFrame, icons: self.icons, labels: self.labels)
+      // Create the navigation bar
+      let navigationBar: NavigationBar = NavigationBar(frame: navigationFrame, containingController: containingController)
+      // Return the navigation bar
       return navigationBar
       
    }
@@ -84,7 +73,7 @@ class Menu: UIView {
    
 }
 
-//// Make sure the menu conforms the overlay protocol
+/// Make sure the menu conforms the overlay protocol
 extension Menu: Overlay {
    
    /**
@@ -92,7 +81,7 @@ extension Menu: Overlay {
       - note: Make sure view is added to heirachy before calling function
    */
    func showView() {
-      
+      // Create the animation to be later called
       let animation: () -> () = {
          // Show the grey
          self.backgroundGrey.alpha = self.opacity
@@ -110,7 +99,7 @@ extension Menu: Overlay {
       - note:   This function removes the view from superview before exiting
    */
    func hideView() {
-      
+      // Create the animation to be called later
       let animation: () -> () = {
          // Hide the grey
          self.backgroundGrey.alpha = 0.0
@@ -118,7 +107,9 @@ extension Menu: Overlay {
          self.navigationBar.hide(x: 0)
       }
       // Animate the view and on completion remove from superview
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: { Bool in self.removeFromSuperview()})
+      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: { Bool in
+         self.removeFromSuperview()
+      })
       
    }
    
@@ -164,7 +155,7 @@ extension Menu {
 
 // MARK: Make sure the Menu conforms to draggable action
 extension Menu: Draggable {
-   
+   /// This variable is for the action that happens when a drag occurs
    var dragAction: (Int) -> () {
       return {a in
          // Update the view to the new point
@@ -172,6 +163,7 @@ extension Menu: Draggable {
       }
    }
    
+   /// This variable is for the action that will happen when a drag finishes
    var dragFinished: (Int) -> () {
       return { a in
          if a > 360 {
@@ -183,6 +175,8 @@ extension Menu: Draggable {
    }
    
 }
+
+
 
 
 

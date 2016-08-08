@@ -36,7 +36,7 @@ struct HomeRestViews {
       
    }
    
-   func createButtons(controllerView view: UIView, controller: UIViewController) -> [UIView] {
+   func createButtons(controllerView view: UIView, controller: Home) -> [UIView] {
       
       // TODO: Correct actions to be controller.action()
       var views: [UIView] = []
@@ -59,4 +59,35 @@ struct HomeRestViews {
       
    }
    
+   func addRestViewsToView(controllerView: UIView, controller: Home) {
+      // An array to hold all the alphas
+      var alphas: [CGFloat] = []
+      // Get all the elements that will be on screen
+      let bigLabel: UIView = self.createBigLabel(controllerView: controllerView)
+      let message: UIView = self.createMessage(controllerView: controllerView)
+      let buttons: [UIView] = self.createButtons(controllerView: controllerView, controller: controller)
+      // Place all the views into an array
+      let views: [UIView] = [bigLabel, message] + buttons
+      // Add all the alphas to the array
+      alphas += [bigLabel.alpha, message.alpha]
+      // Iterate over the buttons to add their alphas
+      for button in buttons { alphas += [button.alpha] }
+      // Iterate over the views
+      for iteration in 0..<views.count {
+         // Set the views alpha to 0
+         views[iteration].alpha = 0.0
+         // Add the views to the controller VC
+         controllerView.addSubview(views[iteration])
+         // Set the views alpha to the correct alpha
+         UIView.animateWithDuration(0.3, delay: 0.3, options: .CurveEaseInOut, animations: { views[iteration].alpha = alphas[iteration] }, completion: nil)
+      }
+      
+   }
+   
 }
+
+
+
+
+
+
