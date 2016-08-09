@@ -12,20 +12,24 @@ import UIKit
 protocol Head {
    var title: String { get }
    var leftIcon: UIImage { get }
+   var rightIcon: UIImage? { get }
+   var rightButtonAction: (()->())? { get }
+   var leftButtonAction: (()->())? { get }
 }
 
-struct HomeHeader {
-   let rightIcon: UIImage
-   let rightButtonAction: () -> ()
-   let leftButtonAction: () -> ()
-   init(left: () -> (), right: () -> ()) {
-      self.rightIcon = Images.Navigation().more
-      self.rightButtonAction = right
-      self.leftButtonAction = left
+struct HomeHeader: Head {
+   let title: String = "Home"
+   let leftIcon: UIImage = Images.Navigation().menu
+   let rightIcon: UIImage? = Images.Navigation().more
+   let rightButtonAction: (() -> ())?
+   let leftButtonAction: (() -> ())?
+   init(controller: Home) {
+      self.rightButtonAction = { controller.showMore() }
+      self.leftButtonAction = { controller.showMenu() }
    }
 }
 
-extension HomeHeader : Head {
+/*extension HomeHeader : Head {
    var title: String { return "Home" }
    var leftIcon: UIImage { return Images.Navigation().menu }
-}
+}*/

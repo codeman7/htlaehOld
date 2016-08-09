@@ -2,339 +2,239 @@
 //  TextField.swift
 //  Htlaeh
 //
-//  Created by Cody Weaver on 2/3/16.
-//  Copyright © 2016 Htlaeh. All rights reserved.
+//  Created by Cody Weaver on 8/9/16.
+//  Copyright © 2016 Cody Weaver. All rights reserved.
 //
-
-/*
-    FLOATING LABEL Standard height is 78, 16 spacing on top, 16 for floating label, 8 spacing, 22 text, 7 space, 1 line, 8 space
-    STANDARD FONT is regular 12 for hint and regular 16 for text
-    NON FLOATING LABEL Standard height is 54, 16 spacing on top, 22 text, 7 space, 1 line, 8 space
-    FULL WIDTH FIELD Standard height is 52, 16 spacing on top, 22 text, 16 spacing bottom
-    BOTTOM CHAR COUNTER/ERROR MESSAGE FONT is 12 regular
-    FLOATING LABEL WITH CHAR/ERROR Standard height 94, 16 spacing on top, 16 for floating label, 8 spacing, 22 text, 7 space, 1 line, 4 space, 16 label
-*/
 
 import Foundation
 import UIKit
 
+/**
+   This class is used for the text fields within New Workout
+   Default text field
+   
+   STANDARD FONT is Medium 24 black with 87% opacity
+ 
+   HINT Should be 38% opacity
+ 
+   BOTTOM CHAR COUNTER / ERROR MESSAGE FONT is Regular 14
+ 
+   FLOATING LABEL FONT is Regular 16
+ 
+   FLOATING LABEL WITH CHAR/ERROR Standard height is 83, 19 for floating label, 8 spacing, 28 for text, 7 space, 1 line, 4 space, 16 label
+ 
+   Spacing between text fields should be a minimum of 16pt
+ */
 class TextField: UITextField {
-   // Accent color for the text field
-   var color: UIColor = Color().blue
-   // Property for floating
-   var floating: Bool = true
-   // Property for hint/floatingLabel
-   private var placeholderLabel: UILabel? = nil
-   // Property for the bottom line
-   private var bottomLine: UIView? = nil
-   // Property for error message
-   var errorMessage: String? = nil
-   // Property for char counter
-   var charLimit: Int? = nil
-   // Property for placeholder/hint text
-   var hintText: String = "Placeholder" {
+   // MARK: Properties
+   /// The variable that will be the placeholder label
+   lazy var placeholderLabel: UILabel = self.createPlaceholder()
+   /// The variable that will be the bottom line
+   lazy var bottomLine: Line = self.createBottomLine()
+   /// The variable that will be the error label
+   lazy var errorLabel: UILabel = self.createErrorMessage()
+   /// Property for all the options
+   private let options: TextFieldOptions
    
-      willSet(newText) {
+   // MARK: Initializers
+   /**
+      Default initializer
+   */
+   init<A: TextFieldOptions>(frame: CGRect, options: A) {
       
-         placeholderLabel?.text = newText
-      
-      }
-    
-   }
-   
-   // Variable for text and editing bounds
-   private var textBounds: CGRect {
-   
-      if floating == true {
-      
-         return CGRect(x: 0, y: 40, width: self.frame.size.width, height: 44)
-        
-      } else {
-      
-         return CGRect(x: 0, y: 16, width: self.frame.size.width, height: 44)
-        
-      }
-    
-   }
-    
-    
-   // Default initializer
-   
-   override init(frame: CGRect) {
-   
+      // Set the options property
+      self.options = options
+      // Call the super intializer
       super.init(frame: frame)
-      self.delegate = self
-      self.borderStyle = .None
-      self.font = Fonts.Regular().sixteen
-      self.textColor = Color().grey900
-      self.setUp()
-      self.returnKeyType = .Done
-      self.addTarget(self, action: #selector(TextField.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
-    
+      // Set the default values
+      self.defaultSettings()
+      // Add the event listener for the text field changing
+      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+      // Layout the subviews
+      self.layoutViews()
+      
    }
-    
-   // Initializer for custom properties
-   convenience init(frame: CGRect, color: UIColor, floating: Bool, errorMessage: String?, charLimit: Int?) {
    
-      self.init(frame: frame)
-      self.color = color
-      self.floating = floating
-      self.errorMessage = errorMessage
-      self.charLimit = charLimit
-    
-   }
-    
-   // Required by Apple
+   /// Requied By Apple NEVER USE
    required init?(coder aDecoder: NSCoder) {
-   
       fatalError("This class does not support NSCoding")
-    
    }
-    
-   // Function to set up all the views
-   func setUp() {
-      // Check for floating label
-      // Set up standards
-      self.addPlaceHolder(textBounds)
-      if charLimit == nil && errorMessage == nil {
+   
+   // MARK: Functions
+   /**
+      Sets the default values for the view
+   */
+   func defaultSettings() {
       
-         self.addBottomLine(false)
-        
-      } else {
+      // Set the tint color for the view
+      self.tintColor = Color().blue
+      // Set the font for the view
+      self.font = Fonts.Medium().twentyFour
+      // Set the alignment
+      self.textAlignment = self.options.style.alignment
+      // Set the delegate to self
+      self.delegate = self
+      // Set the keyboard type
+      self.keyboardType = self.options.style.keyboardType
+      // Set the return key type
+      if self.options.style.returnKey != nil { self.returnKeyType = self.options.style.returnKey! }
+      // Set the auto correct type
+      if self.options.style.autoCorrection != nil { self.autocorrectionType = self.options.style.autoCorrection! }
       
-         self.addBottomLine(true)
-        
-      }
-      // Check for charLimit or errorMessage
-        
    }
-    
-   // Function to add floating label
-   func addPlaceHolder(rect: CGRect) {
    
-      let frame: CGRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height / 2)
-      self.placeholderLabel = UILabel(frame: frame, font: Fonts.Regular().sixteen, align: NSTextAlignment.Left, color: Color().grey700)
-      self.placeholderLabel?.text = self.hintText
-      self.addSubview(self.placeholderLabel!)
-   }
-    
-   // Helper variable is true if char or error are present and false if not
-   func addBottomLine(helper: Bool) {
-      // Frame for bottom line
-      let rect: CGRect
-      // Check if there is a char limit or error message
-      if helper == false {
+   /**
+      This function is in charge of laying out all the subviews of the text field
+   */
+   func layoutViews() {
       
-         if self.frame.size.height == 94 {
-            
-            // char limit or error message present so move line up
-            rect = CGRect(x: 0, y: self.frame.size.height - 22, width: self.frame.size.width, height: 1)
-            
-         } else {
-            
-            // No char limit or error message
-            rect = CGRect(x: 0, y: self.frame.size.height - 9, width: self.frame.size.width, height: 1)
-            
-         }
-        
-      } else {
-         
-         // char limit or error message present so move line up
-         rect = CGRect(x: 0, y: self.frame.size.height - 22, width: self.frame.size.width, height: 1)
+      // Add the placeholder to the view
+      self.addSubview(self.placeholderLabel)
+      // Add the bottom line to the view
+      self.addSubview(self.bottomLine)
       
-      }
-        
-      // Create the line and add to the text field
-      bottomLine = UIView(frame: rect)
-      bottomLine?.backgroundColor = Color().grey700
-      self.addSubview(bottomLine!)
-   
    }
-    
    
-   // Functions for editing and text rect
-   override func editingRectForBounds(bounds: CGRect) -> CGRect {
-   
-      return textBounds
-    
-   }
-    
-   override func textRectForBounds(bounds: CGRect) -> CGRect {
-   
-      return textBounds
-    
-   }
-    
-   func bottomRipple(color: Bool) {
-   
-      let frame: CGRect = CGRect(x: self.frame.size.width / 2, y: 0, width: 0, height: 1)
-      let view: UIView = UIView(frame: frame)
-      if color == true {
-      
-         view.backgroundColor = self.color
-        
-      } else {
-      
-         view.backgroundColor = Color().grey700
-        
-      }
-      bottomLine?.addSubview(view)
+   func style(state: TextFieldState) {
       // Create the animation
       let animate: () -> () = {
-         
-         view.frame.size.width = self.frame.size.width
-         
-         view.frame.origin.x = 0
+         self.placeholderLabel.font = state.placeholderFont
+         self.placeholderLabel.alpha = state.placeholderAlpha
+         self.placeholderLabel.textColor = state.placeholderColor
+         self.placeholderLabel.frame.origin.y = state.placeholderY
+         self.bottomLine.alpha = state.bottomLineAlpha
+         self.bottomLine.backgroundColor = state.bottomLineColor
+         self.errorLabel.alpha = state.errorAlpha
       }
       // Animate the view
-      view.standardAnimation(animate)
-    
+      UIView.animateWithDuration(0.3, animations: animate)
+      
    }
-    
-    func bottomLineRipple(color: UIColor) {
-        let frame: CGRect = CGRect(x: self.frame.size.width / 2, y: 0, width: 0, height: 1)
-        let view: UIView = UIView(frame: frame)
-        view.backgroundColor = color
-        bottomLine?.addSubview(view)
-        // Create the animation
-        let animate: () -> () = {
-            view.frame.size.width = self.frame.size.width
-            view.frame.origin.x = 0
-        }
-        
-        // Animate the view
-        view.standardAnimation(animate)
-    }
-    
-    func showErrorMessage() {
-        guard self.errorMessage != nil else {
-            return
-        }
-        
-        let errorLabel = self.subviews.filter({$0.tag == 17}).first as? UILabel
-        guard errorLabel == nil else {
-            return
-        }
-        
-        let frame: CGRect = CGRect(x: 0, y: self.frame.size.height - 16, width: self.frame.size.width, height: 16)
-        let label: UILabel = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Left, color: Color().red)
-        label.text = self.errorMessage
-        label.tag = 17
-        self.addSubview(label)
-        self.placeholderLabel?.textColor = Color().red
-        self.bottomLineRipple(Color().red)
-    }
-    
-    func removeErrorMessage() {
-        let errorLabel = self.subviews.filter({$0.tag == 17}).first
-        if let label = errorLabel {
-            UIView.animateWithDuration(0.125, delay: 0.0, options: .CurveEaseInOut, animations: {
-                label.alpha = 0.0
-                }, completion: {Bool in label.removeFromSuperview()})
-        }
-    }
-    
-    // Tag for the label should be 15
-    func showCharCounter(color: UIColor?, textString: String) {
-        // Make sure text field is tall enough to hold char message
-        guard self.frame.size.height == 94  else {
-            print("Please make text field 94 pt tall")
-            return
-        }
-        // Check if there is already a label
-        guard self.subviews.filter({$0.tag == 15}).first == nil else {
-            let label = self.subviews.filter({$0.tag == 15}).first! as! UILabel
-            label.text = textString
-            return
-        }
-        
-        // Create the label
-        let frame: CGRect = CGRect(x: self.frame.size.width - 168, y: self.frame.size.height - 16, width: 160, height: 16)
-        let label: UILabel
-        if color != nil {
-            label = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Right, color: color!)
-        } else {
-            label = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Right, color: Color().red)
-        }
-        
-        label.text = textString
-        label.tag = 15
-        self.addSubview(label)
-    }
-    
+   
+   /**
+      Adds the error message to the view
+      - parameter text: The text for the error message
+   */
+   func showErrorMessage(text: String) {
+      
+      // Set the text for the error label
+      self.errorLabel.text = text
+      // Add the error message to the view
+      self.addSubview(errorLabel)
+      
+   }
+   
+   // MARK: Functions for creating lazy views
+   /**
+      This function creates the error label
+   */
+   private func createErrorMessage() -> UILabel {
+      // Set the error messages frame
+      let frame: Rect = Rect(x: 0, y: 67, w: self.frame.w, h: 16)
+      // Create and return the error message label
+      return UILabel(frame: frame, font: Fonts.Regular().fourteen, align: self.options.style.alignment, color: Color().red)
+      
+   }
+   
+   /**
+      This function creates the placeholder label
+   */
+   private func createPlaceholder() -> UILabel {
+      
+      // Set the placeholders frame
+      let frame: Rect = Rect(x: 0, y: 27, w: self.frame.w, h: 28)
+      // Create the placeholder
+      let placeholder: UILabel = UILabel(frame: frame, font: TextFieldState.start.placeholderFont, align: self.options.style.alignment, color: TextFieldState.start.placeholderColor)
+      // Set the placeholders text
+      placeholder.text = self.options.placeHolderText
+      // Set the placeholders opacity
+      placeholder.alpha = TextFieldState.start.placeholderAlpha
+      // Return the placeholder
+      return placeholder
+      
+   }
+   
+   /**
+      This function creates the bottom line
+   */
+   private func createBottomLine() -> Line {
+      
+      // Set the lines frame
+      let frame: Rect = Rect(x: 0, y: 62, w: self.frame.w, h: 1)
+      // Create and return the line
+      return Line(frame: frame, alpha: TextFieldState.start.bottomLineAlpha)
+      
+   }
+   
+   
 }
 
-// MARK: UITextFieldDelegate Methods
-extension TextField: UITextFieldDelegate {
-    // Functions for did begin editing/did end editing
-    func textFieldDidBeginEditing(textField: UITextField) {
-        // Check if floating is true or not
-        if floating == true {
-            // Animation for placeholder
-            let animate: () -> () = {
-                self.placeholderLabel?.font = Fonts.Regular().twelve
-                self.placeholderLabel?.frame.origin.y = 16
-                self.placeholderLabel?.textColor = self.color
-            }
-            // Animate placeholder
-            self.placeholderLabel?.standardAnimation(animate)
-        } else {
-            // Floating label isn't present
-            self.placeholderLabel?.text = nil
-        }
-        
-        // Animate the bottom line
-        self.bottomRipple(true)
-    }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        // Check weather floating label is true or not
-        if floating == true {
-            // Floating label true so animate accordingly
-            // Check if text field has changed
-            if self.text == "" || self.text == nil {
-                // Text field is empty
-                // Animation for placeholder
-                let animate: () -> () = {
-                    self.placeholderLabel?.font = Fonts.Regular().sixteen
-                    self.placeholderLabel?.frame.origin.y = 40
-                    self.placeholderLabel?.textColor = Color().grey700
-                }
-                // Animate the placeholder
-                self.placeholderLabel?.standardAnimation(animate)
-                
-            } else {
-                // Text field has changed
-                // Animation for placeholder
-                let animate: () -> () = {
-                    self.placeholderLabel?.textColor = Color().grey700
-                }
-                // Animate the placeholder
-                self.placeholderLabel?.standardAnimation(animate)
-                
-            }
-        } else {
-            // Floating labe not true
-            self.placeholderLabel?.text = self.hintText
-        }
-        
-        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: {
-            self.bottomRipple(false)
-            }, completion: nil)
-    }
-    
-    func textFieldDidChange(textField:UITextField) {
-        let errorLabel = self.subviews.filter({$0.tag == 17}).first
-        guard errorLabel != nil else {
-            return
-        }
-        errorLabel?.removeFromSuperview()
-        self.bottomLineRipple(self.color)
-        self.placeholderLabel?.textColor = self.color
-    }
-    
-    /*func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.endEditing(true)
-        return false
-    }*/
+// MARK: Methods for text bounds
+extension TextField {
+   
+   override func textRectForBounds(bounds: CGRect) -> CGRect {
+      return Rect(x: 0, y: 31, w: self.frame.w, h: 36)
+   }
+   
+   override func editingRectForBounds(bounds: CGRect) -> CGRect {
+      return Rect(x: 0, y: 31, w: self.frame.w, h: 36)
+   }
+   
 }
+
+// MARK: Delegate conformance
+extension TextField : UITextFieldDelegate {
+   
+   func textFieldDidEndEditing(textField: UITextField) {
+      if self.hasValue() == false {
+         self.style(.nonActiveError)
+         self.showErrorMessage("Required")
+      } else {
+         self.style(.nonActiveGood)
+      }
+      if self.options.type == .Number {
+         if self.onlyNumbers() == true {
+            self.style(.nonActiveGood)
+         } else {
+            self.style(.nonActiveError)
+            self.showErrorMessage("Numbers only")
+         }
+      }
+      print("I finished editing")
+   }
+   
+   func textFieldDidBeginEditing(textField: UITextField) {
+      // Set the style for the view
+      self.style(.active)
+   }
+   
+   func textFieldDidChange(textField: UITextField) {
+      print("I changed")
+   }
+   
+   func textFieldShouldReturn(textField: UITextField) -> Bool {
+      return false
+   }
+   
+   func hasValue() -> Bool {
+      guard self.text != "" else {
+         return false
+      }
+      return true
+   }
+   
+   func onlyNumbers() -> Bool {
+      if let value = self.text {
+         return Int(value) != nil
+      } else {
+         return true
+      }
+   }
+   
+}
+
+
+
+
+
+

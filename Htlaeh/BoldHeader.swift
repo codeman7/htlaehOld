@@ -20,6 +20,7 @@ enum HeaderButtonLayout {
 
 enum HeaderType {
    case Home(HomeHeader)
+   case NewWorkout(NewWorkoutHeader)
 }
 
 /**
@@ -43,7 +44,10 @@ class BoldHeader: UIView {
       self.backgroundColor = Color().white
       switch options {
       case .Home (let settings):
-         self.addHomeContent(content: settings)
+         self.addContent(content: settings)
+         self.addDate()
+      case .NewWorkout(let settings):
+         self.addContent(content: settings)
       }
       
       
@@ -63,12 +67,11 @@ class BoldHeader: UIView {
       This function creates a header for the home controller
       - parameter content: All the content for the header
    */
-   private func addHomeContent(content content: HomeHeader) {
+   private func addContent<A: Head>(content content: A) {
       
       self.addTitle(text: content.title)
-      self.addButton(icon: content.leftIcon, action: content.leftButtonAction, xPosition: 24)
-      self.addButton(icon: content.rightIcon, action: content.rightButtonAction, xPosition: Int(self.frame.width - 48))
-      self.addDate()
+      self.addButton(icon: content.leftIcon, action: content.leftButtonAction!, xPosition: 24)
+      self.addButton(icon: content.rightIcon!, action: content.rightButtonAction!, xPosition: Int(self.frame.width - 48))
       
    }
    /**

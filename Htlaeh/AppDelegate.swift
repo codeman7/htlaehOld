@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       if acc == nil {
          vc = Sign()
       } else {
-         vc = Home()
+         vc = NewWorkout()
       }
       self.window?.rootViewController = vc
       return true

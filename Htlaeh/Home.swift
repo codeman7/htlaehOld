@@ -123,7 +123,7 @@ extension Home: ViewSetup {
       // The headers frame
       let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.width, height: 80)
       // All the actions for the header buttons and the default settings for a home header
-      let homeHeader: HomeHeader = HomeHeader(left: {self.showMenu()}, right: {self.showMore()})
+      let homeHeader: HomeHeader = HomeHeader(controller: self)
       // Create the header type and set its default value
       let headerOptions: HeaderType = HeaderType.Home(homeHeader)
       // Create the header
@@ -209,7 +209,7 @@ extension Home {
       This function is called when we want to show the menu
       If the menu hasn't been show before then it is created and added to the subview
    */
-   private func showMenu() {
+   func showMenu() {
       // Add the menu as a subview of the view controller
       self.view.addSubview(menu)
       // Show the menu

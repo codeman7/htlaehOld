@@ -16,6 +16,7 @@ import UIKit
  */
 struct HomeWelcomeViews {
    
+   
    /**
       Create the messages for the welcome screen
       - parameter controllerView: The view for the controller access it with self.view
@@ -80,7 +81,10 @@ struct HomeWelcomeViews {
       // Set the buttons title
       skipButton.addTitle("NO THANKS", color: Color().blue)
       // Set the action for the button
-      skipButton.action = { controller.skipTutorial() }
+      skipButton.action = {
+         //controller.skipTutorial()
+         skipButton.ripple(Color().blue)
+      }
       // Return the array of the buttons
       return [showButton, skipButton]
       

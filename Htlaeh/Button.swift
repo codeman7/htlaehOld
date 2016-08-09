@@ -182,3 +182,22 @@ class Button: UIView {
    }
     
 }
+
+
+
+// MARK: Make sure button conforms to Ripple protocol
+/*extension Button : Ripple {
+   var rippleColor: UIColor {
+      get {
+        return self.rippleColor
+      }
+      set(newValue) {
+         self.rippleColor = newValue
+      }
+   }
+}*/
+
+
+
+
+

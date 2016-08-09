@@ -11,7 +11,7 @@ import UIKit
 
 extension UIView {
    func standardAnimation(animation: () -> Void) {
-      UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: nil)
+      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: nil)
    }
    
    func animations(animation: ()->Void, duration: NSTimeInterval) {
