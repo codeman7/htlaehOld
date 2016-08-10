@@ -14,7 +14,10 @@ import UIKit
  */
 class NewWorkout: Controller {
    /// Holds the workout so far
-   var workout: Workout = Workout()
+   lazy var workout: Workout = {
+      print("Had to create a new workout")
+      return Workout()
+   }()
    /// Holds the date for the workout
    
    /// Holds the dictionary for text fields for validation
@@ -25,42 +28,32 @@ class NewWorkout: Controller {
       super.viewDidLoad()
       // Set up all the views
       self.setupViews()
-   }
    
+   }
    
    /**
       This function adds the current set to the workout
    */
    func addSet() {
       
-      let goodValues: Bool = self.checkTextFields()
-      if goodValues == true {
-         print("Adding workout")
-         let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: Double(self.textFieldDict["Rest"]!.text!), weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "", complete: false)
-         print("Set = \(weightSet)")
-         self.workout.add(weightSet)
+      guard self.checkTextFields() != false else {
+         return
       }
-      print("Workout = \(self.workout)")
+      print("Adding workout")
+      let rest: Double = self.textFieldDict["Rest"]!.text!.timeToSeconds()
+      let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: rest, weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "\(Date().today())", complete: false)
+      print("Set = \(weightSet)")
+      self.workout = self.workout.add(weightSet)
       
    }
    
    func checkTextFields() -> Bool {
-      
+      // Valid fields
+      var valid: [Bool] = []
       for textField in self.textFieldDict.values {
-         
-         if textField.text == nil || textField.text == "" {
-            textField.showErrorMessage("Required")
-            if textField.isFirstResponder() {
-               textField.style(.nonActiveError)
-            } else {
-               textField.style(.required)
-            }
-            return false
-         }
-         
+         valid += [textField.isValid()]
       }
-      return true
-      
+      return !valid.contains(false)
    }
    
    /**

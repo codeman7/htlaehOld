@@ -15,6 +15,7 @@ import UIKit
 enum TextFieldType {
    case All
    case Number
+   case Time
 }
 
 /**

@@ -95,6 +95,9 @@ class TextField: UITextField {
       
    }
    
+   /**
+     This method styles the keyboard on any state change
+   */
    func style(state: TextFieldState) {
       // Create the animation
       let animate: () -> () = {
@@ -173,11 +176,11 @@ class TextField: UITextField {
 extension TextField {
    
    override func textRectForBounds(bounds: CGRect) -> CGRect {
-      return Rect(x: 0, y: 32, w: self.frame.w, h: 40)
+      return Rect(x: 0, y: 31, w: self.frame.w, h: 40)
    }
    
    override func editingRectForBounds(bounds: CGRect) -> CGRect {
-      return Rect(x: 0, y: 32, w: self.frame.w, h: 36)
+      return Rect(x: 0, y: 31, w: self.frame.w, h: 40)
    }
    
 }
@@ -185,54 +188,159 @@ extension TextField {
 // MARK: Delegate conformance
 extension TextField : UITextFieldDelegate {
    
+   /**
+      This method handles when the text field ends ending
+   */
    func textFieldDidEndEditing(textField: UITextField) {
-      // Check to make sure there is text in the field
-      if self.hasValue() == false {
-         // No text is there so change it's state to error
-         self.style(.nonActiveError)
-         // Show the error message
-         self.showErrorMessage("Required")
-      } else if self.options.type == .Number {
-         // Also check to see if the text field is a number field
-         // If it is check to see if it only contains numbers
-         if self.onlyNumbers() == false {
-            // Style the text field to state that an error occured
-            self.style(.nonActiveError)
-            // Show the error message
-            self.showErrorMessage("Numbers only")
-         }
-      } else {
-         // Everything is good show the good text field
-         self.style(.nonActiveGood)
-      }
+      // Validate the text field
+      self.isValid()
    }
    
+   /**
+      This method handles when the text field starts ending
+   */
    func textFieldDidBeginEditing(textField: UITextField) {
       // Set the style for the view
       self.style(.active)
    }
    
+   /**
+     This method handles when the text field changes its text value
+   */
    func textFieldDidChange(textField: UITextField) {
-      print("I changed")
+      
+      if self.placeholderLabel.text == "Rest" {
+         self.updateTimeFieldText()
+      }
+      // TODO: Update the text field to update as user types
+      print("Text field changed")
+      
    }
    
+   /// This method tell the text field it can't return
    func textFieldShouldReturn(textField: UITextField) -> Bool {
       return false
    }
    
-   func hasValue() -> Bool {
-      guard self.text != "" else {
+}
+
+// MARK: Validation methods
+extension TextField {
+   
+   /**
+     This method calls the correct validation methods for the corresponding text field
+      - returns: True if everything is good and false if an error has occured
+   */
+   func isValid() -> Bool {
+      // Check the type of the field
+      switch self.options.type {
+      case .Number:
+         // Must be a time type so validate accordingly
+         return self.validateTimeField()
+      case .Time:
+         // If the type is number then validate it based on numbers
+         return self.validateNumberField()
+      case .All:
+         // The text field is of string type of validate accordingly
+         return self.validateStringField()
+      }
+   }
+   
+   /**
+      This method validates number fields
+      - returns: True if everything is good and false if an error occured
+   */
+   func validateNumberField() -> Bool {
+      
+      return self.numberCheck()
+      
+   }
+   
+   /// Use this function to validate a time field
+   func validateTimeField() -> Bool {
+      
+      guard self.notBlank() == true else {
+         return false
+      }
+      guard self.numberCheck() == true else {
          return false
       }
       return true
+      
    }
    
-   func onlyNumbers() -> Bool {
-      if let value = self.text {
-         return Int(value) != nil
-      } else {
-         return true
+   /// Use this function to set time fields text
+   func updateTimeFieldText() {
+      
+      let value: Double = self.toDouble()
+      let newText: String = value.convertToTime()
+      self.text = newText
+      
+   }
+   
+   /// Use this function to convert a field to double
+   func toDouble() -> Double {
+      
+      let textWithoutLetters: String = String(self.text!.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
+      return Double(textWithoutLetters)!
+      
+   }
+   
+   /// This method check to see if there are numbers only in the text field
+   func numberCheck() -> Bool {
+      // Make sure text isn't nil
+      guard let value = self.text else {
+         // Style the text field accordingly
+         self.style(.required)
+         self.showErrorMessage("Required")
+         // Style the text field
+         return false
       }
+      // Make sure not blank
+      guard value != "" else {
+         // Style the text field accordingly
+         self.style(.required)
+         self.showErrorMessage("Required")
+         return false
+      }
+      
+      let canBeInt: Bool = Int(value) != nil
+      // Check if it can be an Int or not and then style
+      (canBeInt == true) ? self.style(.nonActiveGood) : self.style(.nonActiveError); self.showErrorMessage("Numbers only")
+      // If value can be cast to Int then good
+      return canBeInt
+   }
+   
+   /// This method makes sure the text field isn't blank
+   func notBlank() -> Bool {
+      // Make sure value isn't nil
+      guard self.text != nil else {
+         // Style the text field
+         self.style(.required)
+         self.showErrorMessage("Required")
+         return false
+      }
+      // Make sure value isn't empty
+      guard self.text != "" else {
+         // Style the text field
+         self.showErrorMessage("Required")
+         self.style(.required)
+         return false
+      }
+      // Style the text field
+      self.style(.nonActiveGood)
+      // Everything is good return true
+      return true
+   }
+   
+   /**
+      This method validates string fields
+      - returns: True if everything is good and false if an error occured
+   */
+   func validateStringField() -> Bool {
+      // Make sure the text field ins't nil or blank
+      return self.notBlank()
+      
    }
    
 }

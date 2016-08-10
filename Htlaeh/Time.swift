@@ -14,7 +14,8 @@ typealias Time = Double
 extension Time {
    
    var minutes: Int {
-      return Int(self) / 60
+      let selfMinusHours = Int(self) - (self.hours * 3600)
+      return selfMinusHours / 60
    }
    
    var seconds: Int {
@@ -25,6 +26,11 @@ extension Time {
       return Int(self) / 3600
    }
    
+   /**
+      Use this function if we know for sure the number is the amount of seconds
+    
+      Where we know ever 60 it resets
+   */
    func toString() -> String {
       
       if self < 3600 {
@@ -33,6 +39,30 @@ extension Time {
          return "\(self.hours):\(self.minutesAsString()):\(self.secondsAsString())"
       }
       
+   }
+   
+   /**
+     Use this function if we can get any number possible
+    
+      Where we don't know if it resets every 60 or not so most likely resets every 100
+   */
+   func convertToTime() -> String {
+      
+      guard self != 0.0 else {
+         return "0:00"
+      }
+      let hours: Int = Int(self) / 10000
+      let minute: Int = (Int(self) - (hours * 10000)) / 100
+      let second: Int = Int(self) % 100
+      if hours <= 0 {
+         if second <= 9 {
+            return "\(minute):0\(second)"
+         } else {
+            return "\(minute):\(second)"
+         }
+      } else {
+         return "\(hours):\(minute):\(second)"
+      }
    }
    
    func secondsAsString() -> String {
@@ -51,4 +81,48 @@ extension Time {
       
    }
    
+   /**
+      This function converts a time in 100 format to a time in 60 second format
+   */
+   func toSeconds() -> Double {
+      
+      var h: Int = Int(self) / 10000
+      var m: Int = Int(self) / 100 - (h * 100)
+      var s = self % 100
+      if s >= 60 {
+         m += 1
+         s = s % 60
+      }
+      if m >= 60 {
+         h += 1
+         m = m % 60
+      }
+      let total = Double(h) + Double(m) + Double(s)
+      return total
+      
+   }
+   
 }
+
+extension String {
+   
+   func timeToSeconds() -> Double {
+      
+      let result = String(self.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
+      let time: Double = Double(result)!
+      var h: Int = Int(time) / 10000
+      var m: Int = Int(time) / 100 - (h * 100)
+      var s = time % 100
+      if s >= 60 {
+         m += 1
+         s = s % 60
+      }
+      if m >= 60 {
+         h += 1
+         m = m % 60
+      }
+      return Double(h) * 3600 + Double(m) * 60 + Double(s)
+   }
+   
+}
+

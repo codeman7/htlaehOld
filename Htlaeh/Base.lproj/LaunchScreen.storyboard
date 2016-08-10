@@ -4,6 +4,11 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -18,18 +23,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoSmooth" translatesAutoresizingMaskIntoConstraints="NO" id="aCX-6o-6mD">
-                                <rect key="frame" x="240" y="240" width="120" height="120"/>
+                                <rect key="frame" x="240" y="96" width="120" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="E5V-B4-hVp"/>
                                     <constraint firstAttribute="height" constant="120" id="ydd-CQ-WTy"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.87" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Htlaeh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMC-5N-hZz">
+                                <rect key="frame" x="240" y="248" width="120" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="eKG-FO-ybh"/>
+                                    <constraint firstAttribute="width" constant="120" id="rJD-RY-aeb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="36"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="lMC-5N-hZz" firstAttribute="top" secondItem="aCX-6o-6mD" secondAttribute="bottom" constant="32" id="LsY-Ff-Q9m"/>
+                            <constraint firstItem="aCX-6o-6mD" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="76" id="QmJ-iG-jdZ"/>
                             <constraint firstItem="aCX-6o-6mD" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bVE-Xm-Fcf"/>
+                            <constraint firstItem="aCX-6o-6mD" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="dpU-IR-IUf"/>
                             <constraint firstItem="aCX-6o-6mD" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="smW-jf-6I7"/>
+                            <constraint firstItem="aCX-6o-6mD" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tO8-4k-KMC"/>
+                            <constraint firstItem="lMC-5N-hZz" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zQf-Q4-WNu"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="bVE-Xm-Fcf"/>
+                                <exclude reference="dpU-IR-IUf"/>
+                                <exclude reference="smW-jf-6I7"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

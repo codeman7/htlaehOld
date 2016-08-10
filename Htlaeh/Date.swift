@@ -50,7 +50,7 @@ extension Date {
    func currentMonth(comp: NSDateComponents) -> String {
       
       let month = comp.month
-      guard month > 10 else {
+      guard month > 9 else {
          return "0\(month)"
       }
       return "\(month)"
@@ -59,7 +59,7 @@ extension Date {
    func currentDay(comp: NSDateComponents) -> String {
       
       let day = comp.day
-      guard day > 10 else {
+      guard day > 9 else {
          return "0\(day)"
       }
       return "\(day)"

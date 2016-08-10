@@ -26,11 +26,26 @@ struct NewWorkoutStandardViews {
          return .Small
       }
    }
+   // The height the keyboard will be
+   private var keyboardTop: CGFloat {
+      switch self.size {
+      case .Small:
+         return 352
+      case .Medium:
+         return 451
+      case .Large:
+         return 510
+      }
+   }
    /// The variable for the bottom of the exercise fields frame if nil then hasn't been set
    private var exerciseBottom: CGFloat = 172
    /// The variable for the top of the rest fieldsFrame if nil then hasn't been set
-   private var restTop: CGFloat {
-      return (self.size == .Large) ? self.controller.height - 411 : self.controller.height - 391
+   private var padding: CGFloat {
+      // Get the space between the top of the keyboard and the bottom of exercise name
+      // 249 is 83 * 3 because all text fields will be 83 tall + 70 for header
+      let totalSpace: CGFloat = self.keyboardTop - 319
+      // Get the padding that will be between all the views
+      return totalSpace / 4
    }
    
    // MARK: Initializer
@@ -112,7 +127,7 @@ struct NewWorkoutStandardViews {
       // Get the x Position for the button
       let x: CGFloat = self.controller.width.halfCentered(side: .Left, size: 124)
       // Set the buttons frame
-      let buttonFrame: CGRect = CGRect(x: x, y: 300, width: 124, height: 40)
+      let buttonFrame: CGRect = CGRect(x: x, y: (257 + padding * 3), width: 124, height: 40)
       // Create the button
       let addSet: Button = Button(frame: buttonFrame, type: .Raised)
       // Set the buttons background color
@@ -150,11 +165,15 @@ struct NewWorkoutStandardViews {
    */
    private func exerciseNameField() -> TextField {
       // Create the frame for the text field
-      let exerciseNameFrame: Rect = Rect(x: 16, y: 74, w: self.controller.width - 32, h: 83)
+      let exerciseNameFrame: Rect = Rect(x: 16, y: (70 + padding), w: self.controller.width - 32, h: 83)
       // Set the text fields options
       let exerciseNameOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Exercise Name", type: .All, style: TextFieldStyle.all)
+      // Create the text field
+      let exerciseName: TextField = TextField(frame: exerciseNameFrame, options: exerciseNameOptions)
+      // Check the screen size if it isn't small then allow auto correct
+      if self.size != .Small { exerciseName.autocorrectionType = .Default }
       // Return the text field
-      return TextField(frame: exerciseNameFrame, options: exerciseNameOptions)
+      return exerciseName
       
    }
    
@@ -163,7 +182,7 @@ struct NewWorkoutStandardViews {
     */
    private func createRepsField() -> TextField {
       // Create the frame for the text field
-      let repsFrame: Rect = Rect(x: self.controller.width / 2 - 120, y: 172, w: 88, h: 83)
+      let repsFrame: Rect = Rect(x: self.controller.width / 2 - 128, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
       let repsOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Reps", type: .Number, style: TextFieldStyle.numbers)
       // Return the text field
@@ -177,7 +196,7 @@ struct NewWorkoutStandardViews {
    private func createWeightField() -> TextField {
       
       // Create the frame for the text field
-      let weightFrame: Rect = Rect(x: self.controller.width - 104, y: 172, w: 88, h: 83)
+      let weightFrame: Rect = Rect(x: self.controller.width - 112, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
       let weightOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Weight", type: .Number, style: TextFieldStyle.numbers)
       // Return the text field
@@ -190,11 +209,12 @@ struct NewWorkoutStandardViews {
     */
    private func createRestField() -> TextField {
       // Create the frame for the text field
-      let restFrame: Rect = Rect(x: self.controller.width - 104, y: 271, w: 88, h: 83)
+      let restFrame: Rect = Rect(x: self.controller.width - 112, y: (236 + padding * 3), w: 96, h: 83)
       // Set the text fields options
       let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .Number, style: TextFieldStyle.numbers)
       // Return the text field
-      return TextField(frame: restFrame, options: restOptions)
+      let field = TextField(frame: restFrame, options: restOptions)
+      return field
       
    }
    
