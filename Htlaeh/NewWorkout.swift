@@ -14,7 +14,12 @@ import UIKit
  */
 class NewWorkout: Controller {
    /// Holds the workout so far
+   var workout: Workout = Workout()
    /// Holds the date for the workout
+   
+   /// Holds the dictionary for text fields for validation
+   var textFieldDict: [String : TextField] = [:]
+   
    override func viewDidLoad() {
       // Call the supers method
       super.viewDidLoad()
@@ -28,7 +33,33 @@ class NewWorkout: Controller {
    */
    func addSet() {
       
+      let goodValues: Bool = self.checkTextFields()
+      if goodValues == true {
+         print("Adding workout")
+         let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: Double(self.textFieldDict["Rest"]!.text!), weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "", complete: false)
+         print("Set = \(weightSet)")
+         self.workout.add(weightSet)
+      }
+      print("Workout = \(self.workout)")
       
+   }
+   
+   func checkTextFields() -> Bool {
+      
+      for textField in self.textFieldDict.values {
+         
+         if textField.text == nil || textField.text == "" {
+            textField.showErrorMessage("Required")
+            if textField.isFirstResponder() {
+               textField.style(.nonActiveError)
+            } else {
+               textField.style(.required)
+            }
+            return false
+         }
+         
+      }
+      return true
       
    }
    
@@ -43,6 +74,8 @@ class NewWorkout: Controller {
       This method segues to preview the workout
    */
    func showPreview() {
+      
+      print("Segue to preview so far the workout is \(self.workout)")
       
    }
    
@@ -62,53 +95,36 @@ extension NewWorkout : ViewSetup {
    */
    func setupViews() {
       
-      let bigButton: Button = self.bigButton()
-      self.view.addSubview(bigButton)
       // Set the background color for the view
       self.view.backgroundColor = Color().white
-      // Add the header
-      self.addHeader()
       // Create the new workout views struct
       let newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: self)
-      // Get all the views to add
-      let views: [UIView] = newWorkoutViews.createViews()
+      // Get the keyboard dismissal button
+      let bigButton: Button = newWorkoutViews.dismissKeyboardButton()
+      // Add the button to the view
+      self.view.addSubview(bigButton)
+      // Get the header from new workout views struct
+      let header: BoldHeader = newWorkoutViews.createHeader()
+      // Add the header as subview
+      self.view.addSubview(header)
+      // Get all the buttons to add to the view
+      let buttons: [Button] = newWorkoutViews.createButtons()
       // Iterate over the views and add them to the VC
-      for view in views {
-         self.view.addSubview(view)
+      for button in buttons {
+         self.view.addSubview(button)
+      }
+      // Get all the text fields to add to the view and set them to the 'textFieldDict' property
+      self.textFieldDict = newWorkoutViews.createTextFields()
+      // Iterate over the dictionary and add the viewws to the VC
+      for textField in self.textFieldDict.values {
+         self.view.addSubview(textField)
       }
       
-      
-   }
-   
-   func bigButton() -> Button {
-      let buttonFrame: Rect = Rect(x: 0, y: 68, w: self.width, h: self.height - 68)
-      let button: Button = Button(frame: buttonFrame, type: .Flat)
-      button.action = { self.hideKeyboard() }
-      button.backgroundColor = .clearColor()
-      return button
    }
    
    func hideKeyboard() {
-      print("Button being touched")
       self.resignFirstResponder()
       self.view.endEditing(true)
-   }
-   
-   /**
-     This function adds the header to the view
-   */
-   private func addHeader() {
-      // Set the headers frame
-      let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.width, height: 70)
-      // Initiate some styles for the header
-      let newWorkoutHeader: NewWorkoutHeader = NewWorkoutHeader(controller: self)
-      // Create the header type and set its default values
-      let headerOptions: HeaderType = HeaderType.NewWorkout(newWorkoutHeader)
-      // Create the header
-      let header: BoldHeader = BoldHeader(frame: headerFrame, options: headerOptions)
-      // Add the header to the VC
-      self.view.addSubview(header)
-      
    }
    
 }

@@ -33,7 +33,7 @@ struct WorkoutSets {
       let returnWorkout: Workout = Workout()
       for workoutSet in results {
          let weightSet: WeightSet = WeightSet(workoutSet: workoutSet)
-         returnWorkout.addSetToWorkout(weightSet)
+         returnWorkout.add(weightSet)
       }
       return returnWorkout
       

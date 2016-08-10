@@ -22,7 +22,7 @@ protocol WorkoutType {
    /// Variable to get the workout count
    var count: Int { get }
    /// Add a set to the workout
-   func addSetToWorkout(newSet: WeightSet) -> Self
+   func add(set: WeightSet) -> Self
    /// Remove a set
    //func removeSetFromWorkout(newSet: WeightSet) -> Self
    /// Mark a whole workout as complete, maybe entered after already done
@@ -75,10 +75,10 @@ struct Workout: WorkoutType {
    }
    
    // MARK: Functions to conform to protocol
-   func addSetToWorkout(newSet: WeightSet) -> Workout {
+   func add(set: WeightSet) -> Workout {
       
       var tempArray: [WeightSet] = self.sets
-      tempArray += [newSet]
+      tempArray += [set]
       return Workout(sets: tempArray)
       
    }

@@ -54,9 +54,14 @@ struct TextFieldState {
       return TextFieldState(placeholderFont: Fonts.Regular().sixteen, placeholderY: 0, placeholderColor: Color().black, placeholderAlpha: 0.38, bottomLineColor: Color().black, bottomLineAlpha: 0.38, errorAlpha: 0.0)
    }
    
-   /// This property is for when a User is done edint and an error has occured
+   /// This property is for when a User is done editing and an error has occured
    static var nonActiveError: TextFieldState {
       return TextFieldState(placeholderFont: Fonts.Regular().sixteen, placeholderY: 0, placeholderColor: Color().red, placeholderAlpha: 1.0, bottomLineColor: Color().red, bottomLineAlpha: 1.0, errorAlpha: 1.0)
+   }
+   
+   /// This property is for when a User hasn't edited and tries to submit
+   static var required: TextFieldState {
+      return TextFieldState(placeholderFont: Fonts.Medium().twentyFour, placeholderY: 27, placeholderColor: Color().red, placeholderAlpha: 0.38, bottomLineColor: Color().red, bottomLineAlpha: 0.38, errorAlpha: 1.0)
    }
    
    /// This property is for before a User has interacted or not text was entered

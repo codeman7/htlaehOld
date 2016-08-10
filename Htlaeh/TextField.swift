@@ -173,11 +173,11 @@ class TextField: UITextField {
 extension TextField {
    
    override func textRectForBounds(bounds: CGRect) -> CGRect {
-      return Rect(x: 0, y: 31, w: self.frame.w, h: 36)
+      return Rect(x: 0, y: 32, w: self.frame.w, h: 40)
    }
    
    override func editingRectForBounds(bounds: CGRect) -> CGRect {
-      return Rect(x: 0, y: 31, w: self.frame.w, h: 36)
+      return Rect(x: 0, y: 32, w: self.frame.w, h: 36)
    }
    
 }
@@ -186,21 +186,25 @@ extension TextField {
 extension TextField : UITextFieldDelegate {
    
    func textFieldDidEndEditing(textField: UITextField) {
+      // Check to make sure there is text in the field
       if self.hasValue() == false {
+         // No text is there so change it's state to error
          self.style(.nonActiveError)
+         // Show the error message
          self.showErrorMessage("Required")
-      } else {
-         self.style(.nonActiveGood)
-      }
-      if self.options.type == .Number {
-         if self.onlyNumbers() == true {
-            self.style(.nonActiveGood)
-         } else {
+      } else if self.options.type == .Number {
+         // Also check to see if the text field is a number field
+         // If it is check to see if it only contains numbers
+         if self.onlyNumbers() == false {
+            // Style the text field to state that an error occured
             self.style(.nonActiveError)
+            // Show the error message
             self.showErrorMessage("Numbers only")
          }
+      } else {
+         // Everything is good show the good text field
+         self.style(.nonActiveGood)
       }
-      print("I finished editing")
    }
    
    func textFieldDidBeginEditing(textField: UITextField) {

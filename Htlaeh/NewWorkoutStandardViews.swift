@@ -43,7 +43,24 @@ struct NewWorkoutStandardViews {
    }
    
    // MARK: Functions
-   func createViews() -> [UIView] {
+   /**
+      This function creates and returns all the buttons
+   */
+   func createButtons() -> [Button] {
+      
+      // Create the FAB
+      let fab: Button = self.addFAB()
+      // Create the Add set button
+      let addSetButton: Button = self.addSetButton()
+      // Create the array that will be returned
+      return [fab, addSetButton]
+      
+   }
+   
+   /**
+      This function creates and returns the text fields
+   */
+   func createTextFields() -> [String : TextField] {
       
       // Create the exercise name text field
       let exerciseName: TextField = self.exerciseNameField()
@@ -55,12 +72,39 @@ struct NewWorkoutStandardViews {
       let weight: TextField = self.createWeightField()
       // Create the rest field
       let rest: TextField = self.createRestField()
-      // Create the FAB
-      let fab: Button = self.addFAB()
-      // Create the Add set button
-      let addSetButton: Button = self.addSetButton()
-      // Create the array that will be returned
-      return [exerciseName, reps, weight, rest, fab, addSetButton]
+      // Return the text fields
+      return ["Exercise Name" : exerciseName, "Reps" : reps, "Weight" : weight, "Rest" : rest]
+      
+   }
+   
+   /**
+      This function creates and returns the header for the new workout VC
+   */
+   func createHeader() -> BoldHeader {
+      
+      // Set the headers frame
+      let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.controller.width, height: 70)
+      // Initiate some styles for the header
+      let newWorkoutHeader: NewWorkoutHeader = NewWorkoutHeader(controller: self.controller)
+      // Create the header type and set its default values
+      let headerOptions: HeaderType = HeaderType.NewWorkout(newWorkoutHeader)
+      // Create the header
+      let header: BoldHeader = BoldHeader(frame: headerFrame, options: headerOptions)
+      // Return the header
+      return header
+      
+   }
+   
+   /**
+      This function returns the button that dismisses the keyboard
+   */
+   func dismissKeyboardButton() -> Button {
+      
+      let buttonFrame: Rect = Rect(x: 0, y: 68, w: self.controller.width, h: self.controller.height - 68)
+      let button: Button = Button(frame: buttonFrame, type: .Flat)
+      button.action = { self.controller.hideKeyboard() }
+      button.backgroundColor = .clearColor()
+      return button
       
    }
    
