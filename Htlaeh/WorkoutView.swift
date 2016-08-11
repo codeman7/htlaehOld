@@ -77,7 +77,7 @@ class WorkoutView : UIView {
    */
    private func addTable(workout workout: WorkoutType) {
       
-      
+      let frame: Rect = Rect(x: 0, y: 49, w: self.frame.w, h: CGFloat(workout.count * 48))
       
    }
    
@@ -89,13 +89,13 @@ class WorkoutView : UIView {
       // Set the width of the label
       let width: CGFloat = "Exercise".widthWithConstrainedHeight(16, font: exerciseProperties.font)
       // Create the frame for the label
-      let exerciseFrame: Rect = Rect(x: 16, y: 29, w: width, h: 16)
+      let frame: Rect = Rect(x: 16, y: 29, w: width, h: 16)
       // Create the label
-      let exerciseLabel: UILabel = UILabel(frame: exerciseFrame, properties: exerciseProperties)
+      let label: UILabel = UILabel(frame: frame, properties: exerciseProperties)
       // Set the labels text
-      exerciseLabel.text = "Exercise"
+      label.text = "Exercise"
       // Add the label to the view
-      self.addSubview(exerciseLabel)
+      self.addSubview(label)
       
    }
    
@@ -103,24 +103,31 @@ class WorkoutView : UIView {
    private func addRepsHeader() {
       
       // Create the settings for the label
-      let exerciseProperties: WorkoutTableColumnHeadString = WorkoutTableColumnHeadString()
-      // Set the width of the label
-      let width: CGFloat = "Exercise".widthWithConstrainedHeight(16, font: exerciseProperties.font)
+      let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()
       // Create the frame for the label
-      let exerciseFrame: Rect = Rect(x: 16, y: 29, w: width, h: 16)
+      let frame: Rect = Rect(x: self.frame.w - 208, y: 29, w: 96, h: 16)
       // Create the label
-      let exerciseLabel: UILabel = UILabel(frame: exerciseFrame, properties: exerciseProperties)
+      let label: UILabel = UILabel(frame: frame, properties: properties)
       // Set the labels text
-      exerciseLabel.text = "Exercise"
+      label.text = "Reps"
       // Add the label to the view
-      self.addSubview(exerciseLabel)
+      self.addSubview(label)
       
    }
    
    /// This function adds the weight header to the weight column
    private func addWeightHeader() {
       
-      
+      // Create the settings for the label
+      let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()
+      // Create the frame for the label
+      let frame: Rect = Rect(x: self.frame.w - 96, y: 29, w: 96, h: 16)
+      // Create the label
+      let label: UILabel = UILabel(frame: frame, properties: properties)
+      // Set the labels text
+      label.text = "Weight"
+      // Add the label to the view
+      self.addSubview(label)
       
    }
 }

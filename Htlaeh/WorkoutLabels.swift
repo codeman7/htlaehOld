@@ -32,7 +32,7 @@ struct WorkoutTableColumnHeadNumber : TextPresentable {
 /**
    This struct is for content in workout tables that hold Strings
  */
-struct WorkoutContentStringLabel {
+struct WorkoutContentStringLabel : TextPresentable {
    let alpha: CGFloat = 0.87
    let alignment: NSTextAlignment = .Left
    let color: UIColor = Color().black
