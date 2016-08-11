@@ -37,4 +37,8 @@ extension TextFieldStyle {
       return TextFieldStyle(align: .Left, keyboard: .Default, autoCorrect: .No, returnKey: .Next)
    }
    
+   static var time: TextFieldStyle {
+      return TextFieldStyle(align: .Right, keyboard: .NumberPad, autoCorrect: nil, returnKey: nil)
+   }
+   
 }

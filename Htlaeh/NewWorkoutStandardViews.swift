@@ -211,7 +211,7 @@ struct NewWorkoutStandardViews {
       // Create the frame for the text field
       let restFrame: Rect = Rect(x: self.controller.width - 112, y: (236 + padding * 3), w: 96, h: 83)
       // Set the text fields options
-      let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .Number, style: TextFieldStyle.numbers)
+      let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .Time, style: TextFieldStyle.time)
       // Return the text field
       let field = TextField(frame: restFrame, options: restOptions)
       return field

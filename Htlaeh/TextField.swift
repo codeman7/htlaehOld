@@ -235,11 +235,11 @@ extension TextField {
       // Check the type of the field
       switch self.options.type {
       case .Number:
-         // Must be a time type so validate accordingly
-         return self.validateTimeField()
-      case .Time:
          // If the type is number then validate it based on numbers
          return self.validateNumberField()
+      case .Time:
+         // Must be a time type so validate accordingly
+         return self.validateTimeField()
       case .All:
          // The text field is of string type of validate accordingly
          return self.validateStringField()
@@ -262,9 +262,7 @@ extension TextField {
       guard self.notBlank() == true else {
          return false
       }
-      guard self.numberCheck() == true else {
-         return false
-      }
+      
       return true
       
    }

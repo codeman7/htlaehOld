@@ -34,6 +34,21 @@ extension UILabel {
       
    }
    
+   convenience init<A: TextPresentable>(frame: CGRect, properties: A) {
+      
+      // Call the designated initialzier
+      self.init(frame: frame)
+      // Set the text color
+      self.textColor = properties.color
+      // Set the alpha
+      self.alpha = properties.alpha
+      // Set the text alignment
+      self.textAlignment = properties.alignment
+      // Set the font
+      self.font = properties.font
+      
+   }
+   
    convenience init<A: HeaderTextPresentable>(frame: CGRect, headerLabel: A) {
       self.init(frame: frame)
       self.textColor = headerLabel.color
@@ -49,6 +64,22 @@ extension UILabel {
       self.lineBreakMode = .ByWordWrapping
       
    }
+}
+
+/**
+   This protocol is for all labels to set up there configuration
+ */
+protocol TextPresentable {
+   
+   /// The color for the text
+   var color: UIColor { get }
+   /// The alpha for the text
+   var alpha: CGFloat { get }
+   /// The alignment for the text
+   var alignment: NSTextAlignment { get }
+   /// The font for the text
+   var font: UIFont { get }
+   
 }
 
 struct LabelConfig {

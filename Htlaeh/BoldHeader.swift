@@ -21,6 +21,7 @@ enum HeaderButtonLayout {
 enum HeaderType {
    case Home(HomeHeader)
    case NewWorkout(NewWorkoutHeader)
+   case All(AllWorkoutHeader)
 }
 
 /**
@@ -47,6 +48,8 @@ class BoldHeader: UIView {
          self.addContent(content: settings)
          self.addDate()
       case .NewWorkout(let settings):
+         self.addContent(content: settings)
+      case .All(let settings):
          self.addContent(content: settings)
       }
       

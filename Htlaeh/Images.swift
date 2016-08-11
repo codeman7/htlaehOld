@@ -28,6 +28,7 @@ extension UIImage {
       case Reorder = "Reorder"
       case Search = "Search"
       case Settings = "Settings"
+      case Today = "Today"
       case WordLogo = "WordLogo"
       
    }
@@ -47,6 +48,7 @@ struct Images {
       let reorder: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Reorder)
       let search: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Search)
       let settings: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Settings)
+      let today: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Today)
       
    }
    

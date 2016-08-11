@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 
 /**
+   This enum is for the different types new workout
+ */
+enum NewWorkoutType {
+   
+   case Standard // For when a User is creating a new workout
+   case Edit // For when a User is editing a set
+   
+}
+
+/**
     This class is used for the new workout view controller
  */
 class NewWorkout: Controller {
@@ -19,6 +29,9 @@ class NewWorkout: Controller {
       return Workout()
    }()
    /// Holds the date for the workout
+   /// This Controller holds the type of new workout
+   // TODO: Edit for when a User edits the set
+   let type: NewWorkoutType = .Standard
    
    /// Holds the dictionary for text fields for validation
    var textFieldDict: [String : TextField] = [:]
@@ -82,6 +95,7 @@ class NewWorkout: Controller {
    }
 }
 
+// MARK: Conformance to the View Setup protocol
 extension NewWorkout : ViewSetup {
    /**
       This function adds all the views to the VC
