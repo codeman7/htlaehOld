@@ -84,9 +84,9 @@ class Home: Controller {
       This function calls all the segues from a navigation button press
       - parameter destination: Is the destination that we want to segue to
    */
-   override func segue(destination: NavigationDestinations) {
+   override func segue(destination: Controller) {
       
-      print("Please segue to \(destination.hashValue)")
+      print("Please segue to \(destination)")
       
    }
 }
@@ -123,11 +123,12 @@ extension Home: ViewSetup {
       // The headers frame
       let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.width, height: 80)
       // All the actions for the header buttons and the default settings for a home header
-      let homeHeader: HomeHeader = HomeHeader(controller: self)
       // Create the header type and set its default value
-      let headerOptions: HeaderType = HeaderType.Home(homeHeader)
+      let headerOptions: HeaderType = HeaderType.home(controller: self)
       // Create the header
       self.header = BoldHeader(frame: headerFrame, options: headerOptions)
+      // Add the date to the header
+      self.header!.addDate()
       // Add the header to the VC
       self.view.addSubview(self.header!)
       

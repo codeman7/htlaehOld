@@ -19,7 +19,6 @@ class WorkoutView : UIView {
    override init(frame: Rect) {
       
       super.init(frame: frame)
-      self.backgroundColor = Color().white
       
    }
    /// Required by Apple NEVER USE
@@ -31,8 +30,11 @@ class WorkoutView : UIView {
    /**
       This function adds the workout to the view by calling all the other methods
    */
-   func add<A: WorkoutType>(workout workout: A) {
+   func add(workout workout: Workout) {
       
+      guard workout.count != 0 else {
+         return
+      }
       // Add the date
       self.addDate(workout.sets[0].date)
       // Add the workout header
@@ -52,7 +54,7 @@ class WorkoutView : UIView {
       // Create the label
       let dateLabel: UILabel = UILabel(frame: labelFrame, properties: WorkoutDateLabel())
       // Set the text for the label
-      dateLabel.text = date
+      dateLabel.text = "August 12, 2016"
       // Add the label to the view
       self.addSubview(dateLabel)
       
@@ -75,9 +77,11 @@ class WorkoutView : UIView {
    /**
       This function adds the table to the view
    */
-   private func addTable(workout workout: WorkoutType) {
+   private func addTable(workout workout: Workout) {
       
-      let frame: Rect = Rect(x: 0, y: 49, w: self.frame.w, h: CGFloat(workout.count * 48))
+      let frame: CGRect = CGRect(x: 0, y: 49, w: self.frame.w, h: CGFloat(workout.count * 48) + 1)
+      let workoutTable: WorkoutTableView = WorkoutTableView(frame: frame, workout: workout)
+      self.addSubview(workoutTable)
       
    }
    
@@ -105,7 +109,7 @@ class WorkoutView : UIView {
       // Create the settings for the label
       let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()
       // Create the frame for the label
-      let frame: Rect = Rect(x: self.frame.w - 208, y: 29, w: 96, h: 16)
+      let frame: Rect = Rect(x: self.frame.w - 208, y: 29, w: 88, h: 16)
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: properties)
       // Set the labels text
@@ -121,7 +125,7 @@ class WorkoutView : UIView {
       // Create the settings for the label
       let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()
       // Create the frame for the label
-      let frame: Rect = Rect(x: self.frame.w - 96, y: 29, w: 96, h: 16)
+      let frame: Rect = Rect(x: self.frame.w - 104, y: 29, w: 88, h: 16)
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: properties)
       // Set the labels text

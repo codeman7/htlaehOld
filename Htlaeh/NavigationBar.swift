@@ -9,11 +9,7 @@
 import Foundation
 import UIKit
 
-enum NavigationDestinations {
-   
-   case Home, NewWorkout, AllWorkouts, Search, Settings
-   
-}
+
 
 /**
    This is the UIView subclass that actually holds all the content of the Menu
@@ -22,7 +18,7 @@ class NavigationBar: UIView {
    // MARK: Properties
    private let titles: [String] = ["Home", "New Workout", "All Workouts", "Search"]
    private let icons: [UIImage] = [Images.Action().home, Images.Content().add, Images.Action().reorder, Images.Action().search]
-   private let desination: [NavigationDestinations] = [.Home, .NewWorkout, .AllWorkouts, .Search]
+   private let desination: [Controller] = [NavigationDestinations.home, NavigationDestinations.newWorkout, NavigationDestinations.allWorkouts, NavigationDestinations.search]
    private let containingController: Controller
    
    // MARK: Initializer
@@ -126,7 +122,7 @@ class NavigationBar: UIView {
       // Create the button
       let button: NavigationButton = NavigationButton(frame: buttonFrame, image: Images.Action().settings, label: "Settings")
       // Set the action for the button
-      button.action = { self.containingController.segue(.Settings) }
+      button.action = { self.containingController.segue(NavigationDestinations.settings) }
       // Add the button to the view
       self.addSubview(button)
       

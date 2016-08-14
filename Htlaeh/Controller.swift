@@ -46,7 +46,7 @@ class Controller: UIViewController {
       return self.view.frame.height
    }
    
-   func segue(destination: NavigationDestinations) {
+   func segue(destination: Controller) {
       fatalError("Must be implemented in subclass")
    }
 }
@@ -56,3 +56,5 @@ class Controller: UIViewController {
 protocol ViewSetup {
    func setupViews()
 }
+
+

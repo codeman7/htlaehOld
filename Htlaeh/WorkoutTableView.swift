@@ -15,10 +15,10 @@ import UIKit
 class WorkoutTableView : UIView {
    
    // MARK: Properties
-   let workout: WorkoutType
+   let workout: Workout
    
    // MARK: Initializers
-   init<A : WorkoutType>(frame: Rect, workout: A) {
+   init(frame: CGRect, workout: Workout) {
       // Set the workout property
       self.workout = workout
       // Call the super initializer
@@ -57,8 +57,12 @@ class WorkoutTableView : UIView {
       for a in 0..<self.workout.count {
          // Create the frame
          let frame: (y: CGFloat, width: CGFloat) = (y: CGFloat(a * 48) + 1, width: self.frame.w)
+         let exercise: String = self.workout.sets[a].name
+         let reps: Int = Int(self.workout.sets[a].reps!)
+         let weight: Int = Int(self.workout.sets[a].weight!)
+         let titles: [String] = [exercise, "\(reps)", "\(weight)"]
          // Create the cell
-         let cell: WorkoutTableCell = WorkoutTableCell(frame: frame, titles: self.getTitlesFor(set:a))
+         let cell: WorkoutTableCell = WorkoutTableCell(frame: frame, titles: titles)
          // Add the cell to the view
          self.addSubview(cell)
          
@@ -73,10 +77,11 @@ class WorkoutTableView : UIView {
    */
    private func getTitlesFor(set set: Int) -> [String] {
       
-      let exercise: String = self.workout.sets[set].exerciseName
-      let reps: String = self.workout.sets[set].reps!
-      let weight: String = self.workout.sets[set].weight!
-      return [exercise, reps, weight]
+      //let exercise: String = self.workout.sets[set].exerciseName
+      //let reps: String = "\(self.workout.sets[set].reps!)"
+      //let weight: String = "\(self.workout.sets[set].weight!)"
+      return ["Squat", "8", "135"]
+      //return [exercise, reps, weight]
       
    }
    

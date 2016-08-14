@@ -9,29 +9,32 @@
 import Foundation
 import UIKit
 
-/**
-   This enum is used to determine the type of All that should be shown
- */
-enum AllWorkoutType {
-   
-   case All // Show all the workouts in the DB
-   case Preview // Show the current workout being created
-   case WorkoutStatus // Show the progress for the current workout
-   
-}
 
 class All : Controller {
    // MARK: Properties
    // TODO: Edit the all workout type to handle different types
-   /// The type of preview to show
-   var type: AllWorkoutType? = .Preview
    /// The workout for the VC
    lazy var workout: Workout = self.getWorkout()
+   /// The variable to hold the FAB
+   var FAB: Button? = nil
+   
+   // MARK: View did load
+   override func viewDidLoad() {
+      // Call the super
+      super.viewDidLoad()
+      // Layout views
+      self.setupViews()
+      
+   }
    
    // MARK: Functions
    func getWorkout() -> Workout {
       
-      let workout: Workout = Workout()
+      var workout: Workout = Workout()
+      let set: WeightSet = WeightSet(name: "Squat", setCount: 0, reps: 12, restTime: 75, weight: 225, time: nil, date: "160812", complete: false)
+      let set1: WeightSet = WeightSet(name: "Deadlift", setCount: 1, reps: 8, restTime: 120, weight: 185, time: nil, date: "160812", complete: false)
+      workout = workout.add(set)
+      workout = workout.add(set1)
       return workout
       
    }
@@ -47,6 +50,19 @@ class All : Controller {
    */
    func fabTouch() {
       
+      print("Touch fab")
+      
+   }
+   
+   
+   
+   
+   
+   /**
+    Use this function to segue back to a new workout from a preview
+   */
+   func backToNewWorkout() {
+      
    }
    
 }
@@ -55,9 +71,12 @@ class All : Controller {
 extension All : ViewSetup {
    /// This function lays out all the views
    func setupViews() {
-      // Determine the type
-      // Create the struct that returns all the views
-      
+      // Set the background color
+      self.view.backgroundColor = Color().white
+      // Create the views struct
+      let views: AllViews = AllStandardViews(controller: self)
+      // Add all the views to the controller
+      views.layoutViews()
       
    }
    

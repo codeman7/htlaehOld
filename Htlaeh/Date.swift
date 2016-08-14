@@ -66,6 +66,10 @@ extension Date {
       
    }
    
+   func dateAsString(year: Int, month: Int, day: Int) -> String {
+      return "August 12, 2016"
+   }
+   
    func monthAsString() -> String {
       
       let dateFormatter: NSDateFormatter = NSDateFormatter()

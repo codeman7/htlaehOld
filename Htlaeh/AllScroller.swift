@@ -15,10 +15,10 @@ import UIKit
 class AllScroller: UIScrollView {
    
    // MARK: Properties
-   let workouts: [WorkoutType]
+   let workouts: [Workout]
    
    // MARK: Initializers
-   init(frame: CGRect, workouts: [WorkoutType]) {
+   init(frame: CGRect, workouts: [Workout]) {
       
       self.workouts = workouts
       super.init(frame: frame)
@@ -46,7 +46,7 @@ class AllScroller: UIScrollView {
       // Get the height for the scroller
       var height: CGFloat = 0
       
-      for a in 0..<self.workouts.count {
+      for _ in 0..<self.workouts.count {
          height += 25
       }
       // Set the content height for the scroller
@@ -56,7 +56,7 @@ class AllScroller: UIScrollView {
    
    func add() {
       
-      let tableFrame: CGRect = CGRect(x: 0, y: 0, w: self.frame.w, h: self.frame.h)
+      //let tableFrame: CGRect = CGRect(x: 0, y: 0, w: self.frame.w, h: self.frame.h)
       //let table:
       
    }

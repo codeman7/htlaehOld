@@ -18,11 +18,9 @@ enum HeaderButtonLayout {
    
 }
 
-enum HeaderType {
-   case Home(HomeHeader)
+/*enum HeaderType {
    case NewWorkout(NewWorkoutHeader)
-   case All(AllWorkoutHeader)
-}
+}*/
 
 /**
  This is the class that holds the default header
@@ -32,6 +30,10 @@ class BoldHeader: UIView {
    /// Scroll type
    // Defaults to false
    var elevated: Bool = false
+   // The variable for the title of the header
+   lazy var title: UILabel = {
+      return self.createTitle()
+   }()
    
    // MARK: Initalizer
    /**
@@ -43,15 +45,8 @@ class BoldHeader: UIView {
       
       super.init(frame: frame)
       self.backgroundColor = Color().white
-      switch options {
-      case .Home (let settings):
-         self.addContent(content: settings)
-         self.addDate()
-      case .NewWorkout(let settings):
-         self.addContent(content: settings)
-      case .All(let settings):
-         self.addContent(content: settings)
-      }
+      self.addContent(content: options)
+      
       
       
    }
@@ -74,7 +69,13 @@ class BoldHeader: UIView {
       
       self.addTitle(text: content.title)
       self.addButton(icon: content.leftIcon, action: content.leftButtonAction!, xPosition: 24)
-      self.addButton(icon: content.rightIcon!, action: content.rightButtonAction!, xPosition: Int(self.frame.width - 48))
+      guard let rightIcon = content.rightIcon else {
+         return
+      }
+      guard let rightAction = content.rightButtonAction else {
+         return
+      }
+      self.addButton(icon: rightIcon, action: rightAction, xPosition: Int(self.frame.width - 48))
       
    }
    /**
@@ -82,6 +83,16 @@ class BoldHeader: UIView {
       - parameter text: The text property for the title
    */
    private func addTitle(text text: String) {
+      
+      // Set the text for the label
+      title.text = text
+      // Add the label to the header
+      self.addSubview(title)
+      
+   }
+   
+   private func createTitle() -> UILabel {
+      
       // Set the frame for the title
       let frame: CGRect = CGRect(x: 72, y: 20, width: 180, height: 48)
       // Set up all the configurations for the label
@@ -90,24 +101,43 @@ class BoldHeader: UIView {
       let title: UILabel = UILabel(config: labelConfig)
       // Set the alpha for the label
       title.alpha = 0.87
-      // Set the text for the label
-      title.text = text
-      // Add the label to the header
-      self.addSubview(title)
+      // Return the title
+      return title
       
    }
    
-   private func addDate() {
-      
+   func addDate() {
+      // Get the date for the current day
       let date: Date = Date()
+      // Set the date to a string
       let stringDate = "\(date.monthAsString()) \(date.day), \(date.year)"
+      // Set the frame for the label
       let frame: CGRect = CGRect(x: 72, y: 72, width: 120, height: 21)
+      // Create the configuration for the label
       let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular().sixteen, alignment: .Left
          , color: Color().black)
+      // Create the label
       let label: UILabel = UILabel(config: labelConfig)
+      // Set the labels text
       label.text = stringDate
+      // Set the labels alpha
       label.alpha = 0.54
+      // Add the label
       self.addSubview(label)
+      
+   }
+   
+   func update(title title: String) {
+      
+      UIView.animateWithDuration(0.15, animations: {
+         self.title.alpha = 0.0
+         }, completion: { Bool in
+            self.title.text = title
+            UIView.animateWithDuration(0.15, animations: {
+               self.title.alpha = 0.87
+            })
+            
+      })
       
    }
    
@@ -120,7 +150,7 @@ class BoldHeader: UIView {
    private func addButton(icon icon: UIImage, action: ()->(), xPosition: Int) {
       
       // Set the frame for the button
-      let frame: CGRect = CGRect(x: xPosition, y: 33, width: 24, height: 24)
+      let frame: CGRect = CGRect(x: xPosition, y: 27, width: 40, height: 40)
       // Create the button
       let button: Button = Button(frame: frame, type: .Flat)
       // Add the icon to the button

@@ -50,9 +50,9 @@ class WorkoutTableCell : UIView {
       // Add the exercise
       self.add(exercise: labels[0])
       // Add the reps
-      self.add(title: labels[2], padding: 208)
+      self.add(title: labels[1], padding: 208)
       // Add the weight
-      self.add(title: labels[1], padding: 112)
+      self.add(title: labels[2], padding: 104)
       
    }
    
@@ -84,7 +84,7 @@ class WorkoutTableCell : UIView {
       // Create the properties for the label
       let properties: WorkoutContentNumberLabel = WorkoutContentNumberLabel()
       // Set the frame for the label
-      let frame: Rect = Rect(x: self.frame.w - padding, y: 15, w: 96, h: 19)
+      let frame: Rect = Rect(x: self.frame.w - padding, y: 15, w: 88, h: 19)
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: properties)
       // Set the text for the label

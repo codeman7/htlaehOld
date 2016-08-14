@@ -28,6 +28,9 @@ class NewWorkout: Controller {
       print("Had to create a new workout")
       return Workout()
    }()
+   lazy var header: BoldHeader = {
+      return NewWorkoutStandardViews(controller: self).createHeader()
+   }()
    /// Holds the date for the workout
    /// This Controller holds the type of new workout
    // TODO: Edit for when a User edits the set
@@ -76,21 +79,54 @@ class NewWorkout: Controller {
       
    }
    
+   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+      print("Preview preview preview")
+      if segue.identifier == "segue" {
+            print("Good")
+      }
+      
+   }
+   
+   
+   
    /**
       This method segues to preview the workout
    */
    func showPreview() {
       
       print("Segue to preview so far the workout is \(self.workout)")
+      let vc: PreviewWorkout = PreviewWorkout()
+      vc.workout = self.workout
+      self.allWhite(vc)
+      print(StoryboardSegueIdentifiers.NewToPreview.rawValue)
+      //self.performSegueWithIdentifier("segue", sender: self)
+
+   }
+   
+   func allWhite(vc: PreviewWorkout) {
+      let frame: Rect = Rect(x: self.width - 48, y: 35, w: 2, h: 2)
+      let view: UIView = UIView(frame: frame)
+      view.layer.cornerRadius = 1
+      view.backgroundColor = Color().red
+      view.alpha = 0.54
+      self.view.addSubview(view)
+      self.header.update(title: "Preview")
+      UIView.animateWithDuration(3.5, animations: {
+         view.frame = Rect(x: 0, y: 0, w: self.width, h: 400)
+         //bself.header.update(title: "Preview")
+         }, completion: { Bool in
+            self.presentViewController(vc, animated: false, completion: nil)
+      })
       
    }
    
    /**
       This function controls segues to other ViewControllers
    */
-   override func segue(destination: NavigationDestinations) {
+   override func segue(destination: Controller) {
       
       print("Fix this so we can segue")
+      
       
    }
 }
@@ -111,7 +147,7 @@ extension NewWorkout : ViewSetup {
       // Add the button to the view
       self.view.addSubview(bigButton)
       // Get the header from new workout views struct
-      let header: BoldHeader = newWorkoutViews.createHeader()
+      //let header: BoldHeader = newWorkoutViews.createHeader()
       // Add the header as subview
       self.view.addSubview(header)
       // Get all the buttons to add to the view

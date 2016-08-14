@@ -11,7 +11,9 @@ import DigitsKit
 
 class Sign: Controller {
    
+   @IBOutlet weak var skipButton: Button!
    //var digits: Digits? = nil
+   @IBOutlet weak var signInSignUpButton: Button!
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -103,18 +105,17 @@ extension Sign: ViewSetup {
       self.view.addSubview(htlaehText)
       
       // Add the sign in / sign up button
-      let signInSignUpFrame: CGRect = CGRect(x: self.width / 2 - 76, y: self.height - 56, width: 152, height: 40)
-      let signInSignUpButton: Button = Button(frame: signInSignUpFrame, type: .Flat)
-      signInSignUpButton.addTitle("SIGN IN / SIGN UP", color: Color().blue)
-      signInSignUpButton.action = { self.digitsSignIn() }
+      let frame: Rect = Rect(x: self.width / 2 - 76, y: self.height - 76, w: 152, h: 40)
+      self.signInSignUpButton = Button(frame: frame, type: .Flat)
+      self.signInSignUpButton.addTitle("SIGN IN / SIGN UP", color: Color().blue)
+      self.signInSignUpButton.action = { self.digitsSignIn() }
       self.view.addSubview(signInSignUpButton)
       
       // Add the skip button
       let skipButtonFrame: CGRect = CGRect(x: self.width - 88, y: 40, width: 72, height: 40)
-      let skipButton: Button = Button(frame: skipButtonFrame, type: .Flat)
-      skipButton.addTitle("SKIP", color: Color().red)
-      skipButton.action = { self.skipSignIn() }
-      self.view.addSubview(skipButton)
+      self.skipButton = Button(frame: skipButtonFrame, type: .Flat)
+      self.skipButton.addTitle("SKIP", color: Color().red)
+      self.skipButton.action = { self.skipSignIn() }
       
       
    }

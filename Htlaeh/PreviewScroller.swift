@@ -14,10 +14,10 @@ import UIKit
 class PreviewScroller: UIScrollView {
    
    // MARK: Properties
-   let workout: WorkoutType
+   let workout: Workout
    
    // MARK: Initializers
-   init<A: WorkoutType>(frame: CGRect, workout: A) {
+   init(frame: CGRect, workout: Workout) {
       // Set the workout property
       self.workout = workout
       // Call the super initializer
@@ -26,6 +26,7 @@ class PreviewScroller: UIScrollView {
       self.defaultSettings()
       // Add the workout
       self.add(workout)
+      print("Add a preview scroller!!!")
       
       
    }
@@ -52,11 +53,11 @@ class PreviewScroller: UIScrollView {
       
    }
    
-   func add<A: WorkoutType>(workout: A) {
+   func add(workout: Workout) {
       // Set the height for the view
       let height: CGFloat = CGFloat(49 + (workout.count * 48))
       // Set the frame for the view
-      let viewFrame: Rect = Rect(x: 0, y: 80, w: self.frame.w, h: height)
+      let viewFrame: Rect = Rect(x: 0, y: 0, w: self.frame.w, h: height)
       // Create the view
       let workoutView: WorkoutView = WorkoutView(frame: viewFrame)
       // Add the workout to the workoutView

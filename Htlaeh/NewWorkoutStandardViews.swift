@@ -99,10 +99,8 @@ struct NewWorkoutStandardViews {
       
       // Set the headers frame
       let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.controller.width, height: 70)
-      // Initiate some styles for the header
-      let newWorkoutHeader: NewWorkoutHeader = NewWorkoutHeader(controller: self.controller)
       // Create the header type and set its default values
-      let headerOptions: HeaderType = HeaderType.NewWorkout(newWorkoutHeader)
+      let headerOptions: HeaderType = HeaderType.new(controller: self.controller)
       // Create the header
       let header: BoldHeader = BoldHeader(frame: headerFrame, options: headerOptions)
       // Return the header

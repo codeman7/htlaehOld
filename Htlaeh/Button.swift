@@ -183,19 +183,34 @@ class Button: UIView {
     
 }
 
-
-
-// MARK: Make sure button conforms to Ripple protocol
-/*extension Button : Ripple {
-   var rippleColor: UIColor {
-      get {
-        return self.rippleColor
+// MARK: Extension for FAB animation
+extension Button {
+   
+   private func showFAB() {
+      guard self.type == .FAB else {
+         return
       }
-      set(newValue) {
-         self.rippleColor = newValue
-      }
+      UIView.animateWithDuration(0.15, animations: {
+         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
+         }, completion: { Bool in self.elevate(6.0)} )
    }
-}*/
+   
+   func updateFAB(color: UIColor, image: UIImage) {
+      
+      UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseInOut, animations: {
+         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.01, 0.01)
+         }, completion: { Bool in
+            self.elevate(0.0)
+            self.backgroundColor = color
+            self.icon?.image = image
+            self.icon?.color = Color().white
+            self.showFAB()
+      })
+      
+      
+   }
+   
+}
 
 
 
