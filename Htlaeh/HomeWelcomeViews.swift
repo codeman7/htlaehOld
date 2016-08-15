@@ -68,7 +68,7 @@ struct HomeWelcomeViews {
       // Create the show button
       let showButton: Button = Button(frame: showFrame, type: .Raised)
       // Set the show buttons title
-      showButton.addTitle("SHOW ME", color: Color().white)
+      showButton.add(title: "SHOW ME", color: Color().white)
       // Set the show buttons background color
       showButton.backgroundColor = Color().blue
       // Set the action for the show button
@@ -79,7 +79,7 @@ struct HomeWelcomeViews {
       // Create teh skip "no thanks" button
       let skipButton: Button = Button(frame: skipFrame, type: .Flat)
       // Set the buttons title
-      skipButton.addTitle("NO THANKS", color: Color().blue)
+      skipButton.add(title: "NO THANKS", color: Color().blue)
       // Set the action for the button
       skipButton.action = {
          //controller.skipTutorial()

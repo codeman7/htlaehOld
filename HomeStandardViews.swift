@@ -19,7 +19,7 @@ struct HomeStandardViews {
       let leftButton: Button = Button(frame: leftButtonFrame, type: .Raised)
       leftButton.action = { controller.skipSet() }
       leftButton.backgroundColor = Color().red
-      leftButton.addTitle("SKIP", color: Color().white)
+      leftButton.add(title: "SKIP", color: Color().white)
       buttons += [leftButton]
       
       let xRight: CGFloat = view.frame.width.halfCentered(side: .Right, size: 124)
@@ -27,7 +27,7 @@ struct HomeStandardViews {
       let rightButton: Button = Button(frame: rightButtonFrame, type: .Raised)
       rightButton.action = { controller.setDone() }
       rightButton.backgroundColor = Color().blue
-      rightButton.addTitle("DONE", color: Color().white)
+      rightButton.add(title: "DONE", color: Color().white)
       buttons += [rightButton]
       return buttons
       

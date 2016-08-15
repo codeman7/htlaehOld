@@ -88,6 +88,7 @@ struct Fonts {
       let eighteen: UIFont = UIFont(name: .Medium, size: 18.0)
       let twenty: UIFont = UIFont(name: .Medium, size: 20.0)
       let twentyFour: UIFont = UIFont(name: .Medium, size: 24.0)
+      let twentyEight: UIFont = UIFont(name: .Medium, size: 28.0)
       let thirtyTwo: UIFont = UIFont(name: .Medium, size: 32.0)
       let fourty: UIFont = UIFont(name: .Medium, size: 40.0)
    }

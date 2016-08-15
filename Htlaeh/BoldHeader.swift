@@ -154,7 +154,7 @@ class BoldHeader: UIView {
       // Create the button
       let button: Button = Button(frame: frame, type: .Flat)
       // Add the icon to the button
-      button.addIcon(icon, color: Color().black)
+      button.add(image: icon, color: Color().black)
       // Set the action for the button
       button.action = action
       // Set the buttons icons alpha

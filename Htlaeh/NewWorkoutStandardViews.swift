@@ -57,6 +57,71 @@ struct NewWorkoutStandardViews {
       self.controller = controller
    }
    
+   func layoutViews() {
+      
+      // Get the big button
+      let bigButton: Button = self.dismissKeyboardButton()
+      // Add the button to the view
+      self.controller.view.addSubview(bigButton)
+      // Get the header
+      let header: BoldHeader = self.createHeader()
+      // Add the header to the view
+      self.controller.view.addSubview(header)
+      // Get the buttons
+      let buttons: [Button] = self.createButtons()
+      // Add the buttons to the view
+      for button in buttons {
+         self.controller.view.addSubview(button)
+      }
+      // Get the text fields
+      let textFields: [String : TextField] = self.createTextFields()
+      // Set the text fields to the textFieldDict property
+      self.controller.textFieldDict = textFields
+      // Iterate over the dictionary to add them to the controller
+      for textField in textFields.values {
+         self.controller.view.addSubview(textField)
+      }
+      
+   }
+   
+   func layoutViewsWithAlpha(oldController oldController: Controller) {
+      
+      var views: [UIView] = []
+      // Get the header
+      let header: BoldHeader = self.createHeader()
+      views += [header]
+      /*header.alpha = 0.0
+      oldController.view.addSubview(header)*/
+      // Get the buttons
+      let buttons: [Button] = self.createButtons()
+      for button in buttons {
+         views += [button]
+         /*button.alpha = 0.0
+         oldController.view.addSubview(button)*/
+      }
+      // Get the text fields
+      let textFields: [String : TextField] = self.createTextFields()
+      for textField in textFields.values {
+         views += [textField]
+         /*textField.alpha = 0.0
+         oldController.view.addSubview(textField)*/
+      }
+      for view in views {
+         view.alpha = 0.0
+         oldController.view.addSubview(view)
+      }
+      
+      // Animate views alphas and present new contoller
+      UIView.animateWithDuration(0.3, delay: 0.25, options: .CurveEaseInOut, animations: {
+         for view in views {
+            view.alpha = 1.0
+         }
+         }, completion: { Bool in
+               oldController.presentViewController(self.controller, animated: false, completion: nil)
+      })
+      
+   }
+   
    // MARK: Functions
    /**
       This function creates and returns all the buttons
@@ -131,7 +196,7 @@ struct NewWorkoutStandardViews {
       // Set the buttons background color
       addSet.backgroundColor = Color().blue
       // Add the title to the button
-      addSet.addTitle("ADD SET", color: Color().white)
+      addSet.add(title: "ADD SET", color: Color().white)
       // Set the buttons action
       addSet.action = { self.controller.addSet() }
       // Return the button
@@ -148,11 +213,27 @@ struct NewWorkoutStandardViews {
       // Set the fab's background color
       fab.backgroundColor = Color().yellow
       // Add an icon to the fab
-      fab.addIcon(Images.Navigation().check, color: Color().black)
+      fab.add(image: Images.Navigation().check, color: Color().black)
       // Set the FAB's action
-      fab.action = { self.controller.addWorkout() }
+      fab.action = { self.controller.showPicker() }
       // Return the fab
       return fab
+      
+   }
+   
+   /**
+      This function creates the toast for a new workout
+      - parameter title: The title for the toast
+   */
+   func createToastWith(title title: String) -> Toast {
+      // Set the frame for the toast
+      let frame: Rect = Rect(x: 0, y: self.controller.height, w: self.controller.width, h: 48)
+      // Create the toast
+      let toast: Toast = Toast(frame: frame, text: title)
+      // Add the toast to the controller
+      self.controller.view.addSubview(toast)
+      // Return the toast
+      return toast
       
    }
    

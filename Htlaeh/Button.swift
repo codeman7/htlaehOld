@@ -92,7 +92,7 @@ class Button: UIView {
    }
    
    
-   func addTitle(title: String, color: UIColor) {
+   func add(title title: String, color: UIColor) {
       
       let text: String = title.uppercaseString
       let width: CGFloat = text.widthWithConstrainedHeight(19.0, font: Fonts.Medium().fourteen)
@@ -108,11 +108,26 @@ class Button: UIView {
       -parameter image:   Should be the image that the icon is
       -parameter color:   The color that the image will be
    */
-   func addIcon(image: UIImage, color: UIColor) {
+   func add(image image: UIImage, color: UIColor) {
    
       let frame: CGRect = CGRect(x: self.frame.size.width / 2 - 12, y: self.frame.size.height / 2 - 12, width: 24, height: 24)
       icon = Icon(frame: frame, image: image, color: color)
       self.addSubview(icon!)
+      
+   }
+   
+   /**
+      This method adds an icon to the button that will be black and 24x24pt at the center of the button
+      - parameter image: Should be the image that the icon is
+      - parameter alpha: The alpha for the icon
+   */
+   func add(image image: UIImage, alpha: CGFloat) {
+      // Set the frame for the icon
+      let frame: Rect = Rect(x: self.frame.w / 2 - 12, y: self.frame.h / 2 - 12, w: 24, h: 24)
+      // Create the icon
+      self.icon = Icon(frame: frame, image: image, alpha: alpha)
+      // Add the icon to the view
+      self.addSubview(self.icon!)
       
    }
    
@@ -187,12 +202,15 @@ class Button: UIView {
 extension Button {
    
    private func showFAB() {
+      
       guard self.type == .FAB else {
          return
       }
+      
       UIView.animateWithDuration(0.15, animations: {
          self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
-         }, completion: { Bool in self.elevate(6.0)} )
+         }, completion: { Bool in self.elevate(6.0) })
+      
    }
    
    func updateFAB(color: UIColor, image: UIImage) {
@@ -206,7 +224,6 @@ extension Button {
             self.icon?.color = Color().white
             self.showFAB()
       })
-      
       
    }
    

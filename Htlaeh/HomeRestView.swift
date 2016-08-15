@@ -49,7 +49,7 @@ struct HomeRestViews {
          let y = (view.frame.height - 80) - CGFloat(a * 64)
          let frame: CGRect = CGRect(x: view.frame.width / 2 - 62, y: y, width: buttonSize.width, height: buttonSize.height)
          let button: Button = Button(frame: frame, type: .Raised)
-         button.addTitle(titles[a], color: titleColors[a])
+         button.add(title: titles[a], color: titleColors[a])
          button.backgroundColor = backGroundColors[a]
          button.action = actions[a]
          views += [button]

@@ -86,6 +86,7 @@ extension Dialog : Overlay {
    */
    func hideView() {
       
+      // TODO: Should be subclassed to add custom animation to the view
       self.backgroundGrey.removeFromSuperview()
       self.prompt.removeFromSuperview()
       self.removeFromSuperview()

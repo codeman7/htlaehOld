@@ -213,7 +213,6 @@ extension TextField : UITextFieldDelegate {
          self.updateTimeFieldText()
       }
       // TODO: Update the text field to update as user types
-      print("Text field changed")
       
    }
    

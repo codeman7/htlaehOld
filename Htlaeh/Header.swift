@@ -138,7 +138,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: 7, y: 20, width: 46, height: 46)
       leftButton = Button(frame: buttonFrame, type: .Flat)
-      leftButton?.addIcon(icon, color: Color().black)
+      leftButton?.add(image: icon, color: Color().black)
       leftButton?.icon?.alpha = 0.87
       self.addSubview(leftButton!)
       
@@ -155,7 +155,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 53, y: 20, width: 46, height: 46)
       rightButton = Button(frame: buttonFrame, type: .Flat)
-      rightButton?.addIcon(icon, color: Color().black)
+      rightButton?.add(image: icon, color: Color().black)
       rightButton?.icon?.alpha = 0.87
       self.addSubview(rightButton!)
       
@@ -170,7 +170,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 117, y: 20, width: 46, height: 46)
       secondRightButton = Button(frame: buttonFrame, type: .Flat)
-      secondRightButton?.addIcon(icon, color: Color().black)
+      secondRightButton?.add(image: icon, color: Color().black)
       secondRightButton?.icon?.alpha = 0.87
       self.addSubview(secondRightButton!)
       
@@ -184,7 +184,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 120, y: 26, width: 104, height: 40)
       rightButtonWithLabel = Button(frame: buttonFrame, type: .Flat)
-      rightButtonWithLabel?.addTitle(text, color: Color().primary)
+      rightButtonWithLabel?.add(title: text, color: Color().primary)
       self.addSubview(rightButtonWithLabel!)
       
    }

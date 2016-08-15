@@ -16,6 +16,8 @@ extension UIImage {
       case Add = "Add"
       case Back = "Back"
       case Check = "Check"
+      case ChevronBack = "ChevronBack"
+      case ChevronForward = "ChevronForward"
       case Close = "Close"
       case Cloud = "Cloud"
       case Devices = "Devices"
@@ -90,6 +92,8 @@ struct Images {
       
       let back: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Back)
       let check: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Check)
+      let chevronBack: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.ChevronBack)
+      let chevronForward: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.ChevronForward)
       let close: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Close)
       let menu: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Menu)
       let more: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.More)

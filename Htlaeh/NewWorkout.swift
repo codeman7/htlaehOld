@@ -25,7 +25,6 @@ enum NewWorkoutType {
 class NewWorkout: Controller {
    /// Holds the workout so far
    lazy var workout: Workout = {
-      print("Had to create a new workout")
       return Workout()
    }()
    lazy var header: BoldHeader = {
@@ -44,7 +43,9 @@ class NewWorkout: Controller {
       super.viewDidLoad()
       // Set up all the views
       self.setupViews()
-   
+      let a = RealmStore()
+      let b = a.getWorkoutFor(date: "160815")
+      print(b)
    }
    
    /**
@@ -55,10 +56,8 @@ class NewWorkout: Controller {
       guard self.checkTextFields() != false else {
          return
       }
-      print("Adding workout")
       let rest: Double = self.textFieldDict["Rest"]!.text!.timeToSeconds()
       let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: rest, weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "\(Date().today())", complete: false)
-      print("Set = \(weightSet)")
       self.workout = self.workout.add(weightSet)
       
    }
@@ -75,48 +74,63 @@ class NewWorkout: Controller {
    /**
       This function adds the current workout to the DB Cloud and on Device
    */
+   func showPicker() {
+      let promptFrame: Rect = Rect(x: self.width / 2 - 144, y: self.height / 2 - 256, w: 288, h: 512)
+      let datePicker: DatePicker = DatePicker(frame: self.view.frame, promptFrame: promptFrame, month: 8, year: 2016)
+      self.view.addSubview(datePicker)
+      datePicker.rightButtonAction = { self.addWorkout() }
+      datePicker.leftButtonAction = { datePicker.hideView() }
+      datePicker.showView()
+      
+   }
+      
    func addWorkout() {
+      print("Let's get the date")
+      // Add the workout to the local DB
+//      let realmStore: RealmStore = RealmStore()
+//      realmStore.store(workout: self.workout)
       
    }
-   
-   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-      print("Preview preview preview")
-      if segue.identifier == "segue" {
-            print("Good")
-      }
-      
-   }
-   
-   
    
    /**
       This method segues to preview the workout
    */
    func showPreview() {
       
-      print("Segue to preview so far the workout is \(self.workout)")
       let vc: PreviewWorkout = PreviewWorkout()
       vc.workout = self.workout
-      self.allWhite(vc)
-      print(StoryboardSegueIdentifiers.NewToPreview.rawValue)
-      //self.performSegueWithIdentifier("segue", sender: self)
+      self.segueToPreviewAnimation(vc)
 
    }
    
-   func allWhite(vc: PreviewWorkout) {
-      let frame: Rect = Rect(x: self.width - 48, y: 35, w: 2, h: 2)
-      let view: UIView = UIView(frame: frame)
-      view.layer.cornerRadius = 1
-      view.backgroundColor = Color().red
-      view.alpha = 0.54
-      self.view.addSubview(view)
-      self.header.update(title: "Preview")
-      UIView.animateWithDuration(3.5, animations: {
-         view.frame = Rect(x: 0, y: 0, w: self.width, h: 400)
-         //bself.header.update(title: "Preview")
-         }, completion: { Bool in
-            self.presentViewController(vc, animated: false, completion: nil)
-      })
+   /**
+      This function is for the animation between new workout and preview from a top right press
+   */
+   private func segueToPreviewAnimation(vc: PreviewWorkout) {
+      
+      // Hide the keyboard
+      self.view.endEditing(true)
+      self.resignFirstResponder()
+      // Make sure workout isn't empty
+      guard self.workout.count != 0 else {
+         // Create the new workout set and then create the toast
+         let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Please add a set")
+         // Show the toast
+         toast.show()
+         // Exit the function
+         return
+      }
+      // Create the circular view
+      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 29, y: 46), color: Color().white)
+      // Add the circular view to the controller
+      self.view.addSubview(splashView)
+      // Animate the view to take up the whole screen
+      UIView.animateWithDuration(0.25, animations: {
+         splashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
+         }, completion: nil)
+      // Add all the subviews to the view and segue to preview
+      let previewViews: PreviewWorkoutViews = PreviewWorkoutViews(controller: vc)
+      previewViews.layoutViewsWithAnimatedAlpha(self)
       
    }
    
@@ -142,26 +156,8 @@ extension NewWorkout : ViewSetup {
       self.view.backgroundColor = Color().white
       // Create the new workout views struct
       let newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: self)
-      // Get the keyboard dismissal button
-      let bigButton: Button = newWorkoutViews.dismissKeyboardButton()
-      // Add the button to the view
-      self.view.addSubview(bigButton)
-      // Get the header from new workout views struct
-      //let header: BoldHeader = newWorkoutViews.createHeader()
-      // Add the header as subview
-      self.view.addSubview(header)
-      // Get all the buttons to add to the view
-      let buttons: [Button] = newWorkoutViews.createButtons()
-      // Iterate over the views and add them to the VC
-      for button in buttons {
-         self.view.addSubview(button)
-      }
-      // Get all the text fields to add to the view and set them to the 'textFieldDict' property
-      self.textFieldDict = newWorkoutViews.createTextFields()
-      // Iterate over the dictionary and add the viewws to the VC
-      for textField in self.textFieldDict.values {
-         self.view.addSubview(textField)
-      }
+      // Add all the views to the contoller
+      newWorkoutViews.layoutViews()
       
    }
    

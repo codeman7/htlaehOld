@@ -107,14 +107,14 @@ extension Sign: ViewSetup {
       // Add the sign in / sign up button
       let frame: Rect = Rect(x: self.width / 2 - 76, y: self.height - 76, w: 152, h: 40)
       self.signInSignUpButton = Button(frame: frame, type: .Flat)
-      self.signInSignUpButton.addTitle("SIGN IN / SIGN UP", color: Color().blue)
+      self.signInSignUpButton.add(title: "SIGN IN / SIGN UP", color: Color().blue)
       self.signInSignUpButton.action = { self.digitsSignIn() }
       self.view.addSubview(signInSignUpButton)
       
       // Add the skip button
       let skipButtonFrame: CGRect = CGRect(x: self.width - 88, y: 40, width: 72, height: 40)
       self.skipButton = Button(frame: skipButtonFrame, type: .Flat)
-      self.skipButton.addTitle("SKIP", color: Color().red)
+      self.skipButton.add(title: "SKIP", color: Color().red)
       self.skipButton.action = { self.skipSignIn() }
       
       

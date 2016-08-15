@@ -24,17 +24,19 @@ class RealmWorkout: Object {
    /**
       Use as default initalizer
       - parameter workoutSet: Should be the weight set that corresponds with the set being created
+      - returns: The RealmWorkout that will be stored
    */
-   func createSet(workoutSet: WeightSet) {
-      
-      self.name = workoutSet.name
-      self.setCount = workoutSet.setCount
-      self.reps.value = workoutSet.reps
-      self.restTime.value = workoutSet.restTime
-      self.weight.value = workoutSet.weight
-      self.time.value = workoutSet.time
-      self.date = workoutSet.date
-      self.complete = workoutSet.complete
+   func createSet(workoutSet: WeightSet) -> RealmWorkout {
+      let workSet: RealmWorkout = RealmWorkout()
+      workSet.name = workoutSet.name
+      workSet.setCount = workoutSet.setCount
+      workSet.reps.value = workoutSet.reps
+      workSet.restTime.value = workoutSet.restTime
+      workSet.weight.value = workoutSet.weight
+      workSet.time.value = workoutSet.time
+      workSet.date = workoutSet.date
+      workSet.complete = workoutSet.complete
+      return workSet
       
    }
    

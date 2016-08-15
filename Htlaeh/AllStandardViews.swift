@@ -43,7 +43,7 @@ struct AllStandardViews : AllViews {
       // Set the buttons background color
       fab.backgroundColor = Color().blue
       // Add the icon to the button
-      fab.addIcon(Images.Action().search, color: Color().white)
+      fab.add(image: Images.Action().search, color: Color().white)
       // Set the action for the button
       fab.action = { self.controller.fabTouch() }
       // Set the fab to be the controllers fab variable

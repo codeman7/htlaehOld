@@ -21,6 +21,8 @@
 		24311FEF1D505F8F00CA7C20 /* HtlaehTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24311FEE1D505F8F00CA7C20 /* HtlaehTests.swift */; };
 		24311FFA1D505F8F00CA7C20 /* HtlaehUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24311FF91D505F8F00CA7C20 /* HtlaehUITests.swift */; };
 		2432F2991D58D26800C89C1B /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432F2981D58D26800C89C1B /* Ripple.swift */; };
+		2433C1EF1D61EA6000110F2D /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1EE1D61EA6000110F2D /* RealmStore.swift */; };
+		2433C1F11D61F12300110F2D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1F01D61F12300110F2D /* DatePicker.swift */; };
 		244691F51D5CA0ED008FB687 /* All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244691F41D5CA0ED008FB687 /* All.swift */; };
 		2452780E1D52F0C30059C427 /* HomeRestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2452780D1D52F0C30059C427 /* HomeRestView.swift */; };
 		24728CEA1D5A29F4007EA645 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24728CE91D5A29F4007EA645 /* TextField.swift */; };
@@ -39,6 +41,8 @@
 		247CA2EE1D54D7D10087F27A /* HomeTutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CA2ED1D54D7D10087F27A /* HomeTutorial.swift */; };
 		247CA2F21D54D8280087F27A /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247CA2F11D54D8280087F27A /* Tutorial.swift */; };
 		2481382C1D525CE00020D97C /* WorkoutSets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481382B1D525CE00020D97C /* WorkoutSets.swift */; };
+		24AAB4F71D609DC100F297DD /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AAB4F61D609DC100F297DD /* Toast.swift */; };
+		24AAB4F91D60A5CC00F297DD /* CircularView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AAB4F81D60A5CC00F297DD /* CircularView.swift */; };
 		24AFD1A01D50EF07002DF526 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */; };
 		24AFD1A11D50EF07002DF526 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */; };
 		24AFD1A21D50EF07002DF526 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */; };
@@ -139,6 +143,8 @@
 		24311FF91D505F8F00CA7C20 /* HtlaehUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtlaehUITests.swift; sourceTree = "<group>"; };
 		24311FFB1D505F8F00CA7C20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2432F2981D58D26800C89C1B /* Ripple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
+		2433C1EE1D61EA6000110F2D /* RealmStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
+		2433C1F01D61F12300110F2D /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		244691F41D5CA0ED008FB687 /* All.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = All.swift; sourceTree = "<group>"; };
 		2452780D1D52F0C30059C427 /* HomeRestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRestView.swift; sourceTree = "<group>"; };
 		24728CE91D5A29F4007EA645 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
@@ -157,6 +163,8 @@
 		247CA2ED1D54D7D10087F27A /* HomeTutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTutorial.swift; sourceTree = "<group>"; };
 		247CA2F11D54D8280087F27A /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
 		2481382B1D525CE00020D97C /* WorkoutSets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutSets.swift; sourceTree = "<group>"; };
+		24AAB4F61D609DC100F297DD /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		24AAB4F81D60A5CC00F297DD /* CircularView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularView.swift; sourceTree = "<group>"; };
 		24AFD19B1D50EED7002DF526 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		24AFD19C1D50EED7002DF526 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		24AFD19D1D50EED7002DF526 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
@@ -370,9 +378,25 @@
 			name = Tutorials;
 			sourceTree = "<group>";
 		};
+		24AAB4F41D60978600F297DD /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Segues;
+			sourceTree = "<group>";
+		};
+		24AAB4F51D6099CE00F297DD /* PreviewWorkoutViews */ = {
+			isa = PBXGroup;
+			children = (
+				2476B8BF1D5E00CD008044A8 /* PreviewWorkoutViews.swift */,
+			);
+			name = PreviewWorkoutViews;
+			sourceTree = "<group>";
+		};
 		24AFD1A71D50EFE6002DF526 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				24AAB4F51D6099CE00F297DD /* PreviewWorkoutViews */,
 				24CC5EC01D5CA16E00BCB833 /* All */,
 				247CA2EA1D540C4A0087F27A /* Home */,
 				2425CAD91D58F1630074D32F /* New Workout */,
@@ -387,6 +411,7 @@
 		24AFD1A81D50EFEC002DF526 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				24AAB4F41D60978600F297DD /* Segues */,
 				2476B8CE1D5E297A008044A8 /* Search.swift */,
 				2476B8CA1D5E2856008044A8 /* Settings.swift */,
 				2476B8C51D5E1C93008044A8 /* Preview.swift */,
@@ -425,6 +450,7 @@
 		24AFD1B91D50F1FB002DF526 /* Design */ = {
 			isa = PBXGroup;
 			children = (
+				24AAB4F81D60A5CC00F297DD /* CircularView.swift */,
 				24AFD1BD1D50F21D002DF526 /* LoadingAnimation.swift */,
 				24AFD1BE1D50F21D002DF526 /* ImageView.swift */,
 				24AFD1BF1D50F21D002DF526 /* Logo.swift */,
@@ -462,23 +488,25 @@
 		24AFD1F21D50F252002DF526 /* Base Material */ = {
 			isa = PBXGroup;
 			children = (
-				2476B8C91D5E21A2008044A8 /* Header */,
-				24728CE81D59FED7007EA645 /* Old */,
 				24AFD1D01D50F23B002DF526 /* BackgroundGrey.swift */,
 				24AFD1D11D50F23B002DF526 /* Button.swift */,
 				24AFD1D31D50F23B002DF526 /* Color.swift */,
+				2433C1F01D61F12300110F2D /* DatePicker.swift */,
 				24AFD1D41D50F23B002DF526 /* Dragable.swift */,
 				24AFD1D51D50F23B002DF526 /* Dialog.swift */,
 				24AFD1D61D50F23B002DF526 /* Font.swift */,
+				2476B8C91D5E21A2008044A8 /* Header */,
 				24AFD1D71D50F23B002DF526 /* Header.swift */,
 				24AFD1D81D50F23B002DF526 /* Icon.swift */,
 				24AFD1D91D50F23B002DF526 /* MaterialView.swift */,
 				24AFD1DA1D50F23B002DF526 /* Menu.swift */,
 				24AFD1DB1D50F23B002DF526 /* NavigationBar.swift */,
 				24AFD1DC1D50F23B002DF526 /* Overlay.swift */,
+				24728CE81D59FED7007EA645 /* Old */,
 				2432F2981D58D26800C89C1B /* Ripple.swift */,
 				24CC5EC51D5CB00A00BCB833 /* Scroller */,
 				24728CED1D5A2AC4007EA645 /* TextField */,
+				24AAB4F61D609DC100F297DD /* Toast.swift */,
 				24AFD1DF1D50F23B002DF526 /* TouchableView.swift */,
 			);
 			name = "Base Material";
@@ -544,6 +572,7 @@
 			children = (
 				2481382B1D525CE00020D97C /* WorkoutSets.swift */,
 				24E4B0441D5253A00028BB5F /* RealmSet.swift */,
+				2433C1EE1D61EA6000110F2D /* RealmStore.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -571,7 +600,6 @@
 			children = (
 				2476B8C11D5E03E2008044A8 /* AllViews.swift */,
 				24CC5EC11D5CA17D00BCB833 /* AllStandardViews.swift */,
-				2476B8BF1D5E00CD008044A8 /* PreviewWorkoutViews.swift */,
 			);
 			name = All;
 			sourceTree = "<group>";
@@ -891,6 +919,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24AAB4F91D60A5CC00F297DD /* CircularView.swift in Sources */,
 				24AFD2061D50F323002DF526 /* Workout.swift in Sources */,
 				24AFD1ED1D50F23B002DF526 /* AllScroller.swift in Sources */,
 				24AFD1F11D50F24C002DF526 /* RevealAlpha.swift in Sources */,
@@ -904,6 +933,7 @@
 				24AFD20F1D5104CA002DF526 /* Keychain.swift in Sources */,
 				24AFD1E51D50F23B002DF526 /* Dialog.swift in Sources */,
 				2476B8C61D5E1C93008044A8 /* Preview.swift in Sources */,
+				24AAB4F71D609DC100F297DD /* Toast.swift in Sources */,
 				24728CEC1D5A2A4A007EA645 /* TextFieldStyle.swift in Sources */,
 				24E4B0431D5252430028BB5F /* TwitterDigits.swift in Sources */,
 				2476B8C21D5E03E2008044A8 /* AllViews.swift in Sources */,
@@ -914,6 +944,7 @@
 				24AFD1B41D50F1C4002DF526 /* HomeTextPresentable.swift in Sources */,
 				24D6A90F1D58F8300085EDF5 /* TextFieldOptions.swift in Sources */,
 				24AFD1E31D50F23B002DF526 /* Color.swift in Sources */,
+				2433C1EF1D61EA6000110F2D /* RealmStore.swift in Sources */,
 				24AFD1C61D50F21D002DF526 /* BoldHeader.swift in Sources */,
 				24AFD1C71D50F21D002DF526 /* LoadingAnimation.swift in Sources */,
 				24AFD1C81D50F21D002DF526 /* ImageView.swift in Sources */,
@@ -932,6 +963,7 @@
 				247CA2E91D540C290087F27A /* HomeDataState.swift in Sources */,
 				24AFD1E71D50F23B002DF526 /* Header.swift in Sources */,
 				24AFD1EF1D50F23B002DF526 /* TouchableView.swift in Sources */,
+				2433C1F11D61F12300110F2D /* DatePicker.swift in Sources */,
 				24E0E5961D5CDF1700458C60 /* WorkoutTableView.swift in Sources */,
 				24AFD1B51D50F1C4002DF526 /* HeaderLabels.swift in Sources */,
 				24AFD1CA1D50F21D002DF526 /* Images.swift in Sources */,

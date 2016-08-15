@@ -112,14 +112,14 @@ class AccountDialog: Dialog {
       
       let skipButtonFrame: CGRect = CGRect(x: self.prompt.frame.width - 88, y: self.prompt.frame.height - 56, width: 72, height: 40)
       let skipButton: Button = Button(frame: skipButtonFrame, type: .Flat)
-      skipButton.addTitle("SKIP", color: Color().blue)
+      skipButton.add(title: "SKIP", color: Color().blue)
       skipButton.backgroundColor = Color().white
       skipButton.action = action1
       self.prompt.addSubview(skipButton)
       
       let signInButtonFrame: CGRect = CGRect(x: skipButtonFrame.origin.x - 88, y: skipButtonFrame.origin.y, width: 72, height: 40)
       let signInButton: Button = Button(frame: signInButtonFrame, type: .Flat)
-      signInButton.addTitle("SIGN IN", color: Color().blue)
+      signInButton.add(title: "SIGN IN", color: Color().blue)
       signInButton.backgroundColor = Color().white
       signInButton.action = action2
       self.prompt.addSubview(signInButton)

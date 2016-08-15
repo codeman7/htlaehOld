@@ -26,7 +26,6 @@ class PreviewScroller: UIScrollView {
       self.defaultSettings()
       // Add the workout
       self.add(workout)
-      print("Add a preview scroller!!!")
       
       
    }
