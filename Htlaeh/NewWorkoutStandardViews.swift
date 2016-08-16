@@ -174,6 +174,41 @@ struct NewWorkoutStandardViews {
    }
    
    /**
+      This function creates the date picker for the controller
+   */
+   func createDatePicker() -> DatePicker {
+      // Create the frame for the prompt
+      let promptFrame: Rect = Rect(x: self.controller.width / 2 - 144, y: self.controller.height / 2 - 256, w: 288, h: 512)
+      // Create the date picker
+      let datePicker: DatePicker = DatePicker(frame: self.controller.view.frame, promptFrame: promptFrame, month: 8, year: 2016)
+      // Set the date picker's right button action
+      datePicker.rightButtonAction = { self.controller.addWorkout() }
+      // Set the date pickers left button action
+      datePicker.leftButtonAction = { datePicker.hideView() }
+      // Return the date picker
+      return datePicker
+      
+   }
+   
+   /**
+      This function creates the tool tip that will let the user know a set was added
+   */
+   func createToolTip() -> ToolTip {
+      // Get the width for the view
+      let width: CGFloat = "Set added".widthWithConstrainedHeight(16.0, font: Fonts.Medium().fourteen) + 32
+      // Set the frame for the view
+      let origin: CGPoint = CGPoint(x: self.controller.width - (width + 72), y: 31)
+      // Create the view
+      let toolTip: ToolTip = ToolTip(origin: origin, text: "Set added")
+      // Set the view's alpha to 0
+      toolTip.alpha = 0.0
+      // Add the view as a subview
+      self.controller.view.addSubview(toolTip)
+      // Return the view
+      return toolTip
+   }
+   
+   /**
       This function returns the button that dismisses the keyboard
    */
    func dismissKeyboardButton() -> Button {

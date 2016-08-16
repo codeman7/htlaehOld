@@ -53,9 +53,10 @@ struct WeightSet: WorkoutSet {
    let time: Double?
    let date: String
    var complete: Bool
+   var synced: Bool
    
    // MARK: Initializer
-   init(name: String, setCount: Int, reps: Int?, restTime: Double?, weight: Double?, time: Double?, date: String, complete: Bool) {
+   init(name: String, setCount: Int, reps: Int?, restTime: Double?, weight: Double?, time: Double?, date: String, complete: Bool, synced: Bool) {
       
       self.name = name
       self.setCount = setCount
@@ -65,6 +66,7 @@ struct WeightSet: WorkoutSet {
       self.time = time
       self.date = date
       self.complete = complete
+      self.synced = synced
       
    }
    
@@ -78,25 +80,26 @@ struct WeightSet: WorkoutSet {
       self.time = workoutSet.time.value
       self.date = workoutSet.date
       self.complete = workoutSet.complete
+      self.synced = workoutSet.synced
       
    }
    
    // MARK: Creation Methods
-   static func createStandardSet(name name: String, setCount: Int, reps: Int, restTime: Double, weight: Double, date: String) -> WeightSet {
+   static func createStandardSet(name name: String, setCount: Int, reps: Int, restTime: Double, weight: Double, date: String, synced: Bool) -> WeightSet {
       
-      return WeightSet(name: name, setCount: setCount, reps: reps, restTime: restTime, weight: weight, time: nil, date: date, complete: false)
-      
-   }
-   
-   static func createWorkoutForReps(name name: String, setCount: Int, restTime: Double?, weight: Double, time: Double, date: String) -> WeightSet {
-      
-      return WeightSet(name: name, setCount: setCount, reps: nil, restTime: restTime, weight: weight, time: time, date: date, complete: false)
+      return WeightSet(name: name, setCount: setCount, reps: reps, restTime: restTime, weight: weight, time: nil, date: date, complete: false, synced: synced)
       
    }
    
-   static func createWorkoutForTime(name name: String, setCount: Int, reps: Int, restTime: Double?, weight: Double, date: String) -> WeightSet {
+   static func createWorkoutForReps(name name: String, setCount: Int, restTime: Double?, weight: Double, time: Double, date: String, synced: Bool) -> WeightSet {
       
-      return WeightSet(name: name, setCount: setCount, reps: reps, restTime: restTime, weight: weight, time: nil, date: date, complete: false)
+      return WeightSet(name: name, setCount: setCount, reps: nil, restTime: restTime, weight: weight, time: time, date: date, complete: false, synced: synced)
+      
+   }
+   
+   static func createWorkoutForTime(name name: String, setCount: Int, reps: Int, restTime: Double?, weight: Double, date: String, synced: Bool) -> WeightSet {
+      
+      return WeightSet(name: name, setCount: setCount, reps: reps, restTime: restTime, weight: weight, time: nil, date: date, complete: false, synced: synced)
       
    }
    
@@ -118,21 +121,21 @@ extension WeightSet: UpdateSet {
    /// Use this function to update the weight used if the User changes the weight
    func updateWeight(weight: Double) -> WeightSet {
       // Return a new instance of Exercise Set with the weight updated
-      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: weight, time: self.time, date: self.date, complete: self.complete)
+      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: weight, time: self.time, date: self.date, complete: self.complete, synced: self.synced)
       
    }
    
    /// Use this to update the reps a User did often used for an AMRAP or achieved more than they thought
    func updateReps(reps: Int) -> WeightSet {
       // Return a new instance of Exercise Set with the new number of reps completed
-      return WeightSet(name: self.name, setCount: self.setCount, reps: reps, restTime: self.restTime, weight: self.weight, time: self.time, date: self.date, complete: self.complete)
+      return WeightSet(name: self.name, setCount: self.setCount, reps: reps, restTime: self.restTime, weight: self.weight, time: self.time, date: self.date, complete: self.complete, synced: self.synced)
       
    }
    
    /// Use this for a workout for time or if they want to time a set
    func updateTime(time: Double) -> WeightSet {
       // Return a new instance of Exercise Set witht the time it took to complete
-      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: time, date: self.date, complete: self.complete)
+      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: time, date: self.date, complete: self.complete, synced: self.synced)
       
       
    }
@@ -140,7 +143,7 @@ extension WeightSet: UpdateSet {
    /// Use this to update the date of a set
    func changeDate(newDate: String) -> WeightSet {
       // Return new instance of Weight set with the date updated
-      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: self.time, date: newDate, complete: self.complete)
+      return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: self.time, date: newDate, complete: self.complete, synced: self.synced)
       
    }
    

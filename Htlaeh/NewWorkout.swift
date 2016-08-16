@@ -30,6 +30,14 @@ class NewWorkout: Controller {
    lazy var header: BoldHeader = {
       return NewWorkoutStandardViews(controller: self).createHeader()
    }()
+   /// The variable for the date picker
+   private lazy var datePicker: DatePicker = {
+      return NewWorkoutStandardViews(controller: self).createDatePicker()
+   }()
+   /// The varible for the tool tip that lets a user know a set was added
+   private lazy var setAdded: ToolTip = {
+      return NewWorkoutStandardViews(controller: self).createToolTip()
+   }()
    /// Holds the date for the workout
    /// This Controller holds the type of new workout
    // TODO: Edit for when a User edits the set
@@ -43,9 +51,7 @@ class NewWorkout: Controller {
       super.viewDidLoad()
       // Set up all the views
       self.setupViews()
-      let a = RealmStore()
-      let b = a.getWorkoutFor(date: "160815")
-      print(b)
+      print(RealmQuery().all())
    }
    
    /**
@@ -56,9 +62,15 @@ class NewWorkout: Controller {
       guard self.checkTextFields() != false else {
          return
       }
+      // Get the rest for the current set
       let rest: Double = self.textFieldDict["Rest"]!.text!.timeToSeconds()
-      let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: rest, weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "\(Date().today())", complete: false)
+      // Create set for the data given
+      let weightSet: WeightSet = WeightSet(name: self.textFieldDict["Exercise Name"]!.text!, setCount: self.workout.count, reps: Int(self.textFieldDict["Reps"]!.text!), restTime: rest, weight: Double(self.textFieldDict["Weight"]!.text!), time: nil, date: "\(Date().today())", complete: false, synced: false)
+      // Add the set to the workout
       self.workout = self.workout.add(weightSet)
+      // Show the User that the set go added
+      self.setAdded.showWithAlpha()
+      self.setAdded.hideWithAlpha(1.0)
       
    }
    
@@ -75,11 +87,9 @@ class NewWorkout: Controller {
       This function adds the current workout to the DB Cloud and on Device
    */
    func showPicker() {
-      let promptFrame: Rect = Rect(x: self.width / 2 - 144, y: self.height / 2 - 256, w: 288, h: 512)
-      let datePicker: DatePicker = DatePicker(frame: self.view.frame, promptFrame: promptFrame, month: 8, year: 2016)
-      self.view.addSubview(datePicker)
-      datePicker.rightButtonAction = { self.addWorkout() }
-      datePicker.leftButtonAction = { datePicker.hideView() }
+      // Add the date picker to the view
+      self.view.addSubview(self.datePicker)
+      // Show the date picker
       datePicker.showView()
       
    }
@@ -87,8 +97,11 @@ class NewWorkout: Controller {
    func addWorkout() {
       print("Let's get the date")
       // Add the workout to the local DB
+      self.workout = self.workout.updateDate(self.datePicker.date)
+      print(self.workout)
 //      let realmStore: RealmStore = RealmStore()
 //      realmStore.store(workout: self.workout)
+      
       
    }
    

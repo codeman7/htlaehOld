@@ -29,26 +29,4 @@ struct RealmStore {
       
    }
    
-   func fetchAll() {
-      
-      let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout.self)
-      print("Workouts = \(workouts)")
-      
-   }
-   
-   /**
-      Fetches a workout for a certain date in the DB
-   */
-   func getWorkoutFor(date date: String) -> Workout {
-      
-      let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout.self).filter("date = '\(date)'").sorted("setCount")
-      var workout: Workout = Workout()
-      for workoutSet in workouts {
-         let weightSet: WeightSet = WeightSet(workoutSet: workoutSet)
-         workout = workout.add(weightSet)
-      }
-      
-      return workout
-   }
-   
 }

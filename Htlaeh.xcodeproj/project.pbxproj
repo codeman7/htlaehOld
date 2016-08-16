@@ -23,8 +23,11 @@
 		2432F2991D58D26800C89C1B /* Ripple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2432F2981D58D26800C89C1B /* Ripple.swift */; };
 		2433C1EF1D61EA6000110F2D /* RealmStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1EE1D61EA6000110F2D /* RealmStore.swift */; };
 		2433C1F11D61F12300110F2D /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1F01D61F12300110F2D /* DatePicker.swift */; };
+		2433C1F31D622FC700110F2D /* DatabaseDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1F21D622FC700110F2D /* DatabaseDate.swift */; };
+		2433C1F51D62359D00110F2D /* RealmQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2433C1F41D62359D00110F2D /* RealmQuery.swift */; };
 		244691F51D5CA0ED008FB687 /* All.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244691F41D5CA0ED008FB687 /* All.swift */; };
 		2452780E1D52F0C30059C427 /* HomeRestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2452780D1D52F0C30059C427 /* HomeRestView.swift */; };
+		2462ADE41D6347DF0015E955 /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462ADE31D6347DF0015E955 /* ToolTip.swift */; };
 		24728CEA1D5A29F4007EA645 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24728CE91D5A29F4007EA645 /* TextField.swift */; };
 		24728CEC1D5A2A4A007EA645 /* TextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24728CEB1D5A2A4A007EA645 /* TextFieldStyle.swift */; };
 		2476B8C01D5E00CD008044A8 /* PreviewWorkoutViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2476B8BF1D5E00CD008044A8 /* PreviewWorkoutViews.swift */; };
@@ -145,8 +148,11 @@
 		2432F2981D58D26800C89C1B /* Ripple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ripple.swift; sourceTree = "<group>"; };
 		2433C1EE1D61EA6000110F2D /* RealmStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmStore.swift; sourceTree = "<group>"; };
 		2433C1F01D61F12300110F2D /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		2433C1F21D622FC700110F2D /* DatabaseDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseDate.swift; sourceTree = "<group>"; };
+		2433C1F41D62359D00110F2D /* RealmQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmQuery.swift; sourceTree = "<group>"; };
 		244691F41D5CA0ED008FB687 /* All.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = All.swift; sourceTree = "<group>"; };
 		2452780D1D52F0C30059C427 /* HomeRestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRestView.swift; sourceTree = "<group>"; };
+		2462ADE31D6347DF0015E955 /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
 		24728CE91D5A29F4007EA645 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		24728CEB1D5A2A4A007EA645 /* TextFieldStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldStyle.swift; sourceTree = "<group>"; };
 		2476B8BF1D5E00CD008044A8 /* PreviewWorkoutViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewWorkoutViews.swift; sourceTree = "<group>"; };
@@ -433,6 +439,7 @@
 				24AFD2001D50F309002DF526 /* Account */,
 				24AFD1FC1D50F2FE002DF526 /* Time.swift */,
 				24AFD1FD1D50F2FE002DF526 /* Date.swift */,
+				2433C1F21D622FC700110F2D /* DatabaseDate.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -488,6 +495,7 @@
 		24AFD1F21D50F252002DF526 /* Base Material */ = {
 			isa = PBXGroup;
 			children = (
+				2462ADE31D6347DF0015E955 /* ToolTip.swift */,
 				24AFD1D01D50F23B002DF526 /* BackgroundGrey.swift */,
 				24AFD1D11D50F23B002DF526 /* Button.swift */,
 				24AFD1D31D50F23B002DF526 /* Color.swift */,
@@ -573,6 +581,7 @@
 				2481382B1D525CE00020D97C /* WorkoutSets.swift */,
 				24E4B0441D5253A00028BB5F /* RealmSet.swift */,
 				2433C1EE1D61EA6000110F2D /* RealmStore.swift */,
+				2433C1F41D62359D00110F2D /* RealmQuery.swift */,
 			);
 			name = Realm;
 			sourceTree = "<group>";
@@ -965,6 +974,7 @@
 				24AFD1EF1D50F23B002DF526 /* TouchableView.swift in Sources */,
 				2433C1F11D61F12300110F2D /* DatePicker.swift in Sources */,
 				24E0E5961D5CDF1700458C60 /* WorkoutTableView.swift in Sources */,
+				2433C1F51D62359D00110F2D /* RealmQuery.swift in Sources */,
 				24AFD1B51D50F1C4002DF526 /* HeaderLabels.swift in Sources */,
 				24AFD1CA1D50F21D002DF526 /* Images.swift in Sources */,
 				24AFD1AD1D50F1A0002DF526 /* Home.swift in Sources */,
@@ -975,6 +985,7 @@
 				24311FDA1D505F8F00CA7C20 /* AppDelegate.swift in Sources */,
 				24AFD1CC1D50F21D002DF526 /* String.swift in Sources */,
 				24D6A9111D58FFFE0085EDF5 /* Rect.swift in Sources */,
+				2433C1F31D622FC700110F2D /* DatabaseDate.swift in Sources */,
 				2409F2621D5CBFC40066A7A3 /* WorkoutTableDateLabel.swift in Sources */,
 				24AFD1EE1D50F23B002DF526 /* TextView.swift in Sources */,
 				24AFD1CE1D50F21D002DF526 /* Line.swift in Sources */,
@@ -992,6 +1003,7 @@
 				24AFD1E01D50F23B002DF526 /* BackgroundGrey.swift in Sources */,
 				24AFD1C51D50F21D002DF526 /* Head.swift in Sources */,
 				24AFD1E21D50F23B002DF526 /* Card.swift in Sources */,
+				2462ADE41D6347DF0015E955 /* ToolTip.swift in Sources */,
 				2409F2661D5CD3720066A7A3 /* WorkoutTableCell.swift in Sources */,
 				2476B8CF1D5E297A008044A8 /* Search.swift in Sources */,
 				2476B8CD1D5E2954008044A8 /* NavigationDestinations.swift in Sources */,

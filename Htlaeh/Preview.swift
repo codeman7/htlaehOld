@@ -42,8 +42,8 @@ class PreviewWorkout : Controller {
    func getWorkout() -> Workout {
       
       var workout: Workout = Workout()
-      let set: WeightSet = WeightSet(name: "Squat", setCount: 0, reps: 12, restTime: 75, weight: 225, time: nil, date: "160812", complete: false)
-      let set1: WeightSet = WeightSet(name: "Deadlift", setCount: 1, reps: 8, restTime: 120, weight: 185, time: nil, date: "160812", complete: false)
+      let set: WeightSet = WeightSet(name: "Squat", setCount: 0, reps: 12, restTime: 75, weight: 225, time: nil, date: "160812", complete: false, synced: false)
+      let set1: WeightSet = WeightSet(name: "Deadlift", setCount: 1, reps: 8, restTime: 120, weight: 185, time: nil, date: "160812", complete: false, synced: false)
       workout = workout.add(set)
       workout = workout.add(set1)
       return workout
