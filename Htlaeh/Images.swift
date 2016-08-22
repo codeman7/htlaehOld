@@ -22,6 +22,7 @@ extension UIImage {
       case Cloud = "Cloud"
       case Devices = "Devices"
       case Edit = "Edit"
+      case Filter = "Filter"
       case Free = "Free"
       case Home = "Home"
       case Logo = "Logo"
@@ -58,6 +59,7 @@ struct Images {
    struct Content {
       
       let add: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Add)
+      let filter: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Filter)
       
    }
    

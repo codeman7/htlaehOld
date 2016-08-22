@@ -14,7 +14,7 @@ struct DatabaseDate {
    let day: Int
    
    init(year: Int, month: Int, day: Int) {
-      self.year = year
+      self.year = year - 2000
       self.month = month
       self.day = day
    }

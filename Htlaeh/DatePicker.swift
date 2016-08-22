@@ -38,6 +38,8 @@ class DatePicker : Dialog {
    var rightButtonAction: () -> () = { fatalError("Right button aciton must be set") }
    /// The action for the left button
    var leftButtonAction: () -> () = { fatalError("Left button action must be set") }
+   /// Determine if the views have been layed out or not
+   var layedOut: Bool = false
    
    // MARK: Initializers
    /**
@@ -46,15 +48,11 @@ class DatePicker : Dialog {
       - parameter month: The month that will first be show
       - parameter year: The year that will first be show
    */
-   init(frame: CGRect, promptFrame: CGRect, month: Int, year: Int) {
+   override init(frame: CGRect, promptFrame: CGRect) {
       
-      // Set the month property
-      self.month = month
-      // Set the year property
-      self.year = year
       // Call the super initializer
       super.init(frame: frame, promptFrame: promptFrame)
-      print(self.days)
+      print("\n\n\n\n\n\n\nDays = \(self.days)")
       
    }
    
@@ -72,8 +70,13 @@ class DatePicker : Dialog {
       UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
          self.prompt.frame = self.promptFrame
          }, completion: { Bool in
+            // Make sure the views haven't been layed out or return if they have
+            guard self.layedOut == false else { return }
+            // Add the layouts
             self.layoutTopView()
             self.layoutBottomView()
+            // Set layout to true
+            self.layedOut = true
       })
       
       

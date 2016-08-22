@@ -82,6 +82,27 @@ protocol TextPresentable {
    
 }
 
+struct Label : TextPresentable {
+   let color: UIColor
+   let alpha: CGFloat
+   let alignment: NSTextAlignment
+   let font: UIFont
+   
+   init(color: UIColor, alpha: CGFloat, align: NSTextAlignment, font: UIFont) {
+      self.color = color
+      self.alpha = alpha
+      self.alignment = align
+      self.font = font
+   }
+}
+
+struct ScrollerLabel : TextPresentable {
+   let color: UIColor = Color().black
+   let alpha: CGFloat = 0.87
+   let alignment: NSTextAlignment = .Center
+   let font: UIFont = Fonts.Regular().fourteen
+}
+
 struct LabelConfig {
    let frame: CGRect
    let font: UIFont

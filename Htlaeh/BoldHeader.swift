@@ -30,10 +30,14 @@ class BoldHeader: UIView {
    /// Scroll type
    // Defaults to false
    var elevated: Bool = false
-   // The variable for the title of the header
+   /// The variable for the title of the header
    lazy var title: UILabel = {
       return self.createTitle()
    }()
+   /// The variable for the search bar if the header contains it
+   var searchBar: SearchBar? = nil
+   /// Variable for the bottom line
+   lazy var bottomLine: Line = self.createBottomLine()
    
    // MARK: Initalizer
    /**
@@ -147,7 +151,7 @@ class BoldHeader: UIView {
       - parameter action: The action that the button will have
       - parameter xPosition: The 'x' position that the button will be in the view
    */
-   private func addButton(icon icon: UIImage, action: ()->(), xPosition: Int) {
+   func addButton(icon icon: UIImage, action: ()->(), xPosition: Int) {
       
       // Set the frame for the button
       let frame: CGRect = CGRect(x: xPosition, y: 27, width: 40, height: 40)
@@ -163,6 +167,35 @@ class BoldHeader: UIView {
       button.backgroundColor = Color().white
       // Add the button to the header
       self.addSubview(button)
+      
+   }
+   
+   func addSearchBar() {
+      
+      // Hide the title
+      self.title.alpha = 0.0
+      // Create the frame for the search bar and create the search bar
+      let frame: Rect = Rect(x: 72, y: 22, w: self.frame.w - 72, h: 48)
+      self.searchBar = SearchBar(frame: frame)
+      // Add the search bar to the view
+      self.addSubview(self.searchBar!)
+      
+      self.addBottomLine()
+      
+   }
+   
+   private func createBottomLine() -> Line {
+      
+      // Set the frame for the line, create the line and return it
+      let frame: Rect = Rect(x: 0, y: self.frame.h - 1, w: self.frame.w, h: 1)
+      return Line(frame: frame, alpha: 0.14)
+      
+   }
+   
+   private func addBottomLine() {
+      
+      // Add the line to the view
+      self.addSubview(self.bottomLine)
       
    }
    

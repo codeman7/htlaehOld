@@ -27,8 +27,6 @@ class Loading: UIView {
       self.backgroundColor = Color().white
       // Add the circles to the view
       self.addCirlces()
-      // Animate the views
-      self.animation()
       
    }
    
@@ -43,7 +41,7 @@ class Loading: UIView {
    /**
       This function is for starting the animation
    */
-   private func animation() {
+   func animation() {
       
       // Animate the red circle
       self.animate(self.circles[0])

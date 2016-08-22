@@ -29,6 +29,10 @@ struct HeaderType : Head {
       return HeaderType(title: "Home", leftIcon: Images.Navigation().menu, rightIcon: Images.Navigation().more, leftButtonAction: { controller.showMenu() }, rightButtonAction: { controller.showMore() })
    }
    
+   static func search(controller controller: Search) -> HeaderType {
+      return HeaderType(title: "Search", leftIcon: Images.Navigation().menu, rightIcon: nil, leftButtonAction: { controller.showMenu() }, rightButtonAction: nil)
+   }
+   
    static func all(controller controller: All) -> HeaderType {
       return HeaderType(title: "All", leftIcon: Images.Navigation().menu, rightIcon: Images.Action().today, leftButtonAction: { controller.showMenu() }, rightButtonAction: { controller.showCal() })
    }

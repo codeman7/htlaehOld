@@ -22,7 +22,6 @@ enum HomeDataState {
 struct HomeData {
    
    private func determineState(workout: Workout?) -> HomeDataState {
-      
       // Check if workout is there
       if workout != nil {
          // It is there so return Standard
@@ -30,8 +29,8 @@ struct HomeData {
       } else {
          // No workout for today
          // Check to see if any workouts are in the DB
-         let anyWorkouts = WorkoutSets().anyWorkouts()
-         if anyWorkouts == false {
+         let anyWorkouts = RealmQuery().all()
+         if anyWorkouts.isEmpty == true {
             // No workouts in the DB new user
             return .New
          } else {
@@ -42,19 +41,29 @@ struct HomeData {
       
    }
    
-   func addViews(workout: Workout?, controller: Home) -> [UIView] {
-      
+   /**
+      This function lays out all the views for the home View Controller
+      - parameter workout: The workout for the controller
+      - parameter controller: The controller that will hold all the views
+   */
+   func addViews(workout: Workout?, controller: Home) {
+      // Get the current state
       let state: HomeDataState = self.determineState(workout)
-      let views: [UIView]
+      // Create the variable that will show the views
+      var views: ViewsStruct
+      // Determine what views to show
       switch state {
       case .New:
-         views = controller.addNewContent()
+         views = HomeWelcomeViews(controller: controller)
       case .Rest:
-         views = controller.addRestContent()
+         views = HomeRestViews(controller: controller)
       case .Standard:
-         views = controller.addStandardContent()
+         views = HomeStandardViews(controller: controller)
       }
-      return views
+      // Layout all the views
+      views.layoutViews()
+      // Bring the views to life
+      views.show()
       
    }
    

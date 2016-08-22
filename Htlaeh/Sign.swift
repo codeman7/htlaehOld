@@ -11,9 +11,10 @@ import DigitsKit
 
 class Sign: Controller {
    
-   @IBOutlet weak var skipButton: Button!
-   //var digits: Digits? = nil
-   @IBOutlet weak var signInSignUpButton: Button!
+//   var digits: Digits? = nil
+   lazy var signButton: Button = {
+      return SignStandardViews(controller: self).createSignButton()
+   }()
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -31,14 +32,12 @@ class Sign: Controller {
             self.storeInKeychain(uid: session.userID, number: session.phoneNumber)
          }
       })
-      print("Sign into digits if not fixed fatal error")
       
    }
    
    func storeInKeychain(uid uid: String, number: String) {
       
       let account = Account(id: uid, number: number)
-      //account.store()
       if account.store() == nil {
          self.segueToHome()
       } else {
@@ -69,8 +68,70 @@ class Sign: Controller {
    
    func segueToHome() {
       
-      print("Segue home")
+      self.animate()
+      let delay: Delay = Delay()
+      delay.delay(3.0, closure: {
+         self.getHomeViews()
+      })
       
+      
+   }
+   
+   private func getHomeViews() {
+      
+      let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: Color().white)
+      self.view.addSubview(circleView)
+      circleView.grow()
+      let home: Home = Home()
+      let d: Delay = Delay()
+      d.delay(0.3) {
+         self.presentViewController(home, animated: false, completion: nil)
+
+      }
+      
+      
+      /*
+      
+      let header: BoldHeader = home.header
+      header.alpha = 0.0
+      self.view.addSubview(header)
+      
+      var homeStandardViews: HomeWelcomeViews = HomeWelcomeViews(controller: home)
+      let messages = homeStandardViews.createMessages()
+      let buttons = homeStandardViews.createButtons(controllerView: self.view, controller: home)
+      for message in messages {
+         self.view.addSubview(message)
+      }
+      for button in buttons {
+         self.view.addSubview(button)
+      }
+      homeStandardViews.show(homeStandardViews.views)
+      UIView.animateWithDuration(0.3, animations: {
+         header.alpha = 1.0
+         }, completion: nil)
+      
+      */
+      
+   }
+   
+   private func animate() {
+      
+      // Hide the sign in sign up button
+      self.signButton.userInteractionEnabled = false
+      UIView.animateWithDuration(0.3, animations: {
+         self.signButton.alpha = 0.0
+      })
+      
+      let standardView: SignStandardViews = SignStandardViews(controller: self)
+      standardView.createToolTip()
+      
+      // Create the frame for the loading animation and the loading animation
+      let frame: Rect = Rect(x: self.width / 2 - 60, y: self.height - 220, w: 120, h: 80)
+      let animation: Loading = Loading(frame: frame)
+      
+      // Add loading animation to view
+      self.view.addSubview(animation)
+      animation.animation()
       
    }
 }
@@ -84,39 +145,9 @@ extension Sign: ViewSetup {
       // Set background color
       self.view.backgroundColor = Color().white
       
-      // Add the logo
-      let logo: Logo = Logo(point: CGPoint(x: self.width / 2 - 60, y: 96))
-      self.view.addSubview(logo)
-      
-      // Add the welcome message
-      let welcomeFrame: CGRect = CGRect(x: self.width / 2 - 55, y: 232, width: 110, height: 16)
-      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold().twelve, alignment: .Left, color: Color().black)
-      let welcomeMessage: UILabel = UILabel(config: welcomeConfig)
-      welcomeMessage.alpha = 0.54
-      welcomeMessage.text = "Welcome to,"
-      self.view.addSubview(welcomeMessage)
-      
-      // Add the big text
-      let htlaehTextFrame: CGRect = CGRect(x: self.width / 2 - 55, y: 248, width: 110, height: 48)
-      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold().thirtySix, alignment: .Left, color: Color().black)
-      let htlaehText: UILabel = UILabel(config: htlaehTextConfig)
-      htlaehText.alpha = 0.87
-      htlaehText.text = "Htlaeh"
-      self.view.addSubview(htlaehText)
-      
-      // Add the sign in / sign up button
-      let frame: Rect = Rect(x: self.width / 2 - 76, y: self.height - 76, w: 152, h: 40)
-      self.signInSignUpButton = Button(frame: frame, type: .Flat)
-      self.signInSignUpButton.add(title: "SIGN IN / SIGN UP", color: Color().blue)
-      self.signInSignUpButton.action = { self.digitsSignIn() }
-      self.view.addSubview(signInSignUpButton)
-      
-      // Add the skip button
-      let skipButtonFrame: CGRect = CGRect(x: self.width - 88, y: 40, width: 72, height: 40)
-      self.skipButton = Button(frame: skipButtonFrame, type: .Flat)
-      self.skipButton.add(title: "SKIP", color: Color().red)
-      self.skipButton.action = { self.skipSignIn() }
-      
+      // Create standard views struct and layout views
+      let standardViews: SignStandardViews = SignStandardViews(controller: self)
+      standardViews.layoutViews()
       
    }
 }

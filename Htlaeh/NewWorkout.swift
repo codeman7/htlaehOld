@@ -38,6 +38,10 @@ class NewWorkout: Controller {
    private lazy var setAdded: ToolTip = {
       return NewWorkoutStandardViews(controller: self).createToolTip()
    }()
+   /// The variable for the FAB
+   lazy var FAB: Button = {
+      return NewWorkoutStandardViews(controller: self).createFAB()
+   }()
    /// Holds the date for the workout
    /// This Controller holds the type of new workout
    // TODO: Edit for when a User edits the set
@@ -50,15 +54,16 @@ class NewWorkout: Controller {
       // Call the supers method
       super.viewDidLoad()
       // Set up all the views
+      print("We are in new workout")
+
       self.setupViews()
-      print(RealmQuery().all())
    }
    
    /**
       This function adds the current set to the workout
    */
    func addSet() {
-      
+      // Make sure all the text fields are good
       guard self.checkTextFields() != false else {
          return
       }
@@ -87,6 +92,12 @@ class NewWorkout: Controller {
       This function adds the current workout to the DB Cloud and on Device
    */
    func showPicker() {
+
+      // Make sure workout isn't empty
+      guard self.workout.sets.count != 0 else {
+         self.addSetToast()
+         return
+      }
       // Add the date picker to the view
       self.view.addSubview(self.datePicker)
       // Show the date picker
@@ -95,13 +106,26 @@ class NewWorkout: Controller {
    }
       
    func addWorkout() {
-      print("Let's get the date")
-      // Add the workout to the local DB
+
+      // Set the workouts date to the correct date
       self.workout = self.workout.updateDate(self.datePicker.date)
-      print(self.workout)
-//      let realmStore: RealmStore = RealmStore()
-//      realmStore.store(workout: self.workout)
-      
+      // Store the workout in the DB
+      let realmStore: RealmStore = RealmStore()
+      realmStore.store(workout: self.workout)
+      // Hide the Date Picker
+      self.datePicker.hideView()
+      // Set the workout back to empty
+      self.workout = Workout()
+      // Show animation to let user know workout was added
+      self.animateFAB()
+      // Add the add workout tool tip
+      self.addWorkoutToast()
+      // Set all text field's values to blank
+      for textField in textFieldDict.values {
+         textField.text = ""
+      }
+      let exercise = textFieldDict["Exercise Name"]
+      exercise?.becomeFirstResponder()
       
    }
    
@@ -116,6 +140,46 @@ class NewWorkout: Controller {
 
    }
    
+   private func animateFAB() {
+      // Draw circle around FAB
+      let fabAnimationFrame: Rect = Rect(x: self.FAB.frame.origin.x - 7, y: self.FAB.frame.origin.y - 7, w: self.FAB.frame.w + 14, h: self.FAB.frame.h + 14)
+      let fabAnimation: FABAnimation = FABAnimation(frame: fabAnimationFrame)
+      self.view.addSubview(fabAnimation)
+      fabAnimation.animateCircle(1.3)
+      // Change FAB color to blue
+      UIView.animateWithDuration(0.4, delay: 1.3, options: .CurveEaseInOut, animations: {
+         self.FAB.backgroundColor = Color().blue
+         self.FAB.icon?.colorImage(Color().white)
+         }, completion: { Bool in
+            UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
+               self.FAB.backgroundColor = Color().yellow
+               self.FAB.icon?.colorImage(Color().black)
+               }, completion: { Bool in
+                  UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
+                     fabAnimation.alpha = 0.0
+                     }, completion: { Bool in fabAnimation.removeFromSuperview() })
+            })
+      })
+      
+   }
+   
+   func addWorkoutToast() {
+      // Create toast frame and create toast, add to view
+      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Workout added")
+      self.view.addSubview(toast)
+      
+      // Show the toast
+      toast.show()
+      
+   }
+   
+   func addSetToast() {
+      // Create the new workout set and then create the toast
+      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Please add a set")
+      // Show the toast
+      toast.show()
+   }
+   
    /**
       This function is for the animation between new workout and preview from a top right press
    */
@@ -126,10 +190,7 @@ class NewWorkout: Controller {
       self.resignFirstResponder()
       // Make sure workout isn't empty
       guard self.workout.count != 0 else {
-         // Create the new workout set and then create the toast
-         let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Please add a set")
-         // Show the toast
-         toast.show()
+         self.addSetToast()
          // Exit the function
          return
       }
@@ -147,15 +208,6 @@ class NewWorkout: Controller {
       
    }
    
-   /**
-      This function controls segues to other ViewControllers
-   */
-   override func segue(destination: Controller) {
-      
-      print("Fix this so we can segue")
-      
-      
-   }
 }
 
 // MARK: Conformance to the View Setup protocol
@@ -168,9 +220,27 @@ extension NewWorkout : ViewSetup {
       // Set the background color for the view
       self.view.backgroundColor = Color().white
       // Create the new workout views struct
-      let newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: self)
+      var newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: self)
       // Add all the views to the contoller
       newWorkoutViews.layoutViews()
+      // Show the views
+      newWorkoutViews.show()
+      
+      self.view.addSubview(self.menu)
+      self.menu.showViewInstant()
+      self.hideMenu()
+      
+   }
+   
+   override func showMenu() {
+      
+      // Add the menu to the controller
+      self.view.addSubview(menu)
+      // Show the menu
+      self.menu.showView()
+      // Hide the keyboard
+      self.hideKeyboard()
+      
       
    }
    
@@ -181,20 +251,7 @@ extension NewWorkout : ViewSetup {
    
 }
 
-// MARK: This extension is for all menu related items
-extension NewWorkout {
-   
-   /// This method shows the menu and adds it to the vc
-   func showMenu() {
-      
-   }
-   
-   /// This method hides the menu
-   func hideMenu() {
-      
-   }
-   
-}
+
 
 
 

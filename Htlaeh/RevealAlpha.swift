@@ -13,6 +13,7 @@ protocol RevealAlpha {
    var hiding: Bool {get set}
    func showWithAlpha()
    func showWithAlpha(delay: NSTimeInterval)
+   func showWithAlpha(delay: NSTimeInterval, alpha: CGFloat)
    func hideWithAlpha()
    func hideWithAlpha(delay: NSTimeInterval)
 }
@@ -36,6 +37,13 @@ extension RevealAlpha where Self : UIView {
    
    func showWithAlpha() {
       UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {self.alpha = 1.0}, completion: nil)
+   }
+   
+   func showWithAlpha(delay: Double, alpha: CGFloat) {
+      let d: Delay = Delay()
+      d.delay(delay, closure: {
+         UIView.animateWithDuration(0.3, animations: { self.alpha = alpha })
+      })
    }
    
    func showWithAlpha(delay: NSTimeInterval) {

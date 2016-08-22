@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct NewWorkoutStandardViews {
+struct NewWorkoutStandardViews : ViewsStruct {
    // MARK: Properties
    /// The controller that will be holding the views
    let controller: NewWorkout
@@ -48,6 +48,9 @@ struct NewWorkoutStandardViews {
       return totalSpace / 4
    }
    
+   /// The variable for the views
+   var views: [UIView : (delay: Double, alpha: CGFloat)] = [:]
+   
    // MARK: Initializer
    /**
     Default and only initalizer
@@ -57,54 +60,67 @@ struct NewWorkoutStandardViews {
       self.controller = controller
    }
    
-   func layoutViews() {
+   init<T : Controller>(controller: T) {
+      self.controller = controller as! NewWorkout
+   }
+   
+   mutating func layoutViews() {
       
-      // Get the big button
+      // Get the big button that will dismiss the keyboard
       let bigButton: Button = self.dismissKeyboardButton()
       // Add the button to the view
       self.controller.view.addSubview(bigButton)
-      // Get the header
+      
+      // Get the header and add it to the view
       let header: BoldHeader = self.createHeader()
-      // Add the header to the view
       self.controller.view.addSubview(header)
-      // Get the buttons
-      let buttons: [Button] = self.createButtons()
-      // Add the buttons to the view
-      for button in buttons {
-         self.controller.view.addSubview(button)
-      }
-      // Get the text fields
+      
+      // Set the headers alpha and add it to the views dict
+      header.alpha = 0.0
+      self.views[header] = (delay: 0.0, alpha: 1.0)
+      
+      // Create the text field dict and set it to the controllers text field
       let textFields: [String : TextField] = self.createTextFields()
-      // Set the text fields to the textFieldDict property
       self.controller.textFieldDict = textFields
-      // Iterate over the dictionary to add them to the controller
+      
+      // Add the text field to the view and set it's alpha to 0
       for textField in textFields.values {
          self.controller.view.addSubview(textField)
+         textField.alpha = 0.0
       }
+      
+      // Add the fab to the controllers view and set it's alpha to 0
+      self.controller.view.addSubview(self.controller.FAB)
+      self.controller.FAB.alpha = 0.0
+      // Add the fab to the views dict
+      self.views[self.controller.FAB] = (delay: 0.1, alpha: 1.0)
+      
+      // Create the add set button and add it to the view controller
+      let addButton: Button = self.addSetButton()
+      self.controller.view.addSubview(addButton)
+      
+      // Set the buttons alpha to 0 and add it to the views dict
+      addButton.alpha = 0.0
+      self.views[addButton] = (delay: 0.075, alpha: 1.0)
       
    }
    
-   func layoutViewsWithAlpha(oldController oldController: Controller) {
+   mutating func layoutViewsWithAlpha(oldController oldController: Controller) {
       
       var views: [UIView] = []
       // Get the header
       let header: BoldHeader = self.createHeader()
       views += [header]
-      /*header.alpha = 0.0
-      oldController.view.addSubview(header)*/
-      // Get the buttons
-      let buttons: [Button] = self.createButtons()
-      for button in buttons {
-         views += [button]
-         /*button.alpha = 0.0
-         oldController.view.addSubview(button)*/
-      }
+      // Get the add set buttons
+      let addSetButton: Button = self.addSetButton()
+      views += [addSetButton]
+      // Get the FAB
+      let fab: Button = self.createFAB()
+      views += [fab]
       // Get the text fields
       let textFields: [String : TextField] = self.createTextFields()
       for textField in textFields.values {
          views += [textField]
-         /*textField.alpha = 0.0
-         oldController.view.addSubview(textField)*/
       }
       for view in views {
          view.alpha = 0.0
@@ -124,23 +140,9 @@ struct NewWorkoutStandardViews {
    
    // MARK: Functions
    /**
-      This function creates and returns all the buttons
-   */
-   func createButtons() -> [Button] {
-      
-      // Create the FAB
-      let fab: Button = self.addFAB()
-      // Create the Add set button
-      let addSetButton: Button = self.addSetButton()
-      // Create the array that will be returned
-      return [fab, addSetButton]
-      
-   }
-   
-   /**
       This function creates and returns the text fields
    */
-   func createTextFields() -> [String : TextField] {
+   mutating func createTextFields() -> [String : TextField] {
       
       // Create the exercise name text field
       let exerciseName: TextField = self.exerciseNameField()
@@ -180,7 +182,7 @@ struct NewWorkoutStandardViews {
       // Create the frame for the prompt
       let promptFrame: Rect = Rect(x: self.controller.width / 2 - 144, y: self.controller.height / 2 - 256, w: 288, h: 512)
       // Create the date picker
-      let datePicker: DatePicker = DatePicker(frame: self.controller.view.frame, promptFrame: promptFrame, month: 8, year: 2016)
+      let datePicker: DatePicker = DatePicker(frame: self.controller.view.frame, promptFrame: promptFrame)
       // Set the date picker's right button action
       datePicker.rightButtonAction = { self.controller.addWorkout() }
       // Set the date pickers left button action
@@ -197,7 +199,7 @@ struct NewWorkoutStandardViews {
       // Get the width for the view
       let width: CGFloat = "Set added".widthWithConstrainedHeight(16.0, font: Fonts.Medium().fourteen) + 32
       // Set the frame for the view
-      let origin: CGPoint = CGPoint(x: self.controller.width - (width + 72), y: 31)
+      let origin: CGPoint = CGPoint(x: self.controller.width - (width + 60), y: 31)
       // Create the view
       let toolTip: ToolTip = ToolTip(origin: origin, text: "Set added")
       // Set the view's alpha to 0
@@ -239,7 +241,7 @@ struct NewWorkoutStandardViews {
       
    }
    
-   private func addFAB() -> Button {
+   func createFAB() -> Button {
       
       // Set the fabs frame
       let fabFrame: CGRect = CGRect(x: self.controller.view.frame.w / 2 - 28, y: self.controller.view.frame.h / 5 * 4 - 28, width: 56, height: 56)
@@ -277,7 +279,7 @@ struct NewWorkoutStandardViews {
    /**
       This function creates the exercise name field
    */
-   private func exerciseNameField() -> TextField {
+   private mutating func exerciseNameField() -> TextField {
       // Create the frame for the text field
       let exerciseNameFrame: Rect = Rect(x: 16, y: (70 + padding), w: self.controller.width - 32, h: 83)
       // Set the text fields options
@@ -286,6 +288,8 @@ struct NewWorkoutStandardViews {
       let exerciseName: TextField = TextField(frame: exerciseNameFrame, options: exerciseNameOptions)
       // Check the screen size if it isn't small then allow auto correct
       if self.size != .Small { exerciseName.autocorrectionType = .Default }
+      // Set the delay and alpha for the text field
+      self.views[exerciseName] = (delay: 0.025, alpha: 1.0)
       // Return the text field
       return exerciseName
       
@@ -294,40 +298,51 @@ struct NewWorkoutStandardViews {
    /**
     This function creates the reps field
     */
-   private func createRepsField() -> TextField {
+   private mutating func createRepsField() -> TextField {
       // Create the frame for the text field
       let repsFrame: Rect = Rect(x: self.controller.width / 2 - 128, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
       let repsOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Reps", type: .Number, style: TextFieldStyle.numbers)
+      // Create the field
+      let field: TextField = TextField(frame: repsFrame, options: repsOptions)
+      // Set the delay and alpha for the text field
+      self.views[field] = (delay: 0.05, alpha: 1.0)
       // Return the text field
-      return TextField(frame: repsFrame, options: repsOptions)
+      return field
       
    }
    
    /**
     This function creates the weight field
     */
-   private func createWeightField() -> TextField {
+   private mutating func createWeightField() -> TextField {
       
       // Create the frame for the text field
       let weightFrame: Rect = Rect(x: self.controller.width - 112, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
       let weightOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Weight", type: .Number, style: TextFieldStyle.numbers)
+      // Create the field
+      let field: TextField = TextField(frame: weightFrame, options: weightOptions)
+      // Set the delay and alpha for the text field
+      self.views[field] = (delay: 0.05, alpha: 1.0)
       // Return the text field
-      return TextField(frame: weightFrame, options: weightOptions)
+      return field
       
    }
    
    /**
     This function creates the rest field
     */
-   private func createRestField() -> TextField {
+   private mutating func createRestField() -> TextField {
       // Create the frame for the text field
       let restFrame: Rect = Rect(x: self.controller.width - 112, y: (236 + padding * 3), w: 96, h: 83)
       // Set the text fields options
       let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .Time, style: TextFieldStyle.time)
-      // Return the text field
-      let field = TextField(frame: restFrame, options: restOptions)
+      // Create the field
+      let field: TextField = TextField(frame: restFrame, options: restOptions)
+      // Set the delay and alpha for the text field
+      self.views[field] = (delay: 0.075 ,alpha: 1.0)
+      // Return the field
       return field
       
    }

@@ -159,6 +159,72 @@ class NavigationBar: UIView {
    }
 }
 
+// TODO Update Navigation bar to be draggable
+/*extension NavigationBar {
+   
+   /**
+    This function is to update the view when a touch occurs within its bounds
+    */
+   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+      // Call the super
+      super.touchesMoved(touches, withEvent: event)
+      // Whenever the touch moves then then call the drag action
+      self.dragAction(Int(touches.first!.locationInView(self).x))
+   }
+   
+   /*/**
+    This function is there to update the view whenever a touch occurs within its bounds
+    */
+   override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+      // Call the super
+      super.touchesCancelled(touches, withEvent: event)
+      // Make sure the movement wasn't
+      guard touches?.first != nil else {
+         return
+      }
+      // Update the view
+      //self.dragFinished(Int(touches!.first!.locationInView(self).x))
+   }
+   
+   /**
+    This function is there to update the view whenever a touch occurs within its bounds
+    */
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+      // Call the super method
+      super.touchesEnded(touches, withEvent: event)
+      // Update the view
+      //self.dragFinished(Int(touches.first!.locationInView(self).x))
+   }*/
+   
+}
+
+
+// MARK: Make sure the Navigation bar conforms to draggable action
+extension NavigationBar: Draggable {
+   /// This variable is for the action that happens when a drag occurs
+   var dragAction: (Int) -> () {
+      return {a in
+         guard a <= 240 else {
+            return
+         }
+         // Update the view to the new point
+         //self.show(x: CGFloat(a))
+      }
+   }
+   
+   /// This variable is for the action that will happen when a drag finishes
+   var dragFinished: (Int) -> () {
+      return { a in
+         let superview: Menu = self.superview as! Menu
+         if a > 360 {
+            superview.showView()
+         } else {
+            superview.hideView()
+         }
+      }
+   }
+   
+}*/
 
 
 

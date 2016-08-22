@@ -25,9 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("Account Number = \(acc?.number) & session = \(acc?.uID)")
       let vc: UIViewController
       if acc == nil {
-         vc = NewWorkout()
+         vc = Sign()
       } else {
-         vc = NewWorkout()
+         vc = All()
       }
       self.window?.rootViewController = vc
       return true

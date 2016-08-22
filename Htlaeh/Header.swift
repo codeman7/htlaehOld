@@ -52,6 +52,7 @@ class Header: UIView {
    /// Represnets the button on the right if there is a Flat button with no icon but text instead
    var rightButtonWithLabel: Button?
    
+   
    // MARK: Initializers
    /// Default inializers
    init(frame: CGRect, options: HeaderInializerOptions) {

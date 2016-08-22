@@ -14,7 +14,7 @@ class All : Controller {
    // MARK: Properties
    // TODO: Edit the all workout type to handle different types
    /// The workout for the VC
-   lazy var workout: Workout = self.getWorkout()
+   let workouts: [Workout] = RealmQuery().all()
    /// The variable to hold the FAB
    var FAB: Button? = nil
    
@@ -27,17 +27,6 @@ class All : Controller {
       
    }
    
-   // MARK: Functions
-   func getWorkout() -> Workout {
-      
-      var workout: Workout = Workout()
-      let set: WeightSet = WeightSet(name: "Squat", setCount: 0, reps: 12, restTime: 75, weight: 225, time: nil, date: "160812", complete: false, synced: false)
-      let set1: WeightSet = WeightSet(name: "Deadlift", setCount: 1, reps: 8, restTime: 120, weight: 185, time: nil, date: "160812", complete: false, synced: false)
-      workout = workout.add(set)
-      workout = workout.add(set1)
-      return workout
-      
-   }
    /**
       This function shows the calendar from a press on the cal button in the header
    */
@@ -54,17 +43,6 @@ class All : Controller {
       
    }
    
-   
-   
-   
-   
-   /**
-    Use this function to segue back to a new workout from a preview
-   */
-   func backToNewWorkout() {
-      
-   }
-   
 }
 
 // MARK: Conformance to View Setup protocol
@@ -74,32 +52,16 @@ extension All : ViewSetup {
       // Set the background color
       self.view.backgroundColor = Color().white
       // Create the views struct
-      let views: AllViews = AllStandardViews(controller: self)
+      var views: ViewsStruct = AllStandardViews(controller: self)
       // Add all the views to the controller
       views.layoutViews()
+      views.show()
       
    }
    
 }
 
-// MARK: All the navigation stuff
-extension All {
-   
-   /// This function shows the menu
-   func showMenu() {
-      
-      print("Show the menu")
-      
-   }
-   
-   /// This function hides the menu
-   func hideMenu() {
-      
-      print("Hide menu")
-      
-   }
-   
-}
+
 
 
 

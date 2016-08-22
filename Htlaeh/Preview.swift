@@ -114,7 +114,7 @@ class PreviewWorkout : Controller {
       // Animate the view
       splashView.grow()
       // Add all the subview for new workout and segue back
-      let newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: new)
+      var newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: new)
       newWorkoutViews.layoutViewsWithAlpha(oldController: self)
    }
    

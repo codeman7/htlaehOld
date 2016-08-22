@@ -11,6 +11,10 @@ import Foundation
 typealias Date = NSDate
 extension Date {
    
+   var cal: NSCalendar {
+      return NSCalendar.currentCalendar()
+   }
+   
    var day: Int {
       let cal = NSCalendar.currentCalendar()
       let comp = cal.component(.Day, fromDate: self)
@@ -67,8 +71,17 @@ extension Date {
    }
    
    func dateAsString(year: Int, month: Int, day: Int) -> String {
+      let month: String = self.monthNameFor(month: month)
+      return "\(month) \(day), 20\(year)"
+   }
+   
+   func databaseDateToReadable(date: String) -> String {
       
-      return "August 12, 2016"
+      let year: Int = Int(date[0...1])!
+      let month: Int = Int(date[2...3])!
+      let day: Int = Int(date[4...5])!
+      return self.dateAsString(year, month: month, day: day)
+      
    }
    
    func monthAsString() -> String {
@@ -140,6 +153,12 @@ extension Date {
       let dayOfWeekDict: [Int: String] = [1:"Sunday", 2: "Monday", 3:"Tuesday", 4:"Wednesday", 5:"Thursday", 6:"Friday", 7:"Saturday"]
       // Return the day
       return dayOfWeekDict[dayOfWeek]!
+   }
+   
+   func dayOfWeek() -> Int {
+      
+      return cal.component(.Weekday, fromDate: self)
+      
    }
    
    func monthNameFor(month month: Int) -> String {

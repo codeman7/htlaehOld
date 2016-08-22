@@ -36,6 +36,8 @@ class Controller: UIViewController {
       }
    }
    
+   var preloaded: Bool = false
+   
    /// Variable to get the screen's width
    var width: CGFloat {
       return self.view.frame.width
@@ -46,9 +48,89 @@ class Controller: UIViewController {
       return self.view.frame.height
    }
    
-   func segue(destination: Controller) {
+   lazy var menu: Menu = self.createMenu()
+   
+   /*func segue(destination: Controller) {
       fatalError("Must be implemented in subclass")
+   }*/
+   
+   // MARK: Segues
+   /**
+    This function calls all the segues from a navigation button press
+    - parameter destination: Is the destination that we want to segue to
+    */
+   func segue(destination: Controller) {
+      // Make sure segue is to a new controller
+      guard self.newControllerSegue(destination) == true else { return }
+      
+      // Hide all the subviews except the header
+      let views: [UIView] = self.view.subviews
+      for view in views {
+         if !(view is BoldHeader) {
+            if !(view is Menu) {
+               view.hideWithAlpha()
+            }
+         }
+      }
+      let d: Delay = Delay()
+      d.delay(0.3, closure: {
+         
+         self.presentViewController(destination, animated: false, completion: nil)
+         
+      })
+      
    }
+   
+   /**
+    This function makes sure a new controller is the one we are seguing to
+    
+    If it is the same controller then just hide the menu
+    - parameter destination: The controller that will be segued to
+    
+   */
+   private func newControllerSegue(destination: Controller) -> Bool {
+      
+      let mirror = Mirror(reflecting: self)
+      let destMirror = Mirror(reflecting: destination)
+      guard mirror.subjectType != destMirror.subjectType else {
+         self.hideMenu()
+         return false
+      }
+      
+      return true
+      
+   }
+}
+
+extension Controller {
+   
+   /// This method creates the menu
+   private func createMenu() -> Menu {
+      
+      // Create the frame for the menu
+      let frame: Rect = Rect(x: -240, y: 0, w: self.width + 240, h: self.height)
+      // Create the menu and return it
+      return Menu(frame: frame, containingController: self)
+      
+   }
+   
+   /// This method shows the menu and adds it to the vc
+   func showMenu() {
+      
+      // Add the menu to the controller
+      self.view.addSubview(menu)
+      // Show the menu
+      self.menu.showView()
+      
+   }
+   
+   /// This method hides the menu
+   func hideMenu() {
+      print("Hide the menu")
+      // Hide the menu from the view
+      self.menu.hideView()
+   }
+   
 }
 
 

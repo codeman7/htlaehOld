@@ -15,7 +15,10 @@ import UIKit
 class Line: UIView {
    
    // MARK: Initializers
-   /// Designated and only initializer
+   /** Designated initializer for black lines
+    - parameter frame: The frame the view will have
+    - parameter alpha: The alpha for the line
+   */
    init(frame: CGRect, alpha: CGFloat) {
       // Call the super initalizer
       super.init(frame: frame)
@@ -24,6 +27,17 @@ class Line: UIView {
       // Set the alpha of the view
       self.alpha = alpha
       
+   }
+   
+   /** Designated initializer for colored lines
+    - parameter frame: The frame that the view will have
+    - parameter color: The color the view will be
+   */
+   init(frame: Rect, color: UIColor) {
+      // Call the super initializer
+      super.init(frame: frame)
+      // Set the background color
+      self.backgroundColor = color
    }
    
    /// Required by Apple NEVER USE

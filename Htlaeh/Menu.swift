@@ -94,6 +94,11 @@ extension Menu: Overlay {
       
    }
    
+   func showViewInstant() {
+      self.backgroundGrey.alpha = self.opacity
+      self.navigationBar.show(x: 240)
+   }
+   
    /**
       Function to hide the view from the User
       - note:   This function removes the view from superview before exiting
@@ -115,66 +120,8 @@ extension Menu: Overlay {
    
 }
 
-extension Menu {
-   
-   /**
-      This function is to update the view when a touch occurs within its bounds
-   */
-   override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-      // Call the super
-      super.touchesMoved(touches, withEvent: event)
-      // Whenever the touch moves then then call the drag action
-      self.dragAction(Int(touches.first!.locationInView(self).x))
-   }
-   
-   /**
-      This function is there to update the view whenever a touch occurs within its bounds
-   */
-   override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
-      // Call the super
-      super.touchesCancelled(touches, withEvent: event)
-      // Make sure the movement wasn't
-      guard touches?.first != nil else {
-         return
-      }
-      // Update the view
-      self.dragFinished(Int(touches!.first!.locationInView(self).x))
-   }
-   
-   /**
-      This function is there to update the view whenever a touch occurs within its bounds
-   */
-   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-      // Call the super method
-      super.touchesEnded(touches, withEvent: event)
-      // Update the view
-      self.dragFinished(Int(touches.first!.locationInView(self).x))
-   }
-   
-}
 
-// MARK: Make sure the Menu conforms to draggable action
-extension Menu: Draggable {
-   /// This variable is for the action that happens when a drag occurs
-   var dragAction: (Int) -> () {
-      return {a in
-         // Update the view to the new point
-         self.navigationBar.show(x: CGFloat(a - 240))
-      }
-   }
-   
-   /// This variable is for the action that will happen when a drag finishes
-   var dragFinished: (Int) -> () {
-      return { a in
-         if a > 360 {
-            self.showView()
-         } else {
-            self.hideView()
-         }
-      }
-   }
-   
-}
+
 
 
 

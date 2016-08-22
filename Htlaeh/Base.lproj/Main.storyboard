@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Sign-->
@@ -17,36 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9h9-TJ-DrP" customClass="Button" customModule="Htlaeh" customModuleProvider="target">
-                                <rect key="frame" x="508" y="40" width="72" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="72" id="Bxn-0G-gtx"/>
-                                    <constraint firstAttribute="height" constant="40" id="NL7-Ks-lWH"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSU-5H-YdI" customClass="Button" customModule="Htlaeh" customModuleProvider="target">
-                                <rect key="frame" x="224" y="524" width="152" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="dNw-aL-RnS"/>
-                                    <constraint firstAttribute="width" constant="152" id="oSc-JE-2KC"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="9h9-TJ-DrP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="DX3-rx-jHC"/>
-                            <constraint firstItem="9h9-TJ-DrP" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="J18-Sh-keq"/>
-                            <constraint firstItem="xSU-5H-YdI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="W83-p1-GYQ"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xSU-5H-YdI" secondAttribute="bottom" constant="36" id="pNw-6Z-VsN"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="signInSignUp" destination="xSU-5H-YdI" id="Mqa-7A-Wdk"/>
-                        <outlet property="skipButton" destination="9h9-TJ-DrP" id="Loa-1q-tjh"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
