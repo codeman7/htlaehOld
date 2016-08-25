@@ -67,9 +67,9 @@ class TextField: UITextField {
    func defaultSettings() {
       
       // Set the tint color for the view
-      self.tintColor = Color().blue
+      self.tintColor = .blue
       // Set the font for the view
-      self.font = Fonts.Medium().twentyFour
+      self.font = Fonts.Medium.twentyFour
       // Set the alignment
       self.textAlignment = self.options.style.alignment
       // Set the delegate to self
@@ -135,7 +135,7 @@ class TextField: UITextField {
       // Set the error messages frame
       let frame: Rect = Rect(x: 0, y: 67, w: self.frame.w, h: 16)
       // Create and return the error message label
-      return UILabel(frame: frame, font: Fonts.Regular().fourteen, align: self.options.style.alignment, color: Color().red)
+      return UILabel(frame: frame, font: Fonts.Regular.fourteen, align: self.options.style.alignment, color: .red)
       
    }
    

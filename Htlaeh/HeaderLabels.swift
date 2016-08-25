@@ -20,7 +20,7 @@ protocol HeaderTextPresentable {
 extension HeaderTextPresentable {
    
    var font: UIFont {
-      return Fonts.Regular().twenty
+      return Fonts.Regular.twenty
    }
    
    var alignment: NSTextAlignment {
@@ -28,7 +28,7 @@ extension HeaderTextPresentable {
    }
 
    var color: UIColor {
-      return Color().black
+      return .black
    }
    
    var alpha: CGFloat {

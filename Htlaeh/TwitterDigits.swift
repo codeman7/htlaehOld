@@ -15,11 +15,11 @@ struct TwitterDigits {
    func digitsApperance() -> DGTAppearance {
       
       let apperance = DGTAppearance()
-      apperance.backgroundColor = Color().white
-      apperance.accentColor = Color().blue
+      apperance.backgroundColor = .white
+      apperance.accentColor = .blue
       apperance.logoImage = Images.Htlaeh().logoSmooth
-      apperance.headerFont = Fonts.Regular().sixteen
-      apperance.labelFont = Fonts.Medium().fourteen
+      apperance.headerFont = Fonts.Regular.sixteen
+      apperance.labelFont = Fonts.Medium.fourteen
       return apperance
       
    }

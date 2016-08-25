@@ -28,13 +28,13 @@ class ToolTip: UIView {
    */
    init(origin: CGPoint, text: String) {
       // Set the width for the view
-      let width: CGFloat = text.widthWithConstrainedHeight(16.0, font: Fonts.Medium().fourteen) + 32
+      let width: CGFloat = text.widthWithConstrainedHeight(16.0, font: Fonts.Medium.fourteen) + 32
       // Set the frame for the view
       let frame: Rect = Rect(origin: origin, size: CGSize(width: width, height: 32))
       // Call the super initializer
       super.init(frame: frame)
       // Set the background color
-      self.backgroundColor = Color().grey700
+      self.backgroundColor = .grey700
       // Set the alpha
       self.alpha = 0.90
       // Round the edges of the tool tip
@@ -59,7 +59,7 @@ class ToolTip: UIView {
       // Create the frame for the view
       let frame: Rect = Rect(x: 16, y: 8, w: self.frame.w - 32, h: 16)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium().fourteen, align: .Center, color: Color().white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .Center, color: .white)
       // Set the text property for the label
       label.text = text
       // Add the label to the view

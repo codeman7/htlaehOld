@@ -79,7 +79,7 @@ class Sign: Controller {
    
    private func getHomeViews() {
       
-      let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: Color().white)
+      let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: .white)
       self.view.addSubview(circleView)
       circleView.grow()
       let home: Home = Home()
@@ -143,7 +143,7 @@ extension Sign: ViewSetup {
    func setupViews() {
       
       // Set background color
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       
       // Create standard views struct and layout views
       let standardViews: SignStandardViews = SignStandardViews(controller: self)

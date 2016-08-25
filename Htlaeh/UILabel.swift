@@ -82,6 +82,10 @@ protocol TextPresentable {
    
 }
 
+extension TextPresentable {
+   var alpha: CGFloat { return 0.87 }
+}
+
 struct Label : TextPresentable {
    let color: UIColor
    let alpha: CGFloat
@@ -97,10 +101,10 @@ struct Label : TextPresentable {
 }
 
 struct ScrollerLabel : TextPresentable {
-   let color: UIColor = Color().black
+   let color: UIColor = .black
    let alpha: CGFloat = 0.87
    let alignment: NSTextAlignment = .Center
-   let font: UIFont = Fonts.Regular().fourteen
+   let font: UIFont = Fonts.Regular.fourteen
 }
 
 struct LabelConfig {

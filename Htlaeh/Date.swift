@@ -71,7 +71,7 @@ extension Date {
    }
    
    func dateAsString(year: Int, month: Int, day: Int) -> String {
-      let month: String = self.monthNameFor(month: month)
+      let month: String = self.nameOf(month: month)
       return "\(month) \(day), 20\(year)"
    }
    
@@ -161,7 +161,7 @@ extension Date {
       
    }
    
-   func monthNameFor(month month: Int) -> String {
+   func nameOf(month month: Int) -> String {
       
       // Create a day formatter
       let dateFormatter: NSDateFormatter = NSDateFormatter()

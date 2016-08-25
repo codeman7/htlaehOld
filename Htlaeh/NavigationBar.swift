@@ -29,7 +29,7 @@ class NavigationBar: UIView {
       // Call the super initalizers
       super.init(frame: frame)
       // Set the background color
-      self.backgroundColor = Color().white
+      self.backgroundColor = .white
       // Add the subviews
       self.addSubviews()
       
@@ -70,9 +70,8 @@ class NavigationBar: UIView {
       // The frame for the word logo
       let wordLogoFrame: CGRect = CGRect(x: 80, y: 150, width: self.frame.width - 80, height: 48)
       // Initialize the word logo
-      let labelConfig: HomeBigLabel = HomeBigLabel()
       // Label creation
-      let wordLogo: UILabel = UILabel(frame: wordLogoFrame, properties: labelConfig)
+      let wordLogo: UILabel = UILabel(frame: wordLogoFrame, properties: HomeLabel.bigLabel)
       // Set the text for the label
       wordLogo.text = "Menu"
       // Set the text alignment for the wordLogo

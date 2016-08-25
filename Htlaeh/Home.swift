@@ -108,7 +108,7 @@ extension Home: ViewSetup {
    */
    func setupViews() {
       
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       // Set up the header
       self.view.addSubview(self.header)
       // Get the state of the data

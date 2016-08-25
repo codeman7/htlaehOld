@@ -56,7 +56,7 @@ class Dialog : UIView {
       let frame: CGRect = CGRect(x: self.frame.width / 2, y: self.frame.height / 2, width: 0, height: 0)
       let view: UIView = UIView(frame: frame)
       view.elevate(12.0)
-      view.backgroundColor = Color().white
+      view.backgroundColor = .white
       return view
       
    }

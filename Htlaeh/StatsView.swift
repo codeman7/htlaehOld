@@ -71,8 +71,8 @@ class StatsView : UIView {
    */
    private func addHints() {
       // Create the configurations for the labels
-      let leftLabel: Label = Label(color: Color().black, alpha: 0.38, align: .Left, font: Fonts.Regular().sixteen)
-      let rightLabel: Label = Label(color: Color().black, alpha: 0.38, align: .Right, font: Fonts.Regular().sixteen)
+      let leftLabel: Label = Label(color: .black, alpha: 0.38, align: .Left, font: Fonts.Regular.sixteen)
+      let rightLabel: Label = Label(color: .black, alpha: 0.38, align: .Right, font: Fonts.Regular.sixteen)
       // Create the grid for all the views
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 16)
       // Create the personal best hint and add it to the top array
@@ -94,8 +94,8 @@ class StatsView : UIView {
    */
    private func addContent() {
       // Create the configurations for the labels
-      let leftLabel: Label = Label(color: Color().black, alpha: 0.87, align: .Left, font: Fonts.Regular().twentyFour)
-      let rightLabel: Label = Label(color: Color().black, alpha: 0.87, align: .Right, font: Fonts.Regular().twentyFour)
+      let leftLabel: Label = Label(color: .black, alpha: 0.87, align: .Left, font: Fonts.Regular.twentyFour)
+      let rightLabel: Label = Label(color: .black, alpha: 0.87, align: .Right, font: Fonts.Regular.twentyFour)
       // Create the grid to layout the labels and add it to the top array
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 45)
       // Create the personal best label and add it to the top array

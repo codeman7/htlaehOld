@@ -90,9 +90,9 @@ struct PreviewWorkoutViews  {
       // Create the FAB
       let fab: Button = Button(frame: frame, type: .FAB)
       // Set the background color
-      fab.backgroundColor = Color().blue
+      fab.backgroundColor = .blue
       // Add the icon to the button
-      fab.add(image: Images.Content().add, color: Color().white)
+      fab.add(image: Images.Content().add, color: .white)
       // Set the action for the button
       fab.action = { self.controller.FABAction() }
       // Set the fab to be the controllers fab variable
@@ -109,9 +109,9 @@ struct PreviewWorkoutViews  {
       // Create the fab
       let FAB: Button = Button(frame: frame, type: .FAB)
       // Set the background color for the fab
-      FAB.backgroundColor = Color().blue
+      FAB.backgroundColor = .blue
       // Set icon for the FAB
-      FAB.add(image: Images.Editor().edit, color: Color().white)
+      FAB.add(image: Images.Editor().edit, color: .white)
       // Set the action for the FAB
       FAB.action = { self.controller.editSets() }
       // Set the fab's alpha
@@ -128,9 +128,9 @@ struct PreviewWorkoutViews  {
       // Create the fab
       let FAB: Button = Button(frame: frame, type: .FAB)
       // Set the background color for the fab
-      FAB.backgroundColor = Color().yellow
+      FAB.backgroundColor = .yellow
       // Set icon for the FAB
-      FAB.add(image: Images.Content().add, color: Color().black)
+      FAB.add(image: Images.Content().add, color: .black)
       // Set the action for the FAB
       FAB.action = { self.controller.addMoreToWorkout() }
       // Set the Fab's alpha

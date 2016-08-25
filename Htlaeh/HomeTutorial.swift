@@ -29,7 +29,7 @@ struct HomeTutorial : Tutorial {
       circleShape.path = circlePath.CGPath
       circleShape.fillColor = UIColor.clearColor().CGColor
       circleShape.lineWidth = view.frame.width - 80
-      circleShape.strokeColor = Color().blue.CGColor
+      circleShape.strokeColor = Color.blue.CGColor
       circleShape.opacity = 0.87
       return circleShape
       
@@ -47,7 +47,7 @@ struct HomeTutorial : Tutorial {
       
       let text: String = "Menu"
       let frame: CGRect = CGRect(x: 88, y: 92, width: 165, height: 28)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium().twentyFour, align: .Left, color: Color().white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyFour, align: .Left, color: .white)
       label.text = text
       return label
       
@@ -56,9 +56,9 @@ struct HomeTutorial : Tutorial {
    private func createMessage(controllerView view: UIView) -> UILabel {
       
       let text: String = "Tap the menu icon to navigate within the app & change settings"
-      let height: CGFloat = text.heightWithConstrainedWidth(165, font: Fonts.Regular().sixteen)
+      let height: CGFloat = text.heightWithConstrainedWidth(165, font: Fonts.Regular.sixteen)
       let frame: CGRect = CGRect(x: 88, y: 136, width: 165, height: height)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular().sixteen, align: .Left, color: Color().white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Left, color: .white)
       label.alpha = 0.74
       label.text = text
       label.multipleLines()

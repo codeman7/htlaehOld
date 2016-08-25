@@ -65,7 +65,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    }
    
    mutating func layoutViews() {
-      
+
       // Get the big button that will dismiss the keyboard
       let bigButton: Button = self.dismissKeyboardButton()
       // Add the button to the view
@@ -197,7 +197,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    */
    func createToolTip() -> ToolTip {
       // Get the width for the view
-      let width: CGFloat = "Set added".widthWithConstrainedHeight(16.0, font: Fonts.Medium().fourteen) + 32
+      let width: CGFloat = "Set added".widthWithConstrainedHeight(16.0, font: Fonts.Medium.fourteen) + 32
       // Set the frame for the view
       let origin: CGPoint = CGPoint(x: self.controller.width - (width + 60), y: 31)
       // Create the view
@@ -231,9 +231,9 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Create the button
       let addSet: Button = Button(frame: buttonFrame, type: .Raised)
       // Set the buttons background color
-      addSet.backgroundColor = Color().blue
+      addSet.backgroundColor = .blue
       // Add the title to the button
-      addSet.add(title: "ADD SET", color: Color().white)
+      addSet.set(title: "ADD SET", color: .white)
       // Set the buttons action
       addSet.action = { self.controller.addSet() }
       // Return the button
@@ -248,9 +248,9 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Create the fab
       let fab: Button = Button(frame: fabFrame, type: .FAB)
       // Set the fab's background color
-      fab.backgroundColor = Color().yellow
+      fab.backgroundColor = .yellow
       // Add an icon to the fab
-      fab.add(image: Images.Navigation().check, color: Color().black)
+      fab.add(image: Images.Navigation().check, color: .black)
       // Set the FAB's action
       fab.action = { self.controller.showPicker() }
       // Return the fab

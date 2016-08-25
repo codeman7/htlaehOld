@@ -14,13 +14,17 @@ final class SearchBar : UITextField {
    // MARK: Properties
    /// The property for the placeholder
    lazy var placeholderLabel: UILabel = self.createPlaceholder()
-   /// the property for the clear button
+   /// The property for the clear button
    lazy var clearButton: Button = self.addClearButton()
+   /// The property for the controller
+   var controller: Search
    
    
    // MARK: Initializers
-   override init(frame: CGRect) {
+   init(frame: CGRect, controller: Search) {
       
+      // Set the controller property
+      self.controller = controller
       // Call the super initializer
       super.init(frame: frame)
       // Set up the default settings
@@ -41,8 +45,8 @@ final class SearchBar : UITextField {
    func defaultSettings() {
       
       // Set the tint color and the font for the view
-      self.tintColor = Color().blue
-      self.font = Fonts.Bold().thirtySix
+      self.tintColor = .blue
+      self.font = Fonts.Bold.thirtySix
       
       // Set the alignment and the delegate
       self.delegate = self
@@ -57,7 +61,7 @@ final class SearchBar : UITextField {
       
       // Set the frame for the label and create it
       let frame: Rect = Rect(x: 0, y: 0, w: self.frame.w, h: 48)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Bold().thirtySix, align: .Left, color: Color().black)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Bold.thirtySix, align: .Left, color: .black)
       
       // Set the labels alpha and text properties
       label.alpha = 0.14
@@ -102,7 +106,7 @@ final class SearchBar : UITextField {
 extension SearchBar {
    
    override func textRectForBounds(bounds: CGRect) -> CGRect {
-      return Rect(x: 0, y: 12, w: self.frame.w - 48, h: 80)
+      return Rect(x: 0, y: 8, w: self.frame.w - 48, h: 80)
    }
    
    override func editingRectForBounds(bounds: CGRect) -> CGRect {
@@ -114,6 +118,15 @@ extension SearchBar {
 extension SearchBar : UITextFieldDelegate {
    
    func textFieldShouldReturn(textField: UITextField) -> Bool {
+      
+      // Make sure text isn't nil
+      guard let text = self.text else {
+         return false
+      }
+      
+      // Search for the text of the field
+      self.controller.searchFor(text)
+      // Return false
       return false
    }
    
@@ -121,17 +134,33 @@ extension SearchBar : UITextFieldDelegate {
       // Make sure the text field isn't blank
       guard self.text != "" else {
          self.clearButton.hideWithAlpha()
+         self.controller.showAll()
          self.placeholderLabel.showWithAlpha(0.0, alpha: 0.14)
          return
       }
       
       // Make sure the text field's text prop isn't nil
-      guard self.text != nil else {
+      guard let text = self.text else {
          return
       }
       
       self.clearButton.showWithAlpha()
       self.placeholderLabel.hideWithAlpha()
+      self.controller.updateSuggestions(text)
+      
+   }
+   
+   func updateText() {
+      
+      if self.text != "" {
+         self.clearButton.showWithAlpha()
+         self.placeholderLabel.hideWithAlpha()
+         self.controller.updateSuggestions(self.text!)
+      } else {
+         self.clearButton.hideWithAlpha()
+         self.controller.showAll()
+         self.placeholderLabel.showWithAlpha(0.0, alpha: 0.14)
+      }
       
    }
    

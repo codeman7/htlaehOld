@@ -36,18 +36,39 @@ class Button: UIView {
    }
    
    // Action to call when button is pressed
-   var action: (() -> ())? = nil
+   var action: () -> () = { print("Please set the action for the button") }
    
    var icon: Icon? = nil
    
-   var label: UILabel?
+   lazy var label: UILabel = self.createLabel()
    
-   
+   /*
     // MARK: Initializers
    /**
     Default initializer
     - parameter frame: The frame for the button
     - parameter type: The type of the button
+    - parameter action: The action for the button on a touch
+    */
+   init(frame: CGRect, type: ButtonType, action: () -> ()) {
+      
+      // Set the type of the button
+      self.type = type
+      // Set the action for the button
+      self.action = action
+      // Call the super initalizer
+      super.init(frame: frame)
+      // Set the type for the button
+      // Have to call it after the frame has been set
+      self.setType(self.type)
+      
+   }*/
+   
+   /**
+    Default initializer
+    - parameter frame: The frame for the button
+    - parameter type: The type of the button
+    - parameter action: The action for the button on a touch
     */
    init(frame: CGRect, type: ButtonType) {
       
@@ -91,15 +112,21 @@ class Button: UIView {
     
    }
    
-   
-   func add(title title: String, color: UIColor) {
+   private func createLabel() -> UILabel {
       
-      let text: String = title.uppercaseString
-      let width: CGFloat = text.widthWithConstrainedHeight(19.0, font: Fonts.Medium().fourteen)
-      let frame: CGRect = CGRect(x: self.frame.size.width / 2 - (width / 2), y: self.frame.size.height / 2 - 11, width: width, height: 22)
-      label = UILabel(frame: frame, font: Fonts.Medium().fourteen, align: .Center, color: color)
-      label?.text = text
-      self.addSubview(label!)
+      let label: UILabel = UILabel(frame: Rect.zero, font: .medium14, align: .Center, color: .black)
+      self.addSubview(label)
+      return label
+      
+   }
+   
+   func set(title text: String, color: UIColor) {
+      
+      let title: String = text.uppercaseString
+      let width: CGFloat = title.widthWithConstrainedHeight(22.0, font: .medium14)
+      self.label.frame = Rect(x: (self.frame.w - width) / 2, y: self.frame.height / 2 - 11, w: width, h: 22)
+      self.label.text = title
+      self.label.textColor = color
       
    }
    
@@ -136,7 +163,7 @@ class Button: UIView {
     - parameter image:   Should be the image that the icon is
     - parameter color:   Should be the color of that image
    */
-   func addSmallIcon(image image: UIImage, color: UIColor) {
+   func add(smallIcon image: UIImage, color: UIColor) {
       
       let frame: CGRect = CGRect(x: self.frame.width / 2 - 10, y: self.frame.height / 2 - 10, width: 20, height: 20)
       icon = Icon(frame: frame, image: image, color: color)
@@ -185,18 +212,14 @@ class Button: UIView {
         
       }
       
-      guard self.action == nil else {
+      self.action()
       
-         self.action!()
-         return
-        
-      }
-      
-      print("Action was nil and must be fixed before production")
-    
    }
     
 }
+
+// MARK: Make button conform to touchable protocol
+extension Button : Touchable { }
 
 // MARK: Extension for FAB animation
 extension Button {
@@ -221,7 +244,7 @@ extension Button {
             self.elevate(0.0)
             self.backgroundColor = color
             self.icon?.image = image
-            self.icon?.color = Color().white
+            self.icon?.color = .white
             self.showFAB()
       })
       

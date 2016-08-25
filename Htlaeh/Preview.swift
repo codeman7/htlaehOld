@@ -52,11 +52,11 @@ class PreviewWorkout : Controller {
    
    func FABAction() {
       
-      if self.FAB.backgroundColor! == Color().red {
-         self.FAB.updateFAB(Color().blue, image: Images.Content().add)
+      if self.FAB.backgroundColor! == UIColor.red {
+         self.FAB.updateFAB(.blue, image: Images.Content().add)
          self.hideMiniFABs()
       } else {
-         self.FAB.updateFAB(Color().red, image: Images.Navigation().close)
+         self.FAB.updateFAB(.red, image: Images.Navigation().close)
          self.showMiniFABs()
       }
       
@@ -89,8 +89,7 @@ class PreviewWorkout : Controller {
    
    func addMoreToWorkout() {
       
-      print("Hey let's segue to New Workout and add some stuff")
-      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 108, y: self.height - 44), color: Color().yellow)
+      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 108, y: self.height - 44), color: .yellow)
       self.view.addSubview(splashView)
       splashView.grow()
       UIView.animateWithDuration(0.3, delay: 0.3, options: .CurveEaseInOut, animations: { splashView.alpha = 0.0 }, completion: nil)
@@ -108,7 +107,7 @@ class PreviewWorkout : Controller {
       // Set the new workout controller's workout value
       new.workout = self.workout
       // Create the circular view
-      let splashView: CircularView = CircularView(point: CGPoint(x: 43, y: 46), color: Color().white)
+      let splashView: CircularView = CircularView(point: CGPoint(x: 43, y: 46), color: .white)
       // Add the view to the controller
       self.view.addSubview(splashView)
       // Animate the view
@@ -125,7 +124,7 @@ extension PreviewWorkout : ViewSetup {
    // This function lays out all the views
    func setupViews() {
       // Set the background color for the view
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       // Create the struct that will create all the views
       let views: PreviewWorkoutViews = PreviewWorkoutViews(controller: self)
       // Add all the views

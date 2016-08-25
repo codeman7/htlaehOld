@@ -52,7 +52,6 @@ class DatePicker : Dialog {
       
       // Call the super initializer
       super.init(frame: frame, promptFrame: promptFrame)
-      print("\n\n\n\n\n\n\nDays = \(self.days)")
       
    }
    
@@ -90,7 +89,7 @@ class DatePicker : Dialog {
       // Create the UIView that will hold all the contents of the top view
       let view: UIView = UIView(frame: frame)
       // Set the background color for the view
-      view.backgroundColor = Color().yellow
+      view.backgroundColor = .yellow
       // Add the view to self
       self.prompt.addSubview(view)
       // Add the year to the view
@@ -127,10 +126,9 @@ class DatePicker : Dialog {
       // Set up the frame for the left view
       let leftFrame: Rect = Rect(x: 4, y: 103, w: 40, h: 40)
       // Create the left button
-      let leftButton: Button = Button(frame: leftFrame, type: .Flat)
+      let leftButton: Button = Button(frame: leftFrame, type: .Flat)//, action: { self.newMonth(change: -1) })
       // Add the icon to the left button
       leftButton.add(image: Images.Navigation().chevronBack, alpha: 0.54)
-      // Set the action for the button
       leftButton.action = { self.newMonth(change: -1) }
       // Add the button to the view
       self.prompt.addSubview(leftButton)
@@ -138,10 +136,9 @@ class DatePicker : Dialog {
       // Set up the frame for the right view
       let rightFrame: Rect = Rect(x: self.prompt.frame.w - 44, y: 103, w: 40, h: 40)
       // Create the right button
-      let rightButton: Button = Button(frame: rightFrame, type: .Flat)
+      let rightButton: Button = Button(frame: rightFrame, type: .Flat)//, action: { self.newMonth(change: 1) })
       // Add the icon to the button
       rightButton.add(image: Images.Navigation().chevronForward, alpha: 0.54)
-      // Set the action for the button
       rightButton.action = { self.newMonth(change: 1) }
       // Add the button to the view
       self.prompt.addSubview(rightButton)
@@ -161,7 +158,7 @@ class DatePicker : Dialog {
          // Create the frame for the label
          let frame: Rect = Rect(x: CGFloat(a * 40), y: 155, w: labelSize.width, h: labelSize.height)
          // Create the label
-         let label: UILabel = UILabel(frame: frame, font: Fonts.Medium().fourteen, align: .Center, color: Color().black)
+         let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .Center, color: .black)
          // Set the alpha for the label
          label.alpha = 0.38
          // Set the text for the label
@@ -251,15 +248,15 @@ class DatePicker : Dialog {
       // Round the button
       button.layer.cornerRadius = 20
       // Add the title to the button
-      (self.days.contains(number)) ? button.add(title: "\(number)", color: Color().red) : button.add(title: "\(number)", color: Color().black)
+      (self.days.contains(number)) ? button.set(title: "\(number)", color: .red) : button.set(title: "\(number)", color: .black)
       // Set the alpha for the title
-      button.label?.alpha = 0.87
+      button.label.alpha = 0.87
       // Set the font for the button
-      button.label?.font = Fonts.Medium().twelve
+      button.label.font = Fonts.Medium.twelve
       // Check if the day is the current day
       self.checkForDay(button)
       // Set the action for the buttons
-      button.action = { self.picked(day: Int(button.label!.text!)!) }
+      button.action = { self.picked(day: Int(button.label.text!)!) }
       // Add the buttons to the day buttons array
       self.dayButtons += [button]
       // Add the button to the view
@@ -287,13 +284,13 @@ class DatePicker : Dialog {
    */
    private func createRightBottomButton() -> Button {
       
-      let width: CGFloat = "ADD WORKOUT".widthWithConstrainedHeight(22, font: Fonts.Medium().fourteen)
+      let width: CGFloat = "ADD WORKOUT".widthWithConstrainedHeight(22, font: Fonts.Medium.fourteen)
       // Set the frame for the button
       let frame: Rect = Rect(x: self.prompt.frame.w - (width + 24), y: self.prompt.frame.h - 56, w: width, h: 40)
       // Create the button
       let button: Button = Button(frame: frame, type: .Flat)
       // Add the title to the button
-      button.add(title: "ADD WORKOUT", color: Color().blue)
+      button.set(title: "ADD WORKOUT", color: .blue)
       // Set the action for the button
       button.action = self.rightButtonAction
       // Return the button
@@ -307,13 +304,13 @@ class DatePicker : Dialog {
    */
    private func createLeftBottomButton(rightButtonWidth width: CGFloat) -> Button {
       
-      let buttonWidth: CGFloat = "CANCEL".widthWithConstrainedHeight(22, font: Fonts.Medium().fourteen)
+      let buttonWidth: CGFloat = "CANCEL".widthWithConstrainedHeight(22, font: Fonts.Medium.fourteen)
       // Set the frame for the button
       let frame: Rect = Rect(x: self.prompt.frame.w - (width + buttonWidth + 48), y: self.prompt.frame.h - 56, w: buttonWidth, h: 40)
       // Create the button
       let button: Button = Button(frame: frame, type: .Flat)
       // Add the title to the button
-      button.add(title: "CANCEL", color: Color().red)
+      button.set(title: "CANCEL", color: .red)
       // Set the action for the button
       button.action = self.leftButtonAction
       // Return the button
@@ -327,11 +324,11 @@ class DatePicker : Dialog {
          return
       }
       // Check to see button's label is the same value as current day
-      if Int(button.label!.text!)! == day {
+      if Int(button.label.text!)! == day {
          // Set the color of the button to blue
-         button.backgroundColor = Color().blue
+         button.backgroundColor = .blue
          // Set the text color for the button to be white
-         button.label!.textColor = Color().white
+         button.label.textColor = .white
       }
       
    }
@@ -349,7 +346,7 @@ extension DatePicker {
       // Set the frame for the view
       let yearFrame: Rect = Rect(x: 16, y: 16, w: self.prompt.frame.w - 24, h: 19)
       // Create the year label
-      let yearLabel: UILabel = UILabel(frame: yearFrame, font: Fonts.Medium().fourteen, align: .Left, color: Color().black)
+      let yearLabel: UILabel = UILabel(frame: yearFrame, font: Fonts.Medium.fourteen, align: .Left, color: .black)
       // Set the year labels text
       yearLabel.text = "\(self.year)"
       // Set the year labels alpha
@@ -367,11 +364,11 @@ extension DatePicker {
       // Set the frame for the view
       let frame: Rect = Rect(x: 16, y: 47, w: self.prompt.frame.w - 24, h: 36)
       // Create the date label
-      let dateLabel: UILabel = UILabel(frame: frame, font: Fonts.Medium().twentyEight, align: .Left, color: Color().black)
+      let dateLabel: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyEight, align: .Left, color: .black)
       // Set the alpha for the label
       dateLabel.alpha = 0.76
       // Set the text for the label
-      dateLabel.text = "\(Date().dayOfWeek(self.day, inMonth: self.month, year: self.year)[0...2]), \(Date().monthNameFor(month: self.month)[0...2]) \(day)"
+      dateLabel.text = "\(Date().dayOfWeek(self.day, inMonth: self.month, year: self.year)[0...2]), \(Date().nameOf(month: self.month)[0...2]) \(day)"
       // Return the label
       return dateLabel
       
@@ -385,9 +382,9 @@ extension DatePicker {
       // Set the frame for the header
       let frame: Rect = Rect(x: self.prompt.frame.w / 2 - 60, y: 113, w: 120, h: 21)
       // Create the header label
-      let header: UILabel = UILabel(frame: frame, font: Fonts.Regular().sixteen, align: .Center, color: Color().black)
+      let header: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Center, color: .black)
       // Set the text for the header
-      header.text = "\(Date().monthNameFor(month: self.month)) \(self.year)"
+      header.text = "\(Date().nameOf(month: self.month)) \(self.year)"
       // Set the alpha for the header
       header.alpha = 0.87
       // Return the header
@@ -432,7 +429,7 @@ extension DatePicker {
       }
       self.yearLabel.text = "\(self.year)"
       // Update header
-      self.monthHeader.text = "\(Date().monthNameFor(month: self.month)) \(self.year)"
+      self.monthHeader.text = "\(Date().nameOf(month: self.month)) \(self.year)"
       // Update days variable for the new month
       self.days = RealmQuery().workoutDaysIn(month: self.month, year: self.year)
       // Update days
@@ -458,17 +455,17 @@ extension DatePicker {
       // Set the day value to the day picked
       self.day = day
       // Update the top label to be correct
-      self.topLabel.text = "\(Date().dayOfWeek(self.day, inMonth: self.month, year: self.year)[0...2]), \(Date().monthNameFor(month: self.month)[0...2]) \(self.day)"
+      self.topLabel.text = "\(Date().dayOfWeek(self.day, inMonth: self.month, year: self.year)[0...2]), \(Date().nameOf(month: self.month)[0...2]) \(self.day)"
       // Update the buttons to correct state
       for button in self.dayButtons {
-         if button.label!.text == "\(day)" {
-            button.backgroundColor = Color().blue
-            button.label?.textColor = Color().white
-         } else if (self.days.contains(Int(button.label!.text!)!)) {
-            button.label?.textColor = Color().red
+         if button.label.text == "\(day)" {
+            button.backgroundColor = .blue
+            button.label.textColor = .white
+         } else if (self.days.contains(Int(button.label.text!)!)) {
+            button.label.textColor = .red
          } else {
-            button.backgroundColor = Color().white
-            button.label?.textColor = Color().black
+            button.backgroundColor = .white
+            button.label.textColor = .black
          }
       }
    }

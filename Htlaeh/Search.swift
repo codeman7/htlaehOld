@@ -17,15 +17,20 @@ class Search : Controller {
    // MARK: Properties
    /// The property for the header
    lazy var header: BoldHeader = {
-      return SearchStandardViews(controller: self).createHeader()
+     return SearchStandardViews(controller: self).createHeader()
    }()
    
-   // The property for the suggestions
-   var suggestions: [String] {
-      return RealmQuery().suggestionsFor(text: self.header.searchBar!.text!)
-   }
+   /// The property for the suggestion table
+   lazy var suggestionsTable: SuggestionsTable = {
+      return SearchStandardViews(controller: self).createSuggestions()
+   }()
    
+   /// The property for the suggestions
+   var suggestions: [String] = RealmQuery().exerciseNames().mostCommon()
+
    
+   /// The property for the workouts
+   var workouts: [Workout] = RealmQuery().all
    
    
    // MARK: Functions
@@ -38,7 +43,7 @@ class Search : Controller {
    func newWorkout() {
       
       // Create the view and add it as a subview
-      let blueView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: 380), color: Color().blue)
+      let blueView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: 380), color: .blue)
       self.view.addSubview(blueView)
       
       // Make the view expand
@@ -64,16 +69,45 @@ class Search : Controller {
       
    }
    
-   func showResults() {
+   func showResults(exercise: String) {
       
       let views: [UIView] = self.view.subviews.filter({ !($0 is BoldHeader) })
       for view in views {
          view.hideWithAlpha()
       }
-      var loadResults: SearchResultsViews = SearchResultsViews(controller: self)
+      
+      let results = RealmQuery().resultsFor(exercise: exercise)
+      
+      var loadResults: SearchResultsViews = SearchResultsViews(controller: self, exercise: exercise)
+      guard results.isEmpty == false else {
+         loadResults.showEmpty(exercise)
+         return
+      }
       loadResults.layoutViews()
       loadResults.show()
       
+      
+   }
+   
+   func showAll() {
+      self.suggestions = RealmQuery().exerciseNames().mostCommon()
+      self.suggestionsTable.suggestions = self.suggestions
+   }
+   
+   func updateSuggestions(exercise: String) {
+      
+      self.suggestions = RealmQuery().exerciseNames().mostCommonStartsAnd(contains: exercise, caseInsensitve: true)
+      self.suggestionsTable.suggestions = self.suggestions
+      
+   }
+   
+   func searchFor(exercise: String) {
+      
+      self.view.endEditing(true)
+      self.resignFirstResponder()
+      self.header.searchBar?.text = exercise
+      self.header.searchBar?.updateText()
+      self.showResults(exercise)
       
    }
    
@@ -86,17 +120,12 @@ class Search : Controller {
 extension Search : ViewSetup {
    
    func setupViews() {
-      print("Fix search")
       // Set the background color
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       // Get the views from the view struct
-//      var views: SearchStandardViews = SearchStandardViews(controller: self)
-      var views: SearchResultsViews = SearchResultsViews(controller: self)
+      var views: SearchStandardViews = SearchStandardViews(controller: self)
+      
       // Add the views to the controller and lay them out
-      self.header.alpha = 1.0
-      self.header.title.alpha = 0.87
-      self.header.searchBar?.removeFromSuperview()
-      self.header.bottomLine.removeFromSuperview()
       views.layoutViews()
       views.show()
       

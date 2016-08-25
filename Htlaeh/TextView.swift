@@ -20,7 +20,7 @@ import UIKit
 
 class TextView: UITextField {
    // Accent color for the text field
-   var color: UIColor = Color().blue
+   var color: UIColor = .blue
    // Property for floating
    var floating: Bool = true
    // Property for hint/floatingLabel
@@ -65,8 +65,8 @@ class TextView: UITextField {
       super.init(frame: frame)
       self.delegate = self
       self.borderStyle = .None
-      self.font = Fonts.Regular().sixteen
-      self.textColor = Color().grey900
+      self.font = Fonts.Regular.sixteen
+      self.textColor = .grey900
       self.setUp()
       self.returnKeyType = .Done
       self.addTarget(self, action: #selector(TextView.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
@@ -113,7 +113,7 @@ class TextView: UITextField {
    func addPlaceHolder(rect: CGRect) {
    
       let frame: CGRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height / 2)
-      self.placeholderLabel = UILabel(frame: frame, font: Fonts.Regular().sixteen, align: NSTextAlignment.Left, color: Color().grey700)
+      self.placeholderLabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: NSTextAlignment.Left, color: .grey700)
       self.placeholderLabel?.text = self.hintText
       self.addSubview(self.placeholderLabel!)
    }
@@ -146,7 +146,7 @@ class TextView: UITextField {
         
       // Create the line and add to the text field
       bottomLine = UIView(frame: rect)
-      bottomLine?.backgroundColor = Color().grey700
+      bottomLine?.backgroundColor = .grey700
       self.addSubview(bottomLine!)
    
    }
@@ -175,7 +175,7 @@ class TextView: UITextField {
         
       } else {
       
-         view.backgroundColor = Color().grey700
+         view.backgroundColor = .grey700
         
       }
       bottomLine?.addSubview(view)
@@ -217,12 +217,12 @@ class TextView: UITextField {
         }
         
         let frame: CGRect = CGRect(x: 0, y: self.frame.size.height - 16, width: self.frame.size.width, height: 16)
-        let label: UILabel = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Left, color: Color().red)
+        let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Left, color: .red)
         label.text = self.errorMessage
         label.tag = 17
         self.addSubview(label)
-        self.placeholderLabel?.textColor = Color().red
-        self.bottomLineRipple(Color().red)
+        self.placeholderLabel?.textColor = .red
+        self.bottomLineRipple(.red)
     }
     
     func removeErrorMessage() {
@@ -252,9 +252,9 @@ class TextView: UITextField {
         let frame: CGRect = CGRect(x: self.frame.size.width - 168, y: self.frame.size.height - 16, width: 160, height: 16)
         let label: UILabel
         if color != nil {
-            label = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Right, color: color!)
+            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Right, color: color!)
         } else {
-            label = UILabel(frame: frame, font: Fonts.Regular().twelve, align: .Right, color: Color().red)
+            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Right, color: .red)
         }
         
         label.text = textString
@@ -272,7 +272,7 @@ extension TextView: UITextFieldDelegate {
         if floating == true {
             // Animation for placeholder
             let animate: () -> () = {
-                self.placeholderLabel?.font = Fonts.Regular().twelve
+                self.placeholderLabel?.font = Fonts.Regular.twelve
                 self.placeholderLabel?.frame.origin.y = 16
                 self.placeholderLabel?.textColor = self.color
             }
@@ -296,9 +296,9 @@ extension TextView: UITextFieldDelegate {
                 // Text field is empty
                 // Animation for placeholder
                 let animate: () -> () = {
-                    self.placeholderLabel?.font = Fonts.Regular().sixteen
+                    self.placeholderLabel?.font = Fonts.Regular.sixteen
                     self.placeholderLabel?.frame.origin.y = 40
-                    self.placeholderLabel?.textColor = Color().grey700
+                    self.placeholderLabel?.textColor = .grey700
                 }
                 // Animate the placeholder
                 self.placeholderLabel?.standardAnimation(animate)
@@ -307,7 +307,7 @@ extension TextView: UITextFieldDelegate {
                 // Text field has changed
                 // Animation for placeholder
                 let animate: () -> () = {
-                    self.placeholderLabel?.textColor = Color().grey700
+                    self.placeholderLabel?.textColor = .grey700
                 }
                 // Animate the placeholder
                 self.placeholderLabel?.standardAnimation(animate)

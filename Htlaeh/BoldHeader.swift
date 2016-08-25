@@ -48,7 +48,7 @@ class BoldHeader: UIView {
    init(frame: CGRect, options: HeaderType) {
       
       super.init(frame: frame)
-      self.backgroundColor = Color().white
+      self.backgroundColor = .white
       self.addContent(content: options)
       
       
@@ -100,7 +100,7 @@ class BoldHeader: UIView {
       // Set the frame for the title
       let frame: CGRect = CGRect(x: 72, y: 20, width: 180, height: 48)
       // Set up all the configurations for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Bold().thirtySix, alignment: .Left, color: Color().black)
+      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Bold.thirtySix, alignment: .Left, color: .black)
       // Create the label
       let title: UILabel = UILabel(config: labelConfig)
       // Set the alpha for the label
@@ -118,8 +118,8 @@ class BoldHeader: UIView {
       // Set the frame for the label
       let frame: CGRect = CGRect(x: 72, y: 72, width: 120, height: 21)
       // Create the configuration for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular().sixteen, alignment: .Left
-         , color: Color().black)
+      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular.sixteen, alignment: .Left
+         , color: .black)
       // Create the label
       let label: UILabel = UILabel(config: labelConfig)
       // Set the labels text
@@ -158,29 +158,37 @@ class BoldHeader: UIView {
       // Create the button
       let button: Button = Button(frame: frame, type: .Flat)
       // Add the icon to the button
-      button.add(image: icon, color: Color().black)
+      button.add(image: icon, color: .black)
       // Set the action for the button
       button.action = action
       // Set the buttons icons alpha
       button.icon?.alpha = 0.87
       // Set background color for button
-      button.backgroundColor = Color().white
+      button.backgroundColor = .white
       // Add the button to the header
       self.addSubview(button)
       
    }
    
-   func addSearchBar() {
+   func addSearchBar(controller: Search) {
       
       // Hide the title
       self.title.alpha = 0.0
       // Create the frame for the search bar and create the search bar
       let frame: Rect = Rect(x: 72, y: 22, w: self.frame.w - 72, h: 48)
-      self.searchBar = SearchBar(frame: frame)
+      self.searchBar = SearchBar(frame: frame, controller: controller)
       // Add the search bar to the view
       self.addSubview(self.searchBar!)
       
       self.addBottomLine()
+      
+   }
+   
+   func removeRightIcon() {
+      
+      if let icon: Button = self.subviews.filter({ $0.frame.origin.x == self.frame.w - 48 }).first as? Button {
+         icon.removeFromSuperview()
+      }
       
    }
    

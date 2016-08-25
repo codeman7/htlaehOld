@@ -24,7 +24,7 @@ class Loading: UIView {
       // Call the super initalizer
       super.init(frame: frame)
       // Set the background color for the view
-      self.backgroundColor = Color().white
+      self.backgroundColor = .white
       // Add the circles to the view
       self.addCirlces()
       
@@ -92,12 +92,12 @@ class Loading: UIView {
    */
    private func addCirlces() {
       // Create an array of all the colors needed for the cirlces
-      let colors: [UIColor] = [Color().red, Color().blue, Color().yellow]
+      let colors: [UIColor] = [.red, .blue, .yellow]
       // Create all the circles and add them to the view
       for color in colors {
          let circle: Circle = self.createCirlce(color)
          // Make the red cirlce visable
-         if color == Color().red { circle.alpha = 1.0 }
+         if color == UIColor.red { circle.alpha = 1.0 }
          self.addSubview(circle)
          // Add circles to circle array
          self.circles += [circle]

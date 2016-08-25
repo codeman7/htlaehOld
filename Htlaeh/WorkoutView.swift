@@ -36,7 +36,7 @@ class WorkoutView : UIView {
          return
       }
       // Add the date
-      self.addDate(workout.sets[0].date)
+      self.addDate(workout[0].date)
       // Add the workout header
       self.addWorkoutHeader()
       // Add the table view

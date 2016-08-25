@@ -47,11 +47,20 @@ extension WorkoutType {
 struct Workout: WorkoutType {
    // MARK: Properties
    let sets: [WeightSet]
+   /// The variable for the date of the workout
+   var date: Int {
+      guard self.sets.isEmpty == false else { return 0 }
+      return Int(self.sets.first!.date)!
+   }
    var completedSets: [WeightSet] {
       return self.determineCompletedSets()
    }
    var remainingSets: [WeightSet] {
       return self.determineRemainingSets()
+   }
+   
+   subscript(i: Int) -> WeightSet {
+      return self.sets[i]
    }
    
    // MARK: Initializers
@@ -95,7 +104,7 @@ struct Workout: WorkoutType {
       // 'a' is index of array
       for a in 0..<self.count {
          
-         var tempSet = self.sets[a]
+         var tempSet = self[a]
          tempSet = tempSet.setDone()
          tempSetsArray[a] = tempSet
          
@@ -110,7 +119,7 @@ struct Workout: WorkoutType {
       // 'a' is index of array
       for a in 0..<self.count {
          
-         var tempSet = self.sets[a]
+         var tempSet = self[a]
          tempSet = tempSet.changeDate(newDate)
          tempSetsArray[a] = tempSet
          

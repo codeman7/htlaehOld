@@ -45,7 +45,7 @@ struct HomeRestViews : ViewsStruct {
       
       // Set the controllers alpha and add it to the views array
       bigLabel.alpha = 0.0
-      self.views[bigLabel] = (delay: 0.025, alpha: HomeBigLabel().alpha)
+      self.views[bigLabel] = (delay: 0.025, alpha: HomeLabel.bigLabel.alpha)
       
       // Create the message and it to the controller
       let message: UILabel = self.createMessage()
@@ -53,7 +53,7 @@ struct HomeRestViews : ViewsStruct {
       
       // Set the controller's alpha and add it to the views array
       message.alpha = 0.0
-      self.views[message] = (delay: 0.050, alpha: HomeMessage().alpha)
+      self.views[message] = (delay: 0.050, alpha: HomeLabel.message.alpha)
       
       // Create all the buttons
       let buttons: [Button] = self.createButtons()
@@ -70,8 +70,7 @@ struct HomeRestViews : ViewsStruct {
    private func createBigLabel() -> UILabel {
       
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 100, y: self.controller.view.frame.height / 2 - 104, width: 200, height: 48)
-      let bigLabel: HomeBigLabel = HomeBigLabel()
-      let restLabel: UILabel = UILabel(frame: frame, properties: bigLabel)
+      let restLabel: UILabel = UILabel(frame: frame, properties: HomeLabel.bigLabel)
       restLabel.text = "Rest Day"
       return restLabel
       
@@ -81,10 +80,9 @@ struct HomeRestViews : ViewsStruct {
       
       // Add message
       let text: String = "Did you want to see how you are doing, add a workout, or view upcoming workouts?"
-      let height = text.heightWithConstrainedWidth(200, font: Fonts.Regular().sixteen)
+      let height = text.heightWithConstrainedWidth(200, font: Fonts.Regular.sixteen)
       let messageFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 120, y: self.controller.view.frame.height / 2 - 40, width: 240, height: height)
-      let homeMessage: HomeMessage = HomeMessage()
-      let message: UILabel = UILabel(frame: messageFrame, properties: homeMessage)
+      let message: UILabel = UILabel(frame: messageFrame, properties: HomeLabel.message)
       message.text = text
       message.multipleLines()
       return message
@@ -97,14 +95,14 @@ struct HomeRestViews : ViewsStruct {
       var views: [Button] = []
       let buttonSize: CGSize = CGSize(width: 124, height: 40)
       let titles: [String] = ["NEW", "SEARCH"]
-      let titleColors: [UIColor] = [Color().white, Color().white]
-      let backGroundColors: [UIColor] = [Color().blue, Color().red]
+      let titleColors: [UIColor] = [.white, .white]
+      let backGroundColors: [UIColor] = [.blue, .red]
       let actions: [() -> ()] = [{ self.controller.restToNewWorkout() }, { self.controller.restToSearch() }]
       for a in 0..<2 {
          let y = (self.controller.view.frame.height - 80) - CGFloat(a * 64)
          let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 62, y: y, width: buttonSize.width, height: buttonSize.height)
          let button: Button = Button(frame: frame, type: .Raised)
-         button.add(title: titles[a], color: titleColors[a])
+         button.set(title: titles[a], color: titleColors[a])
          button.backgroundColor = backGroundColors[a]
          button.action = actions[a]
          views += [button]

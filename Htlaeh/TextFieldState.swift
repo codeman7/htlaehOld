@@ -46,27 +46,27 @@ struct TextFieldState {
    
    /// This property is for when you are editing a text field
    static var active: TextFieldState {
-      return TextFieldState(placeholderFont: Fonts.Regular().sixteen, placeholderY: 0, placeholderColor: Color().blue, placeholderAlpha: 1.0, bottomLineColor: Color().blue, bottomLineAlpha: 1.0, errorAlpha: 0.0)
+      return TextFieldState(placeholderFont: Fonts.Regular.sixteen, placeholderY: 0, placeholderColor: .blue, placeholderAlpha: 1.0, bottomLineColor: .blue, bottomLineAlpha: 1.0, errorAlpha: 0.0)
    }
    
    /// This property is for when a User are done editing a text field and everything is correct
    static var nonActiveGood: TextFieldState {
-      return TextFieldState(placeholderFont: Fonts.Regular().sixteen, placeholderY: 0, placeholderColor: Color().black, placeholderAlpha: 0.38, bottomLineColor: Color().black, bottomLineAlpha: 0.38, errorAlpha: 0.0)
+      return TextFieldState(placeholderFont: Fonts.Regular.sixteen, placeholderY: 0, placeholderColor: .black, placeholderAlpha: 0.38, bottomLineColor: .black, bottomLineAlpha: 0.38, errorAlpha: 0.0)
    }
    
    /// This property is for when a User is done editing and an error has occured
    static var nonActiveError: TextFieldState {
-      return TextFieldState(placeholderFont: Fonts.Regular().sixteen, placeholderY: 0, placeholderColor: Color().red, placeholderAlpha: 1.0, bottomLineColor: Color().red, bottomLineAlpha: 1.0, errorAlpha: 1.0)
+      return TextFieldState(placeholderFont: Fonts.Regular.sixteen, placeholderY: 0, placeholderColor: .red, placeholderAlpha: 1.0, bottomLineColor: .red, bottomLineAlpha: 1.0, errorAlpha: 1.0)
    }
    
    /// This property is for when a User hasn't edited and tries to submit
    static var required: TextFieldState {
-      return TextFieldState(placeholderFont: Fonts.Medium().twentyFour, placeholderY: 27, placeholderColor: Color().red, placeholderAlpha: 0.38, bottomLineColor: Color().red, bottomLineAlpha: 0.38, errorAlpha: 1.0)
+      return TextFieldState(placeholderFont: Fonts.Medium.twentyFour, placeholderY: 27, placeholderColor: .red, placeholderAlpha: 0.38, bottomLineColor: .red, bottomLineAlpha: 0.38, errorAlpha: 1.0)
    }
    
    /// This property is for before a User has interacted or not text was entered
    static var start: TextFieldState {
-      return TextFieldState(placeholderFont: Fonts.Medium().twentyFour, placeholderY: 27, placeholderColor: Color().black, placeholderAlpha: 0.38, bottomLineColor: Color().black, bottomLineAlpha: 0.38, errorAlpha: 0.0)
+      return TextFieldState(placeholderFont: Fonts.Medium.twentyFour, placeholderY: 27, placeholderColor: .black, placeholderAlpha: 0.38, bottomLineColor: .black, bottomLineAlpha: 0.38, errorAlpha: 0.0)
    }
 }
 

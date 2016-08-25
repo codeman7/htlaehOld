@@ -13,6 +13,7 @@ import UIKit
 protocol Touchable {
    
    /// The action for when the view is touched
-   var action: () -> () { get }
+   var action: () -> () { get set }
    
 }
+

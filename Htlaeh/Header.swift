@@ -60,7 +60,7 @@ class Header: UIView {
       // Call super initializers
       super.init(frame: frame)
       // Set the background color for all headers
-      self.backgroundColor = Color().grey100
+      self.backgroundColor = .grey100
       // Determind the type of scroll style
       self.determindScrollType(options.scrollType)
       // Determine the icon style
@@ -139,7 +139,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: 7, y: 20, width: 46, height: 46)
       leftButton = Button(frame: buttonFrame, type: .Flat)
-      leftButton?.add(image: icon, color: Color().black)
+      leftButton?.add(image: icon, color: .black)
       leftButton?.icon?.alpha = 0.87
       self.addSubview(leftButton!)
       
@@ -156,7 +156,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 53, y: 20, width: 46, height: 46)
       rightButton = Button(frame: buttonFrame, type: .Flat)
-      rightButton?.add(image: icon, color: Color().black)
+      rightButton?.add(image: icon, color: .black)
       rightButton?.icon?.alpha = 0.87
       self.addSubview(rightButton!)
       
@@ -171,7 +171,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 117, y: 20, width: 46, height: 46)
       secondRightButton = Button(frame: buttonFrame, type: .Flat)
-      secondRightButton?.add(image: icon, color: Color().black)
+      secondRightButton?.add(image: icon, color: .black)
       secondRightButton?.icon?.alpha = 0.87
       self.addSubview(secondRightButton!)
       
@@ -185,7 +185,7 @@ class Header: UIView {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 120, y: 26, width: 104, height: 40)
       rightButtonWithLabel = Button(frame: buttonFrame, type: .Flat)
-      rightButtonWithLabel?.add(title: text, color: Color().primary)
+      rightButtonWithLabel?.set(title: text, color: .primary)
       self.addSubview(rightButtonWithLabel!)
       
    }
@@ -200,7 +200,7 @@ class Header: UIView {
       if bottomLine != nil { self.addSubview(bottomLine!); return }
       let bottomLineFrame: CGRect = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1)
       bottomLine = UIView(frame: bottomLineFrame)
-      bottomLine!.backgroundColor = Color().black
+      bottomLine!.backgroundColor = .black
       bottomLine?.alpha = 0.13
       self.addSubview(bottomLine!)
       

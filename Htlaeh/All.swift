@@ -14,7 +14,7 @@ class All : Controller {
    // MARK: Properties
    // TODO: Edit the all workout type to handle different types
    /// The workout for the VC
-   let workouts: [Workout] = RealmQuery().all()
+   let workouts: [Workout] = []//RealmQuery().all()
    /// The variable to hold the FAB
    var FAB: Button? = nil
    
@@ -43,6 +43,13 @@ class All : Controller {
       
    }
    
+   /**
+      This function segues to new workout if the database is empty
+   */
+   func segueToNew() {
+      print("Segue to new")
+   }
+   
 }
 
 // MARK: Conformance to View Setup protocol
@@ -50,7 +57,7 @@ extension All : ViewSetup {
    /// This function lays out all the views
    func setupViews() {
       // Set the background color
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       // Create the views struct
       var views: ViewsStruct = AllStandardViews(controller: self)
       // Add all the views to the controller

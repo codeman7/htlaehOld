@@ -55,7 +55,7 @@ class NavigationButton: Button {
       // Create the frame for the icon
       let iconFrame: CGRect = CGRect(x: 16, y: 12, width: 24, height: 24)
       // Create the icon
-      let icon: Icon = Icon(frame: iconFrame, image: image, color: Color().black)
+      let icon: Icon = Icon(frame: iconFrame, image: image, color: .black)
       // Set the opacity for the icon
       icon.alpha = 0.54
       // Add the icon to the button
@@ -72,7 +72,7 @@ class NavigationButton: Button {
       // Create the frame for the label
       let labelFrame: CGRect = CGRect(x: 72, y: 15, width: self.frame.width - 72, height: 18)
       // Set all the default values for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: labelFrame, font: Fonts.Medium().fourteen, alignment: .Left, color: Color().black)
+      let labelConfig: LabelConfig = LabelConfig(frame: labelFrame, font: Fonts.Medium.fourteen, alignment: .Left, color: .black)
       // Create the label
       let label: UILabel = UILabel(config: labelConfig)
       // Set the labels text property equal the value passed

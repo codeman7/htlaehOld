@@ -15,21 +15,33 @@ import RealmSwift
 struct RealmQuery {
    let realm: Realm = try! Realm()
    
+   var all: [Workout] {
+      return self.allWorkouts()
+   }
+   
    /**
       This function gets all workouts from the DB
    */
-   func all() -> [Workout] {
+   func allWorkouts() -> [Workout] {
       // Get all the workouts then sort them by date
       let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout.self)
-      // Make sure there are workouts in the DB
-      guard workouts.isEmpty == false else { return [] }
+      // Sort the workouts by date
       let workoutsSortedByDate: Results<RealmWorkout> = workouts.sorted("date")
+      // Return an array of workouts
+      return resultsToWorkout(workoutsSortedByDate)
+      
+   }
+   
+   func resultsToWorkout(results: Results<RealmWorkout>) -> [Workout] {
+      
+      guard results.isEmpty == false else {
+         return []
+      }
       // Create and array to hold all the workouts
       var work: [Workout] = []
       // Set the date to the first workouts date
-      var date = workoutsSortedByDate[0].date
-      // Iterate over all the workouts and seperate them by date
-      for workout in workoutsSortedByDate {
+      var date = results[0].date
+      for workout in results {
          if workout.date != date {
             // The date isn't the same as the set before so create a new workout and add it to the array
             let currentSet = WeightSet(workoutSet: workout)
@@ -99,8 +111,8 @@ struct RealmQuery {
    
    func statsFor(exercise exercise: String) -> StatViewData {
       // Get all the workouts in the database
-//      let workouts: Results<RealmWorkout> = realm.objects(RealmWorkout).filter("name = '\(exercise)'")
-      let workouts: Results<RealmWorkout> = realm.objects(RealmWorkout).filter("name = 'Squat'")
+      let workouts: Results<RealmWorkout> = realm.objects(RealmWorkout).filter("name = '\(exercise)'")
+      // Make sure the result's aren't empty
       // Get the highest weight in the database
       let personalBest: Int = Int(workouts.sorted("weight").last!.weight.value!)
       // Get the total number of sets in the database
@@ -121,12 +133,12 @@ struct RealmQuery {
    */
    func workoutsByWeeksFrom(first: Int, to last: Int) -> [[Workout]] {
       
-      let weeks: [(sunday: Int, saturday: Int)] = Date().getWeeksBetween(start: Date.from(first), andEnd: Date.from(last))
-      let workouts: [Workout] = self.all()
+      let weeks: [(sun: Int, sat: Int)] = Date().getWeeksBetween(start: Date.from(first), andEnd: Date.from(last))
+      let workouts: [Workout] = self.all
       var returnArr: [[Workout]] = [[Workout]](count: weeks.count, repeatedValue: [])
       var currentWeek: Int = 0
       for workout in workouts {
-         if weeks[currentWeek].0...weeks[currentWeek].1 ~= Int(workout.sets[0].date)! {
+         if weeks[currentWeek].0...weeks[currentWeek].1 ~= Int(workout[0].date)! {
             returnArr[currentWeek] += [workout]
          } else {
             currentWeek += 1
@@ -135,6 +147,41 @@ struct RealmQuery {
       }
       
       return returnArr
+      
+   }
+   
+   static func query(filter: String) -> /*[Workout]*/Results<RealmWorkout> {
+      let workouts: Results<RealmWorkout> = RealmQuery().realm.objects(RealmWorkout).filter(filter)
+      return workouts
+   }
+   
+   func exerciseNames() -> [String] {
+      
+      // Create array to hold all the exercises
+      var exercises: [String] = []
+      
+      // Add all the exercises to the array
+      for workout in self.all {
+         for set in workout.sets {
+            exercises += [set.name.capitalizedString]
+         }
+      }
+      
+      // Return the exercise names
+      return exercises
+      
+   }
+   
+   func resultsFor(exercise exercise: String) -> [Workout] {
+      
+      // Filter all the workouts to just include the ones with the given name
+      let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout).filter("name = '\(exercise)'")
+      
+      // Sort the workouts by date
+      let sorted: Results<RealmWorkout> = workouts.sorted("date")
+      
+      // Return the workouts
+      return resultsToWorkout(sorted)
       
    }
    

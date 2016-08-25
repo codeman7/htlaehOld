@@ -14,16 +14,25 @@ import UIKit
    Alpha when visable should be 26%
  */
 class BackgroundGrey: UIView {
+   // MARK: Properties
+   var action: () -> () = { fatalError("Please set the action for background grey") }
    
    // MARK: Initializers
    //// Designated Initailzer
    override init(frame: CGRect) {
+      
       // Call the super initalizers
       super.init(frame: frame)
       // Set the background color
-      self.backgroundColor = Color().black
+      self.backgroundColor = .black
       // Set the alpha of the view
       self.alpha = 0.0
+      // Set the aciton
+      self.action = {
+         if let holder = self.superview as? Overlay {
+            holder.hideView()
+         }
+      }
       
    }
    
@@ -44,20 +53,6 @@ class BackgroundGrey: UIView {
 
 // MARK: Extension for the menu type
 extension BackgroundGrey: Touchable {
-   
-   var action: () -> () {
-      return {
-         if self.superview is Menu {
-            let menu = self.superview as! Menu
-            menu.hideView()
-         }
-         if self.superview is Dialog {
-            let dialog = self.superview as! Dialog
-            dialog.hideView()
-         }
-         
-      }
-   }
    
    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
       self.action()

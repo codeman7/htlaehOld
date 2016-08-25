@@ -20,7 +20,7 @@ class WorkoutCellHeader : UITableViewCell {
       self.separatorInset = UIEdgeInsetsZero
       self.layoutMargins = UIEdgeInsetsZero
       self.preservesSuperviewLayoutMargins = false
-      self.frame.size.height = 48.0
+      self.frame.size.height = 49.0
    }
    
    /// Required by Apple NEVER USE
@@ -32,7 +32,7 @@ class WorkoutCellHeader : UITableViewCell {
    func add(date date: String) {
       // Create the label and set it's font
       let label: UILabel = UILabel(frame: Rect(x: 16, y: 0, w: self.frame.w - 32, h: 21))
-      label.font = Fonts.Regular().sixteen
+      label.font = Fonts.Regular.sixteen
       // Set the alpha and text for the label
       label.alpha = 0.54
       label.text = date
@@ -59,6 +59,8 @@ class WorkoutCellHeader : UITableViewCell {
       
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: config)
+      // Fix the y position for the label
+      label.frame.origin.y = self.frame.h - 20
       // Set the labels text
       label.text = title
       // Add the label as a subview

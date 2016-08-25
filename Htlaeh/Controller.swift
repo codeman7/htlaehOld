@@ -117,6 +117,10 @@ extension Controller {
    /// This method shows the menu and adds it to the vc
    func showMenu() {
       
+      // Hide the keyboard
+      self.view.endEditing(true)
+      self.resignFirstResponder()
+      
       // Add the menu to the controller
       self.view.addSubview(menu)
       // Show the menu

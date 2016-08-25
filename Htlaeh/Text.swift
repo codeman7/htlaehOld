@@ -16,17 +16,17 @@ import UIKit
 class Text: UITextField {
    // MARK: Properties
    /// The color for all accent elements
-   private let standardColor: UIColor = Color().blue
+   private let standardColor: UIColor = .blue
    /// The color for all error elements
-   private let errorColor: UIColor = Color().red
+   private let errorColor: UIColor = .red
    /// The font for inactive state
-   private let inactiveFont: UIFont = Fonts.Regular().sixteen
+   private let inactiveFont: UIFont = Fonts.Regular.sixteen
    /// The font for active state
-   private let activeFont: UIFont = Fonts.Bold().thirtySix
+   private let activeFont: UIFont = Fonts.Bold.thirtySix
    /// The font for hint active state
-   private let activeHintFont: UIFont = Fonts.Regular().sixteen
+   private let activeHintFont: UIFont = Fonts.Regular.sixteen
    /// The font for hint in inactive state
-   private let inactiveHintFont: UIFont = Fonts.Regular().twelve
+   private let inactiveHintFont: UIFont = Fonts.Regular.twelve
    /// The placeholder and hint for the text field
    var placeholderText: String {
       didSet(newValue) {
@@ -114,7 +114,7 @@ class Text: UITextField {
       // Set the alignment for the placeholder label
       let alignment: NSTextAlignment = (self.type == .Number) ? .Right : .Left
       // Create the placeholder text
-      let placeHolder: UILabel = UILabel(frame: placeholderFrame, font: self.inactiveFont, align: alignment, color: Color().black)
+      let placeHolder: UILabel = UILabel(frame: placeholderFrame, font: self.inactiveFont, align: alignment, color: .black)
       // Set the alpha for the placeholder
       placeHolder.alpha = 0.38
       // Set the text for the placeholder
@@ -168,10 +168,10 @@ class Text: UITextField {
          self.placeholderLabel.frame.origin.y = 16
          self.placeholderLabel.font = self.inactiveFont
          self.placeholderLabel.alpha = 0.38
-         self.placeholderLabel.textColor = Color().black
+         self.placeholderLabel.textColor = .black
          self.bottomLine.frame.origin.y = 39
          self.bottomLine.alpha = 0.38
-         self.bottomLine.backgroundColor = Color().black
+         self.bottomLine.backgroundColor = .black
       }
       // Animate the view
       UIView.animateWithDuration(0.3, animations: animate)

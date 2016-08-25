@@ -50,7 +50,7 @@ struct SignStandardViews {
       // Create button
       let button: Button = Button(frame: frame, type: .Flat)
       // Set action and title for button
-      button.add(title: "SIGN IN / SIGN UP", color: Color().blue)
+      button.set(title: "SIGN IN / SIGN UP", color: .blue)
       button.action = { self.controller.digitsSignIn() }
       // Return button
       return button
@@ -62,7 +62,7 @@ struct SignStandardViews {
       // Add the skip button
       let skipButtonFrame: CGRect = CGRect(x: self.controller.width - 88, y: 40, width: 72, height: 40)
       let skipButton = Button(frame: skipButtonFrame, type: .Flat)
-      skipButton.add(title: "SKIP", color: Color().red)
+      skipButton.set(title: "SKIP", color: .red)
       skipButton.action = { self.controller.skipSignIn() }
       self.controller.view.addSubview(skipButton)
       
@@ -80,7 +80,7 @@ struct SignStandardViews {
       
       // Add the welcome message
       let welcomeFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 232, width: 110, height: 16)
-      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold().twelve, alignment: .Left, color: Color().black)
+      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold.twelve, alignment: .Left, color: .black)
       let welcomeMessage: UILabel = UILabel(config: welcomeConfig)
       welcomeMessage.alpha = 0.54
       welcomeMessage.text = "Welcome to,"
@@ -92,7 +92,7 @@ struct SignStandardViews {
       
       // Add the big text
       let htlaehTextFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 248, width: 110, height: 48)
-      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold().thirtySix, alignment: .Left, color: Color().black)
+      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold.thirtySix, alignment: .Left, color: .black)
       let htlaehText: UILabel = UILabel(config: htlaehTextConfig)
       htlaehText.alpha = 0.87
       htlaehText.text = "Htlaeh"
@@ -103,7 +103,7 @@ struct SignStandardViews {
    func createToolTip() {
       
       // Set the frame and create the tool tip
-      let width: CGFloat = "Setting up account".widthWithConstrainedHeight(16.0, font: Fonts.Medium().fourteen) + 32
+      let width: CGFloat = "Setting up account".widthWithConstrainedHeight(16.0, font: Fonts.Medium.fourteen) + 32
       let origin: CGPoint = CGPoint(x: self.controller.width / 2 - (width / 2), y: self.controller.height - 124)
       let toolTip: ToolTip = ToolTip(origin: origin, text: "Setting up account")
       

@@ -23,7 +23,7 @@ class Line: UIView {
       // Call the super initalizer
       super.init(frame: frame)
       // Set the background color
-      self.backgroundColor = Color().black
+      self.backgroundColor = .black
       // Set the alpha of the view
       self.alpha = alpha
       

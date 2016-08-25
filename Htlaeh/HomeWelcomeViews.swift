@@ -46,14 +46,14 @@ struct HomeWelcomeViews : ViewsStruct {
       // Add the little message to the view
       self.controller.view.addSubview(message.0)
       // Add the label and set its delay time
-      self.views[message.0] = (delay: 0.05, alpha: HomeMessage().alpha)
+      self.views[message.0] = (delay: 0.05, alpha: HomeLabel.message.alpha)
       
       // Create the big label
       let bigLabel: UIView = self.createBigLabelAt(y: message.1)
       // Add the big label to the view
       self.controller.view.addSubview(bigLabel)
       // Add the big label to the views and set its delay
-      self.views[bigLabel] = (delay: 0.025, alpha: HomeBigLabel().alpha)
+      self.views[bigLabel] = (delay: 0.025, alpha: HomeLabel.bigLabel.alpha)
       
       // Create buttons
       let buttons: [UIView] = self.createButtons()
@@ -70,8 +70,7 @@ struct HomeWelcomeViews : ViewsStruct {
       
       let yPos: CGFloat = y - 64
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 100, y: yPos, width: 200, height: 48)
-      let big: HomeBigLabel = HomeBigLabel()
-      let label: UILabel = UILabel(frame: frame, properties: big)
+      let label: UILabel = UILabel(frame: frame, properties: HomeLabel.bigLabel)
       label.text = "Welcome"
       // Set the labels alpha to 0
       label.alpha = 0.0
@@ -82,11 +81,10 @@ struct HomeWelcomeViews : ViewsStruct {
    private func createMessage() -> (view: UIView, messageTop: CGFloat) {
       
       let message: String = "We are glad to have you here! Walk through how to use \"Htlaeh\" or tap \"Tips\" in Settings when you want a refresher later."
-      let height: CGFloat = message.heightWithConstrainedWidth(240, font: Fonts.Medium().sixteen)
+      let height: CGFloat = message.heightWithConstrainedWidth(240, font: Fonts.Medium.sixteen)
       let yPos: CGFloat = self.controller.view.frame.height / 2 - (height / 2)
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 120, y: yPos, width: 240, height: height)
-      let homeMessage: HomeMessage = HomeMessage()
-      let label: UILabel = UILabel(frame: frame, properties: homeMessage)
+      let label: UILabel = UILabel(frame: frame, properties: HomeLabel.message)
       label.text = message
       label.multipleLines()
       // Set the label's alpha to 0
@@ -101,9 +99,9 @@ struct HomeWelcomeViews : ViewsStruct {
       // Create the show button
       let showButton: Button = Button(frame: showFrame, type: .Raised)
       // Set the show buttons title
-      showButton.add(title: "SHOW ME", color: Color().white)
+      showButton.set(title: "SHOW ME", color: .white)
       // Set the show buttons background color
-      showButton.backgroundColor = Color().blue
+      showButton.backgroundColor = .blue
       // Set the action for the show button
       showButton.action = { self.controller.showTutorial() }
       // Set the button's alpha to 0
@@ -114,11 +112,11 @@ struct HomeWelcomeViews : ViewsStruct {
       // Create teh skip "no thanks" button
       let skipButton: Button = Button(frame: skipFrame, type: .Flat)
       // Set the buttons title
-      skipButton.add(title: "NO THANKS", color: Color().blue)
+      skipButton.set(title: "NO THANKS", color: .blue)
       // Set the action for the button
       skipButton.action = {
          //controller.skipTutorial()
-         skipButton.ripple(Color().blue)
+         skipButton.ripple(.blue)
       }
       // Set the buttons alpha to 0
       skipButton.alpha = 0.0

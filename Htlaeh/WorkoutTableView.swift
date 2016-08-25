@@ -57,9 +57,9 @@ class WorkoutTableView : UIView {
       for a in 0..<self.workout.count {
          // Create the frame
          let frame: (y: CGFloat, width: CGFloat) = (y: CGFloat(a * 48) + 1, width: self.frame.w)
-         let exercise: String = self.workout.sets[a].name
-         let reps: Int = Int(self.workout.sets[a].reps!)
-         let weight: Int = Int(self.workout.sets[a].weight!)
+         let exercise: String = self.workout[a].name
+         let reps: Int = Int(self.workout[a].reps!)
+         let weight: Int = Int(self.workout[a].weight!)
          let titles: [String] = [exercise, "\(reps)", "\(weight)"]
          // Create the cell
          let cell: WorkoutTableCell = WorkoutTableCell(frame: frame, titles: titles)

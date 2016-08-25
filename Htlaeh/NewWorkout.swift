@@ -148,12 +148,12 @@ class NewWorkout: Controller {
       fabAnimation.animateCircle(1.3)
       // Change FAB color to blue
       UIView.animateWithDuration(0.4, delay: 1.3, options: .CurveEaseInOut, animations: {
-         self.FAB.backgroundColor = Color().blue
-         self.FAB.icon?.colorImage(Color().white)
+         self.FAB.backgroundColor = .blue
+         self.FAB.icon?.colorImage(.white)
          }, completion: { Bool in
             UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
-               self.FAB.backgroundColor = Color().yellow
-               self.FAB.icon?.colorImage(Color().black)
+               self.FAB.backgroundColor = .yellow
+               self.FAB.icon?.colorImage(.black)
                }, completion: { Bool in
                   UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
                      fabAnimation.alpha = 0.0
@@ -185,7 +185,9 @@ class NewWorkout: Controller {
    */
    private func segueToPreviewAnimation(vc: PreviewWorkout) {
       
-      // Hide the keyboard
+      let newToPreview: NewToPreview = NewToPreview(new: self, preview: vc)
+      newToPreview.segue()
+      /*// Hide the keyboard
       self.view.endEditing(true)
       self.resignFirstResponder()
       // Make sure workout isn't empty
@@ -195,7 +197,7 @@ class NewWorkout: Controller {
          return
       }
       // Create the circular view
-      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 29, y: 46), color: Color().white)
+      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 29, y: 46), color: .white)
       // Add the circular view to the controller
       self.view.addSubview(splashView)
       // Animate the view to take up the whole screen
@@ -204,7 +206,7 @@ class NewWorkout: Controller {
          }, completion: nil)
       // Add all the subviews to the view and segue to preview
       let previewViews: PreviewWorkoutViews = PreviewWorkoutViews(controller: vc)
-      previewViews.layoutViewsWithAnimatedAlpha(self)
+      previewViews.layoutViewsWithAnimatedAlpha(self)*/
       
    }
    
@@ -218,7 +220,7 @@ extension NewWorkout : ViewSetup {
    func setupViews() {
       
       // Set the background color for the view
-      self.view.backgroundColor = Color().white
+      self.view.backgroundColor = .white
       // Create the new workout views struct
       var newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: self)
       // Add all the views to the contoller
@@ -226,21 +228,9 @@ extension NewWorkout : ViewSetup {
       // Show the views
       newWorkoutViews.show()
       
-      self.view.addSubview(self.menu)
+      /*self.view.addSubview(self.menu)
       self.menu.showViewInstant()
-      self.hideMenu()
-      
-   }
-   
-   override func showMenu() {
-      
-      // Add the menu to the controller
-      self.view.addSubview(menu)
-      // Show the menu
-      self.menu.showView()
-      // Hide the keyboard
-      self.hideKeyboard()
-      
+      self.hideMenu()*/
       
    }
    

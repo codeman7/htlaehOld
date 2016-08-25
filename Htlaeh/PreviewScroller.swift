@@ -42,7 +42,7 @@ class PreviewScroller: UIScrollView {
     */
    func defaultSettings() {
       // Set the background color for the scroller
-      self.backgroundColor = Color().white
+      self.backgroundColor = .white
       // Set the delegate for the scroller
       self.delegate = self
       // Get the height for the scroller

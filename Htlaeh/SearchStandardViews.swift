@@ -26,9 +26,9 @@ struct SearchStandardViews : ViewsStruct {
       self.views[header] = (delay: 0.0, alpha: 1.0)
       
       // Make sure their are suggestions or return
-      guard self.controller.suggestions.count != 0 else {
+      guard self.controller.workouts.isEmpty == false else {
       
-         if RealmQuery().all().isEmpty { self.addWorkoutLayout() }
+         self.addWorkoutLayout()
          return
       }
       
@@ -37,8 +37,8 @@ struct SearchStandardViews : ViewsStruct {
       self.views[label] = (delay: 0.025, alpha: 0.38)
       
       // Get the suggestions and add them to the views array
-      //let suggestions: UITableView = self.createSuggestions()
-      //self.views[suggestions] = (delay: 0.025, alpha: 1.0)
+      let suggestions: SuggestionsTable = self.controller.suggestionsTable
+      self.views[suggestions] = (delay: 0.025, alpha: 1.0)
       
    }
    
@@ -55,7 +55,7 @@ struct SearchStandardViews : ViewsStruct {
       let header: BoldHeader = BoldHeader(frame: frame, options: options)
       self.controller.view.addSubview(header)
       // Add the search bar to the header
-      header.addSearchBar()
+      header.addSearchBar(self.controller)
       header.searchBar?.becomeFirstResponder()
       
       // Set the header's alpha to 0 and return it
@@ -71,7 +71,7 @@ struct SearchStandardViews : ViewsStruct {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: 16, y: 84, w: self.controller.width - 32, h: 21)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular().sixteen, align: .Left, color: Color().black)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Left, color: .black)
       
       // Set the labels alpha and it's text value
       label.alpha = 0.38
@@ -81,6 +81,21 @@ struct SearchStandardViews : ViewsStruct {
       self.controller.view.addSubview(label)
       return label
       
+      
+   }
+   
+   func createSuggestions() -> SuggestionsTable {
+      
+      // Create the frame for the table and the table itself
+      let frame: Rect = Rect(x: 0, y: 105, w: self.controller.width, h: CGFloat(self.controller.suggestions.count * 56))
+      let table: SuggestionsTable = SuggestionsTable(frame: frame, style: .Plain, controller: self.controller)
+      
+      // Add the table as a subview and set it's alpha to 0
+      self.controller.view.addSubview(table)
+      table.alpha = 0.0
+      
+      // Return the table
+      return table
       
    }
    
@@ -97,10 +112,10 @@ struct SearchStandardViews : ViewsStruct {
       self.updateHeader()
       
       let bigLabel: UILabel = self.createBigLabel()
-      self.views[bigLabel] = (delay: 0.025, alpha: HomeBigLabel().alpha)
+      self.views[bigLabel] = (delay: 0.025, alpha: HomeLabel.bigLabel.alpha)
       
       let message: UILabel = self.createLittleLabel()
-      self.views[message] = (delay: 0.05, alpha: HomeMessage().alpha)
+      self.views[message] = (delay: 0.05, alpha: HomeLabel.message.alpha)
       
       let button: Button = self.createNewWorkoutButton()
       self.views[button] = (delay: 0.075, alpha: 1.0)
@@ -126,7 +141,7 @@ struct SearchStandardViews : ViewsStruct {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: self.controller.width / 2 - 150, y: 196, w: 300, h: 48)
-      let label: UILabel = UILabel(frame: frame, properties: HomeBigLabel())
+      let label: UILabel = UILabel(frame: frame, properties: HomeLabel.bigLabel)
       
       // Set the labels text and alpha
       label.text = "No Workouts"
@@ -146,7 +161,7 @@ struct SearchStandardViews : ViewsStruct {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: self.controller.width / 2 - 102, y: 260, w: 204, h: 96)
-      let label: UILabel = UILabel(frame: frame, properties: HomeMessage())
+      let label: UILabel = UILabel(frame: frame, properties: HomeLabel.message)
       
       // Set the labels text and alpha
       label.text = "You have not created any workouts yet, let's go create one."
@@ -171,36 +186,17 @@ struct SearchStandardViews : ViewsStruct {
       let button: Button = Button(frame: frame, type: .Raised)
       
       // Add the title and set the background color for the button
-      button.add(title: "NEW WORKOUT", color: Color().white)
-      button.backgroundColor = Color().blue
+      button.set(title: "NEW WORKOUT", color: .white)
+      button.backgroundColor = .blue
       
       // Set the buttons alpha and action
       button.alpha = 0.0
-      button.action = { self.controller.showResults() }
+      button.action = { self.controller.newWorkout() }
       
       // Return the button and add it as a subview
       self.controller.view.addSubview(button)
       return button
       
    }
-   
-   
-   /**
-    This function creates the suggestions table
-   */
-   /*func createSuggestions() -> SuggestionsTable {
-      
-      // Set the frame for the table and create the table
-      let frame: Rect = Rect(x: 0, y: 109, w: self.controller.width, h: 272)
-      let table: SuggestionTable = SuggestionsTable(frame: frame)
-      
-      // Add the table to the controller's view and return it
-      self.controller.view.addSubview(table)
-      return table
-      
-      
-      
-   }*/
-   
    
 }

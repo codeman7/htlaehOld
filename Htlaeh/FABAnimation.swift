@@ -30,7 +30,7 @@ class FABAnimation : UIView {
       // Setup the CAShapeLayer with the path, colors, and line width
       self.circleLayer.path = circlePath.CGPath
       self.circleLayer.fillColor = UIColor.clearColor().CGColor
-      self.circleLayer.strokeColor = Color().blue.CGColor
+      self.circleLayer.strokeColor = UIColor.blue.CGColor
       self.circleLayer.lineWidth = 2.0;
       
       // Don't draw the circle initially

@@ -36,11 +36,11 @@ protocol WorkoutCardStyles {
 extension WorkoutCardStyles {
    
    var infoFont: UIFont {
-      return Fonts.Regular().twentyFour
+      return Fonts.Regular.twentyFour
    }
    
    var hintFont: UIFont {
-      return Fonts.Medium().twelve
+      return Fonts.Medium.twelve
    }
    
    var infoTextAlpha: CGFloat {
@@ -56,7 +56,7 @@ extension WorkoutCardStyles {
    }
    
    var leftIconColor: UIColor {
-      return Color().red
+      return .red
    }
    
    var leftImage: UIImage {
@@ -64,7 +64,7 @@ extension WorkoutCardStyles {
    }
    
    var rightIconColor: UIColor {
-      return Color().blue
+      return .blue
    }
    
    var rightImage: UIImage {

@@ -29,7 +29,7 @@ struct HomeData {
       } else {
          // No workout for today
          // Check to see if any workouts are in the DB
-         let anyWorkouts = RealmQuery().all()
+         let anyWorkouts = RealmQuery().all
          if anyWorkouts.isEmpty == true {
             // No workouts in the DB new user
             return .New

@@ -14,8 +14,8 @@ import UIKit
  */
 struct WorkoutTableColumnHeadString : TextPresentable {
    let alignment: NSTextAlignment = .Left
-   let font: UIFont = Fonts.Medium().twelve
-   let color: UIColor = Color().black
+   let font: UIFont = Fonts.Medium.twelve
+   let color: UIColor = .black
    let alpha: CGFloat = 0.54
 }
 
@@ -24,8 +24,8 @@ struct WorkoutTableColumnHeadString : TextPresentable {
  */
 struct WorkoutTableColumnHeadNumber : TextPresentable {
    let alignment: NSTextAlignment = .Right
-   let font: UIFont = Fonts.Medium().twelve
-   let color: UIColor = Color().black
+   let font: UIFont = Fonts.Medium.twelve
+   let color: UIColor = .black
    let alpha: CGFloat = 0.54
 }
 
@@ -35,8 +35,8 @@ struct WorkoutTableColumnHeadNumber : TextPresentable {
 struct WorkoutContentStringLabel : TextPresentable {
    let alpha: CGFloat = 0.87
    let alignment: NSTextAlignment = .Left
-   let color: UIColor = Color().black
-   let font: UIFont = Fonts.Regular().fourteen
+   let color: UIColor = .black
+   let font: UIFont = Fonts.Regular.fourteen
 }
 
 /**
@@ -45,6 +45,6 @@ struct WorkoutContentStringLabel : TextPresentable {
 struct WorkoutContentNumberLabel : TextPresentable {
    let alpha: CGFloat = 0.87
    let alignment: NSTextAlignment = .Right
-   let color: UIColor = Color().black
-   let font: UIFont = Fonts.Regular().fourteen
+   let color: UIColor = .black
+   let font: UIFont = Fonts.Regular.fourteen
 }

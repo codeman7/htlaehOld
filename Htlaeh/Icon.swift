@@ -29,7 +29,7 @@ class Icon: UIImageView {
    
    init(frame: CGRect, image: UIImage?, alpha: CGFloat) {
       // Set the color for the image
-      self.color = Color().black
+      self.color = .black
       // Call the super initializer
       super.init(frame: frame)
       // Set the image for the view
@@ -37,7 +37,7 @@ class Icon: UIImageView {
       // Set the alpha for the iamge
       self.alpha = alpha
       // Set the color for the image
-      self.colorImage(Color().black)
+      self.colorImage(.black)
       
    }
 

@@ -38,7 +38,7 @@ class Toast : UIView {
       // Call the super initializer
       super.init(frame: frame)
       // Set the background color
-      self.backgroundColor = Color().grey900
+      self.backgroundColor = .grey900
       // Add the text to the toast
       self.addLabelWith(title: text)
       // Set the alpha for the view
@@ -80,7 +80,7 @@ class Toast : UIView {
       // Set the frame for the label
       let frame: Rect = Rect(x: 24, y: 14, w: self.frame.w - 48, h: 20)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular().fourteen, align: .Left, color: Color().white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.fourteen, align: .Left, color: .white)
       // Set the text for the label
       label.text = title
       // Add the label to the view

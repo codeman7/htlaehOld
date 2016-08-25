@@ -30,14 +30,23 @@ struct AllStandardViews : ViewsStruct {
    }
    
    mutating func layoutViews() {
+      
+      
+      guard self.controller.workouts.isEmpty == false else {
+         // Layout the views for empty database
+         self.emptyLayout()
+         return
+      }
       // Get the header, add it to the view and set its alpha
       let header: BoldHeader = self.createHeader()
+      // Add the scroller
+      self.createAndAddScroller(header)
+      
+      // Add the header as a subview
+      self.controller.view.addSubview(header)
       // Add the header to the views dict
       self.views[header] = (delay: 0.0, alpha: 1.0)
-      
-      self.createAndAddScroller()
-      
-      
+      header.elevate(0.0)
       // Get the fab, add it to the view, and set its alpha
       let fab: Button = self.createFAB()
       // Add the fab to the views dict
@@ -52,10 +61,10 @@ struct AllStandardViews : ViewsStruct {
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 80)
       // Create styles for the header
       let workoutHeader: HeaderType = HeaderType.all(controller: self.controller)
+      
       // Create the header
       let header: BoldHeader = BoldHeader(frame: frame, options: workoutHeader)
-      // Add the header to the view
-      self.controller.view.addSubview(header)
+      
       // Set the headers alpha to 0
       header.alpha = 0.0
       // Return the header
@@ -70,9 +79,9 @@ struct AllStandardViews : ViewsStruct {
       // Create the FAB
       let fab: Button = Button(frame: frame, type: .FAB)
       // Set the buttons background color
-      fab.backgroundColor = Color().blue
+      fab.backgroundColor = .blue
       // Add the icon to the button
-      fab.add(image: Images.Action().search, color: Color().white)
+      fab.add(image: Images.Action().search, color: .white)
       // Set the action for the button
       fab.action = { self.controller.fabTouch() }
       // Set the fab to be the controllers fab variable
@@ -88,17 +97,96 @@ struct AllStandardViews : ViewsStruct {
    }
    
    /// This function returns the scroller
-   func createAndAddScroller() {
+   private func createAndAddScroller(header: BoldHeader) {
       // Create the frame for the scroller
       let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
       // Create the scroller
       // Make sure there are workouts in the database
       guard self.controller.workouts.isEmpty == false else { return }
       // Create the scroller
-      let scroller: AllScroller = AllScroller(frame: frame, workouts: self.controller.workouts)
+      let scroller: Scroller = Scroller(frame: frame, exercise: nil, header: header)
       // Add the scroller to the view
       self.controller.view.addSubview(scroller)
       
    }
    
+   mutating func emptyLayout() {
+      // Get the header, add it to the view and set its alpha
+      let header: BoldHeader = self.createHeader()
+      // Add the header as a subview
+      self.controller.view.addSubview(header)
+      // Hide the header's right icon
+      header.removeRightIcon()
+      // Add the header to the views dict
+      self.views[header] = (delay: 0.0, alpha: 1.0)
+      
+      let bigLabel = self.createBigLabel()
+      self.views[bigLabel] = (delay: 0.025, alpha: HomeLabel.bigLabel.alpha)
+      
+      let message = self.createMessageLabel()
+      self.views[message] = (delay: 0.05, alpha: HomeLabel.message.alpha)
+      
+      let addButton = self.createAddButton()
+      self.views[addButton] = (delay: 0.1, alpha: 1.0)
+      
+   }
+   
+   private func createBigLabel() -> UILabel {
+      // Create the frame for the label and it's properties
+      let frame: CGRect = CGRect(x: 16, y: self.controller.view.frame.height / 2 - 104, width: self.controller.width - 32, height: 48)
+      
+      // Create the big label and set its text
+      let restLabel: UILabel = UILabel(frame: frame, properties: HomeLabel.bigLabel)
+      restLabel.text = "No Workouts"
+      
+      // Add the label as a subview and return it
+      self.controller.view.addSubview(restLabel)
+      return restLabel
+      
+   }
+   
+   private func createMessageLabel() -> UILabel {
+      // Create the message's label and height
+      let text: String = "You have not added any workouts yet, its ok. Let's get started by adding one now."
+      let height = text.heightWithConstrainedWidth(240, font: Fonts.Regular.sixteen)
+      
+      // Create the messages frame and properties
+      let messageFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 120, y: self.controller.view.frame.height / 2 - 40, width: 240, height: height)
+     
+      // Create the message and set it's text
+      let message: UILabel = UILabel(frame: messageFrame, properties: HomeLabel.message)
+      message.text = text
+      
+      // Set the label to have multiple lines
+      message.multipleLines()
+      
+      // Add the label as a subview and return it
+      self.controller.view.addSubview(message)
+      return message
+   }
+   
+   private func createAddButton() -> Button {
+      // Create the button's frame and the button
+      let buttonFrame: Rect = Rect(x: (self.controller.width - 124) / 2, y: self.controller.height - 160, w: 124, h: 40)
+      let button: Button = Button(frame: buttonFrame, type: .Raised)
+      
+      // Add the title and set the buttons background color
+      button.backgroundColor = .blue
+      button.set(title: "ADD WORKOUT", color: .white)
+      
+      // Set the button's actions
+      button.action = { self.controller.segueToNew() }
+      
+      // Add the button as s subview and return it
+      self.controller.view.addSubview(button)
+      return button
+      
+   }
+   
 }
+
+
+
+
+
+

@@ -22,7 +22,7 @@ class Card: UIView {
       super.init(frame: frame)
       self.layer.cornerRadius = 2.0
       self.elevate(1.0)
-      self.backgroundColor = Color().white
+      self.backgroundColor = .white
       
    }
    

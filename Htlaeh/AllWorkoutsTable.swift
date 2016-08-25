@@ -44,8 +44,9 @@ class AllWorkoutsTable : UITableView {
       // Set the data source and delegate
       self.dataSource = self
       self.delegate = self
+      self.rowHeight = 48.0
       // Set the seperator color and alpha
-      self.separatorColor = Color().black.colorWithAlphaComponent(0.14)
+      self.separatorColor = UIColor.black.colorWithAlphaComponent(0.14)
       
    }
    
@@ -61,14 +62,15 @@ extension AllWorkoutsTable : UITableViewDataSource {
       if indexPath.row == 0 {
          // Create the cell and add the data
          let workoutCell = tableView.dequeueReusableCellWithIdentifier("Header", forIndexPath: indexPath) as! WorkoutCellHeader
-         let date: String = Date().databaseDateToReadable(self.workout.sets[0].date)
+         let date: String = Date().databaseDateToReadable(self.workout[0].date)
          workoutCell.add(date: date)
          workoutCell.addHeaders()
          cell = workoutCell
       } else {
          // Create the cell and determine what set to show the data for
          let workoutCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! WorkoutCell
-         let weightSet: WeightSet = self.workout.sets[indexPath.row]
+         
+         let weightSet: WeightSet = self.workout[indexPath.row - 1]
          // Add the data and return the cell
          workoutCell.addTitlesFor(set: weightSet)
          cell = workoutCell
@@ -82,14 +84,6 @@ extension AllWorkoutsTable : UITableViewDataSource {
       return self.workout.sets.count + 1
       
    }
-   
-   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-      
-      return 1
-      
-   }
-   
-  
    
 }
 
