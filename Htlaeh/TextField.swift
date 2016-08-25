@@ -279,7 +279,10 @@ extension TextField {
    func toDouble() -> Double {
       
       let textWithoutLetters: String = String(self.text!.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
-      return Double(textWithoutLetters)!
+      guard let value = Double(textWithoutLetters) else {
+         return 0
+      }
+      return value
       
    }
    

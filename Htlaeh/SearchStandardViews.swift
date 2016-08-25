@@ -26,7 +26,7 @@ struct SearchStandardViews : ViewsStruct {
       self.views[header] = (delay: 0.0, alpha: 1.0)
       
       // Make sure their are suggestions or return
-      guard self.controller.workouts.isEmpty == false else {
+      guard RealmQuery().all.isEmpty == false else {
       
          self.addWorkoutLayout()
          return

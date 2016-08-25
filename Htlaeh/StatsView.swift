@@ -77,16 +77,20 @@ class StatsView : UIView {
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 16)
       // Create the personal best hint and add it to the top array
       let personalBest: UILabel = self.add(label: leftLabel, text: "Personal Best", frame: grid.topLeft())
-      self.topViews += [personalBest]
+//      self.topViews += [personalBest]
       // Create the total sets hint and add it to the top array
       let sets: UILabel = self.add(label: rightLabel, text: "Total Sets", frame: grid.topRight())
-      self.topViews += [sets]
+//      self.topViews += [sets]
       // Create the total weight hint and add it to the bottom array
       let weight: UILabel = self.add(label: leftLabel, text: "Total Weight", frame: grid.bottomLeft())
-      self.bottomViews += [weight]
+//      self.bottomViews += [weight]
       // Create the total reps hint and add it to the bottom array
       let reps: UILabel = self.add(label: rightLabel, text: "Total Reps", frame: grid.bottomRight())
-      self.bottomViews += [reps]
+//      self.bottomViews += [reps]
+      self.addSubview(personalBest)
+      self.addSubview(sets)
+      self.addSubview(weight)
+      self.addSubview(reps)
    }
    
    /**
@@ -100,20 +104,24 @@ class StatsView : UIView {
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 45)
       // Create the personal best label and add it to the top array
       let best: UILabel = self.add(label: leftLabel, text: "\(self.data.personalBest) lbs", frame: grid.topLeft())
-      self.topViews += [best]
+//      self.topViews += [best]
       // Create the total sets label and add it to the top array
       let sets: UILabel = self.add(label: rightLabel, text: "\(self.data.totalSets)", frame: grid.topRight())
-      self.topViews += [sets]
+//      self.topViews += [sets]
       // Get the value for the label
       let weightLabel: Double = Double(round(100*(Double(self.data.totalWeight) / 2000))/100)
       // Create the total weight label and add it to the bottom array
       let weight: UILabel = self.add(label: leftLabel, text: "\(weightLabel) tons", frame: grid.bottomLeft())
-      self.bottomViews += [weight]
+//      self.bottomViews += [weight]
       // Create the total reps label and add it to the bottom array
       let reps: UILabel = self.add(label: rightLabel, text: "\(self.data.totalReps)", frame: grid.bottomRight())
-      self.bottomViews += [reps]
+      self.addSubview(best)
+      self.addSubview(sets)
+      self.addSubview(weight)
+      self.addSubview(reps)
+//      self.bottomViews += [reps]
       // Add all the labels to the content array
-      self.content = [best, sets, weight, reps]
+//      self.content = [best, sets, weight, reps]
       
       
    }
@@ -128,11 +136,11 @@ class StatsView : UIView {
       label.frame.size.height = height
       
       // Set the labels alpha
-      label.alpha = 0.0
+//      label.alpha = 0.0
       
       // Set the text for the label and add it as a subview
       label.text = text
-      self.addSubview(label)
+      //self.addSubview(label)
       
       // Return the label
       return label

@@ -50,20 +50,20 @@ class Home: Controller {
    func showTutorial() {
       
       print("Show tutorial")
-      let tutorial: HomeTutorial = HomeTutorial()
+      /*let tutorial: HomeTutorial = HomeTutorial()
       let views: [ViewRepresentable] = tutorial.firstStep(controllerView: self.view)
       self.view.layer.addSublayer(views[0] as! CAShapeLayer)
       self.view.addSubview(views[1] as! UIView)
       self.view.addSubview(views[2] as! UIView)
-      
+      */
       
    }
    
    func skipTutorial() {
       
       print("Fix a tutorial skip")
-      /*
-      for iteration in 0..<contentViews.count {
+      
+      /*for iteration in 0..<contentViews.count {
          
          let last: Int = contentViews.count - 1
          if iteration == last {
@@ -75,7 +75,6 @@ class Home: Controller {
          } else {
             UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: nil)
          }
-         
       }*/
       
    }

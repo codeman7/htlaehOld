@@ -27,11 +27,6 @@ class Search : Controller {
    
    /// The property for the suggestions
    var suggestions: [String] = RealmQuery().exerciseNames().mostCommon()
-
-   
-   /// The property for the workouts
-   var workouts: [Workout] = RealmQuery().all
-   
    
    // MARK: Functions
    override func viewDidLoad() {
@@ -70,19 +65,25 @@ class Search : Controller {
    }
    
    func showResults(exercise: String) {
-      
+      // Get all the views except the header and hide them
       let views: [UIView] = self.view.subviews.filter({ !($0 is BoldHeader) })
       for view in views {
          view.hideWithAlpha()
       }
       
-      let results = RealmQuery().resultsFor(exercise: exercise)
+      // Trim down the exercise incase a space was added at the end
+      let name = exercise.trimmed()
       
-      var loadResults: SearchResultsViews = SearchResultsViews(controller: self, exercise: exercise)
-      guard results.isEmpty == false else {
-         loadResults.showEmpty(exercise)
+      // Create the struct that will hold all the views
+      var loadResults: SearchResultsViews = SearchResultsViews(controller: self, exercise: name)
+      
+      // Make sure that exercise exist in the database
+      guard loadResults.results.isEmpty == false else {
+         loadResults.showEmpty(name)
          return
       }
+      
+      // Layout all the views for that exercise
       loadResults.layoutViews()
       loadResults.show()
       

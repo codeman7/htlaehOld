@@ -21,7 +21,12 @@ class DatePicker : Dialog {
    /// The current day selected
    private var day: Int = Date().day
    /// The date that is currently selected and will be used
-   lazy var date: String = { return DatabaseDate(year: self.year, month: self.month, day: self.day).toDBFormat() }()
+   var date: String {
+      get {
+         return DatabaseDate(year: self.year, month: self.month, day: self.day).toDBFormat()
+      }
+   }
+   //lazy var date: String = { return DatabaseDate(year: self.year, month: self.month, day: self.day).toDBFormat() }()
    /// The property for the year label
    private lazy var yearLabel: UILabel = { self.createYearLabel() }()
    /// The property for the top label
@@ -49,7 +54,7 @@ class DatePicker : Dialog {
       - parameter year: The year that will first be show
    */
    override init(frame: CGRect, promptFrame: CGRect) {
-      
+
       // Call the super initializer
       super.init(frame: frame, promptFrame: promptFrame)
       

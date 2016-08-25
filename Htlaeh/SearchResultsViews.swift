@@ -19,10 +19,10 @@ struct SearchResultsViews : ViewsStruct {
    let controller: Search
    /// The property for all the views
    var views: [UIView: (delay: Double, alpha: CGFloat)] = [:]
-   /// The property for the scroller
-   //lazy var scroller: UIScrollView = self.createScroller()
    /// The property for the workouts
    let exercise: String
+   /// The property for the workouts of the given exercise
+   lazy var results: [Workout] = RealmQuery().resultsFor(exercise: self.exercise)
    
    // MARK: Initializers
    init<T : Controller>(controller: T) {
@@ -35,20 +35,6 @@ struct SearchResultsViews : ViewsStruct {
       self.controller = controller
    }
    
-   /*func createScroller() -> UIScrollView {
-      
-      // Create the scrollers frame and the scroller
-      let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
-      let scroll: UIScrollView = UIScrollView(frame: frame)
-      
-      // Set the scroller's content height
-      scroll.contentSize = CGSize(width: self.controller.width, height: self.controller.height)
-      // Add the scroll view to the controller and return it
-      self.controller.view.insertSubview(scroll, belowSubview: self.controller.header)
-      
-      return scroll
-      
-   }*/
    
    mutating func layoutViews() {
       
@@ -59,24 +45,24 @@ struct SearchResultsViews : ViewsStruct {
       let fab: Button = self.createFAB()
       self.views[fab] = (delay: 0.125, alpha: 1.0)
       
-      // Get the stats view and add it to the array
+      /*// Get the stats view and add it to the array
       self.statsSetup()
       
       // Get the line and label views and add them to the array and add them to the scroller
       let all: (Line, UILabel) = self.createAllLine()
       self.views[all.0] = (delay: 0.075, alpha: 1.0)
-      self.views[all.1] = (delay: 0.075, alpha: 0.54)
+      self.views[all.1] = (delay: 0.075, alpha: 0.54)*/
       
    }
    
-   mutating func showEmpty(s: String) {
+   mutating func showEmpty(exercise: String) {
       
       // Get the big label
       let bigLabel: UILabel = self.createBigLabel()
       self.views[bigLabel] = (delay: 0.025, alpha: HomeLabel.bigLabel.alpha)
       
       // Get the message
-      let message: UILabel = self.createEmptyMessage(s)
+      let message: UILabel = self.createEmptyMessage(exercise)
       self.views[message] = (delay: 0.05, alpha: HomeLabel.message.alpha)
       
       // Layout the views
@@ -152,11 +138,11 @@ struct SearchResultsViews : ViewsStruct {
    /**
     This function creates the message for emtpy results
    */
-   func createEmptyMessage(s: String) -> UILabel {
+   func createEmptyMessage(exercise: String) -> UILabel {
       
       // Create the labels properties and a variable to hold it's text
       let properties: HomeLabel = HomeLabel.message
-      let text: String = "We could not find any workouts with the name \"\(s)\"."
+      let text: String = "We could not find any workouts with the name \"\(exercise)\"."
       
       // Calculate the label's height and set it's frame
       let height: CGFloat = text.heightWithConstrainedWidth(240, font: properties.font)
@@ -223,7 +209,7 @@ struct SearchResultsViews : ViewsStruct {
    private func createAndAddScroller(header: BoldHeader) {
       
       // Create the frame and the scroller
-      let frame: Rect = Rect(x: 0, y: 259, width: self.controller.width, height: self.controller.height - 259)
+      let frame: Rect = Rect(x: 0, y: 80, width: self.controller.width, height: self.controller.height - 80)
       let scroller: Scroller = Scroller(frame: frame, exercise: self.exercise, header: header)
       
       self.controller.view.addSubview(scroller)

@@ -34,9 +34,7 @@ struct NewToPreview {
       // Add the circular view to the controller
       self.new.view.addSubview(splashView)
       // Animate the view to take up the whole screen
-      UIView.animateWithDuration(0.25, animations: {
-         splashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
-         }, completion: nil)
+      splashView.grow()
       // Add all the subviews to the view and segue to preview
       let previewViews: PreviewWorkoutViews = PreviewWorkoutViews(controller: self.preview)
       previewViews.layoutViewsWithAnimatedAlpha(self.new)

@@ -112,6 +112,7 @@ class NewWorkout: Controller {
       // Store the workout in the DB
       let realmStore: RealmStore = RealmStore()
       realmStore.store(workout: self.workout)
+      print(self.datePicker.date)
       // Hide the Date Picker
       self.datePicker.hideView()
       // Set the workout back to empty
@@ -174,9 +175,9 @@ class NewWorkout: Controller {
    }
    
    func addSetToast() {
-      // Create the new workout set and then create the toast
+      
+      // Create the new workout set and then create the toast and show the toast
       let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Please add a set")
-      // Show the toast
       toast.show()
    }
    
@@ -185,28 +186,9 @@ class NewWorkout: Controller {
    */
    private func segueToPreviewAnimation(vc: PreviewWorkout) {
       
+      // Create the struct that will handle the segue and perform the segue
       let newToPreview: NewToPreview = NewToPreview(new: self, preview: vc)
       newToPreview.segue()
-      /*// Hide the keyboard
-      self.view.endEditing(true)
-      self.resignFirstResponder()
-      // Make sure workout isn't empty
-      guard self.workout.count != 0 else {
-         self.addSetToast()
-         // Exit the function
-         return
-      }
-      // Create the circular view
-      let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 29, y: 46), color: .white)
-      // Add the circular view to the controller
-      self.view.addSubview(splashView)
-      // Animate the view to take up the whole screen
-      UIView.animateWithDuration(0.25, animations: {
-         splashView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
-         }, completion: nil)
-      // Add all the subviews to the view and segue to preview
-      let previewViews: PreviewWorkoutViews = PreviewWorkoutViews(controller: vc)
-      previewViews.layoutViewsWithAnimatedAlpha(self)*/
       
    }
    

@@ -35,4 +35,10 @@ class CircularView : UIView {
          self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
       })
    }
+   
+   func grow(completion: ()->()) {
+      UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: {
+         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
+         }, completion: { Bool in completion() })
+   }
 }

@@ -18,7 +18,7 @@ class Scroller: UIScrollView {
    /// Property for the workouts that will be shown
    let exercise: String?
    
-   lazy var workouts: [Workout] = (self.exercise == nil) ? RealmQuery().allWorkouts() : RealmQuery().resultsFor(exercise: self.exercise!)
+   lazy var workouts: [Workout] = (self.exercise == nil) ? RealmQuery().all : RealmQuery().resultsFor(exercise: self.exercise!)
    /// Property for the weeks that will be shown
    private var weeks: [(sun: Int, sat: Int)] = []
    /// The header that will elevate on scroll
@@ -35,6 +35,7 @@ class Scroller: UIScrollView {
       self.exercise = exercise
       super.init(frame: frame)
       self.defaultSettings()
+      self.addContentFor(exercise: self.exercise)
       // Update the content size
       self.contentSize = CGSize(width: self.frame.width, height: self.yPosition + 72)
       
@@ -60,10 +61,13 @@ class Scroller: UIScrollView {
       let lastDate: Date = self.workouts.last![0].date.date()
       // Get all the weeks for the workouts and set the content offset
       self.weeks = Date().getWeeksBetween(start: firstDate, andEnd: lastDate).reverse()
-      self.contentOffset.y = 80
+      guard self.exercise != nil else {
+         self.contentOffset.y = 80
+         return
+      }
    }
    
-   func addContentFor(exercise exercise: String) {
+   func addContentFor(exercise exercise: String?) {
       
       // Make sure workouts have content
       guard self.workouts.isEmpty == false else {
@@ -72,7 +76,7 @@ class Scroller: UIScrollView {
       
       if exercise != nil {
          // Searching for a specific exercise so add that stats view for that exercise and the all line
-         self.addStatsViewFor(exercise: exercise)
+         self.addStatsViewFor(exercise: exercise!)
          self.addAllLabel()
       }
       
@@ -121,17 +125,37 @@ class Scroller: UIScrollView {
    
    private func addAllLabel() {
       
+      // Create the frame for the line and create the line
+      let lineFrame: Rect = Rect(x: self.frame.width / 3, y: self.yPosition + 16, w: self.frame.width / 3, h: 2)
+      let line: Line = Line(frame: lineFrame, alpha: 1.0)
+      // Set the lines background color and add it to the controller
+      line.backgroundColor = .blue
+      
+      // Create the label and it's frame
+      let labelFrame: Rect = Rect(x: self.frame.width / 2 - 100, y: self.yPosition + 30, w: 200, h: 28)
+      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .Center, font: Fonts.Regular.twenty))
+      // Set the labels text and add it to the controller
+      label.text = "All Sets"
+      
+      self.addSubview(line)
+      self.addSubview(label)
+      
+      self.yPosition += 72
+      
    }
    
    private func addStatsViewFor(exercise exercise: String) {
       
       // Create the frame for the stats view and create the view
-      let frame: Rect = Rect(x: 0, y: 1, w: self.controller.width, h: 144)
+      let frame: Rect = Rect(x: 0, y: 1, w: self.frame.w, h: 144)
       
-      let data: StatsViewData = RealmQuery().statsFor(exercise: self.controller.header.searchBar!.text!)
+      let data: StatsViewData = RealmQuery().statsFor(exercise: exercise)
       let statsView: StatsView = StatsView(frame: frame, data: data)
       // Add the view to the controller and return the stats view
       self.addSubview(statsView)
+      
+      // Update the y Position
+      self.yPosition += 144
       
       
    }
