@@ -29,4 +29,10 @@ struct RealmStore {
       
    }
    
+   func done(set set: RealmWorkout) {
+      
+      try! realm.write({ set.complete = true })
+      
+   }
+   
 }

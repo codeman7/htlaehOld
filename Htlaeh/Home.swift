@@ -21,6 +21,15 @@ class Home: Controller {
       return self.createHeader()
    }()
    
+   /// The variable for the current set that the User is on in the workout
+   var setCount: Int = 0
+   
+   /// The property for the active views that are the main content
+   var activeViews: ActiveSetView? = nil
+   
+   /// The property for the help views that are next to be main content
+   var helperViews: [UIView] = []
+   
    
    // MARK: Functions
    override func viewDidLoad() {
@@ -43,39 +52,39 @@ class Home: Controller {
    
    func setDone() {
       
-      print("This set is done")
+      let set = RealmQuery().setFor(setCount, date: Date().today())
+      print(set)
+      
+      guard let s = set else {
+         return
+      }
+      print(s)
+      RealmStore().done(set: s)
+      // Update the set count
+      self.setCount += 1
+      guard workout?.sets.count > self.setCount else {
+         print("Workout done")
+         return
+      }
+      
+      guard self.activeViews != nil else {
+         return
+      }
+      
+      self.activeViews?.exit(true)
+      print("Next labels will be \(workout![setCount].name), \(workout![setCount].reps), \(workout![setCount].weight)")
       
    }
    
    func showTutorial() {
       
       print("Show tutorial")
-      /*let tutorial: HomeTutorial = HomeTutorial()
-      let views: [ViewRepresentable] = tutorial.firstStep(controllerView: self.view)
-      self.view.layer.addSublayer(views[0] as! CAShapeLayer)
-      self.view.addSubview(views[1] as! UIView)
-      self.view.addSubview(views[2] as! UIView)
-      */
       
    }
    
    func skipTutorial() {
       
       print("Fix a tutorial skip")
-      
-      /*for iteration in 0..<contentViews.count {
-         
-         let last: Int = contentViews.count - 1
-         if iteration == last {
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: { Bool in
-               // Get all the views for the rest content
-               let restViews: HomeRestViews = HomeRestViews()
-               // Add all the views for the rest content
-               restViews.addRestViewsToView(self.view, controller: self) })
-         } else {
-            UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: { self.contentViews[iteration].alpha = 0.0 }, completion: nil)
-         }
-      }*/
       
    }
    
@@ -87,7 +96,12 @@ class Home: Controller {
    
    func restToNewWorkout() {
       
-      print("Segue to new workout")
+      print("Segue to new work")
+      let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 104), color: .blue)
+      self.view.addSubview(circleView)
+      circleView.grow({
+         self.presentViewController(NewWorkout(), animated: false, completion: nil)
+      })
       
    }
    

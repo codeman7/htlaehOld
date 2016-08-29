@@ -41,14 +41,19 @@ struct HomeStandardViews : ViewsStruct {
       // Set the headers delay to 0
       self.views[header] = (delay: 0.0, alpha: 1.0)
       
-      // Get the exercise labels
+      
+      let titles: [Location: (hint: SetVariable, label: String)] = [.top : (hint: SetVariable.Exercise, label: self.controller.workout![0].name), .left : (hint: SetVariable.Reps, label: "\(self.controller.workout![0].reps!)"), .right : (hint: SetVariable.Weight, label: "\(Int(self.controller.workout![0].weight!))")]
+      let setview: ActiveSetView = ActiveSetView(view: self.controller.view, titles: titles)
+      self.controller.view.addSubview(setview)
+      self.controller.activeViews = setview
+      /*// Get the exercise labels
       let labels: [UILabel] = self.createLabels()
       // Iterate over the exercise labels and add them to the view, set their alpha and add them to the view property
       for label in labels {
          label.alpha = 0.0
          self.controller.view.addSubview(label)
       }
-      
+      */
       // Get the buttons
       let buttons: [Button] = self.createButtons()
       // Iterate over the buttons and set their alpha, add them to the view, and them to the view property
@@ -81,85 +86,6 @@ struct HomeStandardViews : ViewsStruct {
       rightButton.set(title: "DONE", color: .white)
       buttons += [rightButton]
       return buttons
-      
-   }
-   
-   private mutating func createLabels() -> [UILabel] {
-      
-      let exercise: [UILabel] = self.createExerciseLabels((.hint, .content))
-      
-      let reps: [UILabel] = self.createRepsLabels((.hint, .content))
-      
-      let weight: [UILabel] = self.createWeightLabels((.hint, .content))
-      
-      let rest: [UILabel] = self.createRestLabels((.hint, .accent))
-      
-      return exercise + reps + weight + rest
-      
-   }
-   
-   private mutating func createExerciseLabels(properties: (hint: HomeLabel, label: HomeLabel)) -> [UILabel] {
-      
-      let exerciseHintFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 80, y: self.controller.view.frame.height / 2 - 134, width: 160, height: 19)
-      let exerciseHintLabel: UILabel = UILabel(frame: exerciseHintFrame, properties: properties.hint)
-      exerciseHintLabel.text = "Exercise Name"
-      self.views[exerciseHintLabel] = (delay: 0.025, alpha: properties.hint.alpha)
-      
-      let exerciseFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 80, y: self.controller.view.frame.height / 2 - 107, width: 160, height: 48)
-      let exerciseLabel: UILabel = UILabel(frame: exerciseFrame, properties: properties.label)
-      exerciseLabel.text = "\(controller.workout![0].name)"
-      self.views[exerciseLabel] = (delay: 0.025, alpha: properties.label.alpha)
-      
-      return [exerciseHintLabel, exerciseLabel]
-   }
-   
-   private mutating func createRepsLabels(properties: (hint: HomeLabel, label: HomeLabel)) -> [UILabel] {
-      
-      let repsX: CGFloat = self.controller.view.frame.width.halfCentered(side: .Left, size: 136)
-      let repsHintFrame: CGRect = CGRect(x: repsX, y: self.controller.view.frame.height / 2 - 51, width: 136, height: 19)
-      let repsHint: UILabel = UILabel(frame: repsHintFrame, properties: properties.hint)
-      repsHint.text = "Reps"
-      self.views[repsHint] = (delay: 0.05, alpha: properties.hint.alpha)
-      
-      let repsFrame: CGRect = CGRect(x: repsX, y: self.controller.view.frame.height / 2 - 24, width: 136, height: 48)
-      let repsLabel: UILabel = UILabel(frame: repsFrame, properties: properties.label)
-      repsLabel.text = "\(controller.workout![0].reps!)"
-      self.views[repsLabel] = (delay: 0.05, alpha: properties.label.alpha)
-      
-      return [repsHint, repsLabel]
-      
-   }
-   
-   private mutating func createWeightLabels(properties: (hint: HomeLabel, label: HomeLabel)) -> [UILabel] {
-      
-      let weightX: CGFloat = self.controller.view.frame.width.halfCentered(side: .Right, size: 136)
-      let weightHintFrame: CGRect = CGRect(x: weightX, y: self.controller.view.frame.height / 2 - 51, width: 136, height: 19)
-      let weightHint: UILabel = UILabel(frame: weightHintFrame, properties: properties.hint)
-      weightHint.text = "Weight"
-      self.views[weightHint] = (delay: 0.05, alpha: properties.hint.alpha)
-      
-      let weightFrame: CGRect = CGRect(x: weightX, y: self.controller.view.frame.height / 2 - 24, width: 136, height: 48)
-      let weightLabel: UILabel = UILabel(frame: weightFrame, properties: properties.label)
-      weightLabel.text = "\(Int(controller.workout![0].weight!))"
-      self.views[weightLabel] = (delay: 0.05, alpha:  properties.label.alpha)
-      
-      return [weightHint, weightLabel]
-      
-   }
-   
-   private mutating func createRestLabels(properties: (hint: HomeLabel, label: HomeLabel)) -> [UILabel] {
-      
-      let restHintFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 68, y: self.controller.view.frame.height / 3 * 2 , width: 136, height: 16)
-      let restHint: UILabel = UILabel(frame: restHintFrame, properties: properties.hint)
-      restHint.text = "Rest"
-      self.views[restHint] = (delay: 0.075, alpha: properties.hint.alpha)
-      
-      let restFrame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 68, y: self.controller.view.frame.height / 3 * 2 + 20, width: 136, height: 32)
-      let restLabel: UILabel = UILabel(frame: restFrame, properties: properties.label)
-      restLabel.text = "\(controller.workout![0].restTime!.toString())"
-      self.views[restLabel] = (delay: 0.075, alpha: properties.label.alpha)
-      
-      return [restHint, restLabel]
       
    }
    

@@ -185,6 +185,19 @@ struct RealmQuery {
       
    }
    
+   func setFor(setCount: Int, date: String) -> RealmWorkout? {
+      
+      let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout).filter("setCount == \(setCount) AND date = '\(date)'")
+      print(workouts)
+      guard workouts.count == 1 else {
+         return nil
+      }
+      
+      let set = workouts.first!
+      return set
+      
+   }
+   
 }
 
 

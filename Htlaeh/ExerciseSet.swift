@@ -125,6 +125,13 @@ extension WeightSet: UpdateSet {
       
    }
    
+   /// Use this function to update a set's set count property
+   func updateSetCount(to setCount: Int) -> WeightSet {
+      
+      return WeightSet(name: self.name, setCount: setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: self.time, date: self.date, complete: self.complete, synced: self.synced)
+      
+   }
+   
    /// Use this to update the reps a User did often used for an AMRAP or achieved more than they thought
    func updateReps(reps: Int) -> WeightSet {
       // Return a new instance of Exercise Set with the new number of reps completed
@@ -145,6 +152,10 @@ extension WeightSet: UpdateSet {
       // Return new instance of Weight set with the date updated
       return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: self.time, date: newDate, complete: self.complete, synced: self.synced)
       
+   }
+   
+   func done() -> Bool {
+      return self.complete
    }
    
 }

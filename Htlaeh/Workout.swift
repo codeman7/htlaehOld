@@ -46,7 +46,7 @@ extension WorkoutType {
 
 struct Workout: WorkoutType {
    // MARK: Properties
-   let sets: [WeightSet]
+   var sets: [WeightSet]
    /// The variable for the date of the workout
    var date: Int {
       guard self.sets.isEmpty == false else { return 0 }
@@ -60,7 +60,21 @@ struct Workout: WorkoutType {
    }
    
    subscript(i: Int) -> WeightSet {
-      return self.sets[i]
+      get {
+        return self.sets[i]
+      }
+      
+      set {
+         self.sets[i] = newValue
+      }
+   }
+   
+   subscript(i: Range<Int>) -> Workout {
+      var workout = Workout()
+      for iteration in i {
+         workout = workout.add(self[iteration])
+      }
+      return workout
    }
    
    // MARK: Initializers
@@ -89,6 +103,14 @@ struct Workout: WorkoutType {
       var tempArray: [WeightSet] = self.sets
       tempArray += [set]
       return Workout(sets: tempArray)
+      
+   }
+   
+   func update(at index: Int, newSet: WeightSet) -> Workout {
+      
+      var tempWorkout = self
+      tempWorkout[index] = newSet
+      return tempWorkout
       
    }
    
@@ -155,6 +177,48 @@ struct Workout: WorkoutType {
       return remainingSets
       
    }
+   
+   func updateSetCount(to setCount: Int) -> Workout {
+      var workout = self
+      var currentSet = setCount
+      for iteration in 0..<self.count {
+         var set = self[iteration]
+         set = set.updateSetCount(to: currentSet)
+         workout = workout.update(at: iteration, newSet: set)
+         currentSet += 1
+         
+      }
+      
+      return workout
+   }
+   
+}
+
+// MARK: Overload operators
+func += (inout lhs: Workout, rhs: WeightSet) -> Workout {
+   
+   lhs = lhs.add(rhs)
+   return lhs
+   
+}
+
+func -= (inout lhs: Workout, rhs: Int) -> Workout {
+   // Assign the workout to a temp workout
+   let temp: Workout = lhs
+   // Set the workout to empty
+   lhs = Workout()
+   // Iterate over the entire workout
+   for iteration in 0..<temp.count {
+      // If the iteration equals the set to skip then skip it
+      if iteration == rhs {
+         continue
+      } else {
+         // Else add it to the workout
+         lhs = lhs.add(temp[iteration])
+      }
+   }
+   // Return the new workout
+   return lhs
    
 }
 
