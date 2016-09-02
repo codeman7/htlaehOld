@@ -68,6 +68,8 @@ class Sign: Controller {
    
    func segueToHome() {
       
+      let defaults: UserDefaults = UserDefaults()
+      defaults.defaultValues()
       self.animate()
       let delay: Delay = Delay()
       delay.delay(3.0, closure: {
@@ -76,7 +78,7 @@ class Sign: Controller {
       
       
    }
-   
+      
    private func getHomeViews() {
       
       let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: .white)

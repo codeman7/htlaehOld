@@ -124,5 +124,24 @@ extension String {
       return Double(h) * 3600 + Double(m) * 60 + Double(s)
    }
    
+   func time() -> Double? {
+      let result = String(self.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
+      guard let time = Double(result) else {
+         return nil
+      }
+      var h: Int = Int(time) / 10000
+      var m: Int = Int(time) / 100 - (h * 100)
+      var s = time % 100
+      if s >= 60 {
+         m += 1
+         s = s % 60
+      }
+      if m >= 60 {
+         h += 1
+         m = m % 60
+      }
+      return Double(h) * 3600 + Double(m) * 60 + Double(s)
+   }
+   
 }
 

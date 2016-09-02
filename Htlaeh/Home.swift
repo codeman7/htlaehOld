@@ -8,35 +8,70 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 
 class Home: Controller {
    // MARK: Properties
    // This holds the workout for the VC
-   var workout: Workout? {
-      return RealmQuery().getWorkoutFor(date: Date().today())
-   }
+   var workout: Workout? = RealmQuery().getWorkoutFor(date: Date().today())
+   
    /// Property for the header of the controller
-   lazy var header: BoldHeader = {
-      return self.createHeader()
-   }()
+   lazy var header: BoldHeader = self.createHeader()
+   
+   /// Property for the skip button
+   lazy var skipButton: Button = HomeStandardViews(controller: self).createSkipButton()
+   
+   /// Property for the done button
+   lazy var doneButton: Button = HomeStandardViews(controller: self).createDoneButton()
    
    /// The variable for the current set that the User is on in the workout
    var setCount: Int = 0
    
+   /// The variable to decide weather the User is exercising or resting
+   var active: Bool = true
+   
    /// The property for the active views that are the main content
-   var activeViews: ActiveSetView? = nil
+   var setView: HomeSetView? = nil
    
    /// The property for the help views that are next to be main content
    var helperViews: [UIView] = []
    
-   
+   var timer: CancelableTimer? = nil
+   var count: Int = 0
    // MARK: Functions
    override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view, typically from a nib.
       self.setupViews()
+      
+      UserDefaults().defaultValues()
+      self.recursion()
+      
    }
+   
+   func recursion() {
+      
+      
+      if timer == nil {
+         let closure: () -> () = {
+            self.count += 1
+            print(self.count)
+            self.recursion()
+            if self.count == 3 {
+               self.timer?.cancel()
+            }
+            
+         }
+         self.timer = CancelableTimer(once: false, handler: closure)
+         
+         
+         self.timer?.startWithInterval(1.0)
+         
+      } 
+      
+   }
+   
    
    func showMore() {
       
@@ -50,29 +85,79 @@ class Home: Controller {
       
    }
    
+   func addFifteen() {
+      
+      // Get the amount of rest left
+      guard var amount = self.setView!.topTopContent.text!.time() else {
+         return
+      }
+      
+      // Add 15 to the amount and set it back to the top content's text
+      amount += 15
+      self.setView!.topTopContent.text = amount.toString()
+      
+   }
+   
    func setDone() {
       
+      // Mark the set as done within the view controller
+      /*let newSet: WeightSet = self.workout![setCount].setDone()
+      self.workout = self.workout!.update(at: setCount, newSet: newSet)
+      
+      // Mark the set done in Realm
       let set = RealmQuery().setFor(setCount, date: Date().today())
-      print(set)
-      
-      guard let s = set else {
-         return
+      let store = RealmStore()
+      if let updatedSet = set {
+         store.done(set: updatedSet)
       }
-      print(s)
-      RealmStore().done(set: s)
-      // Update the set count
-      self.setCount += 1
-      guard workout?.sets.count > self.setCount else {
-         print("Workout done")
-         return
-      }
+      */
       
-      guard self.activeViews != nil else {
-         return
+      if let workout = self.workout {
+         guard setCount < workout.count else {
+            
+            print("Workout done")
+            return
+         }
+         
+         // Check to see if active or not
+         if self.active == true {
+            // Active
+            // Update the skip button
+            self.skipButton.set(title: "ADD 15", color: .white)
+            self.skipButton.action = { self.addFifteen() }
+            // Update active property
+            self.active = false
+            /* If there are more set's left in the workout
+             then update set count and show next set in next
+             set view
+            */
+            if workout.count > setCount + 1 {
+               self.setCount += 1
+               self.setView?.rest(set: workout[setCount])
+            } else {
+               // No more set's so show nothing
+               self.setView?.done()
+            }
+         } else {
+            // Not active
+            // Update the skip button
+            self.skipButton.set(title: "SKIP", color: .white)
+            self.skipButton.action = { self.skipSet() }
+            
+            // Update active property and animate views up
+            self.active = true
+            /* If there are more set's left in the workout
+             then update set count and show next set in next
+             set view
+             */
+            if workout.count > setCount + 1 {
+               self.setView?.next()
+            } else {
+               self.setView?.finished()
+            }
+         }
+         
       }
-      
-      self.activeViews?.exit(true)
-      print("Next labels will be \(workout![setCount].name), \(workout![setCount].reps), \(workout![setCount].weight)")
       
    }
    

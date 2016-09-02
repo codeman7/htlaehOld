@@ -29,6 +29,7 @@ extension UIImage {
       case LogoSmooth = "LogoSmooth"
       case Menu = "Menu"
       case More = "More"
+      case Remove = "Remove"
       case Reorder = "Reorder"
       case Search = "Search"
       case Settings = "Settings"
@@ -60,6 +61,7 @@ struct Images {
       
       let add: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Add)
       let filter: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Filter)
+      static let remove: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Remove)
       
    }
    

@@ -41,21 +41,23 @@ struct HomeStandardViews : ViewsStruct {
       // Set the headers delay to 0
       self.views[header] = (delay: 0.0, alpha: 1.0)
       
-      
-      let titles: [Location: (hint: SetVariable, label: String)] = [.top : (hint: SetVariable.Exercise, label: self.controller.workout![0].name), .left : (hint: SetVariable.Reps, label: "\(self.controller.workout![0].reps!)"), .right : (hint: SetVariable.Weight, label: "\(Int(self.controller.workout![0].weight!))")]
-      let setview: ActiveSetView = ActiveSetView(view: self.controller.view, titles: titles)
+      /*let frame: Rect = Rect(x: 0, y: 96, w: self.controller.width, h: (self.controller.height - 168) / 3 * 2)
+      let setview: ActiveSetView = ActiveSetView(frame: frame, set: self.controller.workout![self.controller.setCount], active: self.controller.active)
       self.controller.view.addSubview(setview)
       self.controller.activeViews = setview
-      /*// Get the exercise labels
-      let labels: [UILabel] = self.createLabels()
-      // Iterate over the exercise labels and add them to the view, set their alpha and add them to the view property
-      for label in labels {
-         label.alpha = 0.0
-         self.controller.view.addSubview(label)
-      }
-      */
+      
+      let nextFrame: Rect = Rect(x: 0, y: frame.origin.y + frame.size.height, w: self.controller.width, h: frame.h / 2)
+      let nextView: NextSetView = NextSetView(frame: nextFrame, set: self.controller.workout![self.controller.setCount], active: self.controller.active)
+      self.controller.view.addSubview(nextView)
+      self.controller.nextViews = nextView*/
+      
+      let frame: Rect = Rect(x: 0, y: 96, width: self.controller.width, height: self.controller.height - 168)
+      let setView: HomeSetView = HomeSetView(frame: frame, set: self.controller.workout![self.controller.setCount])
+      self.controller.view.addSubview(setView)
+      self.controller.setView = setView
+      
       // Get the buttons
-      let buttons: [Button] = self.createButtons()
+      let buttons: [Button] = [self.controller.skipButton, self.controller.doneButton]
       // Iterate over the buttons and set their alpha, add them to the view, and them to the view property
       for button in buttons {
          button.alpha = 0.0
@@ -67,25 +69,27 @@ struct HomeStandardViews : ViewsStruct {
       
    }
    
-   private func createButtons() -> [Button] {
+   func createSkipButton() -> Button {
       
-      var buttons: [Button] = []
       let xLeft: CGFloat = self.controller.view.frame.width.halfCentered(side: .Left, size: 124)
-      let leftButtonFrame: CGRect = CGRect(x: xLeft, y: self.controller.view.frame.height - 88, width: 124, height: 40)
+      let leftButtonFrame: CGRect = CGRect(x: xLeft, y: self.controller.view.frame.height - 72, width: 124, height: 40)
       let leftButton: Button = Button(frame: leftButtonFrame, type: .Raised)
       leftButton.action = { self.controller.skipSet() }
       leftButton.backgroundColor = .red
       leftButton.set(title: "SKIP", color: .white)
-      buttons += [leftButton]
+      return leftButton
+      
+   }
+   
+   func createDoneButton() -> Button {
       
       let xRight: CGFloat = self.controller.view.frame.width.halfCentered(side: .Right, size: 124)
-      let rightButtonFrame: CGRect = CGRect(x: xRight, y: self.controller.view.frame.height - 88, width: 124, height: 40)
+      let rightButtonFrame: CGRect = CGRect(x: xRight, y: self.controller.view.frame.height - 72, width: 124, height: 40)
       let rightButton: Button = Button(frame: rightButtonFrame, type: .Raised)
       rightButton.action = { self.controller.setDone() }
       rightButton.backgroundColor = .blue
       rightButton.set(title: "DONE", color: .white)
-      buttons += [rightButton]
-      return buttons
+      return rightButton
       
    }
    

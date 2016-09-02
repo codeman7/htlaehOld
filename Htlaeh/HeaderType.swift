@@ -45,5 +45,9 @@ struct HeaderType : Head {
       return HeaderType(title: "New", leftIcon: Images.Navigation().menu, rightIcon: Images.Action().reorder, leftButtonAction: { controller.showMenu() }, rightButtonAction: { controller.showPreview() })
    }
    
+   static func settings(controller controller: Settings) -> HeaderType {
+      return HeaderType(title: "Settings", leftIcon: Images.Navigation().menu, rightIcon: nil, leftButtonAction: { controller.showMenu() }, rightButtonAction: nil)
+   }
+   
    
 }

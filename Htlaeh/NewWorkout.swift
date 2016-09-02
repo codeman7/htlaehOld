@@ -125,8 +125,7 @@ class NewWorkout: Controller {
       for textField in textFieldDict.values {
          textField.text = ""
       }
-      let exercise = textFieldDict["Exercise Name"]
-      exercise?.becomeFirstResponder()
+     
       
    }
    
@@ -158,7 +157,11 @@ class NewWorkout: Controller {
                }, completion: { Bool in
                   UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
                      fabAnimation.alpha = 0.0
-                     }, completion: { Bool in fabAnimation.removeFromSuperview() })
+                     }, completion: { Bool in
+                        fabAnimation.removeFromSuperview()
+                        let exercise = self.textFieldDict["Exercise Name"]
+                        exercise?.becomeFirstResponder()
+                  })
             })
       })
       

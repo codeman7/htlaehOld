@@ -79,6 +79,7 @@ extension UIFont {
    @nonobjc static let medium24: UIFont = UIFont(name: .Medium, size: 24.0)
    @nonobjc static let medium28: UIFont = UIFont(name: .Medium, size: 28.0)
    @nonobjc static let medium32: UIFont = UIFont(name: .Medium, size: 32.0)
+   @nonobjc static let medium36: UIFont = UIFont(name: .Medium, size: 36.0)
    @nonobjc static let medium40: UIFont = UIFont(name: .Medium, size: 40.0)
 }
 

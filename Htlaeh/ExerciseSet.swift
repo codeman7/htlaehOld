@@ -55,6 +55,26 @@ struct WeightSet: WorkoutSet {
    var complete: Bool
    var synced: Bool
    
+   /// Unwrapped version of reps property
+   var _reps: Int {
+      return (reps != nil) ? reps! : 0
+   }
+   
+   /// Unwrapped version of rest time property
+   var _restTime: Double {
+      return (restTime != nil) ? restTime! : 0
+   }
+   
+   /// Unwrapped version of weight property
+   var _weight: Double {
+      return (weight != nil) ? weight! : 0
+   }
+   
+   /// Unwrapped version of time property
+   var _time : Double {
+      return (time != nil) ? time! : 0
+   }
+   
    // MARK: Initializer
    init(name: String, setCount: Int, reps: Int?, restTime: Double?, weight: Double?, time: Double?, date: String, complete: Bool, synced: Bool) {
       

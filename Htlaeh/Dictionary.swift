@@ -9,6 +9,7 @@
 import Foundation
 
 extension Dictionary {
+   /// Sort a dictionary by it's values
    func sortByValues(isOrderedBefore:(Value, Value) -> Bool) -> [Key] {
       return Array(self)
          .sort() {
@@ -20,5 +21,13 @@ extension Dictionary {
             let (k, _) = $0
             return k
       }
+   }
+}
+
+
+/// Used to combine dictionaries
+func += <K, V> (inout left: [K:V], right: [K:V]) {
+   for (k, v) in right {
+      left.updateValue(v, forKey: k)
    }
 }
