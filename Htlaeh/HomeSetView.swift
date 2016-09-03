@@ -160,6 +160,9 @@ class HomeSetView : UIView {
    /// Used to determine if resting or active
    var resting: Bool = false
    
+   /// Used for the timer for the rest labels
+   var timer: CancelableTimer? = nil
+   var amount: Double? = nil
    
    // MARK: Initializer
    init(frame: CGRect, set: WeightSet) {
@@ -235,17 +238,41 @@ class HomeSetView : UIView {
             self.nextCompletion()
          })
       
+      
+      
    }
    
-   
+   /**
+      This function moves the rest timer up for the very last set
+   */
+   func finished() {
+      print("All done with set view")
+      self.removeFromSuperview()
+      
+      /*
+      // Set next set to nil
+      self.nextSet = nil
+      
+      // Update the top row count
+      self.topRowCount = 1
+      
+      // Animate the views 
+      UIView.animateWithDuration(0.2, animations: {
+         //Move the rest up
+         self.showRest()
+         }, completion: { Bool in
+            self.doneCompletion()
+         })
+      */
+   }
    
    /**
     This function moves the next set up and gets rid of rest property for the last set
    */
    func next() {
       
-      
       self.resting = false
+      self.timer = nil
       // Set the current set
       self.currentSet = self.nextSet!
       self.nextSet = nil
@@ -264,22 +291,17 @@ class HomeSetView : UIView {
 
       })
       
-      
-      
    }
    
-   func finished() {
-      print("All Done!")
-   }
+  
    
    /**
       This function moves the rest up for the last set
    */
-   func done() {
+   /*func done() {
       
       // Set next set to nil
       self.nextSet = nil
-      print("About to be all done")
       
       self.topRowCount = 1
       self.bottomRowCount = 2
@@ -294,7 +316,7 @@ class HomeSetView : UIView {
             self.doneCompletion()
       })
       
-   }
+   }*/
    
    private func showRest() {
       
@@ -318,19 +340,31 @@ class HomeSetView : UIView {
       
    }
    
-   private func restTimer() {
-      
-      // Make sure label can be convert to time and get it's value
-      guard let amount =  self.topTopContent.text!.time() else {
-         return
+   private func startTimer() {
+   
+      if self.amount == nil {
+         // Make sure label can be convert to time and get it's value
+         guard let amt = self.topTopContent.text!.time() else {
+            // Cancel the timer if we can't convert the top content to time
+            self.timer?.cancel()
+            return
+         }
+         
+         self.amount = amt
       }
-     
       
-      // Call function to update the label
-      let delay = Delay()
-      delay.delay(1.0, closure: {
-         self.updateRest(amount - 1)
-      })
+      // If the timer is nil then we need to create it with propery settings
+      if timer == nil {
+         // Action for the timer
+         let closure: () -> () = {
+            self.amount! -= 1.0
+            self.updateRest(self.amount!)
+            self.startTimer()
+         }
+         // Create the timer and start it
+         self.timer = CancelableTimer(once: false, handler: closure)
+         self.timer?.startWithInterval(1.0)
+      }
       
    }
    
@@ -340,9 +374,24 @@ class HomeSetView : UIView {
       guard self.resting == true else {
          return
       }
-
+      
+      // Make sure the amount isn't going to be negative if so stop recursion
+      guard amount > -1 else {
+         return
+      }
+      
+      // Pass the update to another thread
       // Update the label
-      self.topTopContent.text = amount.toString()
+      let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+      dispatch_async(dispatch_get_global_queue(priority, 0)) {
+         // do some task
+         dispatch_async(dispatch_get_main_queue()) {
+            // update some UI
+            self.topTopContent.text = amount.toString()
+         }
+      }
+      
+
       
       if amount == 10 {
          // Alert user that rest is almost up
@@ -359,14 +408,7 @@ class HomeSetView : UIView {
          let color: UIColor = (amount % 2 == 1) ? .black : .yellow
          self.topTopContent.textColor = color
       }
-      
-      // Make sure the amount isn't going to be negative if so stop recursion
-      guard amount > 0 else {
-         return
-      }
-      
-      self.restTimer()
-      
+
    }
    
 }
@@ -377,13 +419,14 @@ private extension HomeSetView {
    /// Completion block for current set going to rest
    private func nextCompletion() {
       
+      // Transform the views back to their original size
+      self.backToOriginalSize(labels: [self.bottomTopContent, self.topTopContent, self.topTopHint])
+      
       self.topTopHint.alpha = HomeLabel.hint.alpha
-      self.topTopHint.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.topTopHint.frame.origin = CGPoint(x: self.topX, y: self.topY)
       self.topTopHint.text = "Rest"
       
       self.topTopContent.alpha = HomeLabel.content.alpha
-      self.topTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.topTopContent.frame.origin = CGPoint(x: self.topX, y: self.topY + 24)
       self.topTopContent.text = self.currentSet.restTime!.toString()
       
@@ -391,25 +434,24 @@ private extension HomeSetView {
       self.bottomTopHint.frame.origin.y = self.bottomY
       
       self.bottomTopContent.frame.origin.y = self.bottomY + 16
-      self.bottomTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.bottomTopContent.alpha = HomeLabel.accent.alpha
       self.bottomTopContent.text = self.nextSet!.name
       
       self.bottomLeftHint.text = "Reps"
-      self.bottomLeftHint.frame.origin.y = self.bottomY + 52
       
       self.bottomLeftContent.text = "\(self.nextSet!._reps)"
-      self.bottomLeftContent.frame.origin.y = self.bottomY + 68
-      
       
       self.bottomRightHint.text = "Weight"
-      self.bottomRightHint.frame.origin.y = self.bottomY + 52
+      
+      // Set the bottom hint's to the proper y position
+      self.bottomBottomLabelsToProperY()
       
       self.bottomRightContent.text = "\(Int(self.nextSet!._weight))"
-      self.bottomRightContent.frame.origin.y = self.bottomY + 68
       
-      self.restTimer()
+      self.bottomContentToOrigin()
       
+      // Start the rest timer
+      self.startTimer()
       
    }
    
@@ -443,27 +485,21 @@ private extension HomeSetView {
       }
       
       // Animate the hint's up
-      for hints in [self.bottomLeftHint, self.bottomRightHint] {
-         
-         hints.frame.origin.y = self.topY + 96
-         
-      }
+      self.topHintToOrigin()
       
    }
    
    private func nextToActiveCompletion() {
       
-      // Animate the hint's
-      for hints in [self.topTopHint, self.topLeftHint, self.topRightHint] {
-         hints.alpha = HomeLabel.hint.alpha
-         hints.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
-      }
+      // Resize the labels back to 1.0
+      let labelsArr: [UILabel] = [self.bottomRightContent, self.bottomLeftContent, self.bottomTopContent, self.topTopContent, self.topLeftContent, self.topRightContent, self.topTopHint, self.topLeftHint, self.topRightHint]
+      self.backToOriginalSize(labels: labelsArr)
       
-      // Animte the content
-      for content in [self.topTopContent, self.topLeftContent, self.topRightContent] {
-         content.alpha = HomeLabel.content.alpha
-         content.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
-      }
+      // Animate the alpha for the hints
+      self.setLabelsAlpha(labels: [self.topTopHint, self.topLeftHint, self.topRightHint], alpha: HomeLabel.hint.alpha)
+      
+      // Animte the alpha for the content
+      self.setLabelsAlpha(labels: [self.topTopContent, self.topLeftContent, self.topRightContent], alpha: HomeLabel.content.alpha)
       
       // Animte the top hint and content
       self.topTopHint.text = "Exercise"
@@ -474,14 +510,17 @@ private extension HomeSetView {
       
       // Animate the left hint and content
       self.topLeftHint.text = "Reps"
-      self.topLeftHint.frame.origin = CGPoint(x: self.leftX, y: self.topY + 96)
+      self.topLeftHint.frame.origin.x = self.leftX
       
       self.topLeftContent.text = "\(self.currentSet._reps)"
       self.topLeftContent.frame.origin = CGPoint(x: self.leftX, y: self.topY + 120)
       
       // Animate the right hint and content
       self.topRightHint.text = "Weight"
-      self.topRightHint.frame.origin = CGPoint(x: self.rightX, y: self.topY + 96)
+      self.topRightHint.frame.origin.x = self.rightX
+      
+      // Move both hints back to 96
+      self.topHintToOrigin()
       
       self.topRightContent.text = "\(Int(self.currentSet._weight))"
       self.topRightContent.frame.origin = CGPoint(x: self.rightX, y:self.topY + 120)
@@ -491,44 +530,87 @@ private extension HomeSetView {
       
       self.bottomTopContent.frame.origin.y = self.bottomY + 16
       self.bottomTopContent.text = self.currentSet._restTime.toString()
-      self.bottomTopContent.alpha = HomeLabel.accent.alpha
-      self.bottomTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       
-      for labels in [self.bottomLeftHint, self.bottomRightHint] {
-         labels.text = ""
-         labels.frame.origin.y = self.bottomY + 52
-      }
+      self.setLabelsAlpha(labels: [self.bottomTopContent, self.bottomRightContent, self.bottomLeftContent], alpha: HomeLabel.accent.alpha)
       
-      for label in [self.bottomRightContent, self.bottomLeftContent] {
-         label.text = ""
-         label.frame.origin.y = self.bottomY + 68
-         label.alpha = HomeLabel.accent.alpha
-         label.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
-      }
+      // Set the bottom hint's the the propery y position
+      self.bottomBottomLabelsToProperY()
       
+      // Set the text to blank
+      self.blankTextFor(labels: [self.bottomRightContent, self.bottomLeftContent, self.bottomLeftHint, self.bottomRightHint])
+      
+      self.bottomContentToOrigin()
       
    }
    
-   private func doneCompletion() {
+   /*private func doneCompletion() {
+      
+      // Set the labels size back to 1.0, 1.0
+      self.backToOriginalSize(labels: [self.bottomTopContent, self.topTopContent, self.topTopHint])
       
       self.topTopHint.alpha = HomeLabel.hint.alpha
-      self.topTopHint.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.topTopHint.frame.origin = CGPoint(x: self.topX, y: self.topY)
       self.topTopHint.text = "Rest"
       
       self.topTopContent.alpha = HomeLabel.content.alpha
-      self.topTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.topTopContent.frame.origin = CGPoint(x: self.topX, y: self.topY + 24)
       self.topTopContent.text = self.currentSet.restTime!.toString()
       
-      self.bottomTopHint.text = ""
       self.bottomTopHint.frame.origin.y = self.bottomY
       
       self.bottomTopContent.frame.origin.y = self.bottomY + 16
-      self.bottomTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
       self.bottomTopContent.alpha = HomeLabel.accent.alpha
-      self.bottomTopContent.text = ""
       
+      // Set the text to blank for the bottom labels
+      self.blankTextFor(labels: [self.bottomTopContent, self.bottomTopHint])
+      
+   }*/
+   
+   // MARK: Helpers for animations
+   
+   private func bottomBottomLabelsToProperY() {
+      
+      self.bottomLeftHint.frame.origin.y = self.bottomY + 52
+      self.bottomRightHint.frame.origin.y = self.bottomY + 52
+      
+   }
+   
+   private func topHintToOrigin() {
+      
+      self.topRightHint.frame.origin.y = self.topY + 96
+      self.topLeftHint.frame.origin.y = self.topY + 96
+      
+   }
+   
+   private func bottomContentToOrigin() {
+      
+      self.bottomRightContent.frame.origin.y = self.bottomY + 68
+      self.bottomLeftContent.frame.origin.y = self.bottomY + 68
+      
+   }
+   
+   private func setLabelsAlpha(labels labels: [UILabel], alpha: CGFloat) {
+      
+      for label in labels {
+         label.alpha = alpha
+      }
+      
+   }
+   
+   private func blankTextFor(labels labels: [UILabel]) {
+      
+      for label in labels {
+         label.text = ""
+      }
+      
+   }
+   
+   private func backToOriginalSize(labels labels: [UILabel]) {
+      
+      for label in labels {
+         label.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
+      }
+   
    }
    
 }

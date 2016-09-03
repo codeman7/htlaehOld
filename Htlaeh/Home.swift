@@ -37,41 +37,16 @@ class Home: Controller {
    /// The property for the help views that are next to be main content
    var helperViews: [UIView] = []
    
-   var timer: CancelableTimer? = nil
-   var count: Int = 0
+   var lastTime: NSDate = NSDate()
+   var timeSinceLast: NSTimeInterval = NSDate().timeIntervalSince1970
+   
    // MARK: Functions
    override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view, typically from a nib.
       self.setupViews()
       
-      UserDefaults().defaultValues()
-      self.recursion()
-      
    }
-   
-   func recursion() {
-      
-      
-      if timer == nil {
-         let closure: () -> () = {
-            self.count += 1
-            print(self.count)
-            self.recursion()
-            if self.count == 3 {
-               self.timer?.cancel()
-            }
-            
-         }
-         self.timer = CancelableTimer(once: false, handler: closure)
-         
-         
-         self.timer?.startWithInterval(1.0)
-         
-      } 
-      
-   }
-   
    
    func showMore() {
       
@@ -98,25 +73,37 @@ class Home: Controller {
       
    }
    
-   func setDone() {
+   private func markSetAsDone() {
       
       // Mark the set as done within the view controller
-      /*let newSet: WeightSet = self.workout![setCount].setDone()
+      let newSet: WeightSet = self.workout![setCount].setDone()
       self.workout = self.workout!.update(at: setCount, newSet: newSet)
-      
+       
       // Mark the set done in Realm
       let set = RealmQuery().setFor(setCount, date: Date().today())
       let store = RealmStore()
       if let updatedSet = set {
          store.done(set: updatedSet)
       }
-      */
       
+   }
+   
+   func setDone() {
+      
+      self.timeSinceLast = self.lastTime.timeIntervalSinceDate(NSDate())
+      print(abs(self.timeSinceLast))
+      self.lastTime = NSDate()
+      if abs(self.timeSinceLast) < 1 { print("R"); return }
+
+      
+      // Mark set as done
+//      self.markSetAsDone()
+      
+      // Get the workout unwrapped
       if let workout = self.workout {
+         // Make sure the set count isn't greater than the workout
          guard setCount < workout.count else {
-            
-            print("Workout done")
-            return
+               return
          }
          
          // Check to see if active or not
@@ -136,7 +123,8 @@ class Home: Controller {
                self.setView?.rest(set: workout[setCount])
             } else {
                // No more set's so show nothing
-               self.setView?.done()
+               self.setView?.finished()
+               self.doneWithWorkout()
             }
          } else {
             // Not active
@@ -150,14 +138,23 @@ class Home: Controller {
              then update set count and show next set in next
              set view
              */
-            if workout.count > setCount + 1 {
-               self.setView?.next()
-            } else {
-               self.setView?.finished()
-            }
+            self.setView?.next()
          }
          
       }
+      
+   }
+   
+   /// Used when the user is all done with the workout
+   private func doneWithWorkout() {
+      
+      UIView.animateWithDuration(0.15, animations: {
+            
+         for button in [self.doneButton, self.skipButton] {
+            button.frame.origin.y = self.height + 16
+         }
+            
+      })
       
    }
    

@@ -82,3 +82,35 @@ class CancelableTimer: NSObject {
 }
 
 
+/**
+ 
+ /// PROPERTIES INSIDE THE CLASS
+ var timer: CancelableTimer? = nil
+ var count: Int = 0
+ 
+ /// Call creation method 
+ self.recursion()
+ 
+ /// CREATE THE TIMER AND START IT
+ func recursion() {
+   if timer == nil {
+      let closure: () -> () = {
+      self.count += 1
+      self.recursion()
+      }
+   self.timer = CancelableTimer(once: false, handler: closure)
+ 
+ 
+   self.timer?.startWithInterval(1.0)
+ 
+ 
+   }
+ }
+ 
+ 
+ 
+ /// CANCEL THE TIMER
+ self.timer?.cancel()
+ */
+
+

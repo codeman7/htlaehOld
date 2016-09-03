@@ -116,7 +116,7 @@ class BoldHeader: UIView {
       // Set the date to a string
       let stringDate = "\(date.monthAsString()) \(date.day), \(date.year)"
       // Set the frame for the label
-      let frame: CGRect = CGRect(x: 72, y: 72, width: 120, height: 21)
+      let frame: CGRect = CGRect(x: 72, y: 72, width: self.frame.width - 72, height: 21)
       // Create the configuration for the label
       let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular.sixteen, alignment: .Left
          , color: .black)

@@ -38,6 +38,8 @@
 		2460C6441D74761B000DEA8B /* Bool Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2460C6431D74761B000DEA8B /* Bool Extension.swift */; };
 		2460C6461D748936000DEA8B /* JSONSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2460C6451D748936000DEA8B /* JSONSet.swift */; };
 		2462ADE41D6347DF0015E955 /* ToolTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2462ADE31D6347DF0015E955 /* ToolTip.swift */; };
+		246745361D7A514C00996F30 /* SimpleDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246745351D7A514C00996F30 /* SimpleDialog.swift */; };
+		246745381D7A525600996F30 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246745371D7A525600996F30 /* Direction.swift */; };
 		246EF46C1D6F5A22005D272E /* AllToNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246EF46B1D6F5A22005D272E /* AllToNew.swift */; };
 		246EF46E1D6F60F9005D272E /* AllToSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246EF46D1D6F60F9005D272E /* AllToSearch.swift */; };
 		246EF4701D6F67D0005D272E /* HomeNext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246EF46F1D6F67D0005D272E /* HomeNext.swift */; };
@@ -198,6 +200,8 @@
 		2460C6431D74761B000DEA8B /* Bool Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bool Extension.swift"; sourceTree = "<group>"; };
 		2460C6451D748936000DEA8B /* JSONSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSet.swift; sourceTree = "<group>"; };
 		2462ADE31D6347DF0015E955 /* ToolTip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolTip.swift; sourceTree = "<group>"; };
+		246745351D7A514C00996F30 /* SimpleDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDialog.swift; sourceTree = "<group>"; };
+		246745371D7A525600996F30 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		246EF46B1D6F5A22005D272E /* AllToNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllToNew.swift; sourceTree = "<group>"; };
 		246EF46D1D6F60F9005D272E /* AllToSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllToSearch.swift; sourceTree = "<group>"; };
 		246EF46F1D6F67D0005D272E /* HomeNext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeNext.swift; sourceTree = "<group>"; };
@@ -529,6 +533,8 @@
 		249A7FFC1D6DED0800BF95B7 /* Foundation Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				246745371D7A525600996F30 /* Direction.swift */,
+				245FE48B1D64A0A700AC6DD7 /* Delay.swift */,
 				2460C6431D74761B000DEA8B /* Bool Extension.swift */,
 				2409533E1D6F5265006FFEFB /* StringFoundation.swift */,
 				249A7FFD1D6DED3100BF95B7 /* Dictionary.swift */,
@@ -625,7 +631,6 @@
 		24AFD1B91D50F1FB002DF526 /* Design */ = {
 			isa = PBXGroup;
 			children = (
-				245FE48B1D64A0A700AC6DD7 /* Delay.swift */,
 				24AFD1BE1D50F21D002DF526 /* ImageView.swift */,
 				24AFD1BF1D50F21D002DF526 /* Logo.swift */,
 				24AFD1C01D50F21D002DF526 /* Images.swift */,
@@ -664,6 +669,7 @@
 		24AFD1F21D50F252002DF526 /* Base Material */ = {
 			isa = PBXGroup;
 			children = (
+				246745351D7A514C00996F30 /* SimpleDialog.swift */,
 				24AFD1D01D50F23B002DF526 /* BackgroundGrey.swift */,
 				24AFD1D11D50F23B002DF526 /* Button.swift */,
 				24AFD1D31D50F23B002DF526 /* Color.swift */,
@@ -1113,6 +1119,7 @@
 				246EF46C1D6F5A22005D272E /* AllToNew.swift in Sources */,
 				24AFD1F11D50F24C002DF526 /* RevealAlpha.swift in Sources */,
 				2425CAD41D58E81C0074D32F /* Text.swift in Sources */,
+				246745381D7A525600996F30 /* Direction.swift in Sources */,
 				24AFD1E91D50F23B002DF526 /* MaterialView.swift in Sources */,
 				248A0B151D660193002D4E0C /* StatsViewData.swift in Sources */,
 				2481382C1D525CE00020D97C /* WorkoutSets.swift in Sources */,
@@ -1173,6 +1180,7 @@
 				24E0E5961D5CDF1700458C60 /* WorkoutTableView.swift in Sources */,
 				2433C1F51D62359D00110F2D /* RealmQuery.swift in Sources */,
 				24AFD1B51D50F1C4002DF526 /* HeaderLabels.swift in Sources */,
+				246745361D7A514C00996F30 /* SimpleDialog.swift in Sources */,
 				24AFD1CA1D50F21D002DF526 /* Images.swift in Sources */,
 				24AFD1AD1D50F1A0002DF526 /* Home.swift in Sources */,
 				24AFD1C91D50F21D002DF526 /* Logo.swift in Sources */,

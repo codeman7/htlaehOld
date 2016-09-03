@@ -52,6 +52,8 @@ struct SettingsStandardViews : ViewsStruct {
    
 }
 
+
+// MARK:
 extension SettingsStandardViews {
    
    /// Create the header
