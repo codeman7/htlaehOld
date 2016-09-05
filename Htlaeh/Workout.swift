@@ -114,6 +114,21 @@ struct Workout: WorkoutType {
       
    }
    
+   func updated(at index: Int, newSet: WeightSet) -> Workout {
+      
+      var sets: [WeightSet] = []
+      for i in 0..<self.count {
+         if i == index {
+            sets += [newSet]
+         } else {
+            sets += [self[index]]
+         }
+      }
+      
+      return Workout(sets: sets)
+      
+   }
+   
    /*func removeSetFromWorkout(newSet: WeightSet) -> Workout {
       
       

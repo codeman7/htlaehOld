@@ -74,6 +74,12 @@
 		248A0B131D660155002D4E0C /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248A0B121D660155002D4E0C /* StatsView.swift */; };
 		248A0B151D660193002D4E0C /* StatsViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248A0B141D660193002D4E0C /* StatsViewData.swift */; };
 		248A0B171D6605CA002D4E0C /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248A0B161D6605CA002D4E0C /* Grid.swift */; };
+		248B8E481D7D997D0003B30C /* HomeSetProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E471D7D997D0003B30C /* HomeSetProtocols.swift */; };
+		248B8E4A1D7D9A3A0003B30C /* HomeHint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E491D7D9A3A0003B30C /* HomeHint.swift */; };
+		248B8E4C1D7D9A9C0003B30C /* HomeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E4B1D7D9A9C0003B30C /* HomeContent.swift */; };
+		248B8E4E1D7D9AB40003B30C /* HomeAccent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E4D1D7D9AB40003B30C /* HomeAccent.swift */; };
+		248B8E501D7DA0930003B30C /* HomeLabelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E4F1D7DA0930003B30C /* HomeLabelSettings.swift */; };
+		248B8E521D7DA3F50003B30C /* HomeLabelLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248B8E511D7DA3F50003B30C /* HomeLabelLocation.swift */; };
 		249314DD1D706C6100CCFEFF /* T.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249314DC1D706C6100CCFEFF /* T.swift */; };
 		249314E11D709F7100CCFEFF /* SetVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249314E01D709F7100CCFEFF /* SetVariables.swift */; };
 		249A7FFB1D6DED0300BF95B7 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 249A7FFA1D6DED0300BF95B7 /* Array.swift */; };
@@ -236,6 +242,12 @@
 		248A0B121D660155002D4E0C /* StatsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		248A0B141D660193002D4E0C /* StatsViewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatsViewData.swift; sourceTree = "<group>"; };
 		248A0B161D6605CA002D4E0C /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		248B8E471D7D997D0003B30C /* HomeSetProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeSetProtocols.swift; sourceTree = "<group>"; };
+		248B8E491D7D9A3A0003B30C /* HomeHint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHint.swift; sourceTree = "<group>"; };
+		248B8E4B1D7D9A9C0003B30C /* HomeContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeContent.swift; sourceTree = "<group>"; };
+		248B8E4D1D7D9AB40003B30C /* HomeAccent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeAccent.swift; sourceTree = "<group>"; };
+		248B8E4F1D7DA0930003B30C /* HomeLabelSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLabelSettings.swift; sourceTree = "<group>"; };
+		248B8E511D7DA3F50003B30C /* HomeLabelLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeLabelLocation.swift; sourceTree = "<group>"; };
 		249314DC1D706C6100CCFEFF /* T.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = T.swift; path = ../Htlaeh/T.swift; sourceTree = "<group>"; };
 		249314E01D709F7100CCFEFF /* SetVariables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetVariables.swift; sourceTree = "<group>"; };
 		249A7FFA1D6DED0300BF95B7 /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -497,6 +509,7 @@
 				247CA2EB1D54182E0087F27A /* HomeWelcomeViews.swift */,
 				2452780D1D52F0C30059C427 /* HomeRestView.swift */,
 				247CA2E61D5408B70087F27A /* HomeStandardViews.swift */,
+				248B8E461D7D996D0003B30C /* SetView */,
 				24887CF01D75C2E70063D3BA /* HomeSetView.swift */,
 			);
 			name = Home;
@@ -528,6 +541,20 @@
 				24AFD1F01D50F24C002DF526 /* RevealAlpha.swift */,
 			);
 			name = Animations;
+			sourceTree = "<group>";
+		};
+		248B8E461D7D996D0003B30C /* SetView */ = {
+			isa = PBXGroup;
+			children = (
+				248B8E471D7D997D0003B30C /* HomeSetProtocols.swift */,
+				248B8E4F1D7DA0930003B30C /* HomeLabelSettings.swift */,
+				248B8E511D7DA3F50003B30C /* HomeLabelLocation.swift */,
+				248B8E491D7D9A3A0003B30C /* HomeHint.swift */,
+				248B8E4B1D7D9A9C0003B30C /* HomeContent.swift */,
+				248B8E4D1D7D9AB40003B30C /* HomeAccent.swift */,
+				24AFD1B11D50F1C4002DF526 /* HomeTextPresentable.swift */,
+			);
+			name = SetView;
 			sourceTree = "<group>";
 		};
 		249A7FFC1D6DED0800BF95B7 /* Foundation Extensions */ = {
@@ -621,7 +648,6 @@
 		24AFD1B01D50F1AB002DF526 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				24AFD1B11D50F1C4002DF526 /* HomeTextPresentable.swift */,
 				24AFD1B21D50F1C4002DF526 /* HeaderLabels.swift */,
 				24AFD1B31D50F1C4002DF526 /* WorkoutCardStyle.swift */,
 			);
@@ -669,7 +695,6 @@
 		24AFD1F21D50F252002DF526 /* Base Material */ = {
 			isa = PBXGroup;
 			children = (
-				246745351D7A514C00996F30 /* SimpleDialog.swift */,
 				24AFD1D01D50F23B002DF526 /* BackgroundGrey.swift */,
 				24AFD1D11D50F23B002DF526 /* Button.swift */,
 				24AFD1D31D50F23B002DF526 /* Color.swift */,
@@ -688,6 +713,7 @@
 				2432F2981D58D26800C89C1B /* Ripple.swift */,
 				24CC5EC51D5CB00A00BCB833 /* Scroller */,
 				248695611D65E1470042E3D2 /* SearchBar.swift */,
+				246745351D7A514C00996F30 /* SimpleDialog.swift */,
 				247712131D7872BB000F36F7 /* Switch.swift */,
 				24728CED1D5A2AC4007EA645 /* TextField */,
 				24AAB4F61D609DC100F297DD /* Toast.swift */,
@@ -1116,12 +1142,14 @@
 				24AFD2061D50F323002DF526 /* Workout.swift in Sources */,
 				24AFD1ED1D50F23B002DF526 /* Scroller.swift in Sources */,
 				247712181D788FF2000F36F7 /* UserDefaults.swift in Sources */,
+				248B8E521D7DA3F50003B30C /* HomeLabelLocation.swift in Sources */,
 				246EF46C1D6F5A22005D272E /* AllToNew.swift in Sources */,
 				24AFD1F11D50F24C002DF526 /* RevealAlpha.swift in Sources */,
 				2425CAD41D58E81C0074D32F /* Text.swift in Sources */,
 				246745381D7A525600996F30 /* Direction.swift in Sources */,
 				24AFD1E91D50F23B002DF526 /* MaterialView.swift in Sources */,
 				248A0B151D660193002D4E0C /* StatsViewData.swift in Sources */,
+				248B8E501D7DA0930003B30C /* HomeLabelSettings.swift in Sources */,
 				2481382C1D525CE00020D97C /* WorkoutSets.swift in Sources */,
 				247CA2E71D5408B70087F27A /* HomeStandardViews.swift in Sources */,
 				2460A2751D674FE8005E7F2E /* CellLayout.swift in Sources */,
@@ -1155,6 +1183,7 @@
 				2425CAD81D58F15C0074D32F /* NewWorkoutStandardViews.swift in Sources */,
 				2409F25F1D5CBD420066A7A3 /* WorkoutView.swift in Sources */,
 				24AFD1FF1D50F2FE002DF526 /* Date.swift in Sources */,
+				248B8E4A1D7D9A3A0003B30C /* HomeHint.swift in Sources */,
 				2425CAD21D58E6A10074D32F /* NewWorkout.swift in Sources */,
 				24AFD1F71D50F2AE002DF526 /* AccountDialog.swift in Sources */,
 				24AFD1EC1D50F23B002DF526 /* Overlay.swift in Sources */,
@@ -1185,6 +1214,7 @@
 				24AFD1AD1D50F1A0002DF526 /* Home.swift in Sources */,
 				24AFD1C91D50F21D002DF526 /* Logo.swift in Sources */,
 				24AFD1B81D50F1EE002DF526 /* Layout.swift in Sources */,
+				248B8E4C1D7D9A9C0003B30C /* HomeContent.swift in Sources */,
 				2476B8C81D5E200F008044A8 /* HeaderType.swift in Sources */,
 				24AFD1AE1D50F1A0002DF526 /* Sign.swift in Sources */,
 				24311FDA1D505F8F00CA7C20 /* AppDelegate.swift in Sources */,
@@ -1203,6 +1233,7 @@
 				24AFD1CD1D50F21D002DF526 /* StandardAnimation.swift in Sources */,
 				24AFD1E61D50F23B002DF526 /* Font.swift in Sources */,
 				24AFD1EA1D50F23B002DF526 /* Menu.swift in Sources */,
+				248B8E481D7D997D0003B30C /* HomeSetProtocols.swift in Sources */,
 				2432F2991D58D26800C89C1B /* Ripple.swift in Sources */,
 				2409F25D1D5CB12A0066A7A3 /* PreviewScroller.swift in Sources */,
 				245FE48C1D64A0A700AC6DD7 /* Delay.swift in Sources */,
@@ -1231,6 +1262,7 @@
 				244691F51D5CA0ED008FB687 /* All.swift in Sources */,
 				24E4B0451D5253A00028BB5F /* RealmSet.swift in Sources */,
 				2452780E1D52F0C30059C427 /* HomeRestView.swift in Sources */,
+				248B8E4E1D7D9AB40003B30C /* HomeAccent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
