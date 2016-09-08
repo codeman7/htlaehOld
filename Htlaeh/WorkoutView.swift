@@ -30,7 +30,7 @@ class WorkoutView : UIView {
    /**
       This function adds the workout to the view by calling all the other methods
    */
-   func add(workout workout: Workout) {
+   func add(workout: Workout) {
       
       guard workout.count != 0 else {
          return
@@ -47,7 +47,7 @@ class WorkoutView : UIView {
    /**
       This function adds the date of the workout to the view
    */
-   private func addDate(date: String) {
+   fileprivate func addDate(_ date: String) {
       
       // Set the frame for the label
       let labelFrame: CGRect = CGRect(x: 16, y: 0, w: self.frame.w / 2, h: 21)
@@ -63,7 +63,7 @@ class WorkoutView : UIView {
    /**
       This function adds the header labels to the view
    */
-   private func addWorkoutHeader() {
+   fileprivate func addWorkoutHeader() {
       
       // Add the exercise label
       self.addExerciseHeader()
@@ -77,7 +77,7 @@ class WorkoutView : UIView {
    /**
       This function adds the table to the view
    */
-   private func addTable(workout workout: Workout) {
+   fileprivate func addTable(workout: Workout) {
       
       let frame: CGRect = CGRect(x: 0, y: 49, w: self.frame.w, h: CGFloat(workout.count * 48) + 1)
       let workoutTable: WorkoutTableView = WorkoutTableView(frame: frame, workout: workout)
@@ -86,7 +86,7 @@ class WorkoutView : UIView {
    }
    
    /// This function adds the execise header to the exercise column
-   private func addExerciseHeader() {
+   fileprivate func addExerciseHeader() {
       
       // Create the settings for the label
       let exerciseProperties: WorkoutTableColumnHeadString = WorkoutTableColumnHeadString()
@@ -104,7 +104,7 @@ class WorkoutView : UIView {
    }
    
    /// This function adds the reps header to the reps column
-   private func addRepsHeader() {
+   fileprivate func addRepsHeader() {
       
       // Create the settings for the label
       let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()
@@ -120,7 +120,7 @@ class WorkoutView : UIView {
    }
    
    /// This function adds the weight header to the weight column
-   private func addWeightHeader() {
+   fileprivate func addWeightHeader() {
       
       // Create the settings for the label
       let properties: WorkoutTableColumnHeadNumber = WorkoutTableColumnHeadNumber()

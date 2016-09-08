@@ -45,7 +45,7 @@ class WorkoutTableCell : UIView {
     
       - parameter labels: Should be an array of strings 0 being the leftmost label and 2 being the rightmost label
    */
-   private func add(labels labels: [String]) {
+   fileprivate func add(labels: [String]) {
       
       // Add the exercise
       self.add(exercise: labels[0])
@@ -61,7 +61,7 @@ class WorkoutTableCell : UIView {
     
       The title should always be the first item in the array
    */
-   private func add(exercise exercise: String) {
+   fileprivate func add(exercise: String) {
       // Create the properties for the label
       let properties: WorkoutContentStringLabel = WorkoutContentStringLabel()
       // Set the frame for the label
@@ -80,7 +80,7 @@ class WorkoutTableCell : UIView {
       - parameter title: The text property for the label
       - parameter padding: The padding from the right edge for the label
    */
-   private func add(title title: String, padding: CGFloat) {
+   fileprivate func add(title: String, padding: CGFloat) {
       // Create the properties for the label
       let properties: WorkoutContentNumberLabel = WorkoutContentNumberLabel()
       // Set the frame for the label
@@ -97,7 +97,7 @@ class WorkoutTableCell : UIView {
    /**
       This function adds the bottom line to the view
    */
-   private func addBottomLine() {
+   fileprivate func addBottomLine() {
       // Create the frame for the line
       let frame: Rect = Rect(x: 0, y: self.frame.h - 1, w: self.frame.w, h: 1)
       // Create the line

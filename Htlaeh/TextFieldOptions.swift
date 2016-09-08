@@ -13,9 +13,9 @@ import UIKit
    This enum is used to decide what kind of text field it is going to be
 */
 enum TextFieldType {
-   case All
-   case Number
-   case Time
+   case all
+   case number
+   case time
 }
 
 /**

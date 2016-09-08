@@ -54,12 +54,12 @@ class ToolTip: UIView {
       Adds the label to the view
       - parameter text: The text property for the label
    */
-   private func addLabelWith(text text: String) {
+   fileprivate func addLabelWith(text: String) {
       
       // Create the frame for the view
       let frame: Rect = Rect(x: 16, y: 8, w: self.frame.w - 32, h: 16)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .Center, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .center, color: .white)
       // Set the text property for the label
       label.text = text
       // Add the label to the view

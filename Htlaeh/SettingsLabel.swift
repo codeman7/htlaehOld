@@ -17,11 +17,11 @@ struct SettingsLabel : TextPresentable {
    let font: UIFont
    
    static var standard: SettingsLabel {
-      return SettingsLabel(color: .black, alpha: 0.87, alignment: .Left, font: .medium20)
+      return SettingsLabel(color: .black, alpha: 0.87, alignment: .left, font: .medium20)
    }
    
    static var hint: SettingsLabel {
-      return SettingsLabel(color: .black, alpha: 0.54, alignment: .Left, font: .regular16)
+      return SettingsLabel(color: .black, alpha: 0.54, alignment: .left, font: .regular16)
    }
    
 }

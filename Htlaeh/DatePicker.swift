@@ -15,11 +15,11 @@ import UIKit
 class DatePicker : Dialog {
    // MARK: Properties
    /// The current month being shown
-   private var month: Int = Date().month
+   fileprivate var month: Int = Date().month
    /// The current year being shown
-   private var year: Int = Date().year
+   fileprivate var year: Int = Date().year
    /// The current day selected
-   private var day: Int = Date().day
+   fileprivate var day: Int = Date().day
    /// The date that is currently selected and will be used
    var date: String {
       get {
@@ -28,17 +28,17 @@ class DatePicker : Dialog {
    }
    //lazy var date: String = { return DatabaseDate(year: self.year, month: self.month, day: self.day).toDBFormat() }()
    /// The property for the year label
-   private lazy var yearLabel: UILabel = { self.createYearLabel() }()
+   fileprivate lazy var yearLabel: UILabel = { self.createYearLabel() }()
    /// The property for the top label
-   private lazy var topLabel: UILabel = { self.createTopLabel() }()
+   fileprivate lazy var topLabel: UILabel = { self.createTopLabel() }()
    /// The property for the month header on the bottom view
-   private lazy var monthHeader: UILabel = { self.createMonthHeader() }()
+   fileprivate lazy var monthHeader: UILabel = { self.createMonthHeader() }()
    /// The property for the day buttons view
-   private lazy var dayButtonView: UIView = { self.createDayView() }()
+   fileprivate lazy var dayButtonView: UIView = { self.createDayView() }()
    /// The property for all the day buttons
-   private var dayButtons: [Button] = []
+   fileprivate var dayButtons: [Button] = []
    /// The days in the current month that have a workout in them already scheduled
-   lazy private var days: [Int] = { return RealmQuery().workoutDaysIn(month: self.month, year: self.year) }()
+   lazy fileprivate var days: [Int] = { return RealmQuery().workoutDaysIn(month: self.month, year: self.year) }()
    /// The action for the right button
    var rightButtonAction: () -> () = { fatalError("Right button aciton must be set") }
    /// The action for the left button
@@ -71,7 +71,7 @@ class DatePicker : Dialog {
       self.addSubview(backgroundGrey)
       self.addSubview(prompt)
       self.backgroundGrey.show(0.26)
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
          self.prompt.frame = self.promptFrame
          }, completion: { Bool in
             // Make sure the views haven't been layed out or return if they have
@@ -88,7 +88,7 @@ class DatePicker : Dialog {
    /**
       This function calls the corresponding functions and lays out the top view
    */
-   private func layoutTopView() {
+   fileprivate func layoutTopView() {
       // Set the frame for the top view
       let frame: Rect = Rect(x: 0, y: 0, w: self.prompt.frame.w, h: 99)
       // Create the UIView that will hold all the contents of the top view
@@ -107,7 +107,7 @@ class DatePicker : Dialog {
    /**
       This function calls the corresponding functions and lays out the bottom half of the view
    */
-   private func layoutBottomView() {
+   fileprivate func layoutBottomView() {
       
       // Add the header to the bottom
       self.prompt.addSubview(self.monthHeader)
@@ -127,11 +127,11 @@ class DatePicker : Dialog {
    /**
       This function adds the arrow keys to the bottom view for left and right month navigation
    */
-   private func addArrows() {
+   fileprivate func addArrows() {
       // Set up the frame for the left view
       let leftFrame: Rect = Rect(x: 4, y: 103, w: 40, h: 40)
       // Create the left button
-      let leftButton: Button = Button(frame: leftFrame, type: .Flat)//, action: { self.newMonth(change: -1) })
+      let leftButton: Button = Button(frame: leftFrame, type: .flat)//, action: { self.newMonth(change: -1) })
       // Add the icon to the left button
       leftButton.add(image: Images.Navigation().chevronBack, alpha: 0.54)
       leftButton.action = { self.newMonth(change: -1) }
@@ -141,7 +141,7 @@ class DatePicker : Dialog {
       // Set up the frame for the right view
       let rightFrame: Rect = Rect(x: self.prompt.frame.w - 44, y: 103, w: 40, h: 40)
       // Create the right button
-      let rightButton: Button = Button(frame: rightFrame, type: .Flat)//, action: { self.newMonth(change: 1) })
+      let rightButton: Button = Button(frame: rightFrame, type: .flat)//, action: { self.newMonth(change: 1) })
       // Add the icon to the button
       rightButton.add(image: Images.Navigation().chevronForward, alpha: 0.54)
       rightButton.action = { self.newMonth(change: 1) }
@@ -152,7 +152,7 @@ class DatePicker : Dialog {
    /**
       This function adds the labels for the days 'm', 't', 'w', etc.
    */
-   private func addDayLabels() {
+   fileprivate func addDayLabels() {
       
       // Create the array for the labels text
       let labelText: [Character] = ["S", "M", "T", "W", "T", "F", "S"]
@@ -163,7 +163,7 @@ class DatePicker : Dialog {
          // Create the frame for the label
          let frame: Rect = Rect(x: CGFloat(a * 40), y: 155, w: labelSize.width, h: labelSize.height)
          // Create the label
-         let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .Center, color: .black)
+         let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .center, color: .black)
          // Set the alpha for the label
          label.alpha = 0.38
          // Set the text for the label
@@ -180,7 +180,7 @@ class DatePicker : Dialog {
       - parameter year: The year that will be shown
       - parameter change: The difference between month created and month that was present
    */
-   private func createDaysViewFor(month month: Int, inYear: Int, change: Int) {
+   fileprivate func createDaysViewFor(month: Int, inYear: Int, change: Int) {
       // Create the frame for the view that will hold all the new buttons
       let placeholderViewFrame: Rect = Rect(x: CGFloat(change) * self.dayButtonView.frame.w, y: 0, w: self.dayButtonView.frame.w, h: self.dayButtonView.frame.h)
       // Create the view that will hold all the buttons
@@ -211,7 +211,7 @@ class DatePicker : Dialog {
    /**
       This function adds all the day buttons
    */
-   private func addDays() {
+   fileprivate func addDays() {
       // Create the frame for the view that will hold all the new buttons
       let placeholderViewFrame: Rect = Rect(x: 0, y: 0, w: self.dayButtonView.frame.w, h: self.dayButtonView.frame.h)
       // Create teh view that will holda all the buttons
@@ -244,12 +244,12 @@ class DatePicker : Dialog {
       - parameter origin: The point at which the button will be
       - parameter withLabel: The text property for the button
    */
-   private func addButtonAt(origin origin: CGPoint, withLabel number: Int, toView view: UIView?) {
+   fileprivate func addButtonAt(origin: CGPoint, withLabel number: Int, toView view: UIView?) {
       
       // Create the frame for the button
       let frame: Rect = Rect(origin: origin, size: CGSize(width: 40, height: 40))
       // Create the button
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       // Round the button
       button.layer.cornerRadius = 20
       // Add the title to the button
@@ -272,7 +272,7 @@ class DatePicker : Dialog {
    /**
       This function adds the two bottom buttons
    */
-   private func addBottomButtons() {
+   fileprivate func addBottomButtons() {
       // Get the right bottom button
       let rightButton: Button = self.createRightBottomButton()
       // Add the button to the view
@@ -287,13 +287,13 @@ class DatePicker : Dialog {
    /**
       This function adds the right button - most commonly 'add workout'
    */
-   private func createRightBottomButton() -> Button {
+   fileprivate func createRightBottomButton() -> Button {
       
       let width: CGFloat = "ADD WORKOUT".widthWithConstrainedHeight(22, font: Fonts.Medium.fourteen)
       // Set the frame for the button
       let frame: Rect = Rect(x: self.prompt.frame.w - (width + 24), y: self.prompt.frame.h - 56, w: width, h: 40)
       // Create the button
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       // Add the title to the button
       button.set(title: "ADD WORKOUT", color: .blue)
       // Set the action for the button
@@ -307,13 +307,13 @@ class DatePicker : Dialog {
       This function adds the left button - most commonly the cancel button
       - parameter rightButtonWidth: The width of the button on the right
    */
-   private func createLeftBottomButton(rightButtonWidth width: CGFloat) -> Button {
+   fileprivate func createLeftBottomButton(rightButtonWidth width: CGFloat) -> Button {
       
       let buttonWidth: CGFloat = "CANCEL".widthWithConstrainedHeight(22, font: Fonts.Medium.fourteen)
       // Set the frame for the button
       let frame: Rect = Rect(x: self.prompt.frame.w - (width + buttonWidth + 48), y: self.prompt.frame.h - 56, w: buttonWidth, h: 40)
       // Create the button
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       // Add the title to the button
       button.set(title: "CANCEL", color: .red)
       // Set the action for the button
@@ -323,7 +323,7 @@ class DatePicker : Dialog {
       
    }
    
-   private func checkForDay(button: Button) {
+   fileprivate func checkForDay(_ button: Button) {
       
       guard self.month == Date().month else {
          return
@@ -346,12 +346,12 @@ extension DatePicker {
    /**
     This function creates the year view
     */
-   private func createYearLabel() -> UILabel {
+   fileprivate func createYearLabel() -> UILabel {
       
       // Set the frame for the view
       let yearFrame: Rect = Rect(x: 16, y: 16, w: self.prompt.frame.w - 24, h: 19)
       // Create the year label
-      let yearLabel: UILabel = UILabel(frame: yearFrame, font: Fonts.Medium.fourteen, align: .Left, color: .black)
+      let yearLabel: UILabel = UILabel(frame: yearFrame, font: Fonts.Medium.fourteen, align: .left, color: .black)
       // Set the year labels text
       yearLabel.text = "\(self.year)"
       // Set the year labels alpha
@@ -364,12 +364,12 @@ extension DatePicker {
    /**
     This function creates the top label that contains day of week, month, day number
     */
-   private func createTopLabel() -> UILabel {
+   fileprivate func createTopLabel() -> UILabel {
       
       // Set the frame for the view
       let frame: Rect = Rect(x: 16, y: 47, w: self.prompt.frame.w - 24, h: 36)
       // Create the date label
-      let dateLabel: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyEight, align: .Left, color: .black)
+      let dateLabel: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyEight, align: .left, color: .black)
       // Set the alpha for the label
       dateLabel.alpha = 0.76
       // Set the text for the label
@@ -382,12 +382,12 @@ extension DatePicker {
    /**
     This function adds the header that says month and year to the picker
     */
-   private func createMonthHeader() -> UILabel {
+   fileprivate func createMonthHeader() -> UILabel {
       
       // Set the frame for the header
       let frame: Rect = Rect(x: self.prompt.frame.w / 2 - 60, y: 113, w: 120, h: 21)
       // Create the header label
-      let header: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Center, color: .black)
+      let header: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .center, color: .black)
       // Set the text for the header
       header.text = "\(Date().nameOf(month: self.month)) \(self.year)"
       // Set the alpha for the header
@@ -400,7 +400,7 @@ extension DatePicker {
    /**
     This function creates the view that holds all the buttons
     */
-   private func createDayView() -> UIView {
+   fileprivate func createDayView() -> UIView {
       
       // Create the frame for the view
       let frame: Rect = Rect(x: 0, y: 188, w: self.prompt.frame.w, h: 280)
@@ -418,7 +418,7 @@ extension DatePicker {
 // MARK: Extension for user interaction
 extension DatePicker {
    
-   private func newMonth(change change: Int) {
+   fileprivate func newMonth(change: Int) {
       // Create a new month with the change
       let tempMonth = self.month + change
       // Check to see if year needs to be updated and month reset or just a regular month update
@@ -440,7 +440,7 @@ extension DatePicker {
       // Update days
       self.createDaysViewFor(month: self.month, inYear: self.year, change: change)
       // Animate the buttons the correct way
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
          // Iterate over all the buttons
          for a in self.dayButtonView.subviews {
             // Update the frame for the buttons
@@ -456,7 +456,7 @@ extension DatePicker {
       })
    }
    
-   private func picked(day day: Int) {
+   fileprivate func picked(day: Int) {
       // Set the day value to the day picked
       self.day = day
       // Update the top label to be correct

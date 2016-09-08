@@ -17,7 +17,7 @@ struct Account {
    /// The phone number from digits
    let number: String
    /// The keychain access
-   private var keychain: Keychain
+   fileprivate var keychain: Keychain
    
     
    /// Default initalizer if going to store value

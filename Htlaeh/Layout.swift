@@ -10,21 +10,21 @@ import Foundation
 import UIKit
 
 enum Alignment {
-   case Left, Right
+   case left, right
 }
 
 protocol Layout {
-   func halfCentered(side side: Alignment, size: CGFloat) -> CGFloat
+   func halfCentered(side: Alignment, size: CGFloat) -> CGFloat
 }
 
 extension CGFloat : Layout {
    
-   func halfCentered(side side: Alignment, size: CGFloat) -> CGFloat {
+   func halfCentered(side: Alignment, size: CGFloat) -> CGFloat {
       
       let halfWidth: CGFloat = self / 2
       let differenceForHalf: CGFloat = halfWidth - size
       let startPoint: CGFloat = differenceForHalf / 2
-      return (side == .Left) ? startPoint : halfWidth + startPoint
+      return (side == .left) ? startPoint : halfWidth + startPoint
       
    }
    

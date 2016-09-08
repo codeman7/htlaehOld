@@ -18,7 +18,7 @@ struct RealmStore {
       This function stores the workout into the DB
       - parameter workout: The workout that needs to be stored
    */
-   func store(workout workout: Workout) {
+   func store(workout: Workout) {
       // Assign the workout to a temporary variable
       var tempWorkout = workout
       // Check to see if a workout already exist for given day if so update the set count
@@ -48,7 +48,7 @@ struct RealmStore {
       
    }
    
-   func done(set set: RealmWorkout) {
+   func done(set: RealmWorkout) {
       
       try! realm.write({ set.complete = true })
       

@@ -11,16 +11,16 @@ import UIKit
 
 protocol MaterialView {
    
-   func elevate(elevation: Double)
+   func elevate(_ elevation: Double)
    
 }
 
 extension UIView: MaterialView {
    
-   func elevate(elevation: Double) {
+   func elevate(_ elevation: Double) {
       
       self.layer.masksToBounds = false
-      self.layer.shadowColor = UIColor.black.CGColor
+      self.layer.shadowColor = UIColor.black.cgColor
       self.layer.shadowOffset = CGSize(width: 0, height: elevation)
       self.layer.shadowRadius = abs(CGFloat(elevation))
       self.layer.shadowOpacity = 0.24

@@ -67,7 +67,7 @@ struct HomeRestViews : ViewsStruct {
    }
    
    // Add the giant rest label
-   private func createBigLabel() -> UILabel {
+   fileprivate func createBigLabel() -> UILabel {
       
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 100, y: self.controller.view.frame.height / 2 - 104, width: 200, height: 48)
       let restLabel: UILabel = UILabel(frame: frame, properties: HomeLabel.bigLabel)
@@ -76,7 +76,7 @@ struct HomeRestViews : ViewsStruct {
       
    }
    
-   private func createMessage() -> UILabel {
+   fileprivate func createMessage() -> UILabel {
       
       // Add message
       let text: String = "Did you want to see how you are doing, add a workout, or view upcoming workouts?"
@@ -89,7 +89,7 @@ struct HomeRestViews : ViewsStruct {
       
    }
    
-   private func createButtons() -> [Button] {
+   fileprivate func createButtons() -> [Button] {
       
       // TODO: Correct actions to be controller.action()
       var views: [Button] = []
@@ -101,7 +101,7 @@ struct HomeRestViews : ViewsStruct {
       for a in 0..<2 {
          let y = (self.controller.view.frame.height - 80) - CGFloat(a * 64)
          let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 62, y: y, width: buttonSize.width, height: buttonSize.height)
-         let button: Button = Button(frame: frame, type: .Raised)
+         let button: Button = Button(frame: frame, type: .raised)
          button.set(title: titles[a], color: titleColors[a])
          button.backgroundColor = backGroundColors[a]
          button.action = actions[a]

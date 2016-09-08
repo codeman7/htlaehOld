@@ -19,7 +19,7 @@ protocol HomeTextPresentable {
 extension HomeTextPresentable {
    
    var alignment: NSTextAlignment {
-      return .Center
+      return .center
    }
    
    var color: UIColor {
@@ -34,6 +34,11 @@ struct HomeLabel : HomeTextPresentable {
    /// This property is for content that is active
    static var content: HomeLabel {
       return HomeLabel(font: .medium36, alpha: 0.87)
+   }
+   
+   /// This property is for the results section headers
+   static var sectionHeader: HomeLabel {
+      return HomeLabel(font: .medium24, alpha: 1.0)
    }
    
    /// The property for hint labels that are right above a label

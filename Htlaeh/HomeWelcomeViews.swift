@@ -66,7 +66,7 @@ struct HomeWelcomeViews : ViewsStruct {
    }
   
       
-   private func createBigLabelAt(y y: CGFloat) -> UIView {
+   fileprivate func createBigLabelAt(y: CGFloat) -> UIView {
       
       let yPos: CGFloat = y - 64
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 100, y: yPos, width: 200, height: 48)
@@ -78,7 +78,7 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   private func createMessage() -> (view: UIView, messageTop: CGFloat) {
+   fileprivate func createMessage() -> (view: UIView, messageTop: CGFloat) {
       
       let message: String = "We are glad to have you here! Walk through how to use \"Htlaeh\" or tap \"Tips\" in Settings when you want a refresher later."
       let height: CGFloat = message.heightWithConstrainedWidth(240, font: Fonts.Medium.sixteen)
@@ -93,11 +93,11 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   private func createButtons() -> [UIView] {
+   fileprivate func createButtons() -> [UIView] {
       // Create the Show buttons frame
       let showFrame: CGRect = CGRect(x: self.controller.view.frame.width - 140, y: self.controller.view.frame.height - 56, width: 124, height: 40)
       // Create the show button
-      let showButton: Button = Button(frame: showFrame, type: .Raised)
+      let showButton: Button = Button(frame: showFrame, type: .raised)
       // Set the show buttons title
       showButton.set(title: "SHOW ME", color: .white)
       // Set the show buttons background color
@@ -110,7 +110,7 @@ struct HomeWelcomeViews : ViewsStruct {
       // Create the skip "no thanks" buttons frame
       let skipFrame: CGRect = CGRect(x: showFrame.origin.x - 140, y: self.controller.view.frame.height - 56, width: 124, height: 40)
       // Create teh skip "no thanks" button
-      let skipButton: Button = Button(frame: skipFrame, type: .Flat)
+      let skipButton: Button = Button(frame: skipFrame, type: .flat)
       // Set the buttons title
       skipButton.set(title: "NO THANKS", color: .blue)
       // Set the action for the button
@@ -125,20 +125,20 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   func hideViews(content: [UIView]) {
+   func hideViews(_ content: [UIView]) {
       
       for view in content {
          if view is Button {
-            UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { view.alpha = 0.0 }, completion: nil)
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 0.0 }, completion: nil)
          }
       }
       
    }
    
-   func showViews(content: [UIView]) {
+   func showViews(_ content: [UIView]) {
       
       for view in content {
-         UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { view.alpha = 1.0 }, completion: nil)
+         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 1.0 }, completion: nil)
       }
       
    }

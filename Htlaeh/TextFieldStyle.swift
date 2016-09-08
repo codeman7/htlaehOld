@@ -30,15 +30,15 @@ struct TextFieldStyle {
 extension TextFieldStyle {
    
    static var numbers: TextFieldStyle {
-      return TextFieldStyle(align: .Right, keyboard: .NumberPad, autoCorrect: nil, returnKey: nil)
+      return TextFieldStyle(align: .right, keyboard: .numberPad, autoCorrect: nil, returnKey: nil)
    }
    
    static var all: TextFieldStyle {
-      return TextFieldStyle(align: .Left, keyboard: .Default, autoCorrect: .No, returnKey: .Next)
+      return TextFieldStyle(align: .left, keyboard: .default, autoCorrect: .no, returnKey: .next)
    }
    
    static var time: TextFieldStyle {
-      return TextFieldStyle(align: .Right, keyboard: .NumberPad, autoCorrect: nil, returnKey: nil)
+      return TextFieldStyle(align: .right, keyboard: .numberPad, autoCorrect: nil, returnKey: nil)
    }
    
 }

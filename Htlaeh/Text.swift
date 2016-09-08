@@ -16,17 +16,17 @@ import UIKit
 class Text: UITextField {
    // MARK: Properties
    /// The color for all accent elements
-   private let standardColor: UIColor = .blue
+   fileprivate let standardColor: UIColor = .blue
    /// The color for all error elements
-   private let errorColor: UIColor = .red
+   fileprivate let errorColor: UIColor = .red
    /// The font for inactive state
-   private let inactiveFont: UIFont = Fonts.Regular.sixteen
+   fileprivate let inactiveFont: UIFont = Fonts.Regular.sixteen
    /// The font for active state
-   private let activeFont: UIFont = Fonts.Bold.thirtySix
+   fileprivate let activeFont: UIFont = Fonts.Bold.thirtySix
    /// The font for hint active state
-   private let activeHintFont: UIFont = Fonts.Regular.sixteen
+   fileprivate let activeHintFont: UIFont = Fonts.Regular.sixteen
    /// The font for hint in inactive state
-   private let inactiveHintFont: UIFont = Fonts.Regular.twelve
+   fileprivate let inactiveHintFont: UIFont = Fonts.Regular.twelve
    /// The placeholder and hint for the text field
    var placeholderText: String {
       didSet(newValue) {
@@ -40,7 +40,7 @@ class Text: UITextField {
    /// The placeholder for the field
    lazy var placeholderLabel: UILabel = self.createPlaceholderLabel()
    /// The rect for editing and text bounds
-   private var textBounds: Rect {
+   fileprivate var textBounds: Rect {
       return Rect(x: 0, y: 7, w: self.frame.w, h: 48)
    }
    
@@ -58,13 +58,13 @@ class Text: UITextField {
       // Set the delgate for the text field
       self.delegate = self
       // Set the background color
-      self.backgroundColor = .clearColor()
+      self.backgroundColor = .clear()
       // Set the font for the text field
       self.font = self.activeFont
       // Layout all the views
       self.layoutViews()
       // Add the did change method listener
-      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
       
    }
    
@@ -73,12 +73,12 @@ class Text: UITextField {
       fatalError("This class doesn't support NSCoding")
    }
    
-   private func updatePlaceholder() {
+   fileprivate func updatePlaceholder() {
       self.placeholderLabel.frame.origin.y = 86.0
    }
    
    // MARK: Functions
-   private func layoutViews() {
+   fileprivate func layoutViews() {
       
       // Add the placeholder text to the text field
       self.addSubview(self.placeholderLabel)
@@ -87,17 +87,17 @@ class Text: UITextField {
       
    }
    
-   private func styleType() {
-      if self.type == .All {
-         self.returnKeyType = .Next
-         self.autocorrectionType = .No
+   fileprivate func styleType() {
+      if self.type == .all {
+         self.returnKeyType = .next
+         self.autocorrectionType = .no
       } else {
-         self.keyboardType = .NumberPad
-         self.textAlignment = .Right
+         self.keyboardType = .numberPad
+         self.textAlignment = .right
       }
    }
    
-   private func createBottomLine() -> UIView {
+   fileprivate func createBottomLine() -> UIView {
       // Create the frame for the bottom line
       let bottomLineFrame: Rect = Rect(x: 0, y: 39 , w: self.frame.w, h: 1)
       // Create the bottom line
@@ -107,12 +107,12 @@ class Text: UITextField {
       
    }
    
-   private func createPlaceholderLabel() -> UILabel {
+   fileprivate func createPlaceholderLabel() -> UILabel {
       
       // Create the frame for the placeholder text
       let placeholderFrame: CGRect = CGRect(x: 0, y: 16, width: self.frame.width, height: 19)
       // Set the alignment for the placeholder label
-      let alignment: NSTextAlignment = (self.type == .Number) ? .Right : .Left
+      let alignment: NSTextAlignment = (self.type == .number) ? .right : .left
       // Create the placeholder text
       let placeHolder: UILabel = UILabel(frame: placeholderFrame, font: self.inactiveFont, align: alignment, color: .black)
       // Set the alpha for the placeholder
@@ -144,7 +144,7 @@ class Text: UITextField {
    /**
       This function is for when a text field is in an active state and needs to be style accordingly
    */
-   private func activeStyle() {
+   fileprivate func activeStyle() {
       
       // Create the animation
       let animate: () -> () = {
@@ -157,11 +157,11 @@ class Text: UITextField {
          self.bottomLine.alpha = 1.0
       }
       // Animate the view
-      UIView.animateWithDuration(0.3, animations: animate)
+      UIView.animate(withDuration: 0.3, animations: animate)
       
    }
    
-   private func inactiveText() {
+   fileprivate func inactiveText() {
       
       // Create animation
       let animate: () -> () = {
@@ -174,18 +174,18 @@ class Text: UITextField {
          self.bottomLine.backgroundColor = .black
       }
       // Animate the view
-      UIView.animateWithDuration(0.3, animations: animate)
+      UIView.animate(withDuration: 0.3, animations: animate)
       
    }
    
-   private func errorActiveStyle() {
+   fileprivate func errorActiveStyle() {
       
       // Create the animation
       let animate: () -> () = {
          
       }
       // Animate the view
-      UIView.animateWithDuration(0.3, animations: animate)
+      UIView.animate(withDuration: 0.3, animations: animate)
       
    }
    
@@ -194,11 +194,11 @@ class Text: UITextField {
 // MARK: Methods for text placement
 extension Text {
    
-   override func editingRectForBounds(bounds: CGRect) -> CGRect {
+   override func editingRect(forBounds bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 27, w: self.frame.w, h: 56)
    }
    
-   override func textRectForBounds(bounds: CGRect) -> CGRect {
+   override func textRect(forBounds bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 7, w: self.frame.w, h: 48)
    }
    
@@ -211,8 +211,8 @@ extension Text : UITextFieldDelegate {
    /**
     This function handles when the text field begins editing
    */
-   func textFieldDidBeginEditing(textField: UITextField) {
-      self.superview?.bringSubviewToFront(self)
+   func textFieldDidBeginEditing(_ textField: UITextField) {
+      self.superview?.bringSubview(toFront: self)
       //self.updateStyle(.Active)
    
    }
@@ -220,7 +220,7 @@ extension Text : UITextFieldDelegate {
    /**
      This function handles when the text field finishes editing
    */
-   func textFieldDidEndEditing(textField: UITextField) {
+   func textFieldDidEndEditing(_ textField: UITextField) {
       print("I finished editing")
       if self.text != nil || self.text != "" {
          //self.updateStyle(.InactiveText)
@@ -232,7 +232,7 @@ extension Text : UITextFieldDelegate {
    /**
       This function handles when the text field changes
    */
-   func textFieldDidChange(textField: Text) {
+   func textFieldDidChange(_ textField: Text) {
       print("I changed")
       print("Text = \(self.text)")
    }

@@ -56,7 +56,7 @@ struct AllStandardViews : ViewsStruct {
    
    // MARK: Functions
    /// This function returns the header
-   private func createHeader() -> BoldHeader {
+   fileprivate func createHeader() -> BoldHeader {
       // Create the frame for the view
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 80)
       // Create styles for the header
@@ -73,11 +73,11 @@ struct AllStandardViews : ViewsStruct {
    }
    
    /// This function returns the the FAB
-   private func createFAB() -> Button {
+   fileprivate func createFAB() -> Button {
       // Create the frame for the FAB
       let frame: CGRect = CGRect(x: self.controller.width - 72, y: self.controller.height - 72, w: 56, h: 56)
       // Create the FAB
-      let fab: Button = Button(frame: frame, type: .FAB)
+      let fab: Button = Button(frame: frame, type: .fab)
       // Set the buttons background color
       fab.backgroundColor = .blue
       // Add the icon to the button
@@ -97,7 +97,7 @@ struct AllStandardViews : ViewsStruct {
    }
    
    /// This function returns the scroller
-   private func createAndAddScroller(header: BoldHeader) {
+   fileprivate func createAndAddScroller(_ header: BoldHeader) {
       // Create the frame for the scroller
       let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
       // Create the scroller
@@ -131,7 +131,7 @@ struct AllStandardViews : ViewsStruct {
       
    }
    
-   private func createBigLabel() -> UILabel {
+   fileprivate func createBigLabel() -> UILabel {
       // Create the frame for the label and it's properties
       let frame: CGRect = CGRect(x: 16, y: self.controller.view.frame.height / 2 - 104, width: self.controller.width - 32, height: 48)
       
@@ -145,7 +145,7 @@ struct AllStandardViews : ViewsStruct {
       
    }
    
-   private func createMessageLabel() -> UILabel {
+   fileprivate func createMessageLabel() -> UILabel {
       // Create the message's label and height
       let text: String = "You have not added any workouts yet, its ok. Let's get started by adding one now."
       let height = text.heightWithConstrainedWidth(240, font: Fonts.Regular.sixteen)
@@ -165,10 +165,10 @@ struct AllStandardViews : ViewsStruct {
       return message
    }
    
-   private func createAddButton() -> Button {
+   fileprivate func createAddButton() -> Button {
       // Create the button's frame and the button
       let buttonFrame: Rect = Rect(x: (self.controller.width - 124) / 2, y: self.controller.height - 160, w: 124, h: 40)
-      let button: Button = Button(frame: buttonFrame, type: .Raised)
+      let button: Button = Button(frame: buttonFrame, type: .raised)
       
       // Add the title and set the buttons background color
       button.backgroundColor = .blue

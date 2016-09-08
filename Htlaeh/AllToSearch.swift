@@ -30,10 +30,10 @@ struct AllToSearch {
       let completion: () -> () = {
          // Remove all views except splash view and fade the splash view
          for view in views { view.removeFromSuperview() }
-         UIView.animateWithDuration(0.25, animations: {
+         UIView.animate(withDuration: 0.25, animations: {
             splashView.alpha = 0.0
             }, completion: { Bool in
-               self.all.presentViewController(self.search, animated: false, completion: nil)
+               self.all.present(self.search, animated: false, completion: nil)
                
          })
       }

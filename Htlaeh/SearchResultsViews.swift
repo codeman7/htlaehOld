@@ -55,7 +55,7 @@ struct SearchResultsViews : ViewsStruct {
       
    }
    
-   mutating func showEmpty(exercise: String) {
+   mutating func showEmpty(_ exercise: String) {
       
       // Get the big label
       let bigLabel: UILabel = self.createBigLabel()
@@ -97,7 +97,7 @@ struct SearchResultsViews : ViewsStruct {
       
       // Create the frame for the button and the button
       let frame: Rect = Rect(x: self.controller.width - 72, y: self.controller.height - 72, width: 56, height: 56)
-      let button: Button = Button(frame: frame, type: .FAB)
+      let button: Button = Button(frame: frame, type: .fab)
       
       // Add the icon to the button and set the buttons background color
       button.backgroundColor = .blue
@@ -138,7 +138,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
     This function creates the message for emtpy results
    */
-   func createEmptyMessage(exercise: String) -> UILabel {
+   func createEmptyMessage(_ exercise: String) -> UILabel {
       
       // Create the labels properties and a variable to hold it's text
       let properties: HomeLabel = HomeLabel.message
@@ -181,7 +181,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
       This function creates the line and label
    */
-   private func createAllLine() -> (Line, UILabel) {
+   fileprivate func createAllLine() -> (Line, UILabel) {
       // Create the frame for the line and create the line
       let lineFrame: Rect = Rect(x: self.controller.width / 3, y: 189, w: self.controller.width / 3, h: 2)
       let line: Line = Line(frame: lineFrame, alpha: 1.0)
@@ -190,7 +190,7 @@ struct SearchResultsViews : ViewsStruct {
       
       // Create the label and it's frame
       let labelFrame: Rect = Rect(x: self.controller.width / 2 - 100, y: lineFrame.origin.y + 16, w: 200, h: 28)
-      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .Center, font: Fonts.Regular.twenty))
+      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .center, font: Fonts.Regular.twenty))
       // Set the labels text and add it to the controller
       label.text = "All Sets"
       
@@ -206,7 +206,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
       This function creates the result scroller
    */
-   private func createAndAddScroller(header: BoldHeader) {
+   fileprivate func createAndAddScroller(_ header: BoldHeader) {
       
       // Create the frame and the scroller
       let frame: Rect = Rect(x: 0, y: 80, width: self.controller.width, height: self.controller.height - 80)

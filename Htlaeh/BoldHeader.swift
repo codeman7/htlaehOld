@@ -14,7 +14,7 @@ import UIKit
  */
 enum HeaderButtonLayout {
    
-   case OneLeftNoneRight, OneLeftOneRight, OneLeftTwoRight, OneLeftFlatRight
+   case oneLeftNoneRight, oneLeftOneRight, oneLeftTwoRight, oneLeftFlatRight
    
 }
 
@@ -69,7 +69,7 @@ class BoldHeader: UIView {
       This function creates a header for the home controller
       - parameter content: All the content for the header
    */
-   private func addContent<A: Head>(content content: A) {
+   fileprivate func addContent<A: Head>(content: A) {
       
       self.addTitle(text: content.title)
       self.addButton(icon: content.leftIcon, action: content.leftButtonAction!, xPosition: 24)
@@ -86,7 +86,7 @@ class BoldHeader: UIView {
       This function is used to add the title to the header
       - parameter text: The text property for the title
    */
-   private func addTitle(text text: String) {
+   fileprivate func addTitle(text: String) {
       
       // Set the text for the label
       title.text = text
@@ -95,12 +95,12 @@ class BoldHeader: UIView {
       
    }
    
-   private func createTitle() -> UILabel {
+   fileprivate func createTitle() -> UILabel {
       
       // Set the frame for the title
       let frame: CGRect = CGRect(x: 72, y: 20, width: 180, height: 48)
       // Set up all the configurations for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Bold.thirtySix, alignment: .Left, color: .black)
+      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Bold.thirtySix, alignment: .left, color: .black)
       // Create the label
       let title: UILabel = UILabel(config: labelConfig)
       // Set the alpha for the label
@@ -118,7 +118,7 @@ class BoldHeader: UIView {
       // Set the frame for the label
       let frame: CGRect = CGRect(x: 72, y: 72, width: self.frame.width - 72, height: 21)
       // Create the configuration for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular.sixteen, alignment: .Left
+      let labelConfig: LabelConfig = LabelConfig(frame: frame, font: Fonts.Regular.sixteen, alignment: .left
          , color: .black)
       // Create the label
       let label: UILabel = UILabel(config: labelConfig)
@@ -131,13 +131,13 @@ class BoldHeader: UIView {
       
    }
    
-   func update(title title: String) {
+   func update(title: String) {
       
-      UIView.animateWithDuration(0.15, animations: {
+      UIView.animate(withDuration: 0.15, animations: {
          self.title.alpha = 0.0
          }, completion: { Bool in
             self.title.text = title
-            UIView.animateWithDuration(0.15, animations: {
+            UIView.animate(withDuration: 0.15, animations: {
                self.title.alpha = 0.87
             })
             
@@ -151,12 +151,12 @@ class BoldHeader: UIView {
       - parameter action: The action that the button will have
       - parameter xPosition: The 'x' position that the button will be in the view
    */
-   func addButton(icon icon: UIImage, action: ()->(), xPosition: Int) {
+   func addButton(icon: UIImage, action: @escaping ()->(), xPosition: Int) {
       
       // Set the frame for the button
       let frame: CGRect = CGRect(x: xPosition, y: 27, width: 40, height: 40)
       // Create the button
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       // Add the icon to the button
       button.add(image: icon, color: .black)
       // Set the action for the button
@@ -170,7 +170,7 @@ class BoldHeader: UIView {
       
    }
    
-   func addSearchBar(controller: Search) {
+   func addSearchBar(_ controller: Search) {
       
       // Hide the title
       self.title.alpha = 0.0
@@ -192,7 +192,7 @@ class BoldHeader: UIView {
       
    }
    
-   private func createBottomLine() -> Line {
+   fileprivate func createBottomLine() -> Line {
       
       // Set the frame for the line, create the line and return it
       let frame: Rect = Rect(x: 0, y: self.frame.h - 1, w: self.frame.w, h: 1)
@@ -200,7 +200,7 @@ class BoldHeader: UIView {
       
    }
    
-   private func addBottomLine() {
+   fileprivate func addBottomLine() {
       
       // Add the line to the view
       self.addSubview(self.bottomLine)

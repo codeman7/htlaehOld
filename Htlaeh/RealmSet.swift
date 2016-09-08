@@ -26,7 +26,7 @@ class RealmWorkout: Object {
       - parameter workoutSet: Should be the weight set that corresponds with the set being created
       - returns: The RealmWorkout that will be stored
    */
-   func createSet(workoutSet: WeightSet) -> RealmWorkout {
+   func createSet(_ workoutSet: WeightSet) -> RealmWorkout {
       let workSet: RealmWorkout = RealmWorkout()
       workSet.name = workoutSet.name
       workSet.setCount = workoutSet.setCount

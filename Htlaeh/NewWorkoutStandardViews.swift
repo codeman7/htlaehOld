@@ -14,33 +14,33 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /// The controller that will be holding the views
    let controller: NewWorkout
    /// The size of the screen for the view controller holding that will be holding the views
-   private var size: ScreenSize {
+   fileprivate var size: ScreenSize {
       switch self.controller.view.frame.size {
       case CGSize(width: 320, height: 568):
-         return .Small
+         return .small
       case CGSize(width: 375, height: 667):
-         return .Medium
+         return .medium
       case CGSize(width: 414, height: 736):
-         return .Large
+         return .large
       default:
-         return .Small
+         return .small
       }
    }
    // The height the keyboard will be
-   private var keyboardTop: CGFloat {
+   fileprivate var keyboardTop: CGFloat {
       switch self.size {
-      case .Small:
+      case .small:
          return 352
-      case .Medium:
+      case .medium:
          return 451
-      case .Large:
+      case .large:
          return 510
       }
    }
    /// The variable for the bottom of the exercise fields frame if nil then hasn't been set
-   private var exerciseBottom: CGFloat = 172
+   fileprivate var exerciseBottom: CGFloat = 172
    /// The variable for the top of the rest fieldsFrame if nil then hasn't been set
-   private var padding: CGFloat {
+   fileprivate var padding: CGFloat {
       // Get the space between the top of the keyboard and the bottom of exercise name
       // 249 is 83 * 3 because all text fields will be 83 tall + 70 for header
       let totalSpace: CGFloat = self.keyboardTop - 319
@@ -105,7 +105,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       
    }
    
-   mutating func layoutViewsWithAlpha(oldController oldController: Controller) {
+   mutating func layoutViewsWithAlpha(oldController: Controller) {
       
       var views: [UIView] = []
       // Get the header
@@ -128,12 +128,12 @@ struct NewWorkoutStandardViews : ViewsStruct {
       }
       
       // Animate views alphas and present new contoller
-      UIView.animateWithDuration(0.3, delay: 0.25, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions(), animations: {
          for view in views {
             view.alpha = 1.0
          }
          }, completion: { Bool in
-               oldController.presentViewController(self.controller, animated: false, completion: nil)
+               oldController.present(self.controller, animated: false, completion: nil)
       })
       
    }
@@ -216,20 +216,20 @@ struct NewWorkoutStandardViews : ViewsStruct {
    func dismissKeyboardButton() -> Button {
       
       let buttonFrame: Rect = Rect(x: 0, y: 68, w: self.controller.width, h: self.controller.height - 68)
-      let button: Button = Button(frame: buttonFrame, type: .Flat)
+      let button: Button = Button(frame: buttonFrame, type: .flat)
       button.action = { self.controller.hideKeyboard() }
-      button.backgroundColor = .clearColor()
+      button.backgroundColor = .clear()
       return button
       
    }
    
-   private func addSetButton() -> Button {
+   fileprivate func addSetButton() -> Button {
       // Get the x Position for the button
-      let x: CGFloat = self.controller.width.halfCentered(side: .Left, size: 124)
+      let x: CGFloat = self.controller.width.halfCentered(side: .left, size: 124)
       // Set the buttons frame
       let buttonFrame: CGRect = CGRect(x: x, y: (257 + padding * 3), width: 124, height: 40)
       // Create the button
-      let addSet: Button = Button(frame: buttonFrame, type: .Raised)
+      let addSet: Button = Button(frame: buttonFrame, type: .raised)
       // Set the buttons background color
       addSet.backgroundColor = .blue
       // Add the title to the button
@@ -246,7 +246,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Set the fabs frame
       let fabFrame: CGRect = CGRect(x: self.controller.view.frame.w / 2 - 28, y: self.controller.view.frame.h / 5 * 4 - 28, width: 56, height: 56)
       // Create the fab
-      let fab: Button = Button(frame: fabFrame, type: .FAB)
+      let fab: Button = Button(frame: fabFrame, type: .fab)
       // Set the fab's background color
       fab.backgroundColor = .yellow
       // Add an icon to the fab
@@ -262,7 +262,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       This function creates the toast for a new workout
       - parameter title: The title for the toast
    */
-   func createToastWith(title title: String) -> Toast {
+   func createToastWith(title: String) -> Toast {
       // Set the frame for the toast
       let frame: Rect = Rect(x: 0, y: self.controller.height, w: self.controller.width, h: 48)
       // Create the toast
@@ -279,15 +279,15 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
       This function creates the exercise name field
    */
-   private mutating func exerciseNameField() -> TextField {
+   fileprivate mutating func exerciseNameField() -> TextField {
       // Create the frame for the text field
       let exerciseNameFrame: Rect = Rect(x: 16, y: (70 + padding), w: self.controller.width - 32, h: 83)
       // Set the text fields options
-      let exerciseNameOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Exercise Name", type: .All, style: TextFieldStyle.all)
+      let exerciseNameOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Exercise Name", type: .all, style: TextFieldStyle.all)
       // Create the text field
       let exerciseName: TextField = TextField(frame: exerciseNameFrame, options: exerciseNameOptions)
       // Check the screen size if it isn't small then allow auto correct
-      if self.size != .Small { exerciseName.autocorrectionType = .Default }
+      if self.size != .small { exerciseName.autocorrectionType = .default }
       // Set the delay and alpha for the text field
       self.views[exerciseName] = (delay: 0.025, alpha: 1.0)
       // Return the text field
@@ -298,11 +298,11 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the reps field
     */
-   private mutating func createRepsField() -> TextField {
+   fileprivate mutating func createRepsField() -> TextField {
       // Create the frame for the text field
       let repsFrame: Rect = Rect(x: self.controller.width / 2 - 128, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
-      let repsOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Reps", type: .Number, style: TextFieldStyle.numbers)
+      let repsOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Reps", type: .number, style: TextFieldStyle.numbers)
       // Create the field
       let field: TextField = TextField(frame: repsFrame, options: repsOptions)
       // Set the delay and alpha for the text field
@@ -315,12 +315,12 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the weight field
     */
-   private mutating func createWeightField() -> TextField {
+   fileprivate mutating func createWeightField() -> TextField {
       
       // Create the frame for the text field
       let weightFrame: Rect = Rect(x: self.controller.width - 112, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
-      let weightOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Weight", type: .Number, style: TextFieldStyle.numbers)
+      let weightOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Weight", type: .number, style: TextFieldStyle.numbers)
       // Create the field
       let field: TextField = TextField(frame: weightFrame, options: weightOptions)
       // Set the delay and alpha for the text field
@@ -333,11 +333,11 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the rest field
     */
-   private mutating func createRestField() -> TextField {
+   fileprivate mutating func createRestField() -> TextField {
       // Create the frame for the text field
       let restFrame: Rect = Rect(x: self.controller.width - 112, y: (236 + padding * 3), w: 96, h: 83)
       // Set the text fields options
-      let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .Time, style: TextFieldStyle.time)
+      let restOptions: TextFieldSettings = TextFieldSettings(placeHolder: "Rest", type: .time, style: TextFieldStyle.time)
       // Create the field
       let field: TextField = TextField(frame: restFrame, options: restOptions)
       // Set the delay and alpha for the text field

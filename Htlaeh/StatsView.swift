@@ -12,7 +12,7 @@ import UIKit
 class StatsView : UIView {
    // MARK: Properties
    /// The variable that will hold the data that the views have
-   private let data: StatsViewData
+   fileprivate let data: StatsViewData
    /// The array for the top views
    var topViews: [UILabel] = []
    /// The array for the bottom views
@@ -69,10 +69,10 @@ class StatsView : UIView {
    /**
     This function lays out all the hints
    */
-   private func addHints() {
+   fileprivate func addHints() {
       // Create the configurations for the labels
-      let leftLabel: Label = Label(color: .black, alpha: 0.38, align: .Left, font: Fonts.Regular.sixteen)
-      let rightLabel: Label = Label(color: .black, alpha: 0.38, align: .Right, font: Fonts.Regular.sixteen)
+      let leftLabel: Label = Label(color: .black, alpha: 0.38, align: .left, font: Fonts.Regular.sixteen)
+      let rightLabel: Label = Label(color: .black, alpha: 0.38, align: .right, font: Fonts.Regular.sixteen)
       // Create the grid for all the views
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 16)
       // Create the personal best hint and add it to the top array
@@ -96,10 +96,10 @@ class StatsView : UIView {
    /**
     This function lays out all the content labels
    */
-   private func addContent() {
+   fileprivate func addContent() {
       // Create the configurations for the labels
-      let leftLabel: Label = Label(color: .black, alpha: 0.87, align: .Left, font: Fonts.Regular.twentyFour)
-      let rightLabel: Label = Label(color: .black, alpha: 0.87, align: .Right, font: Fonts.Regular.twentyFour)
+      let leftLabel: Label = Label(color: .black, alpha: 0.87, align: .left, font: Fonts.Regular.twentyFour)
+      let rightLabel: Label = Label(color: .black, alpha: 0.87, align: .right, font: Fonts.Regular.twentyFour)
       // Create the grid to layout the labels and add it to the top array
       let grid: Grid = Grid(size: self.frame.size, xPadding: 16, yPadding: 45)
       // Create the personal best label and add it to the top array
@@ -126,7 +126,7 @@ class StatsView : UIView {
       
    }
    
-   private func add(label label: Label, text: String, frame: Rect) -> UILabel {
+   fileprivate func add(label: Label, text: String, frame: Rect) -> UILabel {
       
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: label)

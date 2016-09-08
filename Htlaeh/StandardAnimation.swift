@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 extension UIView {
-   func standardAnimation(animation: () -> Void) {
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: nil)
+   func standardAnimation(_ animation: @escaping () -> Void) {
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: animation, completion: nil)
    }
    
-   func animations(animation: ()->Void, duration: NSTimeInterval) {
-      UIView.animateWithDuration(duration, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: nil)
+   func animations(_ animation: @escaping ()->Void, duration: TimeInterval) {
+      UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions(), animations: animation, completion: nil)
    }
    
 }

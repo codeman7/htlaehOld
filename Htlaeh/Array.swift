@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension _ArrayType where Generator.Element == String  {
+extension _ArrayType where Iterator.Element == String  {
    
    /// Returns the most common elements in an array
    func mostCommon() -> [String] {
@@ -25,7 +25,7 @@ extension _ArrayType where Generator.Element == String  {
     Returns an array of the first "n" elements maxing at 5.
     - parameter arr: The array that is being condensed
     */
-   private func protectAgainstShort(arr: [String])  -> [String] {
+   fileprivate func protectAgainstShort(_ arr: [String])  -> [String] {
       
       // Create a temporary array
       var _array: [String] = []
@@ -65,7 +65,7 @@ extension _ArrayType where Generator.Element == String  {
       var sortedArr = self.frequency().sortByValues(>)
       let arr = sortedArr.filter({ $0.hasPrefix(string) })
       sortedArr.removeSubArray(arr)
-      let a = sortedArr.filter({ $0.containsString(string.lowercaseString) })
+      let a = sortedArr.filter({ $0.contains(string.lowercased()) })
       return protectAgainstShort(arr + a)
       
    }
@@ -82,7 +82,7 @@ extension _ArrayType where Generator.Element == String  {
       var sortedArr = (caseInsensitve == true) ? self.ignoreCase().frequency().sortByValues(>) : self.frequency().sortByValues(>)
       let arr = sortedArr.filter({ $0.hasPrefix(string) })
       sortedArr.removeSubArray(arr)
-      let a = sortedArr.filter({ $0.containsString(string.lowercaseString) })
+      let a = sortedArr.filter({ $0.contains(string.lowercased()) })
       return protectAgainstShort(arr + a)
       
    }
@@ -95,7 +95,7 @@ extension _ArrayType where Generator.Element == String  {
       
       // Iterate over the array and add all elements to it
       for iteration in 0..<self.count {
-         array += [self[iteration].capitalizedString]
+         array += [self[iteration].capitalized]
       }
       
       // Return the array
@@ -122,13 +122,13 @@ extension _ArrayType where Generator.Element == String  {
    }
    
    /// This function removes a sub array of a larger array
-   mutating func removeSubArray(array: [String]) {
+   mutating func removeSubArray(_ array: [String]) {
       // Iterate over all elements in the array parameter
       for object in array {
          // Get the index of the the object
-         if let index = self.indexOf(object) {
+         if let index = self.index(of: object) {
             // Remove the object
-            self.removeAtIndex(index)
+            self.remove(at: index)
          }
       }
       

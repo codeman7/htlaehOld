@@ -10,5 +10,5 @@ import Foundation
 
 /// Used for various things that need to know directions
 enum Direction {
-   case Up, Down, Left, Right
+   case up, down, left, right
 }

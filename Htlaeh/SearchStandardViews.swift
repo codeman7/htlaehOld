@@ -71,7 +71,7 @@ struct SearchStandardViews : ViewsStruct {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: 16, y: 84, w: self.controller.width - 32, h: 21)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Left, color: .black)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .left, color: .black)
       
       // Set the labels alpha and it's text value
       label.alpha = 0.38
@@ -88,7 +88,7 @@ struct SearchStandardViews : ViewsStruct {
       
       // Create the frame for the table and the table itself
       let frame: Rect = Rect(x: 0, y: 105, w: self.controller.width, h: CGFloat(self.controller.suggestions.count * 56))
-      let table: SuggestionsTable = SuggestionsTable(frame: frame, style: .Plain, controller: self.controller)
+      let table: SuggestionsTable = SuggestionsTable(frame: frame, style: .plain, controller: self.controller)
       
       // Add the table as a subview and set it's alpha to 0
       self.controller.view.addSubview(table)
@@ -125,7 +125,7 @@ struct SearchStandardViews : ViewsStruct {
    /**
       This function updates the header to look how it should look when no workouts are present
    */
-   private func updateHeader() {
+   fileprivate func updateHeader() {
       
       // Update the title to be visable, hide the search bar and bottom line
       self.controller.header.title.alpha = 0.87
@@ -137,7 +137,7 @@ struct SearchStandardViews : ViewsStruct {
    /**
  
    */
-   private func createBigLabel() -> UILabel {
+   fileprivate func createBigLabel() -> UILabel {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: self.controller.width / 2 - 150, y: 196, w: 300, h: 48)
@@ -157,7 +157,7 @@ struct SearchStandardViews : ViewsStruct {
    /**
  
    */
-   private func createLittleLabel() -> UILabel {
+   fileprivate func createLittleLabel() -> UILabel {
       
       // Set the frame for the label and create the label
       let frame: Rect = Rect(x: self.controller.width / 2 - 102, y: 260, w: 204, h: 96)
@@ -179,11 +179,11 @@ struct SearchStandardViews : ViewsStruct {
    /**
     
    */
-   private func createNewWorkoutButton() -> Button {
+   fileprivate func createNewWorkoutButton() -> Button {
       
       // Create the frame for the button and create the button
       let frame: Rect = Rect(x: self.controller.width / 2 - 62, y: 360, w: 124, h: 40)
-      let button: Button = Button(frame: frame, type: .Raised)
+      let button: Button = Button(frame: frame, type: .raised)
       
       // Add the title and set the background color for the button
       button.set(title: "NEW WORKOUT", color: .white)

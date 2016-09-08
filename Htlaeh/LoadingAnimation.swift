@@ -17,7 +17,7 @@ extension Circle: RevealAlpha { }
 */
 class Loading: UIView {
    // MARK: Properties
-   private var circles: [UIView] = []
+   fileprivate var circles: [UIView] = []
    // MARK: Initializers
    /// Default and only initalizers to use
    override init(frame: CGRect) {
@@ -60,14 +60,14 @@ class Loading: UIView {
       This function is used to animate the red circle
       -parameter circle:   The cirlce to animate
    */
-   private func animate(circle: Circle) {
+   fileprivate func animate(_ circle: Circle) {
       
       let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
       anim.path = self.createPath()
       anim.repeatCount = Float.infinity
       anim.duration = 1.5
       anim.beginTime = CACurrentMediaTime()
-      circle.layer.addAnimation(anim, forKey: "animate position along path")
+      circle.layer.add(anim, forKey: "animate position along path")
       
    }
    
@@ -76,21 +76,21 @@ class Loading: UIView {
       -parameter cirlce:   The cirlce to animate
       -parameter delay:   The amount of time to wait to start the animation
    */
-   private func delayedAnimate(circle: Circle, delay: Double) {
+   fileprivate func delayedAnimate(_ circle: Circle, delay: Double) {
       
       let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
       anim.path = self.createPath()
       anim.repeatCount = Float.infinity
       anim.duration = 1.5
       anim.beginTime = CACurrentMediaTime() + delay
-      circle.layer.addAnimation(anim, forKey: "animate position along path")
+      circle.layer.add(anim, forKey: "animate position along path")
       
    }
    
    /**
       This function is used to create all three of the cirlce and add them to CIRCLES array
    */
-   private func addCirlces() {
+   fileprivate func addCirlces() {
       // Create an array of all the colors needed for the cirlces
       let colors: [UIColor] = [.red, .blue, .yellow]
       // Create all the circles and add them to the view
@@ -109,7 +109,7 @@ class Loading: UIView {
       This function is used just to create the circles
       -parameter color:   The color of the cirlce
    */
-   private func createCirlce(color: UIColor) -> UIView {
+   fileprivate func createCirlce(_ color: UIColor) -> UIView {
       
       let frame: CGRect = CGRect(x: 55, y: 35, width: 10, height: 10)
       let view: UIView = UIView(frame: frame)
@@ -123,7 +123,7 @@ class Loading: UIView {
    /**
       Function just used to create path for the animation
    */
-   private func createPath() -> CGPath {
+   fileprivate func createPath() -> CGPath {
       
       let centerOne: CGPoint = CGPoint(x: 45, y: 35)
       let centerTwo: CGPoint = CGPoint(x: 75, y: 35)
@@ -135,11 +135,11 @@ class Loading: UIView {
       let path3: UIBezierPath = UIBezierPath(arcCenter: centerOne, radius: radius, startAngle: end, endAngle: start, clockwise: true)
       let path4: UIBezierPath = UIBezierPath(arcCenter: centerOne, radius: radius, startAngle: start, endAngle: end, clockwise: true)
       let paths: UIBezierPath = UIBezierPath()
-      paths.appendPath(path1)
-      paths.appendPath(path2)
-      paths.appendPath(path3)
-      paths.appendPath(path4)
-      return paths.CGPath
+      paths.append(path1)
+      paths.append(path2)
+      paths.append(path3)
+      paths.append(path4)
+      return paths.cgPath
       
    }
 }

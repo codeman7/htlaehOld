@@ -17,8 +17,8 @@ class WorkoutCellHeader : UITableViewCell {
       // Call the super initializer
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       // Make the cell go all the way accross
-      self.separatorInset = UIEdgeInsetsZero
-      self.layoutMargins = UIEdgeInsetsZero
+      self.separatorInset = UIEdgeInsets.zero
+      self.layoutMargins = UIEdgeInsets.zero
       self.preservesSuperviewLayoutMargins = false
       self.frame.size.height = 49.0
    }
@@ -29,7 +29,7 @@ class WorkoutCellHeader : UITableViewCell {
    }
    
    // MARK: Functions
-   func add(date date: String) {
+   func add(date: String) {
       // Create the label and set it's font
       let label: UILabel = UILabel(frame: Rect(x: 16, y: 0, w: self.frame.w - 32, h: 21))
       label.font = Fonts.Regular.sixteen
@@ -38,7 +38,7 @@ class WorkoutCellHeader : UITableViewCell {
       label.text = date
       
       // Make the label left aligned and add it as a subview
-      label.textAlignment = .Left
+      label.textAlignment = .left
       self.addSubview(label)
       
    }
@@ -55,7 +55,7 @@ class WorkoutCellHeader : UITableViewCell {
       
    }
    
-   private func addTitleWith<A: TextPresentable>(frame frame: Rect, title: String, config: A) {
+   fileprivate func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
       
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: config)

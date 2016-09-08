@@ -15,7 +15,7 @@ import UIKit
  */
 enum ButtonType {
    
-   case Flat, Raised, FAB
+   case flat, raised, fab
    
 }
 
@@ -90,15 +90,15 @@ class Button: UIView {
       
    }
     // MARK: Style Functions
-    func setType(type: ButtonType) {
+    func setType(_ type: ButtonType) {
       
       switch self.type {
-      case .Raised:
+      case .raised:
          // Elevate the view
          self.elevate(1)
          // Set the corner radius for the button
          self.layer.cornerRadius = 2.0
-      case .FAB:
+      case .fab:
          // Elevate the view
          self.elevate(3)
          // Make the view into a circle
@@ -112,9 +112,9 @@ class Button: UIView {
     
    }
    
-   private func createLabel() -> UILabel {
+   fileprivate func createLabel() -> UILabel {
       
-      let label: UILabel = UILabel(frame: Rect.zero, font: .medium14, align: .Center, color: .black)
+      let label: UILabel = UILabel(frame: Rect.zero, font: .medium14, align: .center, color: .black)
       self.addSubview(label)
       return label
       
@@ -122,11 +122,14 @@ class Button: UIView {
    
    func set(title text: String, color: UIColor) {
       
-      let title: String = text.uppercaseString
+      let title: String = text.uppercased()
       let width: CGFloat = title.widthWithConstrainedHeight(22.0, font: .medium14)
       self.label.frame = Rect(x: (self.frame.w - width) / 2, y: self.frame.height / 2 - 11, w: width, h: 22)
       self.label.text = title
       self.label.textColor = color
+      if color == UIColor.black {
+         self.label.alpha = 0.87
+      }
       
    }
    
@@ -135,7 +138,7 @@ class Button: UIView {
       -parameter image:   Should be the image that the icon is
       -parameter color:   The color that the image will be
    */
-   func add(image image: UIImage, color: UIColor) {
+   func add(image: UIImage, color: UIColor) {
    
       let frame: CGRect = CGRect(x: self.frame.size.width / 2 - 12, y: self.frame.size.height / 2 - 12, width: 24, height: 24)
       icon = Icon(frame: frame, image: image, color: color)
@@ -148,7 +151,7 @@ class Button: UIView {
       - parameter image: Should be the image that the icon is
       - parameter alpha: The alpha for the icon
    */
-   func add(image image: UIImage, alpha: CGFloat) {
+   func add(image: UIImage, alpha: CGFloat) {
       // Set the frame for the icon
       let frame: Rect = Rect(x: self.frame.w / 2 - 12, y: self.frame.h / 2 - 12, w: 24, h: 24)
       // Create the icon
@@ -172,16 +175,16 @@ class Button: UIView {
    }
     
     // MARK: Logic Functions
-   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
    
-      super.touchesBegan(touches, withEvent: event)
+      super.touchesBegan(touches, with: event)
       switch self.type {
       
-      case .Raised:
+      case .raised:
       
          self.elevate(4)
         
-      case .FAB:
+      case .fab:
       
          self.elevate(6)
         
@@ -193,16 +196,16 @@ class Button: UIView {
     
    }
     
-   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
    
-      super.touchesEnded(touches, withEvent: event)
+      super.touchesEnded(touches, with: event)
       switch self.type {
       
-      case .Raised:
+      case .raised:
       
          self.elevate(1)
         
-      case .FAB:
+      case .fab:
       
          self.elevate(3)
         
@@ -224,22 +227,22 @@ extension Button : Touchable { }
 // MARK: Extension for FAB animation
 extension Button {
    
-   private func showFAB() {
+   fileprivate func showFAB() {
       
-      guard self.type == .FAB else {
+      guard self.type == .fab else {
          return
       }
       
-      UIView.animateWithDuration(0.15, animations: {
-         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
+      UIView.animate(withDuration: 0.15, animations: {
+         self.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
          }, completion: { Bool in self.elevate(6.0) })
       
    }
    
-   func updateFAB(color: UIColor, image: UIImage) {
+   func updateFAB(_ color: UIColor, image: UIImage) {
       
-      UIView.animateWithDuration(0.15, delay: 0.0, options: .CurveEaseInOut, animations: {
-         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.01, 0.01)
+      UIView.animate(withDuration: 0.15, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+         self.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
          }, completion: { Bool in
             self.elevate(0.0)
             self.backgroundColor = color

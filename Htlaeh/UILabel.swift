@@ -61,8 +61,25 @@ extension UILabel {
    func multipleLines() {
       
       self.numberOfLines = 0
-      self.lineBreakMode = .ByWordWrapping
+      self.lineBreakMode = .byWordWrapping
       
+   }
+   
+   /// Use this to dynamically set the font of a label
+   func setFont() {
+      self.numberOfLines = 0
+      self.lineBreakMode = .byTruncatingTail
+      var font: UIFont = .bold36
+      let neededWidth: CGFloat = self.text!.widthWithConstrainedHeight(45.0, font: font)
+      if neededWidth > self.frame.width {
+         font = UIFont.bold24
+         let needed: CGFloat = self.text!.widthWithConstrainedHeight(45.0, font: font)
+         if needed > self.frame.width {
+            font = UIFont.bold18
+         }
+      }
+      
+      self.font = font
    }
 }
 
@@ -103,7 +120,7 @@ struct Label : TextPresentable {
 struct ScrollerLabel : TextPresentable {
    let color: UIColor = .black
    let alpha: CGFloat = 0.87
-   let alignment: NSTextAlignment = .Center
+   let alignment: NSTextAlignment = .center
    let font: UIFont = Fonts.Regular.fourteen
 }
 

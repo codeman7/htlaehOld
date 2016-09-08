@@ -15,8 +15,8 @@ class WorkoutCell : UITableViewCell {
       // Call the super initializer
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       // Make the view go all the way across
-      self.separatorInset = UIEdgeInsetsZero
-      self.layoutMargins = UIEdgeInsetsZero
+      self.separatorInset = UIEdgeInsets.zero
+      self.layoutMargins = UIEdgeInsets.zero
       self.preservesSuperviewLayoutMargins = false
       self.frame.size.height = 48.0
    
@@ -27,7 +27,7 @@ class WorkoutCell : UITableViewCell {
       fatalError("This class does not support NScoding")
    }
    
-   func addTitlesFor(set set: WeightSet) {
+   func addTitlesFor(set: WeightSet) {
       
       let cellFrames: CellLayout = CellLayout(frame: self.frame)
       // Add the exercise title
@@ -39,7 +39,7 @@ class WorkoutCell : UITableViewCell {
       
    }
    
-   private func addTitleWith<A: TextPresentable>(frame frame: Rect, title: String, config: A) {
+   fileprivate func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
       
       // Create the label and set its title
       let label: UILabel = UILabel(frame: frame, properties: config)

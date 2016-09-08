@@ -41,16 +41,6 @@ struct HomeStandardViews : ViewsStruct {
       // Set the headers delay to 0
       self.views[header] = (delay: 0.0, alpha: 1.0)
       
-      /*let frame: Rect = Rect(x: 0, y: 96, w: self.controller.width, h: (self.controller.height - 168) / 3 * 2)
-      let setview: ActiveSetView = ActiveSetView(frame: frame, set: self.controller.workout![self.controller.setCount], active: self.controller.active)
-      self.controller.view.addSubview(setview)
-      self.controller.activeViews = setview
-      
-      let nextFrame: Rect = Rect(x: 0, y: frame.origin.y + frame.size.height, w: self.controller.width, h: frame.h / 2)
-      let nextView: NextSetView = NextSetView(frame: nextFrame, set: self.controller.workout![self.controller.setCount], active: self.controller.active)
-      self.controller.view.addSubview(nextView)
-      self.controller.nextViews = nextView*/
-      
       let frame: Rect = Rect(x: 0, y: 96, width: self.controller.width, height: self.controller.height - 168)
       let setView: HomeSetView = HomeSetView(frame: frame, set: self.controller.workout![self.controller.setCount])
       self.controller.view.addSubview(setView)
@@ -65,15 +55,13 @@ struct HomeStandardViews : ViewsStruct {
          self.views[button] = (delay: 0.1, alpha: 1.0)
       }
       
-      
-      
    }
    
    func createSkipButton() -> Button {
       
-      let xLeft: CGFloat = self.controller.view.frame.width.halfCentered(side: .Left, size: 124)
+      let xLeft: CGFloat = self.controller.view.frame.width.halfCentered(side: .left, size: 124)
       let leftButtonFrame: CGRect = CGRect(x: xLeft, y: self.controller.view.frame.height - 72, width: 124, height: 40)
-      let leftButton: Button = Button(frame: leftButtonFrame, type: .Raised)
+      let leftButton: Button = Button(frame: leftButtonFrame, type: .raised)
       leftButton.action = { self.controller.skipSet() }
       leftButton.backgroundColor = .red
       leftButton.set(title: "SKIP", color: .white)
@@ -83,13 +71,26 @@ struct HomeStandardViews : ViewsStruct {
    
    func createDoneButton() -> Button {
       
-      let xRight: CGFloat = self.controller.view.frame.width.halfCentered(side: .Right, size: 124)
+      let xRight: CGFloat = self.controller.view.frame.width.halfCentered(side: .right, size: 124)
       let rightButtonFrame: CGRect = CGRect(x: xRight, y: self.controller.view.frame.height - 72, width: 124, height: 40)
-      let rightButton: Button = Button(frame: rightButtonFrame, type: .Raised)
+      let rightButton: Button = Button(frame: rightButtonFrame, type: .raised)
       rightButton.action = { self.controller.setDone() }
       rightButton.backgroundColor = .blue
       rightButton.set(title: "DONE", color: .white)
       return rightButton
+      
+   }
+   
+   func createSimpleMenu() -> SimpleDialog {
+      
+      let origin: CGPoint = CGPoint(x: self.controller.width - 16, y: 27)
+      let buttonOne: MenuButtonInitializer = MenuButtonInitializer("Mark workout as done", action: { self.controller.markAsDone() })
+      let buttonTwo: MenuButtonInitializer = MenuButtonInitializer("Change workout date", action: { print("New date") })
+      let width: CGFloat = buttonOne.title.widthWithConstrainedHeight(48.0, font: .regular16) + 40
+      let buttons: [MenuButtonInitializer] = [buttonOne, buttonTwo]
+      let size: CGSize = CGSize(width: Int(width), height: (buttons.count * 48) + 16)
+      let simple: SimpleDialog = SimpleDialog(origin: origin, expandedSize: size, buttons: [buttonOne, buttonTwo])
+      return simple
       
    }
    

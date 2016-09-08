@@ -29,7 +29,7 @@ extension String {
    */
    func bool() -> Bool? {
       
-      switch self.lowercaseString {
+      switch self.lowercased() {
       case "true":
          return true
       case "false":

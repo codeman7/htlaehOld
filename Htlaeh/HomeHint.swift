@@ -14,7 +14,7 @@ class HomeHint : UILabel {
    // MARK: Properties
    let destination: CGPoint
    let origin: CGPoint
-   private let location: HomeLabelLocation
+   fileprivate let location: HomeLabelLocation
    var active: Bool
    
    init(frame: Rect, active: Bool, location: HomeLabelLocation, destination: CGPoint) {
@@ -43,11 +43,11 @@ class HomeHint : UILabel {
    
       // Set the text based on location and if active or not
       switch self.location {
-      case .Left:
+      case .left:
          self.text = (self.active) ? "Reps" : ""
-      case .Middle:
+      case .middle:
          self.text = (self.active) ? "Exercise Name" : "Rest"
-      case .Right:
+      case .right:
          self.text = (self.active) ? "Weight" : ""
       }
       
@@ -64,7 +64,7 @@ class HomeHint : UILabel {
 
 extension HomeHint : HomeLabelAbilities {
   
-   func update(text text: String) {
+   func update(text: String) {
       // Update the text to what it should be
       self.setText()
    }

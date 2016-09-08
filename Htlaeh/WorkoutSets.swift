@@ -10,24 +10,24 @@ import Foundation
 import RealmSwift
 
 struct WorkoutSets {
-   private let realm = try! Realm()
+   fileprivate let realm = try! Realm()
    
    
-   func setsForDate(date date: String) -> Results<RealmWorkout> {
+   func setsForDate(date: String) -> Results<RealmWorkout> {
       
       let workoutSet = self.realm.objects(RealmWorkout.self).filter("date = '\(date)'")
       return workoutSet
       
    }
    
-   func isEmpty(date date: String) -> Bool {
+   func isEmpty(date: String) -> Bool {
       
       let results = self.setsForDate(date: date)
       return (results.count == 0) ? true : false
       
    }
    
-   func sortedBySetCount(date date: String) -> Workout {
+   func sortedBySetCount(date: String) -> Workout {
       
       let results = self.setsForDate(date: date).sorted("setCount")
       let returnWorkout: Workout = Workout()
@@ -39,7 +39,7 @@ struct WorkoutSets {
       
    }
    
-   func getWorkout(date date: String) -> Workout? {
+   func getWorkout(date: String) -> Workout? {
       
       guard self.isEmpty(date: date) != true else { return nil }
       return self.sortedBySetCount(date: date)

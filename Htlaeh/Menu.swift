@@ -12,9 +12,9 @@ import UIKit
 class Menu: UIView {
    // MARK: Properties
    /// Property for the background grey that sits behind the menu
-   private lazy var backgroundGrey: BackgroundGrey = self.createBackgroundGrey()
+   fileprivate lazy var backgroundGrey: BackgroundGrey = self.createBackgroundGrey()
    /// Property for the navigation bar
-   private lazy var navigationBar: NavigationBar = self.createNavigationBar()
+   fileprivate lazy var navigationBar: NavigationBar = self.createNavigationBar()
    /// The property for the ViewController holds this menu
    let containingController: Controller
    
@@ -41,7 +41,7 @@ class Menu: UIView {
    }
    // MARK: Functions
    //// Function to add all the subviews to the view
-   private func addSubviews() {
+   fileprivate func addSubviews() {
       
       self.addSubview(self.backgroundGrey)
       self.addSubview(self.navigationBar)
@@ -49,7 +49,7 @@ class Menu: UIView {
    }
    
    /// This function is used to create the background grey property
-   private func createBackgroundGrey() -> BackgroundGrey {
+   fileprivate func createBackgroundGrey() -> BackgroundGrey {
       // Set the view's frame to be the same size of the menu
       let frame: CGRect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
       // Create the view
@@ -60,7 +60,7 @@ class Menu: UIView {
    }
    
    /// This function is used to create the navigation bar
-   private func createNavigationBar() -> NavigationBar {
+   fileprivate func createNavigationBar() -> NavigationBar {
       // Create the frame for the navigation bar
       let navigationFrame: CGRect = CGRect(x: 0, y: 0, width: 240, height: self.frame.height)
       // Create the navigation bar
@@ -89,7 +89,7 @@ extension Menu: Overlay {
          self.navigationBar.show(x: 240)
       }
       // Animate the view
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: nil)
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: animation, completion: nil)
       
       
    }
@@ -112,7 +112,7 @@ extension Menu: Overlay {
          self.navigationBar.hide(x: 0)
       }
       // Animate the view and on completion remove from superview
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: animation, completion: { Bool in
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: animation, completion: { Bool in
          self.removeFromSuperview()
       })
       

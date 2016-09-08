@@ -36,7 +36,7 @@ struct PreviewWorkoutViews  {
    }
    
    /// When you want to add the views with the alpha property animating them into view
-   func layoutViewsWithAnimatedAlpha(oldController: NewWorkout) {
+   func layoutViewsWithAnimatedAlpha(_ oldController: NewWorkout) {
       
       // Get the scroller
       let scroller = self.createScroller()
@@ -57,12 +57,12 @@ struct PreviewWorkoutViews  {
       // Add the fab to the view
       oldController.view.addSubview(fab)
       // Animate the views alpha
-      UIView.animateWithDuration(0.3, delay: 0.25, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions(), animations: {
          scroller.alpha = 1.0
          header.alpha = 1.0
          fab.alpha = 1.0
          }, completion: { Bool in
-            oldController.presentViewController(self.controller, animated: false, completion: nil)
+            oldController.present(self.controller, animated: false, completion: nil)
       })
       
       
@@ -70,7 +70,7 @@ struct PreviewWorkoutViews  {
    
    // MARK: Functions
    /// Creates the header
-   private func createHeader() -> BoldHeader {
+   fileprivate func createHeader() -> BoldHeader {
       
       // Set the frame for the header
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 80)
@@ -88,7 +88,7 @@ struct PreviewWorkoutViews  {
       // Create the frame for the FAB
       let frame: Rect = Rect(x: self.controller.width - 72, y: self.controller.height - 72, w: 56, h: 56)
       // Create the FAB
-      let fab: Button = Button(frame: frame, type: .FAB)
+      let fab: Button = Button(frame: frame, type: .fab)
       // Set the background color
       fab.backgroundColor = .blue
       // Add the icon to the button
@@ -107,7 +107,7 @@ struct PreviewWorkoutViews  {
       // Set the frame for the FAB
       let frame: Rect = Rect(x: self.controller.width - 64, y: self.controller.height - 64, w: 40, h: 40)
       // Create the fab
-      let FAB: Button = Button(frame: frame, type: .FAB)
+      let FAB: Button = Button(frame: frame, type: .fab)
       // Set the background color for the fab
       FAB.backgroundColor = .blue
       // Set icon for the FAB
@@ -126,7 +126,7 @@ struct PreviewWorkoutViews  {
       // Set the frame for the FAB
       let frame: Rect = Rect(x: self.controller.width - 64, y: self.controller.height - 64, w: 40, h: 40)
       // Create the fab
-      let FAB: Button = Button(frame: frame, type: .FAB)
+      let FAB: Button = Button(frame: frame, type: .fab)
       // Set the background color for the fab
       FAB.backgroundColor = .yellow
       // Set icon for the FAB
@@ -141,7 +141,7 @@ struct PreviewWorkoutViews  {
    }
    
    /// Creates the scroller
-   private func createScroller() -> PreviewScroller {
+   fileprivate func createScroller() -> PreviewScroller {
       // Create the frame for the scroller
       let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
       // Create the scroller
@@ -152,11 +152,11 @@ struct PreviewWorkoutViews  {
    }
    
    /// Creates the mini FABs
-   func createMiniFAB(color: UIColor, iconColor: UIColor, icon: UIImage, action: ()->()) -> Button {
+   func createMiniFAB(_ color: UIColor, iconColor: UIColor, icon: UIImage, action: @escaping ()->()) -> Button {
       // Set the frame for the fab
       let frame: Rect = Rect(x: self.controller.width - 64, y: self.controller.height - 64, w: 40, h: 40)
       // Create the FAB
-      let fab: Button = Button(frame: frame, type: .FAB)
+      let fab: Button = Button(frame: frame, type: .fab)
       // Set the background color for the fab
       fab.backgroundColor = color
       // Add the icon to the fab

@@ -30,7 +30,7 @@ class NavigationButton: Button {
    init(frame: CGRect, image: UIImage, label: String) {
       
       // Call the super initializer
-      super.init(frame: frame, type: .Flat)
+      super.init(frame: frame, type: .flat)
       // Add the image
       self.addIcon(image: image)
       // Add the label
@@ -51,7 +51,7 @@ class NavigationButton: Button {
       - parameter Image:   Should be the image that the icon will have
       - note:   For interal use only
    */
-   private func addIcon(image image: UIImage) {
+   fileprivate func addIcon(image: UIImage) {
       // Create the frame for the icon
       let iconFrame: CGRect = CGRect(x: 16, y: 12, width: 24, height: 24)
       // Create the icon
@@ -68,11 +68,11 @@ class NavigationButton: Button {
       - parameter Label:   Should be the text that the label will have
       - note: For interal use only
    */
-   private func addLabel(text text: String) {
+   fileprivate func addLabel(text: String) {
       // Create the frame for the label
       let labelFrame: CGRect = CGRect(x: 72, y: 15, width: self.frame.width - 72, height: 18)
       // Set all the default values for the label
-      let labelConfig: LabelConfig = LabelConfig(frame: labelFrame, font: Fonts.Medium.fourteen, alignment: .Left, color: .black)
+      let labelConfig: LabelConfig = LabelConfig(frame: labelFrame, font: Fonts.Medium.fourteen, alignment: .left, color: .black)
       // Create the label
       let label: UILabel = UILabel(config: labelConfig)
       // Set the labels text property equal the value passed
@@ -80,7 +80,7 @@ class NavigationButton: Button {
       // Set the opacity of the label
       label.alpha = 0.87
       // Make sure the label can hold long values
-      label.lineBreakMode = .ByClipping
+      label.lineBreakMode = .byClipping
       // Add the label to the button
       self.addSubview(label)
       

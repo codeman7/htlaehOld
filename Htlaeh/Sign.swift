@@ -25,9 +25,9 @@ class Sign: Controller {
    func digitsSignIn() {
       
       let digits = Digits.sharedInstance()
-      let config = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
-      config.appearance = TwitterDigits().digitsApperance()
-      digits.authenticateWithViewController(nil, configuration: config, completion: { (session, error) in
+      let config = DGTAuthenticationConfiguration(accountFields: .defaultOptionMask)
+      config?.appearance = TwitterDigits().digitsApperance()
+      digits.authenticate(with: nil, configuration: config!, completion: { (session, error) in
          if let session = session {
             self.storeInKeychain(uid: session.userID, number: session.phoneNumber)
          }
@@ -35,7 +35,7 @@ class Sign: Controller {
       
    }
    
-   func storeInKeychain(uid uid: String, number: String) {
+   func storeInKeychain(uid: String, number: String) {
       
       let account = Account(id: uid, number: number)
       if account.store() == nil {
@@ -76,10 +76,9 @@ class Sign: Controller {
          self.getHomeViews()
       })
       
-      
    }
       
-   private func getHomeViews() {
+   fileprivate func getHomeViews() {
       
       let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: .white)
       self.view.addSubview(circleView)
@@ -87,40 +86,17 @@ class Sign: Controller {
       let home: Home = Home()
       let d: Delay = Delay()
       d.delay(0.3) {
-         self.presentViewController(home, animated: false, completion: nil)
+         self.present(home, animated: false, completion: nil)
 
       }
-      
-      
-      /*
-      
-      let header: BoldHeader = home.header
-      header.alpha = 0.0
-      self.view.addSubview(header)
-      
-      var homeStandardViews: HomeWelcomeViews = HomeWelcomeViews(controller: home)
-      let messages = homeStandardViews.createMessages()
-      let buttons = homeStandardViews.createButtons(controllerView: self.view, controller: home)
-      for message in messages {
-         self.view.addSubview(message)
-      }
-      for button in buttons {
-         self.view.addSubview(button)
-      }
-      homeStandardViews.show(homeStandardViews.views)
-      UIView.animateWithDuration(0.3, animations: {
-         header.alpha = 1.0
-         }, completion: nil)
-      
-      */
-      
+
    }
    
-   private func animate() {
+   fileprivate func animate() {
       
       // Hide the sign in sign up button
-      self.signButton.userInteractionEnabled = false
-      UIView.animateWithDuration(0.3, animations: {
+      self.signButton.isUserInteractionEnabled = false
+      UIView.animate(withDuration: 0.3, animations: {
          self.signButton.alpha = 0.0
       })
       

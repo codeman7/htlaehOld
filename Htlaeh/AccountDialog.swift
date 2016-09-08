@@ -24,7 +24,7 @@ class AccountDialog: Dialog {
      - parameter action1: The action for the far right button "Skip"
      - parameter action2: The action for the far left button "Sign in"
    */
-   init(frame: CGRect, promptFrame: CGRect, action1: ()->(), action2: ()->()) {
+   init(frame: CGRect, promptFrame: CGRect, action1: @escaping ()->(), action2: @escaping ()->()) {
       
       // Call the super initalizer
       super.init(frame: frame, promptFrame: promptFrame)
@@ -45,7 +45,7 @@ class AccountDialog: Dialog {
       - parameter action1: The action for the far right button "Skip"
       - parameter action2: The action for the far left button "Sign in"
    */
-   func createDialog(action1 action1: ()->(), action2: ()->()) {
+   func createDialog(action1: @escaping ()->(), action2: @escaping ()->()) {
       
       self.addTopHalf()
       self.addMessages()
@@ -67,7 +67,7 @@ class AccountDialog: Dialog {
       
       let height = "Why set up an account?".heightWithConstrainedWidth(self.prompt.frame.width - 32, font: Fonts.Regular.eighteen)
       let messageFrame: CGRect = CGRect(x: 16, y: view.frame.height - (height + 16), width: self.prompt.frame.width - 32, height: height)
-      let message: UILabel = UILabel(frame: messageFrame, font: Fonts.Regular.eighteen, align: .Left, color: .white)
+      let message: UILabel = UILabel(frame: messageFrame, font: Fonts.Regular.eighteen, align: .left, color: .white)
       message.text = "Why set up an account?"
       message.multipleLines()
       view.addSubview(message)
@@ -108,17 +108,17 @@ class AccountDialog: Dialog {
       
    }
    
-   func addButtons(action1 action1: ()->(), action2: ()->()) {
+   func addButtons(action1: @escaping ()->(), action2: @escaping ()->()) {
       
       let skipButtonFrame: CGRect = CGRect(x: self.prompt.frame.width - 88, y: self.prompt.frame.height - 56, width: 72, height: 40)
-      let skipButton: Button = Button(frame: skipButtonFrame, type: .Flat)
+      let skipButton: Button = Button(frame: skipButtonFrame, type: .flat)
       skipButton.set(title: "SKIP", color: .blue)
       skipButton.backgroundColor = .white
       skipButton.action = action1
       self.prompt.addSubview(skipButton)
       
       let signInButtonFrame: CGRect = CGRect(x: skipButtonFrame.origin.x - 88, y: skipButtonFrame.origin.y, width: 72, height: 40)
-      let signInButton: Button = Button(frame: signInButtonFrame, type: .Flat)
+      let signInButton: Button = Button(frame: signInButtonFrame, type: .flat)
       signInButton.set(title: "SIGN IN", color: .blue)
       signInButton.backgroundColor = .white
       signInButton.action = action2
@@ -134,7 +134,7 @@ extension AccountDialog {
       self.addSubview(backgroundGrey)
       self.addSubview(prompt)
       self.backgroundGrey.show(0.26)
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
          self.prompt.frame = self.promptFrame
          }, completion: { Bool in
             self.createDialog(action1: { self.skipButtonAction!() }, action2: { self.signInButtonAction!() })
@@ -156,13 +156,13 @@ private extension UILabel {
       // Set the font
       self.font = Fonts.Regular.sixteen
       // Set the alignment
-      self.textAlignment = .Left
+      self.textAlignment = .left
       // Set the color
       self.textColor = .black
       // Set the number of lines
       self.numberOfLines = 0
       // Set the word break mode
-      self.lineBreakMode = .ByWordWrapping
+      self.lineBreakMode = .byWordWrapping
       
    }
    

@@ -22,13 +22,13 @@ class Settings : Controller {
       
    }
    
-   func updateTimeBool(value: Bool) {
+   func updateTimeBool(_ value: Bool) {
       
       print("Please change time \(value)")
       
    }
    
-   func updateNextAudio(value: Bool) {
+   func updateNextAudio(_ value: Bool) {
       
       print("Please update next audio to \(value)")
       

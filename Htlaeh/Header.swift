@@ -14,11 +14,11 @@ import Foundation
 import UIKit
 // MARK: Enum for icons types of header
 enum HeaderIconsType {
-    case None, NoneLeftOneRight, NoneLeftTwoRight, OneLeftNoneRight, OneLeftOneRight, OneLeftTwoRight
+    case none, noneLeftOneRight, noneLeftTwoRight, oneLeftNoneRight, oneLeftOneRight, oneLeftTwoRight
 }
 // MARK: Enum for different scroll types
 enum HeaderScrollType {
-    case None, Standard, Seemed//, Waterfall Add waterfall later
+    case none, standard, seemed//, Waterfall Add waterfall later
 }
 
 // MARK: Struct for inializers
@@ -90,24 +90,24 @@ class Header: UIView {
       - parameter iconType:   Should be the type of icons in the header
       - parameter icons:   Should be icons listed from left to right (ascending) with left being 0 right being 1
    */
-   private func determineIconStyle(iconType: HeaderIconsType, icons: [UIImage]) {
+   fileprivate func determineIconStyle(_ iconType: HeaderIconsType, icons: [UIImage]) {
       
       switch iconType {
-      case .OneLeftNoneRight:
+      case .oneLeftNoneRight:
          self.addLeftIcon(icons[0])
-      case .OneLeftOneRight:
+      case .oneLeftOneRight:
          self.addLeftIcon(icons[0])
          self.addRightIcon(icons[1])
-      case .OneLeftTwoRight:
+      case .oneLeftTwoRight:
          self.addLeftIcon(icons[0])
          self.addRightIcon(icons[1])
          self.addSecondRightIcon(icons[2])
-      case .NoneLeftOneRight:
+      case .noneLeftOneRight:
          self.addRightIcon(icons[0])
-      case .NoneLeftTwoRight:
+      case .noneLeftTwoRight:
          self.addRightIcon(icons[0])
          self.addSecondRightIcon(icons[1])
-      case .None:
+      case .none:
          break
       }
       
@@ -117,14 +117,14 @@ class Header: UIView {
       Function to determine the scroll type style
       - parameter scrollType:   Should be the type of style of the header
    */
-   private func determindScrollType(scrollType: HeaderScrollType) {
+   fileprivate func determindScrollType(_ scrollType: HeaderScrollType) {
      
       switch scrollType {
-      case .Standard:
+      case .standard:
          self.elevate(2.0)
-      case .Seemed:
+      case .seemed:
          self.addBottomLine()
-      case .None:
+      case .none:
          break
       }
       
@@ -135,10 +135,10 @@ class Header: UIView {
       Function to add the left button 'icon' typically 'menu' or 'back' always black
       - parameter icon:   Should be the icon represented in the button
    */
-   private func addLeftIcon(icon: UIImage) {
+   fileprivate func addLeftIcon(_ icon: UIImage) {
       
       let buttonFrame: CGRect = CGRect(x: 7, y: 20, width: 46, height: 46)
-      leftButton = Button(frame: buttonFrame, type: .Flat)
+      leftButton = Button(frame: buttonFrame, type: .flat)
       leftButton?.add(image: icon, color: .black)
       leftButton?.icon?.alpha = 0.87
       self.addSubview(leftButton!)
@@ -152,10 +152,10 @@ class Header: UIView {
       This icon will always be by default black with an opacity of 87%
       - parameter icon:   Should be the icon represented in the button
    */
-   private func addRightIcon(icon: UIImage) {
+   fileprivate func addRightIcon(_ icon: UIImage) {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 53, y: 20, width: 46, height: 46)
-      rightButton = Button(frame: buttonFrame, type: .Flat)
+      rightButton = Button(frame: buttonFrame, type: .flat)
       rightButton?.add(image: icon, color: .black)
       rightButton?.icon?.alpha = 0.87
       self.addSubview(rightButton!)
@@ -167,10 +167,10 @@ class Header: UIView {
     
       - parameter icon:   Should be the icon represented in the button
    */
-   private func addSecondRightIcon(icon: UIImage) {
+   fileprivate func addSecondRightIcon(_ icon: UIImage) {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 117, y: 20, width: 46, height: 46)
-      secondRightButton = Button(frame: buttonFrame, type: .Flat)
+      secondRightButton = Button(frame: buttonFrame, type: .flat)
       secondRightButton?.add(image: icon, color: .black)
       secondRightButton?.icon?.alpha = 0.87
       self.addSubview(secondRightButton!)
@@ -181,10 +181,10 @@ class Header: UIView {
       Function to add right icon with a text label
       parameter text:   The string label for the button
    */
-   func addRightButtonWithText(text: String) {
+   func addRightButtonWithText(_ text: String) {
       
       let buttonFrame: CGRect = CGRect(x: self.frame.width - 120, y: 26, width: 104, height: 40)
-      rightButtonWithLabel = Button(frame: buttonFrame, type: .Flat)
+      rightButtonWithLabel = Button(frame: buttonFrame, type: .flat)
       rightButtonWithLabel?.set(title: text, color: .primary)
       self.addSubview(rightButtonWithLabel!)
       
@@ -195,10 +195,10 @@ class Header: UIView {
       Function to add the bottom line to the header
       By default the color is black with an opacity of 26%
    */
-   private func addBottomLine() {
+   fileprivate func addBottomLine() {
       
       if bottomLine != nil { self.addSubview(bottomLine!); return }
-      let bottomLineFrame: CGRect = CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1)
+      let bottomLineFrame: CGRect = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
       bottomLine = UIView(frame: bottomLineFrame)
       bottomLine!.backgroundColor = .black
       bottomLine?.alpha = 0.13
@@ -209,7 +209,7 @@ class Header: UIView {
    /**
       Function to remove the shadow/bottom line if scroll type changes
    */
-   private func removeCurrentScrollType() {
+   fileprivate func removeCurrentScrollType() {
       
       self.elevate(0)
       self.bottomLine?.removeFromSuperview()
@@ -219,7 +219,7 @@ class Header: UIView {
    /**
       Function to update the scroll type if it needs to be changed
    */
-   func updateScrollType(type: HeaderScrollType) {
+   func updateScrollType(_ type: HeaderScrollType) {
       
       // Remove the current scroll type
       self.removeCurrentScrollType()
@@ -233,7 +233,7 @@ class Header: UIView {
     Function to add the title to the header
     - parameter options:   Options adds all the style of a header label and has the text property
     */
-   private func addTitle(options: HeaderInializerOptions) {
+   fileprivate func addTitle(_ options: HeaderInializerOptions) {
       
       let titleFrame: CGRect = CGRect(x: 66, y: 28, width: self.frame.width - 154, height: 28)
       titleLabel = UILabel(frame: titleFrame, headerLabel: options)

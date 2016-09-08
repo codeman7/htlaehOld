@@ -31,7 +31,16 @@ class Toast : UIView {
    // MARK: Initializers
    /**
       Default and only initializer
-      - parameter frame: The frame that the view will have. The y should always be the screen height and width should always be screen width with x being 0.
+      - parameter frame: The frame that the toast will have - see above
+    
+    **x** : 0,
+    
+    **y** : screen height,
+   
+    **width** : screen width,
+    
+    **height** : 48
+    - parameter text: The text the the message will contain
     */
    init(frame: CGRect, text: String) {
       
@@ -43,6 +52,15 @@ class Toast : UIView {
       self.addLabelWith(title: text)
       // Set the alpha for the view
       self.alpha = 0.0
+      
+   }
+   
+   convenience init(frame: Rect, text: String, button: (String, UIColor, ()->())) {
+      
+      // Call the designated initializer
+      self.init(frame: frame, text: text)
+      // Add the button
+      self.addButtonWith(title: button.0, color: button.1, action: button.2)
       
    }
    
@@ -58,9 +76,19 @@ class Toast : UIView {
       - parameter color: The color for the text of the button
       - parameter action: The action for the button
    */
-   func addButtonWith(title title: String, color: UIColor, action: ()->()) {
+   fileprivate func addButtonWith(title: String, color: UIColor, action: @escaping ()->()) {
       
+      // Get the width and frame for the button
+      let width: CGFloat = title.widthWithConstrainedHeight(40, font: .medium14)
+      let frame: Rect = Rect(x: self.frame.w - (width + 24), y: 4, w: width, h: 40)
       
+      // Create the button and add the title
+      let button: Button = Button(frame: frame, type: .flat)
+      button.set(title: title, color: .yellow)
+      
+      // Set the action for the button and add as a subview
+      button.action = action
+      self.addSubview(button)
       
    }
    
@@ -69,24 +97,36 @@ class Toast : UIView {
    */
    func show() {
       // Animate the view up
-      UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
+      UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
       // Wait 2.5 seconds and animate the view back down
-      UIView.animateWithDuration(0.25, delay: 2.75, options: .CurveEaseInOut, animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
+      UIView.animate(withDuration: 0.25, delay: 2.75, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
       
    }
    
-   private func addLabelWith(title title: String) {
+   /**
+     This function shows the toast for the given period of time
+      - parameter time: How long you want the toast to be visable
+   */
+   func show(_ time: Double) {
+      
+      // Animate the view up
+      UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
+      // Wait 2.5 seconds and animate the view back down
+      UIView.animate(withDuration: 0.25, delay: time + 0.25, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
+      
+   }
+   
+   fileprivate func addLabelWith(title: String) {
       
       // Set the frame for the label
       let frame: Rect = Rect(x: 24, y: 14, w: self.frame.w - 48, h: 20)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.fourteen, align: .Left, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.fourteen, align: .left, color: .white)
       // Set the text for the label
       label.text = title
       // Add the label to the view
       self.addSubview(label)
       
    }
-   
    
 }

@@ -12,68 +12,68 @@ import Foundation
 // MARK: Extension for Date
 extension Date {
    
-   class func from(int: Int) -> Date {
+   class func from(_ int: Int) -> Date {
       
       let str: String = "\(int)"
       return str.date()
       
    }
    
-   static func dateFrom(year year: Int, month: Int, day: Int) -> NSDate {
+   static func dateFrom(year: Int, month: Int, day: Int) -> Foundation.Date {
       // Create a calendar and date compoent
-      let cal: NSCalendar = NSCalendar.currentCalendar()
-      let comp: NSDateComponents = NSDateComponents()
+      let cal: Calendar = Calendar.current
+      var comp: DateComponents = DateComponents()
       // Set the date and year for the compoents
       comp.year = (year < 2000) ? year + 2000 : year
       comp.month = month
       comp.day = day
       // Create the date and return it
-      return cal.dateFromComponents(comp)!
+      return cal.date(from: comp)!
       
    }
    
    func toString() -> String {
       
       // Create a component variable
-      let comp: NSDateComponents = cal.components([.Year, .Month, .Day], fromDate: self)
+      let comp: DateComponents = (cal as NSCalendar).components([.year, .month, .day], from: ((((((self as Date) as Date) as Date) as Date) as Date) as Date) as Date)
       // Get the year, month, and day strings
-      let year: String = "\(comp.year - 2000)"
-      let month: String = (comp.month > 9) ? "\(comp.month)" : "0\(comp.month)"
-      let day: String = (comp.day > 9) ? "\(comp.day)" : "0\(comp.day)"
+      let year: String = "\(comp.year! - 2000)"
+      let month: String = (comp.month! > 9) ? "\(comp.month)" : "0\(comp.month)"
+      let day: String = (comp.day! > 9) ? "\(comp.day)" : "0\(comp.day)"
       return "\(year)\(month)\(day)"
       
    }
    
-   private func getLastSunday() -> NSDate {
+   fileprivate func getLastSunday() -> Foundation.Date {
       // Get the current day of the week
       let day = self.dayOfWeek()
       // Get the difference between that day and sunday and wrap it in a double
       let difference: Double = Double(day - 1)
       // Return the new date
-      return self.dateByAddingTimeInterval(60 * 60 * 24 * -difference)
+      return ((((((self.addingTimeInterval(60 * 60 * 24 * -difference) as Date) as Date) as Date) as Date) as Date) as Date) as Date
       
    }
    
-   private func getSaturdayFrom(sunday sunday: NSDate) -> NSDate {
+   fileprivate func getSaturdayFrom(sunday: Foundation.Date) -> Foundation.Date {
       
       // Add 6 days to the sunday date and return it
-      return sunday.dateByAddingTimeInterval(60 * 60 * 24 * 6)
+      return sunday.addingTimeInterval(60 * 60 * 24 * 6)
       
    }
    
-   private func back(weeks weeks: Double, from date: NSDate) -> NSDate {
+   fileprivate func back(weeks: Double, from date: Foundation.Date) -> Foundation.Date {
       
-      return date.dateByAddingTimeInterval(60 * 60 * 24 * -7 * weeks)
+      return date.addingTimeInterval(60 * 60 * 24 * -7 * weeks)
       
    }
    
-   private func getSundaysFrom(firstSunday first: NSDate, to last: NSDate) -> [Int] {
+   fileprivate func getSundaysFrom(firstSunday first: Foundation.Date, to last: Foundation.Date) -> [Int] {
       // Get the sunday taht we start with
       let startDate: Int = Int.from(last)
       // Create a variable to hold the iterations
       var iteration: Int = 0
       // Create the first sunday from tuple
-      let firstSunday: NSDate = last.getLastSunday()
+      let firstSunday: Foundation.Date = last.getLastSunday()
       // Create the array for the sundays
       var sundays: [Int] = []
       // Variable to hold date currently on
@@ -97,7 +97,7 @@ extension Date {
       
    }
    
-   func getWeeksBetween(start start: NSDate, andEnd end: NSDate) -> [(sun: Int, sat: Int)] {
+   func getWeeksBetween(start: Foundation.Date, andEnd end: Foundation.Date) -> [(sun: Int, sat: Int)] {
       
       // Create array of tuples that will be returned
       var weeks: [(sun: Int, sat: Int)] = []
@@ -108,7 +108,7 @@ extension Date {
          // Create the date from sunday
          let date: Date = Date.from(sunday)
          // Get saturday from current sunday
-         let saturday: Int = Int.from(date.nextSaturday())
+         let saturday: Int = Int.from(((((((date.nextSaturday() as Date) as Date) as Date) as Date) as Date) as Date) as Date)
          // Create a tuple for current week
          let week: (sunday: Int, saturday: Int) = (sunday: sunday, saturday: saturday)
          
@@ -119,10 +119,10 @@ extension Date {
       return weeks
    }
    
-   private func nextSaturday() -> Date {
-      let comp: NSDateComponents = NSDateComponents()
-      comp.setValue(6, forComponent: .Day)
-      return cal.dateByAddingComponents(comp, toDate: self, options: [])!
+   fileprivate func nextSaturday() -> Date {
+      let comp: DateComponents = DateComponents()
+      (comp as NSDateComponents).setValue(6, forComponent: .day)
+      return (cal as NSCalendar).date(byAdding: comp, to: ((((((self as Date) as Date) as Date) as Date) as Date) as Date) as Date, options: [])!
       
    }
    
@@ -130,8 +130,8 @@ extension Date {
 
 // MARK: Extension for Int
 extension Int {
-   static func from(date: NSDate) -> Int {
-      return Int(String.from(date))!
+   static func from(_ date: Foundation.Date) -> Int {
+      return Int(String.from(date as Date))!
    }
 }
 
@@ -155,24 +155,24 @@ extension String {
       
       // Get the compoents and create a calendar
       let components = self.dateComponents()
-      let cal: NSCalendar = Date().cal
+      let cal: Calendar = Date().cal as Calendar
       // Create a dates component variable and set the year, month, day
-      let comp: NSDateComponents = NSDateComponents()
+      var comp: DateComponents = DateComponents()
       comp.year = components.year
       comp.month = components.month
       comp.day = components.day
       
-      return cal.dateFromComponents(comp)!
+      return cal.date(from: comp)! as Date
    }
    
-   static func from(date: Date) -> String {
+   static func from(_ date: Date) -> String {
       // Create a calendar object and a compoents object
-      let cal: NSCalendar = NSCalendar.currentCalendar()
-      let comp: NSDateComponents = cal.components([.Year, .Month, .Day], fromDate: date)
+      let cal: Calendar = Calendar.current
+      let comp: DateComponents = (cal as NSCalendar).components([.year, .month, .day], from: ((((((date as Date) as Date) as Date) as Date) as Date) as Date) as Date)
       // Get the year, month, & day strings
-      let year: String = "\(comp.year - 2000)"
-      let month: String = (comp.month > 9) ? "\(comp.month)" : "0\(comp.month)"
-      let day: String = (comp.day > 9) ? "\(comp.day)" : "0\(comp.day)"
+      let year: String = "\(comp.year! - 2000)"
+      let month: String = (comp.month! > 9) ? "\(comp.month)" : "0\(comp.month)"
+      let day: String = (comp.day! > 9) ? "\(comp.day)" : "0\(comp.day)"
       return "\(year)\(month)\(day)"
    }
    

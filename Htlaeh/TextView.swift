@@ -24,9 +24,9 @@ class TextView: UITextField {
    // Property for floating
    var floating: Bool = true
    // Property for hint/floatingLabel
-   private var placeholderLabel: UILabel? = nil
+   fileprivate var placeholderLabel: UILabel? = nil
    // Property for the bottom line
-   private var bottomLine: UIView? = nil
+   fileprivate var bottomLine: UIView? = nil
    // Property for error message
    var errorMessage: String? = nil
    // Property for char counter
@@ -43,7 +43,7 @@ class TextView: UITextField {
    }
    
    // Variable for text and editing bounds
-   private var textBounds: CGRect {
+   fileprivate var textBounds: CGRect {
    
       if floating == true {
       
@@ -64,12 +64,12 @@ class TextView: UITextField {
    
       super.init(frame: frame)
       self.delegate = self
-      self.borderStyle = .None
+      self.borderStyle = .none
       self.font = Fonts.Regular.sixteen
       self.textColor = .grey900
       self.setUp()
-      self.returnKeyType = .Done
-      self.addTarget(self, action: #selector(TextView.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+      self.returnKeyType = .done
+      self.addTarget(self, action: #selector(TextView.textFieldDidChange(_:)), for: .editingChanged)
     
    }
     
@@ -110,16 +110,16 @@ class TextView: UITextField {
    }
     
    // Function to add floating label
-   func addPlaceHolder(rect: CGRect) {
+   func addPlaceHolder(_ rect: CGRect) {
    
       let frame: CGRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width, height: rect.size.height / 2)
-      self.placeholderLabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: NSTextAlignment.Left, color: .grey700)
+      self.placeholderLabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: NSTextAlignment.left, color: .grey700)
       self.placeholderLabel?.text = self.hintText
       self.addSubview(self.placeholderLabel!)
    }
     
    // Helper variable is true if char or error are present and false if not
-   func addBottomLine(helper: Bool) {
+   func addBottomLine(_ helper: Bool) {
       // Frame for bottom line
       let rect: CGRect
       // Check if there is a char limit or error message
@@ -153,19 +153,19 @@ class TextView: UITextField {
     
    
    // Functions for editing and text rect
-   override func editingRectForBounds(bounds: CGRect) -> CGRect {
+   override func editingRect(forBounds bounds: CGRect) -> CGRect {
    
       return textBounds
     
    }
     
-   override func textRectForBounds(bounds: CGRect) -> CGRect {
+   override func textRect(forBounds bounds: CGRect) -> CGRect {
    
       return textBounds
     
    }
     
-   func bottomRipple(color: Bool) {
+   func bottomRipple(_ color: Bool) {
    
       let frame: CGRect = CGRect(x: self.frame.size.width / 2, y: 0, width: 0, height: 1)
       let view: UIView = UIView(frame: frame)
@@ -191,7 +191,7 @@ class TextView: UITextField {
     
    }
     
-    func bottomLineRipple(color: UIColor) {
+    func bottomLineRipple(_ color: UIColor) {
         let frame: CGRect = CGRect(x: self.frame.size.width / 2, y: 0, width: 0, height: 1)
         let view: UIView = UIView(frame: frame)
         view.backgroundColor = color
@@ -217,7 +217,7 @@ class TextView: UITextField {
         }
         
         let frame: CGRect = CGRect(x: 0, y: self.frame.size.height - 16, width: self.frame.size.width, height: 16)
-        let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Left, color: .red)
+        let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .left, color: .red)
         label.text = self.errorMessage
         label.tag = 17
         self.addSubview(label)
@@ -228,14 +228,14 @@ class TextView: UITextField {
     func removeErrorMessage() {
         let errorLabel = self.subviews.filter({$0.tag == 17}).first
         if let label = errorLabel {
-            UIView.animateWithDuration(0.125, delay: 0.0, options: .CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.125, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 label.alpha = 0.0
                 }, completion: {Bool in label.removeFromSuperview()})
         }
     }
     
     // Tag for the label should be 15
-    func showCharCounter(color: UIColor?, textString: String) {
+    func showCharCounter(_ color: UIColor?, textString: String) {
         // Make sure text field is tall enough to hold char message
         guard self.frame.size.height == 94  else {
             print("Please make text field 94 pt tall")
@@ -252,9 +252,9 @@ class TextView: UITextField {
         let frame: CGRect = CGRect(x: self.frame.size.width - 168, y: self.frame.size.height - 16, width: 160, height: 16)
         let label: UILabel
         if color != nil {
-            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Right, color: color!)
+            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .right, color: color!)
         } else {
-            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .Right, color: .red)
+            label = UILabel(frame: frame, font: Fonts.Regular.twelve, align: .right, color: .red)
         }
         
         label.text = textString
@@ -267,7 +267,7 @@ class TextView: UITextField {
 // MARK: UITextFieldDelegate Methods
 extension TextView: UITextFieldDelegate {
     // Functions for did begin editing/did end editing
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         // Check if floating is true or not
         if floating == true {
             // Animation for placeholder
@@ -287,7 +287,7 @@ extension TextView: UITextFieldDelegate {
         self.bottomRipple(true)
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         // Check weather floating label is true or not
         if floating == true {
             // Floating label true so animate accordingly
@@ -318,12 +318,12 @@ extension TextView: UITextFieldDelegate {
             self.placeholderLabel?.text = self.hintText
         }
         
-        UIView.animateWithDuration(0.5, delay: 0.0, options: .CurveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: UIViewAnimationOptions(), animations: {
             self.bottomRipple(false)
             }, completion: nil)
     }
     
-    func textFieldDidChange(textField:UITextField) {
+    func textFieldDidChange(_ textField:UITextField) {
         let errorLabel = self.subviews.filter({$0.tag == 17}).first
         guard errorLabel != nil else {
             return

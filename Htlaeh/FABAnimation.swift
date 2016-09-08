@@ -21,16 +21,16 @@ class FABAnimation : UIView {
    override init(frame: CGRect) {
       self.circleLayer = CAShapeLayer()
       super.init(frame: frame)
-      self.backgroundColor = UIColor.clearColor()
+      self.backgroundColor = UIColor.clear
       
       // Use UIBezierPath as an easy way to create the CGPath for the layer.
       // The path should be the entire circle.
       let circlePath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0), radius: (frame.size.width - 10)/2, startAngle: CGFloat(M_PI * -0.5), endAngle: CGFloat(M_PI * 1.5), clockwise: true)
       
       // Setup the CAShapeLayer with the path, colors, and line width
-      self.circleLayer.path = circlePath.CGPath
-      self.circleLayer.fillColor = UIColor.clearColor().CGColor
-      self.circleLayer.strokeColor = UIColor.blue.CGColor
+      self.circleLayer.path = circlePath.cgPath
+      self.circleLayer.fillColor = UIColor.clear.cgColor
+      self.circleLayer.strokeColor = UIColor.blue.cgColor
       self.circleLayer.lineWidth = 2.0;
       
       // Don't draw the circle initially
@@ -46,7 +46,7 @@ class FABAnimation : UIView {
    }
    
    // MARK: Functions
-   func animateCircle(duration: NSTimeInterval) {
+   func animateCircle(_ duration: TimeInterval) {
       // We want to animate the strokeEnd property of the circleLayer
       let animation = CABasicAnimation(keyPath: "strokeEnd")
       
@@ -65,7 +65,7 @@ class FABAnimation : UIView {
       self.circleLayer.strokeEnd = 1.0
       
       // Do the actual animation
-      self.circleLayer.addAnimation(animation, forKey: "animateCircle")
+      self.circleLayer.add(animation, forKey: "animateCircle")
    }
    
 }

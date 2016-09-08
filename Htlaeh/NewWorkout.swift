@@ -14,8 +14,8 @@ import UIKit
  */
 enum NewWorkoutType {
    
-   case Standard // For when a User is creating a new workout
-   case Edit // For when a User is editing a set
+   case standard // For when a User is creating a new workout
+   case edit // For when a User is editing a set
    
 }
 
@@ -31,11 +31,11 @@ class NewWorkout: Controller {
       return NewWorkoutStandardViews(controller: self).createHeader()
    }()
    /// The variable for the date picker
-   private lazy var datePicker: DatePicker = {
+   fileprivate lazy var datePicker: DatePicker = {
       return NewWorkoutStandardViews(controller: self).createDatePicker()
    }()
    /// The varible for the tool tip that lets a user know a set was added
-   private lazy var setAdded: ToolTip = {
+   fileprivate lazy var setAdded: ToolTip = {
       return NewWorkoutStandardViews(controller: self).createToolTip()
    }()
    /// The variable for the FAB
@@ -45,7 +45,7 @@ class NewWorkout: Controller {
    /// Holds the date for the workout
    /// This Controller holds the type of new workout
    // TODO: Edit for when a User edits the set
-   let type: NewWorkoutType = .Standard
+   let type: NewWorkoutType = .standard
    
    /// Holds the dictionary for text fields for validation
    var textFieldDict: [String : TextField] = [:]
@@ -140,22 +140,22 @@ class NewWorkout: Controller {
 
    }
    
-   private func animateFAB() {
+   fileprivate func animateFAB() {
       // Draw circle around FAB
       let fabAnimationFrame: Rect = Rect(x: self.FAB.frame.origin.x - 7, y: self.FAB.frame.origin.y - 7, w: self.FAB.frame.w + 14, h: self.FAB.frame.h + 14)
       let fabAnimation: FABAnimation = FABAnimation(frame: fabAnimationFrame)
       self.view.addSubview(fabAnimation)
       fabAnimation.animateCircle(1.3)
       // Change FAB color to blue
-      UIView.animateWithDuration(0.4, delay: 1.3, options: .CurveEaseInOut, animations: {
+      UIView.animate(withDuration: 0.4, delay: 1.3, options: UIViewAnimationOptions(), animations: {
          self.FAB.backgroundColor = .blue
          self.FAB.icon?.colorImage(.white)
          }, completion: { Bool in
-            UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                self.FAB.backgroundColor = .yellow
                self.FAB.icon?.colorImage(.black)
                }, completion: { Bool in
-                  UIView.animateWithDuration(0.4, delay: 0.0, options: .CurveEaseInOut, animations: {
+                  UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                      fabAnimation.alpha = 0.0
                      }, completion: { Bool in
                         fabAnimation.removeFromSuperview()
@@ -187,7 +187,7 @@ class NewWorkout: Controller {
    /**
       This function is for the animation between new workout and preview from a top right press
    */
-   private func segueToPreviewAnimation(vc: PreviewWorkout) {
+   fileprivate func segueToPreviewAnimation(_ vc: PreviewWorkout) {
       
       // Create the struct that will handle the segue and perform the segue
       let newToPreview: NewToPreview = NewToPreview(new: self, preview: vc)

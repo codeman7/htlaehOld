@@ -11,24 +11,24 @@ import AVFoundation
 
 struct Audio {
    
-   static func countdown(seconds seconds: Int) {
+   static func countdown(seconds: Int) {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speakUtterance(AVSpeechUtterance(string: "\(seconds)"))
+      speech.speak(AVSpeechUtterance(string: "\(seconds)"))
       
    }
    
    static func tenSecondsLeft() {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speakUtterance(AVSpeechUtterance(string: "10 seconds until next set"))
+      speech.speak(AVSpeechUtterance(string: "10 seconds until next set"))
       
    }
    
-   static func speak(string: String) {
+   static func speak(_ string: String) {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speakUtterance(AVSpeechUtterance(string: string))
+      speech.speak(AVSpeechUtterance(string: string))
       
    }
    

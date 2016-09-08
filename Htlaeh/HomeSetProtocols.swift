@@ -20,9 +20,9 @@ protocol HomeLabelAbilities {
    /// Moves the label back to it's origin
    func backToOrigin()
    /// Used to reset the labels text
-   func update(text text: String)
+   func update(text: String)
    /// Set properties for the label
-   func set(properties properties: HomeLabel)
+   func set(properties: HomeLabel)
 }
 
 /// Used for Home Content / Home Hint's in the upper half
@@ -41,7 +41,7 @@ extension Disappear where Self : UILabel, Self : HomeLabelAbilities {
    
    func hide() {
       
-      self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.05, 0.05)
+      self.transform = CGAffineTransform.identity.scaledBy(x: 0.05, y: 0.05)
       self.frame.origin = self.destination
       
    }
@@ -57,7 +57,7 @@ protocol HomeLabelAnimations {
 // Used for all the home labels to set their properties
 extension HomeLabelAbilities where Self : UILabel {
    
-   func set(properties properties: HomeLabel) {
+   func set(properties: HomeLabel) {
       
       self.textAlignment = properties.alignment
       self.textColor = properties.color
@@ -69,7 +69,7 @@ extension HomeLabelAbilities where Self : UILabel {
    func backToOrigin() {
       
       // Transform the label back to origin size and set it's origin back to original origin
-      self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
+      self.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
       self.frame.origin = self.origin
       
    }
@@ -78,7 +78,7 @@ extension HomeLabelAbilities where Self : UILabel {
       self.text = ""
    }
    
-   func update(text text: String) {
+   func update(text: String) {
       self.text = text
    }
    

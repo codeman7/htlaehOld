@@ -12,10 +12,10 @@ import UIKit
 protocol RevealAlpha {
    var hiding: Bool {get set}
    func showWithAlpha()
-   func showWithAlpha(delay: NSTimeInterval)
-   func showWithAlpha(delay: NSTimeInterval, alpha: CGFloat)
+   func showWithAlpha(_ delay: TimeInterval)
+   func showWithAlpha(_ delay: TimeInterval, alpha: CGFloat)
    func hideWithAlpha()
-   func hideWithAlpha(delay: NSTimeInterval)
+   func hideWithAlpha(_ delay: TimeInterval)
 }
 
 extension RevealAlpha where Self : UIView {
@@ -36,25 +36,25 @@ extension RevealAlpha where Self : UIView {
    }
    
    func showWithAlpha() {
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {self.alpha = 1.0}, completion: nil)
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {self.alpha = 1.0}, completion: nil)
    }
    
-   func showWithAlpha(delay: Double, alpha: CGFloat) {
+   func showWithAlpha(_ delay: Double, alpha: CGFloat) {
       let d: Delay = Delay()
       d.delay(delay, closure: {
-         UIView.animateWithDuration(0.3, animations: { self.alpha = alpha })
+         UIView.animate(withDuration: 0.3, animations: { self.alpha = alpha })
       })
    }
    
-   func showWithAlpha(delay: NSTimeInterval) {
-      UIView.animateWithDuration(0.3, delay: delay, options: .CurveEaseInOut, animations: {self.alpha = 1.0}, completion: nil)
+   func showWithAlpha(_ delay: TimeInterval) {
+      UIView.animate(withDuration: 0.3, delay: delay, options: UIViewAnimationOptions(), animations: {self.alpha = 1.0}, completion: nil)
    }
    
    func hideWithAlpha() {
-      UIView.animateWithDuration(0.3, delay: 0.0, options: .CurveEaseInOut, animations: {self.alpha = 0.0}, completion: nil)
+      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {self.alpha = 0.0}, completion: nil)
    }
    
-   func hideWithAlpha(delay: NSTimeInterval) {
-      UIView.animateWithDuration(0.3, delay: delay, options: .CurveEaseInOut, animations: {self.alpha = 0.0}, completion: nil)
+   func hideWithAlpha(_ delay: TimeInterval) {
+      UIView.animate(withDuration: 0.3, delay: delay, options: UIViewAnimationOptions(), animations: {self.alpha = 0.0}, completion: nil)
    }
 }

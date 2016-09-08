@@ -32,7 +32,7 @@ struct RealmQuery {
       
    }
    
-   func resultsToWorkout(results: Results<RealmWorkout>) -> [Workout] {
+   func resultsToWorkout(_ results: Results<RealmWorkout>) -> [Workout] {
       
       guard results.isEmpty == false else {
          return []
@@ -71,7 +71,7 @@ struct RealmQuery {
     - parameter date: Should be in "yymmdd" format and the date the workout is
     - returns: Workout for the date specified
    */
-   func getWorkoutFor(date date: String) -> Workout? {
+   func getWorkoutFor(date: String) -> Workout? {
       
       let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout.self).filter("date = '\(date)'").sorted("setCount")
       guard workouts.count != 0 else {
@@ -87,7 +87,7 @@ struct RealmQuery {
       
    }
    
-   func workoutDaysIn(month month: Int, year: Int) -> [Int] {
+   func workoutDaysIn(month: Int, year: Int) -> [Int] {
       
       let y: Int = year - 2000
       let dateString: String = (month > 9) ? "\(y)\(month)" : "\(y)0\(month)"
@@ -103,13 +103,13 @@ struct RealmQuery {
       
    }
    
-   func suggestionsFor(text text: String) -> [String] {
+   func suggestionsFor(text: String) -> [String] {
       
       return []
       
    }
    
-   func statsFor(exercise exercise: String) -> StatViewData {
+   func statsFor(exercise: String) -> StatViewData {
       // Get all the workouts in the database
       let workouts: Results<RealmWorkout> = realm.objects(RealmWorkout).filter("name = '\(exercise)'")
       // Make sure the result's aren't empty
@@ -118,9 +118,9 @@ struct RealmQuery {
       // Get the total number of sets in the database
       let sets: Int = workouts.count
       // Get the total number of reps in the database
-      let reps: Int = workouts.reduce(0, combine: { (total, next) in total + next.reps.value! })
+      let reps: Int = workouts.reduce(0, { (total, next) in total + next.reps.value! })
       // Get the total weight for all the set completed
-      let weight: Int = workouts.reduce(0, combine: { (total, next) in total + (next.reps.value! * Int(next.weight.value!)) })
+      let weight: Int = workouts.reduce(0, { (total, next) in total + (next.reps.value! * Int(next.weight.value!)) })
       // Create the stats view struct and return it
       return StatViewData(best: personalBest, reps: reps, sets: sets, weight: weight)
       
@@ -131,11 +131,11 @@ struct RealmQuery {
     - parameter first: The date of the first workout
     - parameter last: The date of the last workout
    */
-   func workoutsByWeeksFrom(first: Int, to last: Int) -> [[Workout]] {
+   func workoutsByWeeksFrom(_ first: Int, to last: Int) -> [[Workout]] {
       
       let weeks: [(sun: Int, sat: Int)] = Date().getWeeksBetween(start: Date.from(first), andEnd: Date.from(last))
       let workouts: [Workout] = self.all
-      var returnArr: [[Workout]] = [[Workout]](count: weeks.count, repeatedValue: [])
+      var returnArr: [[Workout]] = [[Workout]](repeating: [], count: weeks.count)
       var currentWeek: Int = 0
       for workout in workouts {
          if weeks[currentWeek].0...weeks[currentWeek].1 ~= Int(workout[0].date)! {
@@ -150,7 +150,7 @@ struct RealmQuery {
       
    }
    
-   static func query(filter: String) -> /*[Workout]*/Results<RealmWorkout> {
+   static func query(_ filter: String) -> /*[Workout]*/Results<RealmWorkout> {
       let workouts: Results<RealmWorkout> = RealmQuery().realm.objects(RealmWorkout).filter(filter)
       return workouts
    }
@@ -163,7 +163,7 @@ struct RealmQuery {
       // Add all the exercises to the array
       for workout in self.all {
          for set in workout.sets {
-            exercises += [set.name.capitalizedString]
+            exercises += [set.name.capitalized]
          }
       }
       
@@ -172,7 +172,7 @@ struct RealmQuery {
       
    }
    
-   func resultsFor(exercise exercise: String) -> [Workout] {
+   func resultsFor(exercise: String) -> [Workout] {
       
       // Filter all the workouts to just include the ones with the given name
       let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout).filter("name = '\(exercise)'")
@@ -185,10 +185,9 @@ struct RealmQuery {
       
    }
    
-   func setFor(setCount: Int, date: String) -> RealmWorkout? {
+   func setFor(_ setCount: Int, date: String) -> RealmWorkout? {
       
       let workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout).filter("setCount == \(setCount) AND date = '\(date)'")
-      print(workouts)
       guard workouts.count == 1 else {
          return nil
       }

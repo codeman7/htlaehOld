@@ -51,8 +51,8 @@ class HomeAccent : UILabel {
    // MARK: Functions
    func moveUp() {
       
-      self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5)
-      self.frame.origin = self.destination
+      self.frame = Rect(origin: self.destination, size: self.frame.size)
+      self.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
       self.alpha = HomeLabel.content.alpha
       
    }

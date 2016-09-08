@@ -31,14 +31,14 @@ class CircularView : UIView {
    // MARK: Functions
    /// This function makes the view grow to cover the screen
    func grow() {
-      UIView.animateWithDuration(0.25, animations: {
-         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
+      UIView.animate(withDuration: 0.25, animations: {
+         self.transform = CGAffineTransform.identity.scaledBy(x: 750.0, y: 750.0)
       })
    }
    
-   func grow(completion: ()->()) {
-      UIView.animateWithDuration(0.25, delay: 0.0, options: .CurveEaseInOut, animations: {
-         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 750.0, 750.0)
+   func grow(_ completion: @escaping ()->()) {
+      UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+         self.transform = CGAffineTransform.identity.scaledBy(x: 750.0, y: 750.0)
          }, completion: { Bool in completion() })
    }
 }

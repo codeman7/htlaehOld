@@ -22,41 +22,41 @@ class HomeSetView : UIView {
    var nextSet: WeightSet? = nil
    
    /// The property for the top label in the top half
-   private lazy var topTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.topY, w: self.fullWidth, h: 16), active: true, location: .Middle, destination: self.exitPoint)
+   fileprivate lazy var topTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.topY, w: self.fullWidth, h: 16), active: true, location: .middle, destination: self.exitPoint)
    
    /// The property for the left label in the top half
-   private lazy var topLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .Left, destination: self.exitPoint)
+   fileprivate lazy var topLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .left, destination: self.exitPoint)
 
    
    /// The property for the right label in the top half
-   private lazy var topRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .Right, destination: self.exitPoint)
+   fileprivate lazy var topRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .right, destination: self.exitPoint)
    
    /// The property for the top label in the top half
-   lazy var topTopContent: HomeContent = HomeContent(frame: Rect(x: self.topX, y: self.topY + 24, w: self.fullWidth, h: 48), active: true, location: .Middle, destination: self.exitPoint)
+   lazy var topTopContent: HomeContent = HomeContent(frame: Rect(x: self.topX, y: self.topY + 24, w: self.fullWidth, h: 48), active: true, location: .middle, destination: self.exitPoint)
    
    /// The property for the left label in the top half
-   private lazy var topLeftContent: HomeContent = HomeContent(frame: Rect(x: self.leftX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .Left, destination: self.exitPoint)
+   fileprivate lazy var topLeftContent: HomeContent = HomeContent(frame: Rect(x: self.leftX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .left, destination: self.exitPoint)
    
    /// The property for the right label in the top half
-   private lazy var topRightContent: HomeContent = HomeContent(frame: Rect(x: self.rightX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .Right, destination: self.exitPoint)
+   fileprivate lazy var topRightContent: HomeContent = HomeContent(frame: Rect(x: self.rightX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .right, destination: self.exitPoint)
    
    /// The property for the top label in the bottom half
-   private lazy var bottomTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.bottomY, w: self.fullWidth, h: 16), active: false, location: .Middle, destination: CGPoint(x: self.topX, y: self.topY))
+   fileprivate lazy var bottomTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.bottomY, w: self.fullWidth, h: 16), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY))
    
    /// The property for the left label in the bottom half
-   private lazy var bottomLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .Left, destination: CGPoint(x: self.leftX, y: self.bottomY + 52))
+   fileprivate lazy var bottomLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 96))
    
    /// The property for the right label in the bottom half
-   private lazy var bottomRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .Right, destination: CGPoint(x: self.rightX, y: self.bottomY + 52))
+   fileprivate lazy var bottomRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 96))
    
    /// The property for the top label in the bottom half
-   private lazy var bottomTopContent: HomeAccent = HomeAccent(frame: Rect(x: self.topX, y: self.bottomY + 16, w: self.fullWidth, h: 28), active: false, location: .Middle, destination: CGPoint(x: self.topX, y: self.bottomY + 16))
+   fileprivate lazy var bottomTopContent: HomeAccent = HomeAccent(frame: Rect(x: self.topX, y: self.bottomY + 16, w: self.fullWidth, h: 28), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY + 30))
    
    /// The property for the left label in the bottom half
-   private lazy var bottomLeftContent: HomeAccent = HomeAccent(frame: Rect(x: self.leftX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .Left, destination: CGPoint(x: self.leftX, y: self.bottomY + 68))
+   fileprivate lazy var bottomLeftContent: HomeAccent = HomeAccent(frame: Rect(x: self.leftX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 126))
    
    /// The property for the right label in the bottom half
-   private lazy var bottomRightContent: HomeAccent = HomeAccent(frame: Rect(x: self.rightX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .Right, destination: CGPoint(x: self.rightX, y: self.bottomY + 68))
+   fileprivate lazy var bottomRightContent: HomeAccent = HomeAccent(frame: Rect(x: self.rightX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 126))
    
    /// The number of rows in the top sectoin
    var topRowCount: Int = 2
@@ -84,7 +84,7 @@ class HomeSetView : UIView {
    }
    
    // MARK: Functions
-   func initialLayoutFor(set set: WeightSet) {
+   func initialLayoutFor(set: WeightSet) {
       
       // Add subviews
       self.insertViews()
@@ -99,7 +99,7 @@ class HomeSetView : UIView {
       
    }
    
-   private func insertViews() {
+   fileprivate func insertViews() {
       
       self.addSubview(self.topTopHint)
       self.addSubview(self.topLeftHint)
@@ -121,7 +121,7 @@ class HomeSetView : UIView {
     This function moves the rest to the upper state and shows what will be the next set
     - parameter set: The next set that will be shown
    */
-   func rest(set set: WeightSet) {
+   func rest(set: WeightSet) {
       
       // Set the next set value to the set passed as variable
       self.nextSet = set
@@ -131,7 +131,7 @@ class HomeSetView : UIView {
       self.bottomRowCount = 2
       
       // Animate the views
-      UIView.animateWithDuration(0.2, animations: {
+      UIView.animate(withDuration: 0.2, animations: {
          
          self.showRest()
          
@@ -139,8 +139,6 @@ class HomeSetView : UIView {
             // Set the view's back to what they need to be
             self.nextCompletion()
          })
-      
-      
       
    }
    
@@ -166,7 +164,7 @@ class HomeSetView : UIView {
       self.topRowCount = 2
       self.bottomRowCount = 1
       
-      UIView.animateWithDuration(0.2, animations: {
+      UIView.animate(withDuration: 0.2, animations: {
          
             self.nextToActiveAnimation()
          
@@ -178,7 +176,46 @@ class HomeSetView : UIView {
       
    }
    
-   private func showRest() {
+   
+   
+   fileprivate func startTimer() {
+   
+   }
+   
+   fileprivate func updateRest(_ amount: Double) {
+      
+      // Make sure the amount isn't going to be negative if so stop recursion
+      guard amount > -1 else {
+         return
+      }
+      
+      // Set the text for the top content
+      self.topTopContent.text = amount.toString()
+      
+      if amount == 10 {
+         // Alert user that rest is almost up
+         Audio.tenSecondsLeft()
+      }
+      
+      if amount == 0 {
+         Audio.speak("Time for your next set")
+      }
+      
+      // If there are less than 10 seconds left then update the color of the label
+      if amount <= 10 {
+         let color: UIColor = (amount.truncatingRemainder(dividingBy: 2) == 1) ? .black : .yellow
+         self.topTopContent.textColor = color
+      }
+
+   }
+   
+}
+
+// MARK: Animations
+private extension HomeSetView {
+   
+   // This function is used to animate the rest up to the main view
+   func showRest() {
       
       // Hide the top labels
       let topLabels: [Disappear] = [self.topTopHint, self.topLeftHint, self.topRightHint, self.topTopContent, self.topLeftContent, self.topRightContent]
@@ -192,55 +229,8 @@ class HomeSetView : UIView {
       
    }
    
-   private func startTimer() {
-   
-   }
-   
-   private func updateRest(amount: Double) {
-      
-      // Make sure the amount isn't going to be negative if so stop recursion
-      guard amount > -1 else {
-         return
-      }
-      
-      // Pass the update to another thread
-      // Update the label
-      let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-      dispatch_async(dispatch_get_global_queue(priority, 0)) {
-         // do some task
-         dispatch_async(dispatch_get_main_queue()) {
-            // update some UI
-            self.topTopContent.text = amount.toString()
-         }
-      }
-      
-
-      
-      if amount == 10 {
-         // Alert user that rest is almost up
-         Audio.tenSecondsLeft()
-      }
-      
-      if amount == 0 {
-         Audio.speak("Time for your next set")
-      }
-      
-      // If there are less than 10 seconds left then update the color of the label
-      if amount <= 10 {
-         
-         let color: UIColor = (amount % 2 == 1) ? .black : .yellow
-         self.topTopContent.textColor = color
-      }
-
-   }
-   
-}
-
-// MARK: Animations
-private extension HomeSetView {
-   
    /// Completion block for current set going to rest
-   private func nextCompletion() {
+   func nextCompletion() {
       
       // Transform the views back to their original size
       let labels: [HomeLabelAbilities] = [self.topTopHint, self.topLeftHint, self.topRightHint, self.topTopContent, self.topLeftContent, self.topRightContent, self.bottomTopHint, self.bottomLeftHint, self.bottomRightHint, self.bottomTopContent, self.bottomLeftContent, self.bottomRightContent]
@@ -248,18 +238,31 @@ private extension HomeSetView {
          label.backToOrigin()
       }
       
-      // Set the hint's text
-      let hints: [HomeHint] = [self.topTopHint, self.topLeftHint, self.topRightHint, self.bottomTopHint, self.bottomLeftHint, self.bottomRightHint]
-      for hint in hints {
-         hint.setText()
+      // Set the top hints to non active
+      let topHints = [self.topTopHint, self.topLeftHint, self.topRightHint]
+      for topHint in topHints { topHint.active = false }
+      
+      // Set the bottom hints to active
+      let bottomHints = [self.bottomTopHint, self.bottomLeftHint, self.bottomRightHint]
+      for bottomHint in bottomHints { bottomHint.active = true }
+      
+      // Reset the text for all the hints
+      for hints in topHints + bottomHints {
+         hints.setText()
       }
       
+      // Set the top content label
       self.topTopContent.text = self.currentSet.restTime!.toString()
+      for topContent in [self.topLeftContent, self.topRightContent] {
+         topContent.setToBlank()
+      }
       
+      // Set the alpha for the bottom content
+      self.bottomTopContent.alpha = HomeLabel.accent.alpha
+   
+      // Set the bottom labels
       self.bottomTopContent.text = self.nextSet!.name
-      
       self.bottomLeftContent.text = "\(self.nextSet!._reps)"
-      
       self.bottomRightContent.text = "\(Int(self.nextSet!._weight))"
       
       // Start the rest timer
@@ -267,119 +270,72 @@ private extension HomeSetView {
       
    }
    
-   private func nextToActiveAnimation() {
-      
-      // Set the exit location
-      let exit: CGPoint = CGPoint(x: self.frame.w / 2, y: 0)
+   func nextToActiveAnimation() {
       
       // Animate the top label's up and out of view
-      for label in [self.topTopHint, self.topTopContent] {
-         label.alpha = 0.0
-         label.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.05, 0.05)
-         label.frame.origin = exit
-
+      let labels: [Disappear] = [self.topTopHint, self.topTopContent]
+      for label in labels {
+         label.hide()
       }
       
-      // Animate the next labels up to active
-      self.bottomTopHint.frame.origin.y = self.topY
-      
-      self.bottomTopContent.frame.origin.y = self.topY + 30
-      self.bottomTopContent.alpha = HomeLabel.content.alpha
-      self.bottomTopContent.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5)
-      
-      // Animate the bottom left and right content up
-      for labels in [self.bottomLeftContent, self.bottomRightContent] {
-         
-         labels.frame.origin.y = self.topY + 126
-         labels.alpha = HomeLabel.content.alpha
-         labels.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5)
-         
+      // For all the bottom content move it up
+      let bottomContent: [MoveUp] = [self.bottomTopContent, self.bottomLeftContent, self.bottomRightContent, self.bottomTopHint, self.bottomLeftHint, self.bottomRightHint]
+      for bottom in bottomContent {
+         bottom.moveUp()
       }
       
-      // Animate the hint's up
-      self.topHintToOrigin()
+      // For all the hint's move them back to their origin
+      let topHints: [HomeLabelAbilities] = [self.topLeftHint, self.topRightHint]
+      for hints in topHints {
+         hints.backToOrigin()
+      }
       
    }
    
-   private func nextToActiveCompletion() {
+   func nextToActiveCompletion() {
       
       // Resize the labels back to 1.0
-      let labelsArr: [UILabel] = [self.bottomRightContent, self.bottomLeftContent, self.bottomTopContent, self.topTopContent, self.topLeftContent, self.topRightContent, self.topTopHint, self.topLeftHint, self.topRightHint]
-      self.backToOriginalSize(labels: labelsArr)
-      
-      // Animate the alpha for the hints
-      self.setLabelsAlpha(labels: [self.topTopHint, self.topLeftHint, self.topRightHint], alpha: HomeLabel.hint.alpha)
+      let labelsArr: [HomeLabelAbilities] = [self.bottomRightContent, self.bottomLeftContent, self.bottomTopContent, self.topTopContent, self.topLeftContent, self.topRightContent, self.topTopHint, self.topLeftHint, self.topRightHint, self.bottomLeftHint, self.bottomTopHint, self.bottomRightHint]
+      for label in labelsArr {
+         label.backToOrigin()
+      }
       
       // Animte the alpha for the content
-      self.setLabelsAlpha(labels: [self.topTopContent, self.topLeftContent, self.topRightContent], alpha: HomeLabel.content.alpha)
+      for top in [self.topTopContent, self.topLeftContent, self.topRightContent] {
+         top.alpha = HomeLabel.content.alpha
+      }
       
-      // Animte the top hint and content
-      self.topTopHint.text = "Exercise"
-      self.topTopHint.frame.origin = CGPoint(x: self.topX, y: self.topY)
+      // Set the top hints to active
+      let topHints = [self.topTopHint, self.topLeftHint, self.topRightHint]
+      for topHint in topHints { topHint.active = true }
       
+      // Set the bottom hints to nonactive
+      let bottomHints = [self.bottomTopHint, self.bottomLeftHint, self.bottomRightHint]
+      for bottomHint in bottomHints { bottomHint.active = false }
+      
+      // Reset the text for all the hints
+      for hints in topHints + bottomHints {
+         hints.setText()
+      }
+      
+      // Set the top content labels text
       self.topTopContent.text = self.currentSet.name
-      self.topTopContent.frame.origin = CGPoint(x: self.topX, y: self.topY + 24)
-      
-      // Animate the left hint and content
-      self.topLeftHint.text = "Reps"
-      self.topLeftHint.frame.origin.x = self.leftX
-      
       self.topLeftContent.text = "\(self.currentSet._reps)"
-      self.topLeftContent.frame.origin = CGPoint(x: self.leftX, y: self.topY + 120)
-      
-      // Animate the right hint and content
-      self.topRightHint.text = "Weight"
-      self.topRightHint.frame.origin.x = self.rightX
-      
-      // Move both hints back to 96
-      self.topHintToOrigin()
-      
       self.topRightContent.text = "\(Int(self.currentSet._weight))"
-      self.topRightContent.frame.origin = CGPoint(x: self.rightX, y:self.topY + 120)
       
-      self.bottomTopHint.frame.origin.y = self.bottomY
-      self.bottomTopHint.text = "Rest"
-      
-      self.bottomTopContent.frame.origin.y = self.bottomY + 16
+      // Set the bottom content label's text
       self.bottomTopContent.text = self.currentSet._restTime.toString()
       
-      self.setLabelsAlpha(labels: [self.bottomTopContent, self.bottomRightContent, self.bottomLeftContent], alpha: HomeLabel.accent.alpha)
-      
-      // Set the bottom hint's the the propery y position
-      self.bottomBottomLabelsToProperY()
+      // Set the alpha for all the bottom content
+      for content in [self.bottomTopContent, self.bottomRightContent, self.bottomLeftContent] {
+         content.alpha = HomeLabel.accent.alpha
+      }
       
       // Set the text to blank
-      self.blankTextFor(labels: [self.bottomRightContent, self.bottomLeftContent, self.bottomLeftHint, self.bottomRightHint])
-      
-      self.bottomContentToOrigin()
-      
-   }
-   
-   // MARK: Helpers for animations
-  
-   
-   private func setLabelsAlpha(labels labels: [UILabel], alpha: CGFloat) {
-      
-      for label in labels {
-         label.alpha = alpha
+      for bottom in [self.bottomRightContent, self.bottomLeftContent] {
+         bottom.setToBlank()
       }
       
-   }
-   
-   private func blankTextFor(labels labels: [UILabel]) {
-      
-      for label in labels {
-         label.text = ""
-      }
-      
-   }
-   
-   private func backToOriginalSize(labels labels: [UILabel]) {
-      
-      for label in labels {
-         label.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
-      }
-   
    }
    
 }
@@ -426,8 +382,6 @@ private extension HomeSetView {
    }
 
 }
-
-
 
 
 

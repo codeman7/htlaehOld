@@ -31,6 +31,10 @@ extension UIFont {
 }
 
 extension UIFont {
+   var height: CGFloat {
+      return "A".heightWithConstrainedWidth(CGFloat.infinity, font: self)
+   }
+   
    // MARK: Thin
    @nonobjc static let thin8: UIFont = UIFont(name: .Thin, size: 8.0)
    @nonobjc static let thin32: UIFont = UIFont(name: .Thin, size: 32.0)
@@ -40,6 +44,8 @@ extension UIFont {
    @nonobjc static let bold6: UIFont = UIFont(name: .Bold, size: 6.0)
    @nonobjc static let bold8: UIFont = UIFont(name: .Bold, size: 8.0)
    @nonobjc static let bold12: UIFont = UIFont(name: .Bold, size: 12.0)
+   @nonobjc static let bold18: UIFont = UIFont(name: .Bold, size: 18.0)
+   @nonobjc static let bold24: UIFont = UIFont(name: .Bold, size: 24.0)
    @nonobjc static let bold36: UIFont = UIFont(name: .Bold, size: 36.0)
    @nonobjc static let bold40: UIFont = UIFont(name: .Bold, size: 40.0)
    

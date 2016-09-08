@@ -22,13 +22,13 @@ protocol WorkoutType {
    /// Variable to get the workout count
    var count: Int { get }
    /// Add a set to the workout
-   func add(set: WeightSet) -> Self
+   func add(_ set: WeightSet) -> Self
    /// Remove a set
    //func removeSetFromWorkout(newSet: WeightSet) -> Self
    /// Mark a whole workout as complete, maybe entered after already done
    func markAsComplete() -> Self
    /// Change the date of the workout
-   func updateDate(newDate: String) -> Self
+   func updateDate(_ newDate: String) -> Self
    
 }
 
@@ -98,7 +98,7 @@ struct Workout: WorkoutType {
    }
    
    // MARK: Functions to conform to protocol
-   func add(set: WeightSet) -> Workout {
+   func add(_ set: WeightSet) -> Workout {
       
       var tempArray: [WeightSet] = self.sets
       tempArray += [set]
@@ -150,7 +150,7 @@ struct Workout: WorkoutType {
       
    }
    
-   func updateDate(newDate: String) -> Workout {
+   func updateDate(_ newDate: String) -> Workout {
       
       var tempSetsArray: [WeightSet] = self.sets
       // 'a' is index of array
@@ -209,15 +209,74 @@ struct Workout: WorkoutType {
    
 }
 
+// MARK: Computed properties for workout
+extension Workout {
+   // Returns the total weight moved throughout the workout
+   var totalWeight: Double {
+      return self.sets.reduce(0, { $0.0 + (Double($0.1._reps) * $0.1._weight) })
+   }
+   
+   // Returns the total number of reps in the workout
+   var totalReps: Int {
+      return self.sets.reduce(0, { $0.0 + $0.1._reps })
+   }
+   
+   // Returns the average weight used for the workout
+   var averageWeight: Double {
+      return self.totalWeight / Double(self.totalReps)
+   }
+   
+   // Returns the average reps for the workout
+   var averageReps: Double {
+      return Double(self.totalReps) / Double(self.count)
+   }
+   
+   /// Used to get the most common workout in an exercise
+   func mostCommonExercise() -> String {
+      
+      // Make sure workout isn't empty
+      guard self.sets.isEmpty == false else {
+         return "No Sets"
+      }
+      
+      // Put all the exercise names into an array
+      let names: [String] = self.sets.map({ $0.name })
+      
+      // Put the names into an dictionary with of name and how often they appeared
+      let mostCommon = names.frequency()
+      // Sort the dictionary so the most common names are first
+      let sorted = mostCommon.sortByValues(>)
+      
+      // Get the first and second most common names
+      let first = mostCommon[sorted[0]]
+      
+      // Make sure there isn't just one name
+      guard mostCommon.count > 1 else {
+         return sorted[0]
+      }
+      
+      let second = mostCommon[sorted[1]]
+      
+      // If the first and second names have the same frequency then return "Multiple" else return the most common
+      if first == second {
+         return "Multiple"
+      } else {
+         return sorted[0]
+      }
+      
+   }
+   
+}
+
 // MARK: Overload operators
-func += (inout lhs: Workout, rhs: WeightSet) -> Workout {
+func += (lhs: inout Workout, rhs: WeightSet) -> Workout {
    
    lhs = lhs.add(rhs)
    return lhs
    
 }
 
-func -= (inout lhs: Workout, rhs: Int) -> Workout {
+func -= (lhs: inout Workout, rhs: Int) -> Workout {
    // Assign the workout to a temp workout
    let temp: Workout = lhs
    // Set the workout to empty

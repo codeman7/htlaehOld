@@ -18,13 +18,13 @@ class SuggestionCell : UITableViewCell {
       // Call the super initializer
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       // Make the cell go all the way across
-      self.separatorInset = UIEdgeInsetsZero
-      self.layoutMargins = UIEdgeInsetsZero
+      self.separatorInset = UIEdgeInsets.zero
+      self.layoutMargins = UIEdgeInsets.zero
       self.preservesSuperviewLayoutMargins = false
       self.frame.size.height = 56.0
       
       // Set the selection style
-      self.selectionStyle = .None
+      self.selectionStyle = .none
       
    }
    
@@ -33,7 +33,7 @@ class SuggestionCell : UITableViewCell {
       fatalError("This class does not support NSCoding")
    }
    
-   func add(title: String) {
+   func add(_ title: String) {
       
       guard self.title == nil else {
          self.title?.text = title
@@ -42,7 +42,7 @@ class SuggestionCell : UITableViewCell {
       
       // Create the frame for the label and the label itself
       let frame: Rect = Rect(x: 16, y: 4, w: self.frame.w - 32, h: 48)
-      self.title = UILabel(frame: frame, font: Fonts.Bold.thirtySix, align: .Left
+      self.title = UILabel(frame: frame, font: Fonts.Bold.thirtySix, align: .left
          , color: .black)
       
       // Set the labels text and it's alpha

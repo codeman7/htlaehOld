@@ -17,9 +17,9 @@ import UIKit
 
 enum ScreenSize {
    
-   case Small
-   case Medium
-   case Large
+   case small
+   case medium
+   case large
    
 }
 
@@ -28,11 +28,11 @@ class Controller: UIViewController {
    var size: ScreenSize {
       switch self.view.frame.size {
       case CGSize(width: 320, height: 568):
-         return .Small
+         return .small
       case CGSize(width: 375, height: 667):
-         return .Medium
+         return .medium
       default:
-         return .Large
+         return .large
       }
    }
    
@@ -59,7 +59,7 @@ class Controller: UIViewController {
     This function calls all the segues from a navigation button press
     - parameter destination: Is the destination that we want to segue to
     */
-   func segue(destination: Controller) {
+   func segue(_ destination: Controller) {
       // Make sure segue is to a new controller
       guard self.newControllerSegue(destination) == true else { return }
       
@@ -75,7 +75,7 @@ class Controller: UIViewController {
       let d: Delay = Delay()
       d.delay(0.3, closure: {
          
-         self.presentViewController(destination, animated: false, completion: nil)
+         self.present(destination, animated: false, completion: nil)
          
       })
       
@@ -88,7 +88,7 @@ class Controller: UIViewController {
     - parameter destination: The controller that will be segued to
     
    */
-   private func newControllerSegue(destination: Controller) -> Bool {
+   fileprivate func newControllerSegue(_ destination: Controller) -> Bool {
       
       let mirror = Mirror(reflecting: self)
       let destMirror = Mirror(reflecting: destination)
@@ -105,7 +105,7 @@ class Controller: UIViewController {
 extension Controller {
    
    /// This method creates the menu
-   private func createMenu() -> Menu {
+   fileprivate func createMenu() -> Menu {
       
       // Create the frame for the menu
       let frame: Rect = Rect(x: -240, y: 0, w: self.width + 240, h: self.height)

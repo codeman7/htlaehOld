@@ -48,7 +48,7 @@ struct SignStandardViews {
       // Create frame for the button
       let frame: Rect = Rect(x: self.controller.width / 2 - 76, y: self.controller.height - 76, w: 152, h: 40)
       // Create button
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       // Set action and title for button
       button.set(title: "SIGN IN / SIGN UP", color: .blue)
       button.action = { self.controller.digitsSignIn() }
@@ -57,18 +57,18 @@ struct SignStandardViews {
       
    }
    
-   private func addSkipButton() {
+   fileprivate func addSkipButton() {
       
       // Add the skip button
       let skipButtonFrame: CGRect = CGRect(x: self.controller.width - 88, y: 40, width: 72, height: 40)
-      let skipButton = Button(frame: skipButtonFrame, type: .Flat)
+      let skipButton = Button(frame: skipButtonFrame, type: .flat)
       skipButton.set(title: "SKIP", color: .red)
       skipButton.action = { self.controller.skipSignIn() }
       self.controller.view.addSubview(skipButton)
       
    }
    
-   private func addLogo() {
+   fileprivate func addLogo() {
       
       // Add the logo
       let logo: Logo = Logo(point: CGPoint(x: self.controller.width / 2 - 60, y: 96))
@@ -76,11 +76,11 @@ struct SignStandardViews {
       
    }
    
-   private func addSmallWord() {
+   fileprivate func addSmallWord() {
       
       // Add the welcome message
       let welcomeFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 232, width: 110, height: 16)
-      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold.twelve, alignment: .Left, color: .black)
+      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold.twelve, alignment: .left, color: .black)
       let welcomeMessage: UILabel = UILabel(config: welcomeConfig)
       welcomeMessage.alpha = 0.54
       welcomeMessage.text = "Welcome to,"
@@ -88,11 +88,11 @@ struct SignStandardViews {
       
    }
    
-   private func addLargeWord() {
+   fileprivate func addLargeWord() {
       
       // Add the big text
       let htlaehTextFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 248, width: 110, height: 48)
-      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold.thirtySix, alignment: .Left, color: .black)
+      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold.thirtySix, alignment: .left, color: .black)
       let htlaehText: UILabel = UILabel(config: htlaehTextConfig)
       htlaehText.alpha = 0.87
       htlaehText.text = "Htlaeh"

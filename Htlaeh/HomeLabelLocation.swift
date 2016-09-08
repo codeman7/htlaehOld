@@ -12,8 +12,8 @@ import UIKit
 /// The location the label will have
 enum HomeLabelLocation {
    
-   case Left
-   case Middle
-   case Right
+   case left
+   case middle
+   case right
    
 }

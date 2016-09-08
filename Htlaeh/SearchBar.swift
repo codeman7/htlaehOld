@@ -32,7 +32,7 @@ final class SearchBar : UITextField {
       // Add the placeholder to the view
       self.addSubview(self.placeholderLabel)
       // Add the event listener for the text field's change
-      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
+      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
       
    }
    
@@ -50,10 +50,10 @@ final class SearchBar : UITextField {
       
       // Set the alignment and the delegate
       self.delegate = self
-      self.textAlignment = .Left
+      self.textAlignment = .left
       
       // Set the return key type
-      self.returnKeyType = .Search
+      self.returnKeyType = .search
       
    }
    
@@ -61,7 +61,7 @@ final class SearchBar : UITextField {
       
       // Set the frame for the label and create it
       let frame: Rect = Rect(x: 0, y: 0, w: self.frame.w, h: 48)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Bold.thirtySix, align: .Left, color: .black)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Bold.thirtySix, align: .left, color: .black)
       
       // Set the labels alpha and text properties
       label.alpha = 0.14
@@ -72,11 +72,11 @@ final class SearchBar : UITextField {
       
    }
    
-   private func addClearButton() -> Button {
+   fileprivate func addClearButton() -> Button {
       
       // Set the frame and the view for the button
       let frame: Rect = Rect(x: self.frame.w - 48, y: 0, w: 40, h: 40)
-      let button: Button = Button(frame: frame, type: .Flat)
+      let button: Button = Button(frame: frame, type: .flat)
       
       // Add the icon to the button and set it's action
       button.add(image: Images.Navigation().close, alpha: 0.87)
@@ -105,11 +105,11 @@ final class SearchBar : UITextField {
 
 extension SearchBar {
    
-   override func textRectForBounds(bounds: CGRect) -> CGRect {
+   override func textRect(forBounds bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 8, w: self.frame.w - 48, h: 80)
    }
    
-   override func editingRectForBounds(bounds: CGRect) -> CGRect {
+   override func editingRect(forBounds bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 12, w: self.frame.w - 48, h: 80)
    }
    
@@ -117,7 +117,7 @@ extension SearchBar {
 
 extension SearchBar : UITextFieldDelegate {
    
-   func textFieldShouldReturn(textField: UITextField) -> Bool {
+   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       
       // Make sure text isn't nil
       guard let text = self.text else {
@@ -130,7 +130,7 @@ extension SearchBar : UITextFieldDelegate {
       return false
    }
    
-   func textFieldDidChange(textField: UITextField) {
+   func textFieldDidChange(_ textField: UITextField) {
       // Make sure the text field isn't blank
       guard self.text != "" else {
          self.clearButton.hideWithAlpha()
