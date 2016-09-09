@@ -14,7 +14,7 @@ class HomeHint : UILabel {
    // MARK: Properties
    let destination: CGPoint
    let origin: CGPoint
-   fileprivate let location: HomeLabelLocation
+   private let location: HomeLabelLocation
    var active: Bool
    
    init(frame: Rect, active: Bool, location: HomeLabelLocation, destination: CGPoint) {
@@ -29,7 +29,7 @@ class HomeHint : UILabel {
       super.init(frame: frame)
       
       // Set properties
-      self.set(properties: HomeLabel.hint)
+      self.set(HomeLabel.hint)
       self.setText()
    }
 

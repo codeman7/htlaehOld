@@ -19,7 +19,7 @@ protocol HomeTextPresentable {
 extension HomeTextPresentable {
    
    var alignment: NSTextAlignment {
-      return .center
+      return .Center
    }
    
    var color: UIColor {

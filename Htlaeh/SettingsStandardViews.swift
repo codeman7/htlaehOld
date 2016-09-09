@@ -57,11 +57,11 @@ struct SettingsStandardViews : ViewsStruct {
 extension SettingsStandardViews {
    
    /// Create the header
-   fileprivate func createHeader() -> BoldHeader {
+   private func createHeader() -> BoldHeader {
       
       // Create the frame for the header and the header options
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 70)
-      let headerOptions: HeaderType = HeaderType.settings(controller: self.controller)
+      let headerOptions: HeaderType = HeaderType.settings(self.controller)
       
       // Create the header and add it as a subview
       let header: BoldHeader = BoldHeader(frame: frame, options: headerOptions)
@@ -73,7 +73,7 @@ extension SettingsStandardViews {
    }
    
    /// Create the bottom log out button
-   fileprivate func createLogoutButton() -> Button {
+   private func createLogoutButton() -> Button {
       
       // Create the frame for the button and the button
       let frame: Rect = Rect(x: (self.controller.width - 124) / 2, y: self.controller.height - 64, w: 124, h: 40)
@@ -131,7 +131,7 @@ extension SettingsStandardViews {
       let timeFrame: Rect = Rect(x: self.controller.width / 2, y: 163, w: self.controller.width / 2 - 16, h: 24)
       let time: UILabel = UILabel(frame: timeFrame, properties: SettingsLabel.standard)
       time.alpha = 0.0
-      time.textAlignment = .right
+      time.textAlignment = .Right
       time.text = values.queryForString(.time)!
       self.controller.view.addSubview(time)
       
@@ -185,7 +185,7 @@ extension SettingsStandardViews {
       let lower: Button = Button(frame: lowerFrame, type: .flat)
       
       lower.action = { print("Lower days per week") }
-      lower.add(image: Images.Content.remove, color: .blue)
+      lower.add(Images.Content.remove, color: .blue)
       
       lower.alpha = 0.0
       self.controller.view.addSubview(lower)
@@ -196,7 +196,7 @@ extension SettingsStandardViews {
       let raise: Button = Button(frame: raiseFrame, type: .flat)
       
       raise.action = { print("Raise the number of days per week") }
-      raise.add(image: Images.Content().add, color: .blue)
+      raise.add(Images.Content().add, color: .blue)
       
       raise.alpha = 0.0
       self.controller.view.addSubview(raise)
@@ -208,7 +208,7 @@ extension SettingsStandardViews {
       let value = UserDefaults().queryForInt(.numberOfDays)
       daysValue.text = "\(value!)"
       daysValue.alpha = 0.0
-      daysValue.textAlignment = .center
+      daysValue.textAlignment = .Center
       
       self.controller.view.addSubview(daysValue)
       dict[daysValue] = (delay: 0.075, alpha: SettingsLabel.standard.alpha)

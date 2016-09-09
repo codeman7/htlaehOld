@@ -15,12 +15,12 @@ import UIKit
  */
 protocol Ripple {
    /// This function is called
-   func ripple(_ rippleColor: UIColor)
+   func ripple(rippleColor: UIColor)
 }
 
 extension Button : Ripple {
    
-   func ripple(_ rippleColor: UIColor) {
+   func ripple(rippleColor: UIColor) {
       
       let shape: CAShapeLayer = self.getShape(rippleColor)
       self.layer.addSublayer(shape)
@@ -32,7 +32,7 @@ extension Button : Ripple {
 
 extension Ripple where Self : UIView {
    
-   func ripple(_ rippleColor: UIColor) {
+   func ripple(rippleColor: UIColor) {
       
       let shape: CAShapeLayer = self.getShape(rippleColor)
       self.layer.addSublayer(shape)
@@ -40,15 +40,15 @@ extension Ripple where Self : UIView {
       
    }
    
-   func getShape(_ rippleColor: UIColor) -> CAShapeLayer {
+   func getShape(rippleColor: UIColor) -> CAShapeLayer {
       // Create the shape
       let shape: CAShapeLayer = CAShapeLayer()
       // Create the path of the shape
-      let path: CGPath = UIBezierPath(roundedRect: CGRect(x: self.frame.width / 2 - 1, y: self.frame.height / 2 - 1, width: 2, height: 2), cornerRadius: 1).cgPath
+      let path: CGPath = UIBezierPath(roundedRect: CGRect(x: self.frame.width / 2 - 1, y: self.frame.height / 2 - 1, width: 2, height: 2), cornerRadius: 1).CGPath
       // Assign the path to the shapes path
       shape.path = path
       // Set the color of the shape
-      shape.fillColor = rippleColor.cgColor
+      shape.fillColor = rippleColor.CGColor
       // Set the opacity of the shape
       shape.opacity = 0.74
       // Return the shape
@@ -56,10 +56,10 @@ extension Ripple where Self : UIView {
       
    }
    
-   func animate(_ shape: CAShapeLayer) {
+   func animate(shape: CAShapeLayer) {
       
       // Create the path that will end up the final path
-      let finalPath: CGPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: self.frame.width / 2).cgPath
+      let finalPath: CGPath = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height), cornerRadius: self.frame.width / 2).CGPath
       // Create the animation
       let animation: CABasicAnimation = CABasicAnimation(keyPath: "path")
       // Set the animations from value
@@ -73,7 +73,7 @@ extension Ripple where Self : UIView {
       // Set the timing function for the animation
       animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
       // Add the animation to the shape
-      shape.add(animation, forKey: animation.keyPath)
+      shape.addAnimation(animation, forKey: animation.keyPath)
       
    }
    

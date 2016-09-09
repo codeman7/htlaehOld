@@ -31,11 +31,11 @@ class NewWorkout: Controller {
       return NewWorkoutStandardViews(controller: self).createHeader()
    }()
    /// The variable for the date picker
-   fileprivate lazy var datePicker: DatePicker = {
+   private lazy var datePicker: DatePicker = {
       return NewWorkoutStandardViews(controller: self).createDatePicker()
    }()
    /// The varible for the tool tip that lets a user know a set was added
-   fileprivate lazy var setAdded: ToolTip = {
+   private lazy var setAdded: ToolTip = {
       return NewWorkoutStandardViews(controller: self).createToolTip()
    }()
    /// The variable for the FAB
@@ -111,7 +111,7 @@ class NewWorkout: Controller {
       self.workout = self.workout.updateDate(self.datePicker.date)
       // Store the workout in the DB
       let realmStore: RealmStore = RealmStore()
-      realmStore.store(workout: self.workout)
+      realmStore.store(self.workout)
       print(self.datePicker.date)
       // Hide the Date Picker
       self.datePicker.hideView()
@@ -140,22 +140,22 @@ class NewWorkout: Controller {
 
    }
    
-   fileprivate func animateFAB() {
+   private func animateFAB() {
       // Draw circle around FAB
       let fabAnimationFrame: Rect = Rect(x: self.FAB.frame.origin.x - 7, y: self.FAB.frame.origin.y - 7, w: self.FAB.frame.w + 14, h: self.FAB.frame.h + 14)
       let fabAnimation: FABAnimation = FABAnimation(frame: fabAnimationFrame)
       self.view.addSubview(fabAnimation)
       fabAnimation.animateCircle(1.3)
       // Change FAB color to blue
-      UIView.animate(withDuration: 0.4, delay: 1.3, options: UIViewAnimationOptions(), animations: {
+      UIView.animateWithDuration( 0.4, delay: 1.3, options: UIViewAnimationOptions(), animations: {
          self.FAB.backgroundColor = .blue
          self.FAB.icon?.colorImage(.white)
          }, completion: { Bool in
-            UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+            UIView.animateWithDuration( 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                self.FAB.backgroundColor = .yellow
                self.FAB.icon?.colorImage(.black)
                }, completion: { Bool in
-                  UIView.animate(withDuration: 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+                  UIView.animateWithDuration( 0.4, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                      fabAnimation.alpha = 0.0
                      }, completion: { Bool in
                         fabAnimation.removeFromSuperview()
@@ -169,7 +169,7 @@ class NewWorkout: Controller {
    
    func addWorkoutToast() {
       // Create toast frame and create toast, add to view
-      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Workout added")
+      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith("Workout added")
       self.view.addSubview(toast)
       
       // Show the toast
@@ -180,14 +180,14 @@ class NewWorkout: Controller {
    func addSetToast() {
       
       // Create the new workout set and then create the toast and show the toast
-      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith(title: "Please add a set")
+      let toast: Toast = NewWorkoutStandardViews(controller: self).createToastWith("Please add a set")
       toast.show()
    }
    
    /**
       This function is for the animation between new workout and preview from a top right press
    */
-   fileprivate func segueToPreviewAnimation(_ vc: PreviewWorkout) {
+   private func segueToPreviewAnimation(vc: PreviewWorkout) {
       
       // Create the struct that will handle the segue and perform the segue
       let newToPreview: NewToPreview = NewToPreview(new: self, preview: vc)

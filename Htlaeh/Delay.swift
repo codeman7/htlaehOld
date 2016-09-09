@@ -9,45 +9,40 @@
 import Foundation
 struct Delay {
    
-   func delay(_ delay:Double, closure:@escaping ()->()) {
-      DispatchQueue.main.asyncAfter(
-         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-   }
-   
-   
-   /// Use this function if the closure need's to be cancelable
-   func delay(_ delay: Double, closure: (()->())?) {
-      
-      guard let function = closure else {
-         return
-      }
-      
-      DispatchQueue.main.asyncAfter(
-         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: function)
-      
+   func delay(delay:Double, closure:()->()) {
+      dispatch_after(
+         dispatch_time(
+            DISPATCH_TIME_NOW,
+            Int64(delay * Double(NSEC_PER_SEC))
+         ),
+         dispatch_get_main_queue(), closure)
    }
    
 }
 
+
 class CancelableTimer: NSObject {
-   fileprivate var q = DispatchQueue(label: "timer",attributes: [])
-   fileprivate var timer : DispatchSource!
-   fileprivate var firsttime = true
-   fileprivate var once : Bool
-   fileprivate var handler : () -> ()
-   init(once:Bool, handler:@escaping ()->()) {
+   private var q = dispatch_queue_create("timer",nil)
+   private var timer : dispatch_source_t!
+   private var firsttime = true
+   private var once : Bool
+   private var handler : () -> ()
+   init(once:Bool, handler:()->()) {
       self.once = once
       self.handler = handler
       super.init()
    }
-   func startWithInterval(_ interval:Double) {
+   func startWithInterval(interval:Double) {
       self.firsttime = true
       self.cancel()
-      self.timer = DispatchSource.makeTimerSource(flags: DispatchSource.TimerFlags(rawValue: UInt(0)), queue: self.q) /*Migrator FIXME: Use DispatchSourceTimer to avoid the cast*/ as! DispatchSource
-      self.timer.setTimer(start: DispatchWallTime(time: nil),
-                                interval: UInt64(interval * Double(NSEC_PER_SEC)),
-                                leeway: UInt64(0.05 * Double(NSEC_PER_SEC)))
-      self.timer.setEventHandler(handler: {
+      self.timer = dispatch_source_create(
+         DISPATCH_SOURCE_TYPE_TIMER,
+         0, 0, self.q)
+      dispatch_source_set_timer(self.timer,
+                                dispatch_walltime(nil, 0),
+                                UInt64(interval * Double(NSEC_PER_SEC)),
+                                UInt64(0.05 * Double(NSEC_PER_SEC)))
+      dispatch_source_set_event_handler(self.timer, {
          if self.firsttime {
             self.firsttime = false
             return
@@ -57,19 +52,17 @@ class CancelableTimer: NSObject {
             self.cancel()
          }
       })
-      self.timer.resume()
+      dispatch_resume(self.timer)
    }
    func cancel() {
-      
       if self.timer != nil {
-         timer.cancel()
+         dispatch_source_cancel(timer)
       }
    }
    deinit {
       print("deinit cancelable timer")
    }
 }
-
 
 /**
  

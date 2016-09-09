@@ -39,14 +39,14 @@ class AllWorkoutsTable : UITableView {
    func defaultSettings() {
       
       // Register teh cells
-      self.register(WorkoutCell.self, forCellReuseIdentifier: "Cell")
-      self.register(WorkoutCellHeader.self, forCellReuseIdentifier: "Header")
+      self.registerClass(WorkoutCell.self, forCellReuseIdentifier: "Cell")
+      self.registerClass(WorkoutCellHeader.self, forCellReuseIdentifier: "Header")
       // Set the data source and delegate
       self.dataSource = self
       self.delegate = self
       self.rowHeight = 48.0
       // Set the seperator color and alpha
-      self.separatorColor = UIColor.black.withAlphaComponent(0.14)
+      self.separatorColor = UIColor.black.colorWithAlphaComponent(0.14)
       
    }
    
@@ -56,30 +56,30 @@ class AllWorkoutsTable : UITableView {
 // MARK: Make the table conform to the data source protocol
 extension AllWorkoutsTable : UITableViewDataSource {
    
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
       
       let cell: UITableViewCell
       if (indexPath as NSIndexPath).row == 0 {
          // Create the cell and add the data
-         let workoutCell = tableView.dequeueReusableCell(withIdentifier: "Header", for: indexPath) as! WorkoutCellHeader
+         let workoutCell = tableView.dequeueReusableCellWithIdentifier("Header", forIndexPath: indexPath) as! WorkoutCellHeader
          let date: String = Date().databaseDateToReadable(self.workout[0].date)
-         workoutCell.add(date: date)
+         workoutCell.add(date)
          workoutCell.addHeaders()
          cell = workoutCell
       } else {
          // Create the cell and determine what set to show the data for
-         let workoutCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WorkoutCell
+         let workoutCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! WorkoutCell
          
          let weightSet: WeightSet = self.workout[(indexPath as NSIndexPath).row - 1]
          // Add the data and return the cell
-         workoutCell.addTitlesFor(set: weightSet)
+         workoutCell.addTitlesFor(weightSet)
          cell = workoutCell
       }
       
       return cell
    }
    
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       
       return self.workout.sets.count + 1
       

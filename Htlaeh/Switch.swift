@@ -21,9 +21,9 @@ class SwitchView : UIView {
    /// Color the view will be when switched on
    let color: UIColor
    /// Property for the thumb
-   fileprivate lazy var thumb: UIView = self.createThumb()
+   private lazy var thumb: UIView = self.createThumb()
    /// Property for the track
-   fileprivate lazy var track: UIView = self.createTrack()
+   private lazy var track: UIView = self.createTrack()
    /// Property for the action if a switch is touched
    var action: () -> () = { fatalError("Please set the action for the switch") }
    
@@ -56,7 +56,7 @@ class SwitchView : UIView {
    // MARK: Functions
    
    /// Sets up all the views
-   fileprivate func viewSetup() {
+   private func viewSetup() {
       
       // Add the track to the view
       self.addSubview(self.track)
@@ -67,7 +67,7 @@ class SwitchView : UIView {
    }
    
    /// Handles a touch, updates the value and views
-   fileprivate func change() {
+   private func change() {
       
       // Update the value
       self.value.change()
@@ -81,13 +81,13 @@ class SwitchView : UIView {
    }
    
    /// Updates the track after a touch
-   fileprivate func updateTrack() {
+   private func updateTrack() {
       
       // Get the new color
-      let color: UIColor = (self.value == true) ? self.color.withAlphaComponent(0.5) : UIColor.black.withAlphaComponent(0.38)
+      let color: UIColor = (self.value == true) ? self.color.colorWithAlphaComponent(0.5) : UIColor.black.colorWithAlphaComponent(0.38)
       
       // Animate the track
-      UIView.animate(withDuration: 0.15, animations: {
+      UIView.animateWithDuration( 0.15, animations: {
          self.track.backgroundColor = color
       })
       
@@ -95,7 +95,7 @@ class SwitchView : UIView {
    
    
    /// Updates the thumb after a touch
-   fileprivate func updateThumb() {
+   private func updateThumb() {
       
       // Update the color
       let color: UIColor = (self.value == true) ? self.color : .grey50
@@ -104,7 +104,7 @@ class SwitchView : UIView {
       let x: CGFloat = (self.value == true) ? 22 : 0
       
       // Animate the view
-      UIView.animate(withDuration: 0.15, animations: {
+      UIView.animateWithDuration( 0.15, animations: {
          self.thumb.backgroundColor = color
          self.thumb.frame.origin.x = x
       })
@@ -117,7 +117,7 @@ class SwitchView : UIView {
 extension SwitchView {
    
    /// Creates the thumb
-   fileprivate func createThumb() -> UIView {
+   private func createThumb() -> UIView {
       
       // Create the frame
       let origin: CGPoint = (self.value == true) ?  CGPoint(x: 22, y: 0)  : CGPoint(x: 0, y: 0)
@@ -137,14 +137,14 @@ extension SwitchView {
    }
    
    /// Creates the track
-   fileprivate func createTrack() -> UIView {
+   private func createTrack() -> UIView {
       
       // Create the frame for the track and the track itself
       let frame: CGRect = CGRect(x: 6, y: 2.5, width: 30, height: 15)
       let view: UIView = UIView(frame: frame)
       
       // Set the color of the track and it's corner radius
-      view.backgroundColor = (self.value == true) ? self.color.withAlphaComponent(0.5) : UIColor.black.withAlphaComponent(0.38)
+      view.backgroundColor = (self.value == true) ? self.color.colorWithAlphaComponent(0.5) : UIColor.black.colorWithAlphaComponent(0.38)
       view.layer.cornerRadius = 7.5
       
       // Return the track
@@ -158,8 +158,8 @@ extension SwitchView {
 extension SwitchView {
    
    /// Updates the view when touched
-   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-      super.touchesEnded(touches, with: event)
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+      super.touchesEnded(touches, withEvent: event)
       self.change()
       self.action()
    }

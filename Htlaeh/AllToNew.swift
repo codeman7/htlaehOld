@@ -31,10 +31,10 @@ struct AllToNew {
       let completion: () -> () = {
          // Remove all views except splash view and fade the splash view
          for view in views { view.removeFromSuperview() }
-         UIView.animate(withDuration: 0.25, animations: {
+         UIView.animateWithDuration(0.25, animations: {
             splashView.alpha = 0.0
             }, completion: { Bool in
-               self.all.present(self.new, animated: false, completion: nil)
+               self.all.presentViewController(self.new, animated: false, completion: nil)
                
          })
       }

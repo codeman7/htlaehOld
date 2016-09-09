@@ -25,11 +25,11 @@ class Sign: Controller {
    func digitsSignIn() {
       
       let digits = Digits.sharedInstance()
-      let config = DGTAuthenticationConfiguration(accountFields: .defaultOptionMask)
+      let config = DGTAuthenticationConfiguration(accountFields: .DefaultOptionMask)
       config?.appearance = TwitterDigits().digitsApperance()
-      digits.authenticate(with: nil, configuration: config!, completion: { (session, error) in
+      digits.authenticateWithViewController(nil, configuration: config, completion: { (session, error) in
          if let session = session {
-            self.storeInKeychain(uid: session.userID, number: session.phoneNumber)
+            self.storeInKeychain(session.userID, number: session.phoneNumber)
          }
       })
       
@@ -78,7 +78,7 @@ class Sign: Controller {
       
    }
       
-   fileprivate func getHomeViews() {
+   private func getHomeViews() {
       
       let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 220), color: .white)
       self.view.addSubview(circleView)
@@ -86,17 +86,17 @@ class Sign: Controller {
       let home: Home = Home()
       let d: Delay = Delay()
       d.delay(0.3) {
-         self.present(home, animated: false, completion: nil)
+         self.presentViewController(home, animated: false, completion: nil)
 
       }
 
    }
    
-   fileprivate func animate() {
+   private func animate() {
       
       // Hide the sign in sign up button
-      self.signButton.isUserInteractionEnabled = false
-      UIView.animate(withDuration: 0.3, animations: {
+      self.signButton.userInteractionEnabled = false
+      UIView.animateWithDuration( 0.3, animations: {
          self.signButton.alpha = 0.0
       })
       

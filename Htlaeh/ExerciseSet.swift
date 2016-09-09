@@ -27,15 +27,15 @@ protocol WorkoutSet {
 protocol UpdateSet {
    
    /// Update the weight used in the set
-   func updateWeight(_ weight: Double) -> Self
+   func updateWeight(weight: Double) -> Self
    /// Update the number of reps completed in the set
-   func updateReps(_ reps: Int) -> Self
+   func updateReps(reps: Int) -> Self
    /// Update the time it took to complete the set
-   func updateTime(_ time: Double) -> Self
+   func updateTime(time: Double) -> Self
    /// Marks a set as done
    func setDone() -> Self
    /// Use to change the date of a exercise
-   func changeDate(_ newDate: String) -> Self
+   func changeDate(newDate: String) -> Self
    
 }
 
@@ -139,7 +139,7 @@ extension WeightSet: UpdateSet {
    }
    
    /// Use this function to update the weight used if the User changes the weight
-   func updateWeight(_ weight: Double) -> WeightSet {
+   func updateWeight(weight: Double) -> WeightSet {
       // Return a new instance of Exercise Set with the weight updated
       return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: weight, time: self.time, date: self.date, complete: self.complete, synced: self.synced)
       
@@ -153,14 +153,14 @@ extension WeightSet: UpdateSet {
    }
    
    /// Use this to update the reps a User did often used for an AMRAP or achieved more than they thought
-   func updateReps(_ reps: Int) -> WeightSet {
+   func updateReps(reps: Int) -> WeightSet {
       // Return a new instance of Exercise Set with the new number of reps completed
       return WeightSet(name: self.name, setCount: self.setCount, reps: reps, restTime: self.restTime, weight: self.weight, time: self.time, date: self.date, complete: self.complete, synced: self.synced)
       
    }
    
    /// Use this for a workout for time or if they want to time a set
-   func updateTime(_ time: Double) -> WeightSet {
+   func updateTime(time: Double) -> WeightSet {
       // Return a new instance of Exercise Set witht the time it took to complete
       return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: time, date: self.date, complete: self.complete, synced: self.synced)
       
@@ -168,7 +168,7 @@ extension WeightSet: UpdateSet {
    }
    
    /// Use this to update the date of a set
-   func changeDate(_ newDate: String) -> WeightSet {
+   func changeDate(newDate: String) -> WeightSet {
       // Return new instance of Weight set with the date updated
       return WeightSet(name: self.name, setCount: self.setCount, reps: self.reps, restTime: self.restTime, weight: self.weight, time: self.time, date: newDate, complete: self.complete, synced: self.synced)
       

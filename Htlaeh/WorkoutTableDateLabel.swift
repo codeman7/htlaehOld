@@ -15,7 +15,7 @@ import UIKit
 struct WorkoutDateLabel : TextPresentable {
    let font: UIFont = Fonts.Regular.sixteen
    let alpha: CGFloat = 0.54
-   let alignment: NSTextAlignment = .left
+   let alignment: NSTextAlignment = .Left
    let color: UIColor = .black
 }
 

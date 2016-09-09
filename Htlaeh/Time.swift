@@ -88,10 +88,10 @@ extension Time {
       
       var h: Int = Int(self) / 10000
       var m: Int = Int(self) / 100 - (h * 100)
-      var s = self.truncatingRemainder(dividingBy: 100)
+      var s = self % 100
       if s >= 60 {
          m += 1
-         s = s.truncatingRemainder(dividingBy: 60)
+         s = s % 60
       }
       if m >= 60 {
          h += 1
@@ -108,16 +108,17 @@ extension String {
    
    func timeToSeconds() -> Double {
       
-      let result = String(self.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+      let result = String(self.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
+     
       guard let time = Double(result) else {
          return 0.0
       }
       var h: Int = Int(time) / 10000
       var m: Int = Int(time) / 100 - (h * 100)
-      var s = time.truncatingRemainder(dividingBy: 100)
+      var s = time % 100
       if s >= 60 {
          m += 1
-         s = s.truncatingRemainder(dividingBy: 60)
+         s = s % 100
       }
       if m >= 60 {
          h += 1
@@ -127,16 +128,16 @@ extension String {
    }
    
    func time() -> Double? {
-      let result = String(self.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+      let result = String(self.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
       guard let time = Double(result) else {
          return nil
       }
       var h: Int = Int(time) / 10000
       var m: Int = Int(time) / 100 - (h * 100)
-      var s = time.truncatingRemainder(dividingBy: 100)
+      var s = time % 100
       if s >= 60 {
          m += 1
-         s = s.truncatingRemainder(dividingBy: 60)
+         s = s % 60
       }
       if m >= 60 {
          h += 1

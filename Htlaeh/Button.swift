@@ -90,7 +90,7 @@ class Button: UIView {
       
    }
     // MARK: Style Functions
-    func setType(_ type: ButtonType) {
+    func setType(type: ButtonType) {
       
       switch self.type {
       case .raised:
@@ -112,9 +112,9 @@ class Button: UIView {
     
    }
    
-   fileprivate func createLabel() -> UILabel {
+   private func createLabel() -> UILabel {
       
-      let label: UILabel = UILabel(frame: Rect.zero, font: .medium14, align: .center, color: .black)
+      let label: UILabel = UILabel(frame: Rect.zero, font: .medium14, align: .Center, color: .black)
       self.addSubview(label)
       return label
       
@@ -122,7 +122,7 @@ class Button: UIView {
    
    func set(title text: String, color: UIColor) {
       
-      let title: String = text.uppercased()
+      let title: String = text.uppercaseString
       let width: CGFloat = title.widthWithConstrainedHeight(22.0, font: .medium14)
       self.label.frame = Rect(x: (self.frame.w - width) / 2, y: self.frame.height / 2 - 11, w: width, h: 22)
       self.label.text = title
@@ -175,9 +175,9 @@ class Button: UIView {
    }
     
     // MARK: Logic Functions
-   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
    
-      super.touchesBegan(touches, with: event)
+      super.touchesBegan(touches, withEvent: event)
       switch self.type {
       
       case .raised:
@@ -196,9 +196,9 @@ class Button: UIView {
     
    }
     
-   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
    
-      super.touchesEnded(touches, with: event)
+      super.touchesEnded(touches, withEvent: event)
       switch self.type {
       
       case .raised:
@@ -227,22 +227,22 @@ extension Button : Touchable { }
 // MARK: Extension for FAB animation
 extension Button {
    
-   fileprivate func showFAB() {
+   private func showFAB() {
       
       guard self.type == .fab else {
          return
       }
       
-      UIView.animate(withDuration: 0.15, animations: {
-         self.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
+      UIView.animateWithDuration(0.15, animations: {
+         self.transform =  CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
          }, completion: { Bool in self.elevate(6.0) })
       
    }
    
-   func updateFAB(_ color: UIColor, image: UIImage) {
+   func updateFAB(color: UIColor, image: UIImage) {
       
-      UIView.animate(withDuration: 0.15, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-         self.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+      UIView.animateWithDuration(0.15, animations: {
+         self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.01, 0.01)
          }, completion: { Bool in
             self.elevate(0.0)
             self.backgroundColor = color

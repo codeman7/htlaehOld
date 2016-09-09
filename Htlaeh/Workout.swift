@@ -22,13 +22,13 @@ protocol WorkoutType {
    /// Variable to get the workout count
    var count: Int { get }
    /// Add a set to the workout
-   func add(_ set: WeightSet) -> Self
+   func add(set: WeightSet) -> Self
    /// Remove a set
    //func removeSetFromWorkout(newSet: WeightSet) -> Self
    /// Mark a whole workout as complete, maybe entered after already done
    func markAsComplete() -> Self
    /// Change the date of the workout
-   func updateDate(_ newDate: String) -> Self
+   func updateDate(newDate: String) -> Self
    
 }
 
@@ -98,7 +98,7 @@ struct Workout: WorkoutType {
    }
    
    // MARK: Functions to conform to protocol
-   func add(_ set: WeightSet) -> Workout {
+   func add(set: WeightSet) -> Workout {
       
       var tempArray: [WeightSet] = self.sets
       tempArray += [set]
@@ -150,7 +150,7 @@ struct Workout: WorkoutType {
       
    }
    
-   func updateDate(_ newDate: String) -> Workout {
+   func updateDate(newDate: String) -> Workout {
       
       var tempSetsArray: [WeightSet] = self.sets
       // 'a' is index of array
@@ -213,12 +213,12 @@ struct Workout: WorkoutType {
 extension Workout {
    // Returns the total weight moved throughout the workout
    var totalWeight: Double {
-      return self.sets.reduce(0, { $0.0 + (Double($0.1._reps) * $0.1._weight) })
+      return self.sets.reduce(0, combine: { $0.0 + (Double($0.1._reps) * $0.1._weight) })
    }
    
    // Returns the total number of reps in the workout
    var totalReps: Int {
-      return self.sets.reduce(0, { $0.0 + $0.1._reps })
+      return self.sets.reduce(0, combine: { $0.0 + $0.1._reps })
    }
    
    // Returns the average weight used for the workout
@@ -269,14 +269,14 @@ extension Workout {
 }
 
 // MARK: Overload operators
-func += (lhs: inout Workout, rhs: WeightSet) -> Workout {
+func += (inout lhs: Workout, rhs: WeightSet) -> Workout {
    
    lhs = lhs.add(rhs)
    return lhs
    
 }
 
-func -= (lhs: inout Workout, rhs: Int) -> Workout {
+func -= (inout lhs: Workout, rhs: Int) -> Workout {
    // Assign the workout to a temp workout
    let temp: Workout = lhs
    // Set the workout to empty

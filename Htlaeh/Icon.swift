@@ -47,9 +47,9 @@ class Icon: UIImageView {
     
    }
     
-   func colorImage(_ color: UIColor) {
+   func colorImage(color: UIColor) {
    
-      self.image = self.image?.withRenderingMode(.alwaysTemplate)
+      self.image = self.image?.imageWithRenderingMode(.AlwaysTemplate)
       self.tintColor = color
     
    }

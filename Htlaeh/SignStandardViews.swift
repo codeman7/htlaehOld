@@ -57,7 +57,7 @@ struct SignStandardViews {
       
    }
    
-   fileprivate func addSkipButton() {
+   private func addSkipButton() {
       
       // Add the skip button
       let skipButtonFrame: CGRect = CGRect(x: self.controller.width - 88, y: 40, width: 72, height: 40)
@@ -68,7 +68,7 @@ struct SignStandardViews {
       
    }
    
-   fileprivate func addLogo() {
+   private func addLogo() {
       
       // Add the logo
       let logo: Logo = Logo(point: CGPoint(x: self.controller.width / 2 - 60, y: 96))
@@ -76,11 +76,11 @@ struct SignStandardViews {
       
    }
    
-   fileprivate func addSmallWord() {
+   private func addSmallWord() {
       
       // Add the welcome message
       let welcomeFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 232, width: 110, height: 16)
-      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold.twelve, alignment: .left, color: .black)
+      let welcomeConfig: LabelConfig = LabelConfig(frame: welcomeFrame, font: Fonts.Bold.twelve, alignment: .Left, color: .black)
       let welcomeMessage: UILabel = UILabel(config: welcomeConfig)
       welcomeMessage.alpha = 0.54
       welcomeMessage.text = "Welcome to,"
@@ -88,11 +88,11 @@ struct SignStandardViews {
       
    }
    
-   fileprivate func addLargeWord() {
+   private func addLargeWord() {
       
       // Add the big text
       let htlaehTextFrame: CGRect = CGRect(x: self.controller.width / 2 - 55, y: 248, width: 110, height: 48)
-      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold.thirtySix, alignment: .left, color: .black)
+      let htlaehTextConfig: LabelConfig = LabelConfig(frame: htlaehTextFrame, font: Fonts.Bold.thirtySix, alignment: .Left, color: .black)
       let htlaehText: UILabel = UILabel(config: htlaehTextConfig)
       htlaehText.alpha = 0.87
       htlaehText.text = "Htlaeh"

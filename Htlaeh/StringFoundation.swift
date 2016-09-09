@@ -11,7 +11,7 @@ import Foundation
 extension String {
    
    subscript (i: Int) -> Character {
-      return self[self.characters.index(self.startIndex, offsetBy: i)]
+      return self[self.startIndex.advancedBy(i)]
    }
    
    subscript (i: Int) -> String {
@@ -19,10 +19,11 @@ extension String {
    }
    
    subscript (r: Range<Int>) -> String {
-      let start = characters.index(startIndex, offsetBy: r.lowerBound)
-      let end = <#T##String.CharacterView corresponding to `start`##String.CharacterView#>.index(start, offsetBy: r.upperBound - r.lowerBound)
+      let start = startIndex.advancedBy(r.startIndex)
+      let end = start.advancedBy(r.endIndex - r.startIndex)
       return self[Range(start ..< end)]
    }
+
    
    func trimmed() -> String {
       if self.characters.last == " " {

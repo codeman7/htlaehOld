@@ -56,11 +56,11 @@ struct AllStandardViews : ViewsStruct {
    
    // MARK: Functions
    /// This function returns the header
-   fileprivate func createHeader() -> BoldHeader {
+   private func createHeader() -> BoldHeader {
       // Create the frame for the view
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 80)
       // Create styles for the header
-      let workoutHeader: HeaderType = HeaderType.all(controller: self.controller)
+      let workoutHeader: HeaderType = HeaderType.all(self.controller)
       
       // Create the header
       let header: BoldHeader = BoldHeader(frame: frame, options: workoutHeader)
@@ -73,7 +73,7 @@ struct AllStandardViews : ViewsStruct {
    }
    
    /// This function returns the the FAB
-   fileprivate func createFAB() -> Button {
+   private func createFAB() -> Button {
       // Create the frame for the FAB
       let frame: CGRect = CGRect(x: self.controller.width - 72, y: self.controller.height - 72, w: 56, h: 56)
       // Create the FAB
@@ -81,7 +81,7 @@ struct AllStandardViews : ViewsStruct {
       // Set the buttons background color
       fab.backgroundColor = .blue
       // Add the icon to the button
-      fab.add(image: Images.Action().search, color: .white)
+      fab.add(Images.Action().search, color: .white)
       // Set the action for the button
       fab.action = { self.controller.fabTouch() }
       // Set the fab to be the controllers fab variable
@@ -97,7 +97,7 @@ struct AllStandardViews : ViewsStruct {
    }
    
    /// This function returns the scroller
-   fileprivate func createAndAddScroller(_ header: BoldHeader) {
+   private func createAndAddScroller(header: BoldHeader) {
       // Create the frame for the scroller
       let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
       // Create the scroller
@@ -131,7 +131,7 @@ struct AllStandardViews : ViewsStruct {
       
    }
    
-   fileprivate func createBigLabel() -> UILabel {
+   private func createBigLabel() -> UILabel {
       // Create the frame for the label and it's properties
       let frame: CGRect = CGRect(x: 16, y: self.controller.view.frame.height / 2 - 104, width: self.controller.width - 32, height: 48)
       
@@ -145,7 +145,7 @@ struct AllStandardViews : ViewsStruct {
       
    }
    
-   fileprivate func createMessageLabel() -> UILabel {
+   private func createMessageLabel() -> UILabel {
       // Create the message's label and height
       let text: String = "You have not added any workouts yet, its ok. Let's get started by adding one now."
       let height = text.heightWithConstrainedWidth(240, font: Fonts.Regular.sixteen)
@@ -165,7 +165,7 @@ struct AllStandardViews : ViewsStruct {
       return message
    }
    
-   fileprivate func createAddButton() -> Button {
+   private func createAddButton() -> Button {
       // Create the button's frame and the button
       let buttonFrame: Rect = Rect(x: (self.controller.width - 124) / 2, y: self.controller.height - 160, w: 124, h: 40)
       let button: Button = Button(frame: buttonFrame, type: .raised)

@@ -15,8 +15,8 @@ class WorkoutCell : UITableViewCell {
       // Call the super initializer
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       // Make the view go all the way across
-      self.separatorInset = UIEdgeInsets.zero
-      self.layoutMargins = UIEdgeInsets.zero
+      self.separatorInset = UIEdgeInsetsZero
+      self.layoutMargins = UIEdgeInsetsZero
       self.preservesSuperviewLayoutMargins = false
       self.frame.size.height = 48.0
    
@@ -31,15 +31,15 @@ class WorkoutCell : UITableViewCell {
       
       let cellFrames: CellLayout = CellLayout(frame: self.frame)
       // Add the exercise title
-      self.addTitleWith(frame: cellFrames.left(), title: "\(set.name)", config: WorkoutContentStringLabel())
+      self.addTitleWith(cellFrames.left(), title: "\(set.name)", config: WorkoutContentStringLabel())
       // Add the weight title
-      self.addTitleWith(frame: cellFrames.right(), title: "\(Int(set.weight!))", config: WorkoutContentNumberLabel())
+      self.addTitleWith(cellFrames.right(), title: "\(Int(set.weight!))", config: WorkoutContentNumberLabel())
       // Add the reps title
-      self.addTitleWith(frame: cellFrames.middle(), title: "\(set.reps!)", config: WorkoutContentNumberLabel())
+      self.addTitleWith(cellFrames.middle(), title: "\(set.reps!)", config: WorkoutContentNumberLabel())
       
    }
    
-   fileprivate func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
+   private func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
       
       // Create the label and set its title
       let label: UILabel = UILabel(frame: frame, properties: config)

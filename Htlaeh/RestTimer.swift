@@ -19,15 +19,16 @@ struct RestTimer {
       self.timer = nil
    }
    
-   mutating func startTimer(_ active: Bool, time: Double) {
+   mutating func startTimer(active: Bool, time: Double) {
       
       if active == false {
          var time = time
          let timerAction: () -> () = {
             time -= 1
-            let priority = DispatchQueue.GlobalQueuePriority.default
-            DispatchQueue.global(priority: priority).async {
-               DispatchQueue.main.async {
+            let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+            dispatch_async(dispatch_get_global_queue(priority, 0)) {
+               // do some task
+               dispatch_async(dispatch_get_main_queue()) {
                   // update some UI
                   self.label.text = time.toString()
                }

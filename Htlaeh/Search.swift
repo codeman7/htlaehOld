@@ -59,12 +59,12 @@ class Search : Controller {
       
       // Segue
       d.delay(0.3, closure: {
-         self.present(NewWorkout(), animated: false, completion: nil)
+         self.presentViewController(NewWorkout(), animated: false, completion: nil)
       })
       
    }
    
-   func showResults(_ exercise: String) {
+   func showResults(exercise: String) {
       // Get all the views except the header and hide them
       let views: [UIView] = self.view.subviews.filter({ !($0 is BoldHeader) })
       for view in views {
@@ -95,14 +95,14 @@ class Search : Controller {
       self.suggestionsTable.suggestions = self.suggestions
    }
    
-   func updateSuggestions(_ exercise: String) {
+   func updateSuggestions(exercise: String) {
       
       self.suggestions = RealmQuery().exerciseNames().mostCommonStartsAnd(contains: exercise, caseInsensitve: true)
       self.suggestionsTable.suggestions = self.suggestions
       
    }
    
-   func searchFor(_ exercise: String) {
+   func searchFor(exercise: String) {
       
       self.view.endEditing(true)
       self.resignFirstResponder()

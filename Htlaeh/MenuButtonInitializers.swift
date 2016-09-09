@@ -11,7 +11,7 @@ import Foundation
 struct MenuButtonInitializer {
    let title: String
    let action: () -> ()
-   init(_ title: String, action: @escaping ()->()) {
+   init(_ title: String, action: ()->()) {
       self.title = title
       self.action = action
    }

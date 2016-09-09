@@ -22,41 +22,41 @@ class HomeSetView : UIView {
    var nextSet: WeightSet? = nil
    
    /// The property for the top label in the top half
-   fileprivate lazy var topTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.topY, w: self.fullWidth, h: 16), active: true, location: .middle, destination: self.exitPoint)
+   private lazy var topTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.topY, w: self.fullWidth, h: 16), active: true, location: .middle, destination: self.exitPoint)
    
    /// The property for the left label in the top half
-   fileprivate lazy var topLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .left, destination: self.exitPoint)
+   private lazy var topLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .left, destination: self.exitPoint)
 
    
    /// The property for the right label in the top half
-   fileprivate lazy var topRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .right, destination: self.exitPoint)
+   private lazy var topRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.topY + 96, w: self.halfWidth, h: 16), active: true, location: .right, destination: self.exitPoint)
    
    /// The property for the top label in the top half
    lazy var topTopContent: HomeContent = HomeContent(frame: Rect(x: self.topX, y: self.topY + 24, w: self.fullWidth, h: 48), active: true, location: .middle, destination: self.exitPoint)
    
    /// The property for the left label in the top half
-   fileprivate lazy var topLeftContent: HomeContent = HomeContent(frame: Rect(x: self.leftX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .left, destination: self.exitPoint)
+   private lazy var topLeftContent: HomeContent = HomeContent(frame: Rect(x: self.leftX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .left, destination: self.exitPoint)
    
    /// The property for the right label in the top half
-   fileprivate lazy var topRightContent: HomeContent = HomeContent(frame: Rect(x: self.rightX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .right, destination: self.exitPoint)
+   private lazy var topRightContent: HomeContent = HomeContent(frame: Rect(x: self.rightX, y: self.topY + 120, w: self.halfWidth, h: 48), active: true, location: .right, destination: self.exitPoint)
    
    /// The property for the top label in the bottom half
-   fileprivate lazy var bottomTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.bottomY, w: self.fullWidth, h: 16), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY))
+   private lazy var bottomTopHint: HomeHint = HomeHint(frame: Rect(x: self.topX, y: self.bottomY, w: self.fullWidth, h: 16), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY))
    
    /// The property for the left label in the bottom half
-   fileprivate lazy var bottomLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 96))
+   private lazy var bottomLeftHint: HomeHint = HomeHint(frame: Rect(x: self.leftX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 96))
    
    /// The property for the right label in the bottom half
-   fileprivate lazy var bottomRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 96))
+   private lazy var bottomRightHint: HomeHint = HomeHint(frame: Rect(x: self.rightX, y: self.bottomY + 52, w: self.halfWidth, h: 16), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 96))
    
    /// The property for the top label in the bottom half
-   fileprivate lazy var bottomTopContent: HomeAccent = HomeAccent(frame: Rect(x: self.topX, y: self.bottomY + 16, w: self.fullWidth, h: 28), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY + 30))
+   private lazy var bottomTopContent: HomeAccent = HomeAccent(frame: Rect(x: self.topX, y: self.bottomY + 16, w: self.fullWidth, h: 28), active: false, location: .middle, destination: CGPoint(x: self.topX, y: self.topY + 30))
    
    /// The property for the left label in the bottom half
-   fileprivate lazy var bottomLeftContent: HomeAccent = HomeAccent(frame: Rect(x: self.leftX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 126))
+   private lazy var bottomLeftContent: HomeAccent = HomeAccent(frame: Rect(x: self.leftX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .left, destination: CGPoint(x: self.leftX, y: self.topY + 126))
    
    /// The property for the right label in the bottom half
-   fileprivate lazy var bottomRightContent: HomeAccent = HomeAccent(frame: Rect(x: self.rightX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 126))
+   private lazy var bottomRightContent: HomeAccent = HomeAccent(frame: Rect(x: self.rightX, y: self.bottomY + 68, w: self.halfWidth, h: 28), active: false, location: .right, destination: CGPoint(x: self.rightX, y: self.topY + 126))
    
    /// The number of rows in the top sectoin
    var topRowCount: Int = 2
@@ -74,7 +74,7 @@ class HomeSetView : UIView {
       // Call the super initializer
       super.init(frame: frame)
       // Set up the default views
-      self.initialLayoutFor(set: set)
+      self.initialLayoutFor(set)
       
    }
    
@@ -99,7 +99,7 @@ class HomeSetView : UIView {
       
    }
    
-   fileprivate func insertViews() {
+   private func insertViews() {
       
       self.addSubview(self.topTopHint)
       self.addSubview(self.topLeftHint)
@@ -131,7 +131,7 @@ class HomeSetView : UIView {
       self.bottomRowCount = 2
       
       // Animate the views
-      UIView.animate(withDuration: 0.2, animations: {
+      UIView.animateWithDuration( 0.2, animations: {
          
          self.showRest()
          
@@ -164,7 +164,7 @@ class HomeSetView : UIView {
       self.topRowCount = 2
       self.bottomRowCount = 1
       
-      UIView.animate(withDuration: 0.2, animations: {
+      UIView.animateWithDuration( 0.2, animations: {
          
             self.nextToActiveAnimation()
          
@@ -178,11 +178,11 @@ class HomeSetView : UIView {
    
    
    
-   fileprivate func startTimer() {
+   private func startTimer() {
    
    }
    
-   fileprivate func updateRest(_ amount: Double) {
+   private func updateRest(amount: Double) {
       
       // Make sure the amount isn't going to be negative if so stop recursion
       guard amount > -1 else {
@@ -203,7 +203,7 @@ class HomeSetView : UIView {
       
       // If there are less than 10 seconds left then update the color of the label
       if amount <= 10 {
-         let color: UIColor = (amount.truncatingRemainder(dividingBy: 2) == 1) ? .black : .yellow
+         let color: UIColor = ((amount % 2) == 1) ? .black : .yellow
          self.topTopContent.textColor = color
       }
 

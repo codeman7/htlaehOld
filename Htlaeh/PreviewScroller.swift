@@ -52,7 +52,7 @@ class PreviewScroller: UIScrollView {
       
    }
    
-   func add(_ workout: Workout) {
+   func add(workout: Workout) {
       // Set the height for the view
       let height: CGFloat = CGFloat(49 + (workout.count * 48))
       // Set the frame for the view
@@ -60,7 +60,7 @@ class PreviewScroller: UIScrollView {
       // Create the view
       let workoutView: WorkoutView = WorkoutView(frame: viewFrame)
       // Add the workout to the workoutView
-      workoutView.add(workout: workout)
+      workoutView.add(workout)
       // Add the workout view to the view
       self.addSubview(workoutView)
       

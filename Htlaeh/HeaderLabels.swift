@@ -24,7 +24,7 @@ extension HeaderTextPresentable {
    }
    
    var alignment: NSTextAlignment {
-      return .left
+      return .Left
    }
 
    var color: UIColor {

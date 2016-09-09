@@ -20,11 +20,11 @@ class PreviewWorkout : Controller {
       return fab
    }()
    // Variables for the mini FAB's
-   fileprivate lazy var addFAB: Button = {
+   private lazy var addFAB: Button = {
       return PreviewWorkoutViews(controller: self).createMiniAddFAB()
    }()
    
-   fileprivate lazy var editFAB: Button = {
+   private lazy var editFAB: Button = {
       return PreviewWorkoutViews(controller: self).createMiniEditFAB()
    }()
    // Variable for the workout that the VC will show
@@ -67,7 +67,7 @@ class PreviewWorkout : Controller {
       // Update the mini fab's alpha
       self.addFAB.alpha = 1.0
       self.editFAB.alpha = 1.0
-      UIView.animate(withDuration: 0.3, animations: {
+      UIView.animateWithDuration(0.3, animations: {
          self.addFAB.frame.origin.x = self.width - 128
          self.editFAB.frame.origin.y = self.height - 128
       })
@@ -77,7 +77,7 @@ class PreviewWorkout : Controller {
    func hideMiniFABs() {
       
       // Animate the FAB's behind the big FAB
-      UIView.animate(withDuration: 0.3, animations: {
+      UIView.animateWithDuration( 0.3, animations: {
          self.addFAB.frame.origin.x = self.width - 64
          self.editFAB.frame.origin.y = self.height - 64
          }, completion: { Bool in
@@ -92,7 +92,7 @@ class PreviewWorkout : Controller {
       let splashView: CircularView = CircularView(point: CGPoint(x: self.width - 108, y: self.height - 44), color: .yellow)
       self.view.addSubview(splashView)
       splashView.grow()
-      UIView.animate(withDuration: 0.3, delay: 0.3, options: UIViewAnimationOptions(), animations: { splashView.alpha = 0.0 }, completion: nil)
+      UIView.animateWithDuration( 0.3, delay: 0.3, options: UIViewAnimationOptions(), animations: { splashView.alpha = 0.0 }, completion: nil)
    }
    
    func editSets() {
@@ -114,7 +114,7 @@ class PreviewWorkout : Controller {
       splashView.grow()
       // Add all the subview for new workout and segue back
       var newWorkoutViews: NewWorkoutStandardViews = NewWorkoutStandardViews(controller: new)
-      newWorkoutViews.layoutViewsWithAlpha(oldController: self)
+      newWorkoutViews.layoutViewsWithAlpha(self)
    }
    
 }

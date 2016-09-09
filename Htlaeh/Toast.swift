@@ -49,7 +49,7 @@ class Toast : UIView {
       // Set the background color
       self.backgroundColor = .grey900
       // Add the text to the toast
-      self.addLabelWith(title: text)
+      self.addLabelWith(text)
       // Set the alpha for the view
       self.alpha = 0.0
       
@@ -60,7 +60,7 @@ class Toast : UIView {
       // Call the designated initializer
       self.init(frame: frame, text: text)
       // Add the button
-      self.addButtonWith(title: button.0, color: button.1, action: button.2)
+      self.addButtonWith(button.0, color: button.1, action: button.2)
       
    }
    
@@ -76,7 +76,7 @@ class Toast : UIView {
       - parameter color: The color for the text of the button
       - parameter action: The action for the button
    */
-   fileprivate func addButtonWith(title: String, color: UIColor, action: @escaping ()->()) {
+   private func addButtonWith(title: String, color: UIColor, action: ()->()) {
       
       // Get the width and frame for the button
       let width: CGFloat = title.widthWithConstrainedHeight(40, font: .medium14)
@@ -97,9 +97,9 @@ class Toast : UIView {
    */
    func show() {
       // Animate the view up
-      UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
+      UIView.animateWithDuration( 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
       // Wait 2.5 seconds and animate the view back down
-      UIView.animate(withDuration: 0.25, delay: 2.75, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
+      UIView.animateWithDuration( 0.25, delay: 2.75, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
       
    }
    
@@ -107,21 +107,21 @@ class Toast : UIView {
      This function shows the toast for the given period of time
       - parameter time: How long you want the toast to be visable
    */
-   func show(_ time: Double) {
+   func show(time: Double) {
       
       // Animate the view up
-      UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
+      UIView.animateWithDuration( 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.frame.origin.y -= self.frame.h; self.alpha = 1.0 }, completion: nil)
       // Wait 2.5 seconds and animate the view back down
-      UIView.animate(withDuration: 0.25, delay: time + 0.25, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
+      UIView.animateWithDuration( 0.25, delay: time + 0.25, options: UIViewAnimationOptions(), animations: { self.frame.origin.y += self.frame.h; self.alpha = 0.0 }, completion: nil)
       
    }
    
-   fileprivate func addLabelWith(title: String) {
+   private func addLabelWith(title: String) {
       
       // Set the frame for the label
       let frame: Rect = Rect(x: 24, y: 14, w: self.frame.w - 48, h: 20)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.fourteen, align: .left, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.fourteen, align: .Left, color: .white)
       // Set the text for the label
       label.text = title
       // Add the label to the view

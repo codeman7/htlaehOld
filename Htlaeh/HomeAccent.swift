@@ -30,7 +30,7 @@ class HomeAccent : UILabel {
       super.init(frame: frame)
       
       // Set properties
-      self.set(properties: HomeLabel.accent)
+      self.set(HomeLabel.accent)
    }
    
    convenience init(frame: Rect, active: Bool, location: HomeLabelLocation, destination: CGPoint, text: String) {
@@ -52,7 +52,7 @@ class HomeAccent : UILabel {
    func moveUp() {
       
       self.frame = Rect(origin: self.destination, size: self.frame.size)
-      self.transform = CGAffineTransform.identity.scaledBy(x: 1.5, y: 1.5)
+      self.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5, 1.5)
       self.alpha = HomeLabel.content.alpha
       
    }

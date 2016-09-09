@@ -40,7 +40,7 @@ class ToolTip: UIView {
       // Round the edges of the tool tip
       self.layer.cornerRadius = 2.0
       // Add the label
-      self.addLabelWith(text: text)
+      self.addLabelWith(text)
       
    }
    
@@ -54,12 +54,12 @@ class ToolTip: UIView {
       Adds the label to the view
       - parameter text: The text property for the label
    */
-   fileprivate func addLabelWith(text: String) {
+   private func addLabelWith(text: String) {
       
       // Create the frame for the view
       let frame: Rect = Rect(x: 16, y: 8, w: self.frame.w - 32, h: 16)
       // Create the label
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .center, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.fourteen, align: .Center, color: .white)
       // Set the text property for the label
       label.text = text
       // Add the label to the view

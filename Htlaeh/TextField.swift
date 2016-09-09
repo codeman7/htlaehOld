@@ -34,7 +34,7 @@ class TextField: UITextField {
    /// The variable that will be the error label
    lazy var errorLabel: UILabel = self.createErrorMessage()
    /// Property for all the options
-   fileprivate let options: TextFieldOptions
+   private let options: TextFieldOptions
    
    // MARK: Initializers
    /**
@@ -49,7 +49,7 @@ class TextField: UITextField {
       // Set the default values
       self.defaultSettings()
       // Add the event listener for the text field changing
-      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
+      self.addTarget(self, action: #selector(self.textFieldDidChange(_:)), forControlEvents: .EditingChanged)
       // Layout the subviews
       self.layoutViews()
       
@@ -98,7 +98,7 @@ class TextField: UITextField {
    /**
      This method styles the keyboard on any state change
    */
-   func style(_ state: TextFieldState) {
+   func style(state: TextFieldState) {
       // Create the animation
       let animate: () -> () = {
          self.placeholderLabel.font = state.placeholderFont
@@ -110,7 +110,7 @@ class TextField: UITextField {
          self.errorLabel.alpha = state.errorAlpha
       }
       // Animate the view
-      UIView.animate(withDuration: 0.3, animations: animate)
+      UIView.animateWithDuration( 0.3, animations: animate)
       
    }
    
@@ -118,7 +118,7 @@ class TextField: UITextField {
       Adds the error message to the view
       - parameter text: The text for the error message
    */
-   func showErrorMessage(_ text: String) {
+   func showErrorMessage(text: String) {
       
       // Set the text for the error label
       self.errorLabel.text = text
@@ -131,7 +131,7 @@ class TextField: UITextField {
    /**
       This function creates the error label
    */
-   fileprivate func createErrorMessage() -> UILabel {
+   private func createErrorMessage() -> UILabel {
       // Set the error messages frame
       let frame: Rect = Rect(x: 0, y: 67, w: self.frame.w, h: 16)
       // Create and return the error message label
@@ -142,7 +142,7 @@ class TextField: UITextField {
    /**
       This function creates the placeholder label
    */
-   fileprivate func createPlaceholder() -> UILabel {
+   private func createPlaceholder() -> UILabel {
       
       // Set the placeholders frame
       let frame: Rect = Rect(x: 0, y: 27, w: self.frame.w, h: 28)
@@ -160,7 +160,7 @@ class TextField: UITextField {
    /**
       This function creates the bottom line
    */
-   fileprivate func createBottomLine() -> Line {
+   private func createBottomLine() -> Line {
       
       // Set the lines frame
       let frame: Rect = Rect(x: 0, y: 62, w: self.frame.w, h: 1)
@@ -175,11 +175,11 @@ class TextField: UITextField {
 // MARK: Methods for text bounds
 extension TextField {
    
-   override func textRect(forBounds bounds: CGRect) -> CGRect {
+   override func textRectForBounds(bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 31, w: self.frame.w, h: 40)
    }
    
-   override func editingRect(forBounds bounds: CGRect) -> CGRect {
+   override func editingRectForBounds(bounds: CGRect) -> CGRect {
       return Rect(x: 0, y: 31, w: self.frame.w, h: 40)
    }
    
@@ -191,7 +191,7 @@ extension TextField : UITextFieldDelegate {
    /**
       This method handles when the text field ends ending
    */
-   func textFieldDidEndEditing(_ textField: UITextField) {
+   func textFieldDidEndEditing(textField: UITextField) {
       // Validate the text field
       self.isValid()
    }
@@ -199,7 +199,7 @@ extension TextField : UITextFieldDelegate {
    /**
       This method handles when the text field starts ending
    */
-   func textFieldDidBeginEditing(_ textField: UITextField) {
+   func textFieldDidBeginEditing(textField: UITextField) {
       // Set the style for the view
       self.style(.active)
    }
@@ -207,7 +207,7 @@ extension TextField : UITextFieldDelegate {
    /**
      This method handles when the text field changes its text value
    */
-   func textFieldDidChange(_ textField: UITextField) {
+   func textFieldDidChange(textField: UITextField) {
       
       if self.placeholderLabel.text == "Rest" {
          self.updateTimeFieldText()
@@ -217,7 +217,7 @@ extension TextField : UITextFieldDelegate {
    }
    
    /// This method tell the text field it can't return
-   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+   func textFieldShouldReturn(textField: UITextField) -> Bool {
       return false
    }
    
@@ -278,7 +278,7 @@ extension TextField {
    /// Use this function to convert a field to double
    func toDouble() -> Double {
       
-      let textWithoutLetters: String = String(self.text!.characters.filter { String($0).rangeOfCharacter(from: CharacterSet(charactersIn: "0123456789")) != nil })
+      let textWithoutLetters: String = String(self.text!.characters.filter { String($0).rangeOfCharacterFromSet(NSCharacterSet(charactersInString: "0123456789")) != nil })
       guard let value = Double(textWithoutLetters) else {
          return 0
       }

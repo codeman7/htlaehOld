@@ -14,21 +14,21 @@ struct Audio {
    static func countdown(seconds: Int) {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speak(AVSpeechUtterance(string: "\(seconds)"))
+      speech.speakUtterance(AVSpeechUtterance(string: "\(seconds)"))
       
    }
    
    static func tenSecondsLeft() {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speak(AVSpeechUtterance(string: "10 seconds until next set"))
+      speech.speakUtterance(AVSpeechUtterance(string: "10 seconds until next set"))
       
    }
    
-   static func speak(_ string: String) {
+   static func speak(string: String) {
       
       let speech: AVSpeechSynthesizer = AVSpeechSynthesizer()
-      speech.speak(AVSpeechUtterance(string: string))
+      speech.speakUtterance(AVSpeechUtterance(string: string))
       
    }
    

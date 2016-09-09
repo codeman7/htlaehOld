@@ -40,7 +40,7 @@ struct RealmStore {
    func check(date i: Int) -> Int? {
      
       // Get the workout for a given day
-      let workout = RealmQuery().getWorkoutFor(date: "\(i)")
+      let workout = RealmQuery().getWorkoutFor("\(i)")
       // Get the return value
       let int: Int? = (workout == nil) ? nil : workout!.count
       // Return either nil or the new set count

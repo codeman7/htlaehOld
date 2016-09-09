@@ -36,7 +36,7 @@ struct PreviewWorkoutViews  {
    }
    
    /// When you want to add the views with the alpha property animating them into view
-   func layoutViewsWithAnimatedAlpha(_ oldController: NewWorkout) {
+   func layoutViewsWithAnimatedAlpha(oldController: NewWorkout) {
       
       // Get the scroller
       let scroller = self.createScroller()
@@ -57,12 +57,12 @@ struct PreviewWorkoutViews  {
       // Add the fab to the view
       oldController.view.addSubview(fab)
       // Animate the views alpha
-      UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions(), animations: {
+      UIView.animateWithDuration( 0.3, delay: 0.25, options: UIViewAnimationOptions(), animations: {
          scroller.alpha = 1.0
          header.alpha = 1.0
          fab.alpha = 1.0
          }, completion: { Bool in
-            oldController.present(self.controller, animated: false, completion: nil)
+            oldController.presentViewController(self.controller, animated: false, completion: nil)
       })
       
       
@@ -70,12 +70,12 @@ struct PreviewWorkoutViews  {
    
    // MARK: Functions
    /// Creates the header
-   fileprivate func createHeader() -> BoldHeader {
+   private func createHeader() -> BoldHeader {
       
       // Set the frame for the header
       let frame: Rect = Rect(x: 0, y: 0, w: self.controller.width, h: 80)
       // Set the styles for the header
-      let workoutHeader: HeaderType = HeaderType.preview(controller: self.controller)
+      let workoutHeader: HeaderType = HeaderType.preview(self.controller)
       // Create the header
       let header: BoldHeader = BoldHeader(frame: frame, options: workoutHeader)
       // Return the header
@@ -92,7 +92,7 @@ struct PreviewWorkoutViews  {
       // Set the background color
       fab.backgroundColor = .blue
       // Add the icon to the button
-      fab.add(image: Images.Content().add, color: .white)
+      fab.add(Images.Content().add, color: .white)
       // Set the action for the button
       fab.action = { self.controller.FABAction() }
       // Set the fab to be the controllers fab variable
@@ -111,7 +111,7 @@ struct PreviewWorkoutViews  {
       // Set the background color for the fab
       FAB.backgroundColor = .blue
       // Set icon for the FAB
-      FAB.add(image: Images.Editor().edit, color: .white)
+      FAB.add(Images.Editor().edit, color: .white)
       // Set the action for the FAB
       FAB.action = { self.controller.editSets() }
       // Set the fab's alpha
@@ -130,7 +130,7 @@ struct PreviewWorkoutViews  {
       // Set the background color for the fab
       FAB.backgroundColor = .yellow
       // Set icon for the FAB
-      FAB.add(image: Images.Content().add, color: .black)
+      FAB.add(Images.Content().add, color: .black)
       // Set the action for the FAB
       FAB.action = { self.controller.addMoreToWorkout() }
       // Set the Fab's alpha
@@ -141,7 +141,7 @@ struct PreviewWorkoutViews  {
    }
    
    /// Creates the scroller
-   fileprivate func createScroller() -> PreviewScroller {
+   private func createScroller() -> PreviewScroller {
       // Create the frame for the scroller
       let frame: Rect = Rect(x: 0, y: 80, w: self.controller.width, h: self.controller.height - 80)
       // Create the scroller
@@ -152,7 +152,7 @@ struct PreviewWorkoutViews  {
    }
    
    /// Creates the mini FABs
-   func createMiniFAB(_ color: UIColor, iconColor: UIColor, icon: UIImage, action: @escaping ()->()) -> Button {
+   func createMiniFAB(color: UIColor, iconColor: UIColor, icon: UIImage, action: ()->()) -> Button {
       // Set the frame for the fab
       let frame: Rect = Rect(x: self.controller.width - 64, y: self.controller.height - 64, w: 40, h: 40)
       // Create the FAB
@@ -160,7 +160,7 @@ struct PreviewWorkoutViews  {
       // Set the background color for the fab
       fab.backgroundColor = color
       // Add the icon to the fab
-      fab.add(image: icon, color: iconColor)
+      fab.add(icon, color: iconColor)
       // Set the action for the fab
       fab.action = action
       // Return the fab

@@ -20,7 +20,7 @@ enum DefaultKeys : String {
 
 struct UserDefaults {
    
-   let defaults: Foundation.UserDefaults = Foundation.UserDefaults.standard
+   let defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
    
    func defaultValues() {
       
@@ -32,27 +32,27 @@ struct UserDefaults {
    }
 
    
-   func store(_ key: DefaultKeys, value: Bool) {
+   func store(key: DefaultKeys, value: Bool) {
       
-      self.defaults.set(value, forKey: key.rawValue)
-      
-   }
-   
-   func store(_ key: DefaultKeys, value: Int) {
-      
-      self.defaults.set(value, forKey: key.rawValue)
+      self.defaults.setBool(value, forKey: key.rawValue)
       
    }
    
-   func store(_ key: DefaultKeys, value: String) {
+   func store(key: DefaultKeys, value: Int) {
       
-      self.defaults.set(value, forKey: key.rawValue)
+      self.defaults.setInteger(value, forKey: key.rawValue)
       
    }
    
-   func queryForString(_ key: DefaultKeys) -> String? {
+   func store(key: DefaultKeys, value: String) {
       
-      let value = self.defaults.value(forKey: key.rawValue)
+      self.defaults.setValue(value, forKey: key.rawValue)
+      
+   }
+   
+   func queryForString(key: DefaultKeys) -> String? {
+      
+      let value = self.defaults.objectForKey(key.rawValue)
       
       guard let str = value as? String else {
          return nil
@@ -62,15 +62,15 @@ struct UserDefaults {
       
    }
    
-   func queryForBool(_ key: DefaultKeys) -> Bool? {
+   func queryForBool(key: DefaultKeys) -> Bool? {
       
-      return self.defaults.bool(forKey: key.rawValue)
+      return self.defaults.boolForKey(key.rawValue)
       
    }
    
-   func queryForInt(_ key: DefaultKeys) -> Int? {
+   func queryForInt(key: DefaultKeys) -> Int? {
       
-      return self.defaults.integer(forKey: key.rawValue)
+      return self.defaults.integerForKey(key.rawValue)
       
    }
    

@@ -22,20 +22,20 @@ struct HomeTutorial : Tutorial {
       
    }
    
-   fileprivate func createLayer(controllerView view: UIView) -> CAShapeLayer {
+   private func createLayer(controllerView view: UIView) -> CAShapeLayer {
       
       let circlePath: UIBezierPath = UIBezierPath(arcCenter: CGPoint(x: 36, y: 47), radius: view.frame.width / 2, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
       let circleShape: CAShapeLayer = CAShapeLayer()
-      circleShape.path = circlePath.cgPath
-      circleShape.fillColor = UIColor.clear.cgColor
+      circleShape.path = circlePath.CGPath
+      circleShape.fillColor = UIColor.clearColor().CGColor
       circleShape.lineWidth = view.frame.width - 80
-      circleShape.strokeColor = Color.blue.cgColor
+      circleShape.strokeColor = Color.blue.CGColor
       circleShape.opacity = 0.87
       return circleShape
       
    }
    
-   fileprivate func createText(controllerView view: UIView) -> [ViewRepresentable] {
+   private func createText(controllerView view: UIView) -> [ViewRepresentable] {
       
       let title: ViewRepresentable = self.createTitle(controllerView: view) as ViewRepresentable
       let message: ViewRepresentable = self.createMessage(controllerView: view) as ViewRepresentable
@@ -43,22 +43,22 @@ struct HomeTutorial : Tutorial {
       
    }
    
-   fileprivate func createTitle(controllerView view: UIView) -> UILabel {
+   private func createTitle(controllerView view: UIView) -> UILabel {
       
       let text: String = "Menu"
       let frame: CGRect = CGRect(x: 88, y: 92, width: 165, height: 28)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyFour, align: .left, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Medium.twentyFour, align: .Left, color: .white)
       label.text = text
       return label
       
    }
    
-   fileprivate func createMessage(controllerView view: UIView) -> UILabel {
+   private func createMessage(controllerView view: UIView) -> UILabel {
       
       let text: String = "Tap the menu icon to navigate within the app & change settings"
       let height: CGFloat = text.heightWithConstrainedWidth(165, font: Fonts.Regular.sixteen)
       let frame: CGRect = CGRect(x: 88, y: 136, width: 165, height: height)
-      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .left, color: .white)
+      let label: UILabel = UILabel(frame: frame, font: Fonts.Regular.sixteen, align: .Left, color: .white)
       label.alpha = 0.74
       label.text = text
       label.multipleLines()

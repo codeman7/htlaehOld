@@ -59,7 +59,7 @@ class Controller: UIViewController {
     This function calls all the segues from a navigation button press
     - parameter destination: Is the destination that we want to segue to
     */
-   func segue(_ destination: Controller) {
+   func segue(destination: Controller) {
       // Make sure segue is to a new controller
       guard self.newControllerSegue(destination) == true else { return }
       
@@ -75,7 +75,7 @@ class Controller: UIViewController {
       let d: Delay = Delay()
       d.delay(0.3, closure: {
          
-         self.present(destination, animated: false, completion: nil)
+         self.presentViewController(destination, animated: false, completion: nil)
          
       })
       
@@ -88,7 +88,7 @@ class Controller: UIViewController {
     - parameter destination: The controller that will be segued to
     
    */
-   fileprivate func newControllerSegue(_ destination: Controller) -> Bool {
+   private func newControllerSegue(destination: Controller) -> Bool {
       
       let mirror = Mirror(reflecting: self)
       let destMirror = Mirror(reflecting: destination)
@@ -105,7 +105,7 @@ class Controller: UIViewController {
 extension Controller {
    
    /// This method creates the menu
-   fileprivate func createMenu() -> Menu {
+   private func createMenu() -> Menu {
       
       // Create the frame for the menu
       let frame: Rect = Rect(x: -240, y: 0, w: self.width + 240, h: self.height)

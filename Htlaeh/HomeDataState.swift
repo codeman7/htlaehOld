@@ -21,7 +21,7 @@ enum HomeDataState {
 
 struct HomeData {
    
-   fileprivate func determineState(_ workout: Workout?) -> HomeDataState {
+   private func determineState(workout: Workout?) -> HomeDataState {
       // Check if workout is there
       if workout != nil {
          // It is there so return Standard
@@ -46,7 +46,7 @@ struct HomeData {
       - parameter workout: The workout for the controller
       - parameter controller: The controller that will hold all the views
    */
-   func addViews(_ workout: Workout?, controller: Home) {
+   func addViews(workout: Workout?, controller: Home) {
       // Get the current state
       let state: HomeDataState = self.determineState(workout)
       // Create the variable that will show the views

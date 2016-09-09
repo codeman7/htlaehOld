@@ -17,8 +17,8 @@ class WorkoutCellHeader : UITableViewCell {
       // Call the super initializer
       super.init(style: style, reuseIdentifier: reuseIdentifier)
       // Make the cell go all the way accross
-      self.separatorInset = UIEdgeInsets.zero
-      self.layoutMargins = UIEdgeInsets.zero
+      self.separatorInset = UIEdgeInsetsZero
+      self.layoutMargins = UIEdgeInsetsZero
       self.preservesSuperviewLayoutMargins = false
       self.frame.size.height = 49.0
    }
@@ -38,7 +38,7 @@ class WorkoutCellHeader : UITableViewCell {
       label.text = date
       
       // Make the label left aligned and add it as a subview
-      label.textAlignment = .left
+      label.textAlignment = .Left
       self.addSubview(label)
       
    }
@@ -47,15 +47,15 @@ class WorkoutCellHeader : UITableViewCell {
       
       let cellFrames: CellLayout = CellLayout(frame: self.frame)
       // Add the exercise title
-      self.addTitleWith(frame: cellFrames.left(), title: "Exercise", config: WorkoutTableColumnHeadString())
+      self.addTitleWith(cellFrames.left(), title: "Exercise", config: WorkoutTableColumnHeadString())
       // Add the weight label
-      self.addTitleWith(frame: cellFrames.right(), title: "Weight", config: WorkoutTableColumnHeadNumber())
+      self.addTitleWith(cellFrames.right(), title: "Weight", config: WorkoutTableColumnHeadNumber())
       // add the reps label
-      self.addTitleWith(frame: cellFrames.middle(), title: "Reps", config: WorkoutTableColumnHeadNumber())
+      self.addTitleWith(cellFrames.middle(), title: "Reps", config: WorkoutTableColumnHeadNumber())
       
    }
    
-   fileprivate func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
+   private func addTitleWith<A: TextPresentable>(frame: Rect, title: String, config: A) {
       
       // Create the label
       let label: UILabel = UILabel(frame: frame, properties: config)

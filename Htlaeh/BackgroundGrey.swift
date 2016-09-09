@@ -43,9 +43,9 @@ class BackgroundGrey: UIView {
       
    }
    // MARK: Functions
-   func show(_ alpha: CGFloat) {
+   func show(alpha: CGFloat) {
       
-      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.alpha = alpha }, completion: nil)
+      UIView.animateWithDuration( 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.alpha = alpha }, completion: nil)
       
    }
    
@@ -54,7 +54,7 @@ class BackgroundGrey: UIView {
 // MARK: Extension for the menu type
 extension BackgroundGrey: Touchable {
    
-   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
       self.action()
       
    }

@@ -14,7 +14,7 @@ import AVFoundation
 class Home: Controller {
    // MARK: Properties
    // This holds the workout for the VC
-   var workout: Workout? = RealmQuery().getWorkoutFor(date: Date().today())
+   var workout: Workout? = RealmQuery().getWorkoutFor(Date().today())
    
    /// Property for the header of the controller
    lazy var header: BoldHeader = self.createHeader()
@@ -39,8 +39,8 @@ class Home: Controller {
    
    var restTimer: CancelableTimer? = nil
    lazy var time: RestTimer = RestTimer(label: self.setView!.topTopContent)
-   var lastTime: Foundation.Date = Foundation.Date()
-   var timeSinceLast: TimeInterval = Foundation.Date().timeIntervalSince1970
+   var lastTime: NSDate = NSDate()
+   var timeSinceLast: NSTimeInterval = NSDate().timeIntervalSince1970
    
    // MARK: Functions
    override func viewDidLoad() {
@@ -110,7 +110,7 @@ class Home: Controller {
       
    }
    
-   fileprivate func markSetAsDone() {
+   private func markSetAsDone() {
       
       // Mark the set as done within the view controller
       let newSet: WeightSet = self.workout![setCount].setDone()
@@ -120,15 +120,15 @@ class Home: Controller {
       let set = RealmQuery().setFor(setCount, date: Date().today())
       let store = RealmStore()
       if let updatedSet = set {
-         store.done(set: updatedSet)
+         store.done(updatedSet)
       }
       
    }
    
    func setDone() {
       
-      self.timeSinceLast = self.lastTime.timeIntervalSince(Foundation.Date())
-      self.lastTime = Foundation.Date()
+      self.timeSinceLast = self.lastTime.timeIntervalSinceDate(Date())
+      self.lastTime = Date()
       if abs(self.timeSinceLast) < 1 { return }
 
       // Get the workout unwrapped
@@ -151,7 +151,7 @@ class Home: Controller {
             // If there are more set's left in the workout then update set count and show next set in next set view
             if workout.count > setCount + 1 {
                self.setCount += 1
-               self.setView?.rest(set: workout[setCount])
+               self.setView?.rest(workout[setCount])
             } else {
                // No more set's so show nothing
                self.setView?.finished()
@@ -176,9 +176,9 @@ class Home: Controller {
    }
    
    /// Used when the user is all done with the workout
-   fileprivate func doneWithWorkout() {
+   private func doneWithWorkout() {
       
-      UIView.animate(withDuration: 0.15, animations: {
+      UIView.animateWithDuration( 0.15, animations: {
          for button in [self.doneButton, self.skipButton] {
             button.frame.origin.y = self.height + 16
          }
@@ -212,7 +212,7 @@ class Home: Controller {
       let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 124), color: .blue)
       self.view.addSubview(circleView)
       circleView.grow({
-         self.present(NewWorkout(), animated: false, completion: nil)
+         self.presentViewController(NewWorkout(), animated: false, completion: nil)
       })
       
    }
@@ -222,7 +222,7 @@ class Home: Controller {
       
       let circleView: CircularView = CircularView(point: CGPoint(x: self.width / 2 - 1, y: self.height - 188), color: .red)
       self.view.addSubview(circleView)
-      circleView.grow({ self.present(Search(), animated: false, completion: nil) })
+      circleView.grow({ self.presentViewController(Search(), animated: false, completion: nil) })
       
    }
    
@@ -248,12 +248,12 @@ extension Home: ViewSetup {
    /**
       Function to add the header
    */
-   fileprivate func createHeader() -> BoldHeader {
+   private func createHeader() -> BoldHeader {
       // The headers frame
       let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.width, height: 80)
       // All the actions for the header buttons and the default settings for a home header
       // Create the header type and set its default value
-      let headerOptions: HeaderType = HeaderType.home(controller: self)
+      let headerOptions: HeaderType = HeaderType.home(self)
       // Create the header
       let header: BoldHeader = BoldHeader(frame: headerFrame, options: headerOptions)
       // Return the header

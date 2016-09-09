@@ -17,7 +17,7 @@ struct HeaderType : Head {
    let rightButtonAction: (() -> ())?
    let leftButtonAction: (() -> ())?
    
-   fileprivate init(title: String, leftIcon: UIImage, rightIcon: UIImage?, leftButtonAction: (()->())?, rightButtonAction: (()->())?) {
+   private init(title: String, leftIcon: UIImage, rightIcon: UIImage?, leftButtonAction: (()->())?, rightButtonAction: (()->())?) {
       self.title = title
       self.leftIcon = leftIcon
       self.rightIcon = rightIcon

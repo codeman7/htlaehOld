@@ -35,7 +35,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func addContentToWhite(_ view: UIView) {
+   private func addContentToWhite(view: UIView) {
       
       // Add the loading animation
       let loading = self.createLoading()
@@ -65,7 +65,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func removeViews() {
+   private func removeViews() {
       
       let delay: Delay = Delay()
       let header = self.controller.view.subviews.filter({ $0 is BoldHeader }).first
@@ -81,7 +81,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func addWhite() {
+   private func addWhite() {
       
       // Create the frame for the view and the view itself
       let frame: Rect = self.controller.view.frame
@@ -93,7 +93,7 @@ struct HomeMoreActions {
       
       // Add the view to the controller and animate it to be visable
       self.controller.view.addSubview(view)
-      UIView.animate(withDuration: 0.15, animations: {
+      UIView.animateWithDuration( 0.15, animations: {
          view.alpha = 0.74
          }, completion: { Bool in
             self.addContentToWhite(view)
@@ -101,7 +101,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func enclosingCircle() {
+   private func enclosingCircle() {
       
       let view: UIView = UIView(frame: Rect(x: 0, y: 92, w: self.controller.width, h: self.controller.height - 92))
       view.layer.masksToBounds = true
@@ -111,7 +111,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func createLoading() -> Loading {
+   private func createLoading() -> Loading {
       
       // Create the frame for the loading animation and the loading animation
       let frame: Rect = Rect(x: self.controller.width / 2 - 60, y: self.controller.height / 2 - 40, w: 120, h: 80)
@@ -122,7 +122,7 @@ struct HomeMoreActions {
       
    }
    
-   fileprivate func createToast() -> Toast {
+   private func createToast() -> Toast {
       
       // Create the styles for the button and craete the toast
       let buttonInit: (String, UIColor, ()->()) = ("CANCEL", .yellow, { print("Cancel the mark") })

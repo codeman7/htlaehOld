@@ -59,7 +59,7 @@ struct HomeStandardViews : ViewsStruct {
    
    func createSkipButton() -> Button {
       
-      let xLeft: CGFloat = self.controller.view.frame.width.halfCentered(side: .left, size: 124)
+      let xLeft: CGFloat = self.controller.view.frame.width.halfCentered(.left, size: 124)
       let leftButtonFrame: CGRect = CGRect(x: xLeft, y: self.controller.view.frame.height - 72, width: 124, height: 40)
       let leftButton: Button = Button(frame: leftButtonFrame, type: .raised)
       leftButton.action = { self.controller.skipSet() }
@@ -71,7 +71,7 @@ struct HomeStandardViews : ViewsStruct {
    
    func createDoneButton() -> Button {
       
-      let xRight: CGFloat = self.controller.view.frame.width.halfCentered(side: .right, size: 124)
+      let xRight: CGFloat = self.controller.view.frame.width.halfCentered(.right, size: 124)
       let rightButtonFrame: CGRect = CGRect(x: xRight, y: self.controller.view.frame.height - 72, width: 124, height: 40)
       let rightButton: Button = Button(frame: rightButtonFrame, type: .raised)
       rightButton.action = { self.controller.setDone() }

@@ -16,10 +16,10 @@ import UIKit
  */
 class NavigationBar: UIView {
    // MARK: Properties
-   fileprivate let titles: [String] = ["Home", "New Workout", "All Workouts", "Search"]
-   fileprivate let icons: [UIImage] = [Images.Action().home, Images.Content().add, Images.Action().reorder, Images.Action().search]
-   fileprivate let desination: [Controller] = [NavigationDestinations.home, NavigationDestinations.newWorkout, NavigationDestinations.allWorkouts, NavigationDestinations.search]
-   fileprivate let containingController: Controller
+   private let titles: [String] = ["Home", "New Workout", "All Workouts", "Search"]
+   private let icons: [UIImage] = [Images.Action().home, Images.Content().add, Images.Action().reorder, Images.Action().search]
+   private let desination: [Controller] = [NavigationDestinations.home, NavigationDestinations.newWorkout, NavigationDestinations.allWorkouts, NavigationDestinations.search]
+   private let containingController: Controller
    
    // MARK: Initializer
    //// Designated Initalizers
@@ -46,11 +46,11 @@ class NavigationBar: UIView {
       This function adds all the subviews to the navigation bar
       I.E. The branding, the buttons to segue , & the settings button
    */
-   fileprivate func addSubviews() {
+   private func addSubviews() {
       // Add all the branding to the top
       self.addBranding()
       // Add all the buttons
-      self.addButtons(icons: self.icons, labels: self.titles)
+      self.addButtons(self.icons, labels: self.titles)
       // Add the settings button
       self.addSettings()
       
@@ -60,7 +60,7 @@ class NavigationBar: UIView {
      This function just adds the branding to the Navigation bar
      It adds the logo, the word logo, & the bottom line
    */
-   fileprivate func addBranding() {
+   private func addBranding() {
       // The frame for the logo
       let logoFrame: CGRect = CGRect(x: 8, y: 144, width: 60, height: 60)
       // Initialize the logo
@@ -75,7 +75,7 @@ class NavigationBar: UIView {
       // Set the text for the label
       wordLogo.text = "Menu"
       // Set the text alignment for the wordLogo
-      wordLogo.textAlignment = .left
+      wordLogo.textAlignment = .Left
       // Add the word logo to the view
       self.addSubview(wordLogo)
       // Add the bottom line
@@ -92,7 +92,7 @@ class NavigationBar: UIView {
       - parameter Icons: An array of the icons for the buttons
       - parameter Labels: An array of the text of the labels for the button
    */
-   fileprivate func addButtons(icons: [UIImage], labels: [String]) {
+   private func addButtons(icons: [UIImage], labels: [String]) {
       // Make sure there is an equal about of labels and icons
       guard icons.count == labels.count else {
          fatalError("The icons and labels count don't match")
@@ -115,7 +115,7 @@ class NavigationBar: UIView {
    /**
       This function is used to add the settings button to the navigation bar
    */
-   fileprivate func addSettings() {
+   private func addSettings() {
       // Set the buttons frame
       let buttonFrame: CGRect = CGRect(x: 0, y: self.frame.height - 72, width: self.frame.width, height: 48)
       // Create the button

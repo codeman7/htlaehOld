@@ -19,7 +19,7 @@ extension Int {
    func toWeekPresentable() -> String {
       
       let month: Int = (self - ((self / 10000) * 10000)) / 100
-      return "\(Date().nameOf(month: month))" + " \(self % 100)"
+      return "\(Date().nameOf(month))" + " \(self % 100)"
       
    }
    

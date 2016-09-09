@@ -26,10 +26,10 @@ private enum Labels {
 struct HomeResultsView {
    
    // MARK: Properties
-   fileprivate let controller: Home
-   fileprivate let condensed: Bool
-   fileprivate let titleFont: UIFont
-   fileprivate var frames: [Labels : Rect] {
+   private let controller: Home
+   private let condensed: Bool
+   private let titleFont: UIFont
+   private var frames: [Labels : Rect] {
       return self.calculateFrames()
    }
    
@@ -59,7 +59,7 @@ struct HomeResultsView {
    }
    
    // MARK: Functions
-   fileprivate func calculateFrames() -> [Labels : Rect] {
+   private func calculateFrames() -> [Labels : Rect] {
       
       var dict: [Labels : Rect] = [:]
       
@@ -96,7 +96,7 @@ struct HomeResultsView {
    }
    
    /// Create the top encouragement
-   fileprivate func topEncouragement() {
+   private func topEncouragement() {
       
       // Get the message for the label
       let messages: [String] = ["Good job!", "Congrats!", "Congratulations!", "Great work!", "Wow!"]
@@ -117,7 +117,7 @@ struct HomeResultsView {
    }
    
    /// Create the top message
-   fileprivate func topMessage() {
+   private func topMessage() {
       
       // Set the message and frame for the view
       let message: String = "You met your goal of 5 days this week!"
@@ -133,7 +133,7 @@ struct HomeResultsView {
       
       // Set the alpha and the text alignment
       label.alpha = 0.74
-      label.textAlignment = .center
+      label.textAlignment = .Center
       
       // Add the view to the controller
       self.controller.view.addSubview(label)
@@ -142,7 +142,7 @@ struct HomeResultsView {
    
    
    /// Create summary title
-   fileprivate func summary() {
+   private func summary() {
       
       // The frame for the label and the label
       let frame: Rect = self.frames[.summary] ?? Rect.zero
@@ -153,14 +153,14 @@ struct HomeResultsView {
       label.textColor = .red
       
       // Set the alignment and add the label as a subview
-      label.textAlignment = .center
+      label.textAlignment = .Center
       self.controller.view.addSubview(label)
       
    }
    
    
    /// Create name section
-   fileprivate func nameSection() {
+   private func nameSection() {
       
       // Craete the frame for the title and the title
       let title: UILabel = UILabel(frame: self.frames[.nameTitle] ?? Rect.zero)
@@ -170,7 +170,7 @@ struct HomeResultsView {
       title.alpha = 0.54
       
       // Set the alignment and text for the title
-      title.textAlignment = .left
+      title.textAlignment = .Left
       title.text = "Most popular exercise"
       
       // Add the title to the controller
@@ -181,7 +181,7 @@ struct HomeResultsView {
       
       // Set the alpha and the text alignment for the labael
       label.alpha = 0.87
-      label.textAlignment = .left
+      label.textAlignment = .Left
       
       // Set the font for the label and the text
       print(self.controller.workout!)
@@ -195,7 +195,7 @@ struct HomeResultsView {
    
    
    /// Create total sets section
-   fileprivate func setsSection() {
+   private func setsSection() {
       
       // Craete the frame for the title and the title
       var titleFrame: Rect = self.frames[.nameTitle] ?? Rect.zero
@@ -224,7 +224,7 @@ struct HomeResultsView {
    }
    
    /// Create total weight section
-   fileprivate func weightSection() {
+   private func weightSection() {
       
       // Craete the frame for the title and the title
       let title: UILabel = UILabel(frame: self.frames[.weightTotalTitle] ?? Rect.zero)
@@ -249,7 +249,7 @@ struct HomeResultsView {
    }
    
    /// Create total reps section
-   fileprivate func repsSecion() {
+   private func repsSecion() {
       
       // Create the frame for the label and the label
       let frame: Rect = Rect(x: self.controller.width / 2, y: self.frames[.weightTotalTitle]!.origin.y, w: self.frames[.weightTotalTitle]!.w, h: self.frames[.weightTotal]!.h)
@@ -276,7 +276,7 @@ struct HomeResultsView {
    }
    
    /// Create average weight section
-   fileprivate func weightAverageSection() {
+   private func weightAverageSection() {
       
       // Craete the frame for the title and the title
       let title: UILabel = UILabel(frame: self.frames[.weightAverageTitle] ?? Rect.zero)
@@ -302,7 +302,7 @@ struct HomeResultsView {
    }
    
    /// Create average reps section
-   fileprivate func repsAverageSection() {
+   private func repsAverageSection() {
       
       // Create the frame for the label and the label
       let frame: Rect = Rect(x: self.controller.width / 2, y: self.frames[.weightAverageTitle]!.origin.y, w: self.frames[.weightAverageTitle]!.w, h: self.frames[.weightTotal]!.h)
@@ -330,7 +330,7 @@ struct HomeResultsView {
    }
    
    /// Create add more button
-   fileprivate func moreButton() {
+   private func moreButton() {
       
       let y: CGFloat = (self.condensed) ? self.controller.height - 60 : self.controller.height - 72
       let frame: Rect = Rect(x: self.controller.width / 2 - 62, y: y, w: 124, h: 40)
@@ -345,19 +345,19 @@ struct HomeResultsView {
       
    }
    
-   fileprivate func title(_ label: UILabel) {
+   private func title(label: UILabel) {
       
       label.font = self.titleFont
       label.alpha = 0.54
-      label.textAlignment = .right
+      label.textAlignment = .Right
       
    }
    
-   fileprivate func content(_ label: UILabel) {
+   private func content(label: UILabel) {
       
       label.font = .bold36
       label.alpha = 0.87
-      label.textAlignment = .right
+      label.textAlignment = .Right
       
    }
    

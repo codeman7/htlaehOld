@@ -14,7 +14,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /// The controller that will be holding the views
    let controller: NewWorkout
    /// The size of the screen for the view controller holding that will be holding the views
-   fileprivate var size: ScreenSize {
+   private var size: ScreenSize {
       switch self.controller.view.frame.size {
       case CGSize(width: 320, height: 568):
          return .small
@@ -27,7 +27,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       }
    }
    // The height the keyboard will be
-   fileprivate var keyboardTop: CGFloat {
+   private var keyboardTop: CGFloat {
       switch self.size {
       case .small:
          return 352
@@ -38,9 +38,9 @@ struct NewWorkoutStandardViews : ViewsStruct {
       }
    }
    /// The variable for the bottom of the exercise fields frame if nil then hasn't been set
-   fileprivate var exerciseBottom: CGFloat = 172
+   private var exerciseBottom: CGFloat = 172
    /// The variable for the top of the rest fieldsFrame if nil then hasn't been set
-   fileprivate var padding: CGFloat {
+   private var padding: CGFloat {
       // Get the space between the top of the keyboard and the bottom of exercise name
       // 249 is 83 * 3 because all text fields will be 83 tall + 70 for header
       let totalSpace: CGFloat = self.keyboardTop - 319
@@ -128,13 +128,14 @@ struct NewWorkoutStandardViews : ViewsStruct {
       }
       
       // Animate views alphas and present new contoller
-      UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions(), animations: {
+      UIView.animateWithDuration(0.3, delay: 0.25, options: .CurveEaseInOut, animations: {
          for view in views {
             view.alpha = 1.0
          }
          }, completion: { Bool in
-               oldController.present(self.controller, animated: false, completion: nil)
+            oldController.presentViewController(self.controller, animated: false, completion: nil)
       })
+      
       
    }
    
@@ -167,7 +168,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Set the headers frame
       let headerFrame: CGRect = CGRect(x: 0, y: 0, width: self.controller.width, height: 70)
       // Create the header type and set its default values
-      let headerOptions: HeaderType = HeaderType.new(controller: self.controller)
+      let headerOptions: HeaderType = HeaderType.new(self.controller)
       // Create the header
       let header: BoldHeader = BoldHeader(frame: headerFrame, options: headerOptions)
       // Return the header
@@ -218,14 +219,14 @@ struct NewWorkoutStandardViews : ViewsStruct {
       let buttonFrame: Rect = Rect(x: 0, y: 68, w: self.controller.width, h: self.controller.height - 68)
       let button: Button = Button(frame: buttonFrame, type: .flat)
       button.action = { self.controller.hideKeyboard() }
-      button.backgroundColor = .clear()
+      button.backgroundColor = .clearColor()
       return button
       
    }
    
-   fileprivate func addSetButton() -> Button {
+   private func addSetButton() -> Button {
       // Get the x Position for the button
-      let x: CGFloat = self.controller.width.halfCentered(side: .left, size: 124)
+      let x: CGFloat = self.controller.width.halfCentered(.left, size: 124)
       // Set the buttons frame
       let buttonFrame: CGRect = CGRect(x: x, y: (257 + padding * 3), width: 124, height: 40)
       // Create the button
@@ -250,7 +251,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Set the fab's background color
       fab.backgroundColor = .yellow
       // Add an icon to the fab
-      fab.add(image: Images.Navigation().check, color: .black)
+      fab.add(Images.Navigation().check, color: .black)
       // Set the FAB's action
       fab.action = { self.controller.showPicker() }
       // Return the fab
@@ -279,7 +280,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
       This function creates the exercise name field
    */
-   fileprivate mutating func exerciseNameField() -> TextField {
+   private mutating func exerciseNameField() -> TextField {
       // Create the frame for the text field
       let exerciseNameFrame: Rect = Rect(x: 16, y: (70 + padding), w: self.controller.width - 32, h: 83)
       // Set the text fields options
@@ -287,7 +288,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
       // Create the text field
       let exerciseName: TextField = TextField(frame: exerciseNameFrame, options: exerciseNameOptions)
       // Check the screen size if it isn't small then allow auto correct
-      if self.size != .small { exerciseName.autocorrectionType = .default }
+      if self.size != .small { exerciseName.autocorrectionType = .Default }
       // Set the delay and alpha for the text field
       self.views[exerciseName] = (delay: 0.025, alpha: 1.0)
       // Return the text field
@@ -298,7 +299,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the reps field
     */
-   fileprivate mutating func createRepsField() -> TextField {
+   private mutating func createRepsField() -> TextField {
       // Create the frame for the text field
       let repsFrame: Rect = Rect(x: self.controller.width / 2 - 128, y: (153 + padding * 2), w: 96, h: 83)
       // Set the text fields options
@@ -315,7 +316,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the weight field
     */
-   fileprivate mutating func createWeightField() -> TextField {
+   private mutating func createWeightField() -> TextField {
       
       // Create the frame for the text field
       let weightFrame: Rect = Rect(x: self.controller.width - 112, y: (153 + padding * 2), w: 96, h: 83)
@@ -333,7 +334,7 @@ struct NewWorkoutStandardViews : ViewsStruct {
    /**
     This function creates the rest field
     */
-   fileprivate mutating func createRestField() -> TextField {
+   private mutating func createRestField() -> TextField {
       // Create the frame for the text field
       let restFrame: Rect = Rect(x: self.controller.width - 112, y: (236 + padding * 3), w: 96, h: 83)
       // Set the text fields options

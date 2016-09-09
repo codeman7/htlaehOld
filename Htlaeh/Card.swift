@@ -35,25 +35,25 @@ class Card: UIView {
    
    // MARK: Functions
    /// Override to raise the card up
-   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
       
-      super.touchesBegan(touches, with: event)
+      super.touchesBegan(touches, withEvent: event)
       self.elevate(4.0)
       
    }
    
-   /// Override to lower the card back to normal
-   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-      
-      super.touchesCancelled(touches, with: event)
-      self.elevate(1.0)
-      
-   }
    
    /// Override to lower the card back to normal
-   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+   override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+      super.touchesCancelled(touches, withEvent: event)
+      self.elevate(1.0)
+   }
+   
+   
+   /// Override to lower the card back to normal
+   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
       
-      super.touchesEnded(touches, with: event)
+      super.touchesEnded(touches, withEvent: event)
       self.elevate(1.0)
       
    }

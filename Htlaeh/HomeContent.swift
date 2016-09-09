@@ -30,7 +30,7 @@ class HomeContent : UILabel {
       super.init(frame: frame)
       
       // Set properties
-      self.set(properties: HomeLabel.content)
+      self.set(HomeLabel.content)
    }
    
    convenience init(frame: Rect, active: Bool, location: HomeLabelLocation, destination: CGPoint, text: String) {

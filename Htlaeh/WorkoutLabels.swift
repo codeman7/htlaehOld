@@ -13,7 +13,7 @@ import UIKit
    This struct is for column headers that hold text above a workout table
  */
 struct WorkoutTableColumnHeadString : TextPresentable {
-   let alignment: NSTextAlignment = .left
+   let alignment: NSTextAlignment = .Left
    let font: UIFont = Fonts.Medium.twelve
    let color: UIColor = .black
    let alpha: CGFloat = 0.54
@@ -23,7 +23,7 @@ struct WorkoutTableColumnHeadString : TextPresentable {
    This struct is for column headers that hold numbers above a workout table
  */
 struct WorkoutTableColumnHeadNumber : TextPresentable {
-   let alignment: NSTextAlignment = .right
+   let alignment: NSTextAlignment = .Right
    let font: UIFont = Fonts.Medium.twelve
    let color: UIColor = .black
    let alpha: CGFloat = 0.54
@@ -34,7 +34,7 @@ struct WorkoutTableColumnHeadNumber : TextPresentable {
  */
 struct WorkoutContentStringLabel : TextPresentable {
    let alpha: CGFloat = 0.87
-   let alignment: NSTextAlignment = .left
+   let alignment: NSTextAlignment = .Left
    let color: UIColor = .black
    let font: UIFont = Fonts.Regular.fourteen
 }
@@ -44,7 +44,7 @@ struct WorkoutContentStringLabel : TextPresentable {
  */
 struct WorkoutContentNumberLabel : TextPresentable {
    let alpha: CGFloat = 0.87
-   let alignment: NSTextAlignment = .right
+   let alignment: NSTextAlignment = .Right
    let color: UIColor = .black
    let font: UIFont = Fonts.Regular.fourteen
 }

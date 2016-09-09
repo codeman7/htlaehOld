@@ -18,13 +18,13 @@ class Scroller: UIScrollView {
    /// Property for the workouts that will be shown
    let exercise: String?
    
-   lazy var workouts: [Workout] = (self.exercise == nil) ? RealmQuery().all : RealmQuery().resultsFor(exercise: self.exercise!)
+   lazy var workouts: [Workout] = (self.exercise == nil) ? RealmQuery().all : RealmQuery().resultsFor(self.exercise!)
    /// Property for the weeks that will be shown
-   fileprivate var weeks: [(sun: Int, sat: Int)] = []
+   private var weeks: [(sun: Int, sat: Int)] = []
    /// The header that will elevate on scroll
-   fileprivate let header: BoldHeader
+   private let header: BoldHeader
    /// The variable for the y position of the views
-   fileprivate var yPosition: CGFloat = 0
+   private var yPosition: CGFloat = 0
    /// The variable for to get what workout is at what height
    var workoutPosition: [(date: Int, yPosition: CGFloat)] = []
    
@@ -35,7 +35,7 @@ class Scroller: UIScrollView {
       self.exercise = exercise
       super.init(frame: frame)
       self.defaultSettings()
-      self.addContentFor(exercise: self.exercise)
+      self.addContentFor(self.exercise)
       // Update the content size
       self.contentSize = CGSize(width: self.frame.width, height: self.yPosition + 72)
       
@@ -60,7 +60,7 @@ class Scroller: UIScrollView {
       let firstDate: Date = self.workouts.first![0].date.date()
       let lastDate: Date = self.workouts.last![0].date.date()
       // Get all the weeks for the workouts and set the content offset
-      self.weeks = Date().getWeeksBetween(start: firstDate, andEnd: lastDate).reversed()
+      self.weeks = Date().getWeeksBetween(firstDate, andEnd: lastDate).reverse()
       guard self.exercise != nil else {
          self.contentOffset.y = 80
          return
@@ -76,7 +76,7 @@ class Scroller: UIScrollView {
       
       if exercise != nil {
          // Searching for a specific exercise so add that stats view for that exercise and the all line
-         self.addStatsViewFor(exercise: exercise!)
+         self.addStatsViewFor(exercise!)
          self.addAllLabel()
       }
       
@@ -89,25 +89,25 @@ class Scroller: UIScrollView {
       for a in 0..<workouts.count {
          // Check if year is new
          if workouts[a].date.year != currentYear {
-            self.addYearLabelFor(year: workouts[a].date.year)
+            self.addYearLabelFor(workouts[a].date.year)
             currentYear = workouts[a].date.year
          }
          
          // Check if month is new
          if workouts[a].date.month != currentMonth {
-            self.addMonthLabelFor(month: workouts[a].date.month)
+            self.addMonthLabelFor(workouts[a].date.month)
             currentMonth = workouts[a].date.month
          }
          
          if a == 0 {
             let week: (sun: Int, sat: Int) = self.weeks[weekCount]
             currentWeek = (sun: week.sun, sat: week.sat)
-            self.addWeekLabelFor(week: "\(currentWeek.sun.toWeekPresentable()) - \(currentWeek.sat.toWeekPresentable())")
+            self.addWeekLabelFor("\(currentWeek.sun.toWeekPresentable()) - \(currentWeek.sat.toWeekPresentable())")
          }
          
          // Check to make sure the week hasn't changed?
          if currentWeek.sun...currentWeek.sat ~= self.workouts[a].date {
-            self.add(workout: self.workouts[a])
+            self.add(self.workouts[a])
          } else {
             weekCount += 1
             guard self.weeks.count - 1 >= weekCount else { return }
@@ -115,15 +115,15 @@ class Scroller: UIScrollView {
             let sat: String = self.weeks[weekCount].sat.toWeekPresentable()
             let week: (sun: Int, sat: Int) = self.weeks[weekCount]
             currentWeek = (sun: week.sun, sat: week.sat)
-            self.addWeekLabelFor(week: "\(sun) - \(sat)")
-            self.add(workout: self.workouts[a])
+            self.addWeekLabelFor("\(sun) - \(sat)")
+            self.add(self.workouts[a])
          }
       }
 
       
    }
    
-   fileprivate func addAllLabel() {
+   private func addAllLabel() {
       
       // Create the frame for the line and create the line
       let lineFrame: Rect = Rect(x: self.frame.width / 3, y: self.yPosition + 16, w: self.frame.width / 3, h: 2)
@@ -133,7 +133,7 @@ class Scroller: UIScrollView {
       
       // Create the label and it's frame
       let labelFrame: Rect = Rect(x: self.frame.width / 2 - 100, y: self.yPosition + 30, w: 200, h: 28)
-      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .center, font: Fonts.Regular.twenty))
+      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .Center, font: Fonts.Regular.twenty))
       // Set the labels text and add it to the controller
       label.text = "All Sets"
       
@@ -144,12 +144,12 @@ class Scroller: UIScrollView {
       
    }
    
-   fileprivate func addStatsViewFor(exercise: String) {
+   private func addStatsViewFor(exercise: String) {
       
       // Create the frame for the stats view and create the view
       let frame: Rect = Rect(x: 0, y: 1, w: self.frame.w, h: 144)
       
-      let data: StatsViewData = RealmQuery().statsFor(exercise: exercise)
+      let data: StatsViewData = RealmQuery().statsFor(exercise)
       let statsView: StatsView = StatsView(frame: frame, data: data)
       // Add the view to the controller and return the stats view
       self.addSubview(statsView)
@@ -160,7 +160,7 @@ class Scroller: UIScrollView {
       
    }
    
-   fileprivate func addYearLabelFor(year: Int) {
+   private func addYearLabelFor(year: Int) {
       // Create the line and add it as a subview
       let lineFrame: Rect = Rect(x: (self.frame.w - 121) / 2, y: self.yPosition, w: 121, h: 2)
       let line: Line = Line(frame: lineFrame, color: .yellow)
@@ -177,7 +177,7 @@ class Scroller: UIScrollView {
       
    }
    
-   fileprivate func addMonthLabelFor(month: Int) {
+   private func addMonthLabelFor(month: Int) {
       
       // Create the line and add it as a subview
       let lineFrame: Rect = Rect(x: (self.frame.w - 121) / 2, y: self.yPosition, w: 121, h: 2)
@@ -187,7 +187,7 @@ class Scroller: UIScrollView {
       // Create the label and add it
       let labelFrame: Rect = Rect(x: (self.frame.w - 100) / 2, y: self.yPosition + 14, w: 100, h: 16)
       let label: UILabel = UILabel(frame: labelFrame, properties: ScrollerLabel())
-      label.text = "\(Date().nameOf(month: month))"
+      label.text = "\(Date().nameOf(month))"
       self.addSubview(label)
       
       // Update the yPosition
@@ -195,7 +195,7 @@ class Scroller: UIScrollView {
       
    }
    
-   fileprivate func addWeekLabelFor(week: String) {
+   private func addWeekLabelFor(week: String) {
       
       // Create the line and add it as a subview
       let lineFrame: Rect = Rect(x: (self.frame.w - 121) / 2, y: self.yPosition, w: 121, h: 2)
@@ -220,13 +220,13 @@ class Scroller: UIScrollView {
       
    }
    
-   fileprivate func add(workout: Workout) {
+   private func add(workout: Workout) {
       // Add the workout and it's yPosition to the workout position array
       self.workoutPosition += [(date: workout.date, yPosition: self.yPosition)]
       
       // Create the frame for the table and create the table
       let tableFrame: CGRect = CGRect(x: 0, y: self.yPosition, w: self.frame.w, h: CGFloat(workout.sets.count + 1) * 48)
-      let table: AllWorkoutsTable = AllWorkoutsTable(frame: tableFrame, style: .plain, workout: workout)
+      let table: AllWorkoutsTable = AllWorkoutsTable(frame: tableFrame, style: .Plain, workout: workout)
       
       // Add the table to view
       self.addSubview(table)
@@ -242,11 +242,11 @@ class Scroller: UIScrollView {
 extension Scroller : UIScrollViewDelegate {
    
    // TODO: Add scroll
-   func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+   func scrollViewDidScrollToTop(scrollView: UIScrollView) {
       // Lower the header
    }
    
-   func scrollViewDidScroll(_ scrollView: UIScrollView) {
+   func scrollViewDidScroll(scrollView: UIScrollView) {
       // Raise the header based on the amount of scrolling
       if contentOffset.y > 0 {
          header.elevate(4.0)

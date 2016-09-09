@@ -11,8 +11,8 @@ import UIKit
 
 extension String {
    func containsNumbers() -> Bool {
-      let decimalCharacters = CharacterSet.decimalDigits
-      let decimalRange = self.rangeOfCharacter(from: decimalCharacters, options: NSString.CompareOptions(), range: nil)
+      let decimalCharacters = NSCharacterSet.decimalDigitCharacterSet()
+      let decimalRange = self.rangeOfCharacterFromSet(decimalCharacters, options: [], range: nil)
       
       if decimalRange == nil {
          return false
@@ -21,15 +21,15 @@ extension String {
       }
    }
    
-   func heightWithConstrainedWidth(_ width: CGFloat, font: UIFont) -> CGFloat {
-      let constrainedRect = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-      let boundingBox = self.boundingRect(with: constrainedRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+   func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
+      let constrainedRect = CGSize(width: width, height: CGFloat.max)
+      let boundingBox = self.boundingRectWithSize(constrainedRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
       return boundingBox.height
    }
    
-   func widthWithConstrainedHeight(_ height: CGFloat, font: UIFont) -> CGFloat {
-      let constrainedRect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: height)
-      let boundingBox = self.boundingRect(with: constrainedRect, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
+   func widthWithConstrainedHeight(height: CGFloat, font: UIFont) -> CGFloat {
+      let constrainedRect = CGSize(width: CGFloat.max, height: height)
+      let boundingBox = self.boundingRectWithSize(constrainedRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: [NSFontAttributeName: font], context: nil)
       return boundingBox.width
    }
    

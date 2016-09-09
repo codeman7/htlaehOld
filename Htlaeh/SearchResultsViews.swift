@@ -22,7 +22,7 @@ struct SearchResultsViews : ViewsStruct {
    /// The property for the workouts
    let exercise: String
    /// The property for the workouts of the given exercise
-   lazy var results: [Workout] = RealmQuery().resultsFor(exercise: self.exercise)
+   lazy var results: [Workout] = RealmQuery().resultsFor(self.exercise)
    
    // MARK: Initializers
    init<T : Controller>(controller: T) {
@@ -55,7 +55,7 @@ struct SearchResultsViews : ViewsStruct {
       
    }
    
-   mutating func showEmpty(_ exercise: String) {
+   mutating func showEmpty(exercise: String) {
       
       // Get the big label
       let bigLabel: UILabel = self.createBigLabel()
@@ -101,7 +101,7 @@ struct SearchResultsViews : ViewsStruct {
       
       // Add the icon to the button and set the buttons background color
       button.backgroundColor = .blue
-      button.add(image: Images.Content().filter, color: .white)
+      button.add(Images.Content().filter, color: .white)
       
       // Set the action and the alpha for the button
       button.action = { self.controller.filter() }
@@ -138,7 +138,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
     This function creates the message for emtpy results
    */
-   func createEmptyMessage(_ exercise: String) -> UILabel {
+   func createEmptyMessage(exercise: String) -> UILabel {
       
       // Create the labels properties and a variable to hold it's text
       let properties: HomeLabel = HomeLabel.message
@@ -170,7 +170,7 @@ struct SearchResultsViews : ViewsStruct {
       // Create the frame for the stats view and create the view
       let frame: Rect = Rect(x: 0, y: 1, w: self.controller.width, h: 144)
       
-      let data: StatsViewData = RealmQuery().statsFor(exercise: self.controller.header.searchBar!.text!)
+      let data: StatsViewData = RealmQuery().statsFor(self.controller.header.searchBar!.text!)
       let statsView: StatsView = StatsView(frame: frame, data: data)
       // Add the view to the controller and return the stats view
       return statsView
@@ -181,7 +181,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
       This function creates the line and label
    */
-   fileprivate func createAllLine() -> (Line, UILabel) {
+   private func createAllLine() -> (Line, UILabel) {
       // Create the frame for the line and create the line
       let lineFrame: Rect = Rect(x: self.controller.width / 3, y: 189, w: self.controller.width / 3, h: 2)
       let line: Line = Line(frame: lineFrame, alpha: 1.0)
@@ -190,7 +190,7 @@ struct SearchResultsViews : ViewsStruct {
       
       // Create the label and it's frame
       let labelFrame: Rect = Rect(x: self.controller.width / 2 - 100, y: lineFrame.origin.y + 16, w: 200, h: 28)
-      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .center, font: Fonts.Regular.twenty))
+      let label: UILabel = UILabel(frame: labelFrame, properties: Label(color: .black, alpha: 0.54, align: .Center, font: Fonts.Regular.twenty))
       // Set the labels text and add it to the controller
       label.text = "All Sets"
       
@@ -206,7 +206,7 @@ struct SearchResultsViews : ViewsStruct {
    /**
       This function creates the result scroller
    */
-   fileprivate func createAndAddScroller(_ header: BoldHeader) {
+   private func createAndAddScroller(header: BoldHeader) {
       
       // Create the frame and the scroller
       let frame: Rect = Rect(x: 0, y: 80, width: self.controller.width, height: self.controller.height - 80)

@@ -10,9 +10,9 @@ import Foundation
 
 extension Dictionary {
    /// Sort a dictionary by it's values
-   func sortByValues(_ isOrderedBefore:(Value, Value) -> Bool) -> [Key] {
+   func sortByValues(isOrderedBefore:(Value, Value) -> Bool) -> [Key] {
       return Array(self)
-         .sorted() {
+         .sort() {
             let (_, lv) = $0
             let (_, rv) = $1
             return isOrderedBefore(lv, rv)
@@ -26,7 +26,7 @@ extension Dictionary {
 
 
 /// Used to combine dictionaries
-func += <K, V> (left: inout [K:V], right: [K:V]) {
+func += <K, V> (inout left: [K:V], right: [K:V]) {
    for (k, v) in right {
       left.updateValue(v, forKey: k)
    }

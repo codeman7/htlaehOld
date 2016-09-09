@@ -49,7 +49,7 @@ struct HomeWelcomeViews : ViewsStruct {
       self.views[message.0] = (delay: 0.05, alpha: HomeLabel.message.alpha)
       
       // Create the big label
-      let bigLabel: UIView = self.createBigLabelAt(y: message.1)
+      let bigLabel: UIView = self.createBigLabelAt(message.1)
       // Add the big label to the view
       self.controller.view.addSubview(bigLabel)
       // Add the big label to the views and set its delay
@@ -66,7 +66,7 @@ struct HomeWelcomeViews : ViewsStruct {
    }
   
       
-   fileprivate func createBigLabelAt(y: CGFloat) -> UIView {
+   private func createBigLabelAt(y: CGFloat) -> UIView {
       
       let yPos: CGFloat = y - 64
       let frame: CGRect = CGRect(x: self.controller.view.frame.width / 2 - 100, y: yPos, width: 200, height: 48)
@@ -78,7 +78,7 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   fileprivate func createMessage() -> (view: UIView, messageTop: CGFloat) {
+   private func createMessage() -> (view: UIView, messageTop: CGFloat) {
       
       let message: String = "We are glad to have you here! Walk through how to use \"Htlaeh\" or tap \"Tips\" in Settings when you want a refresher later."
       let height: CGFloat = message.heightWithConstrainedWidth(240, font: Fonts.Medium.sixteen)
@@ -93,7 +93,7 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   fileprivate func createButtons() -> [UIView] {
+   private func createButtons() -> [UIView] {
       // Create the Show buttons frame
       let showFrame: CGRect = CGRect(x: self.controller.view.frame.width - 140, y: self.controller.view.frame.height - 56, width: 124, height: 40)
       // Create the show button
@@ -125,20 +125,20 @@ struct HomeWelcomeViews : ViewsStruct {
       
    }
    
-   func hideViews(_ content: [UIView]) {
+   func hideViews(content: [UIView]) {
       
       for view in content {
          if view is Button {
-            UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 0.0 }, completion: nil)
+            UIView.animateWithDuration( 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 0.0 }, completion: nil)
          }
       }
       
    }
    
-   func showViews(_ content: [UIView]) {
+   func showViews(content: [UIView]) {
       
       for view in content {
-         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 1.0 }, completion: nil)
+         UIView.animateWithDuration( 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { view.alpha = 1.0 }, completion: nil)
       }
       
    }

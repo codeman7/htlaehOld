@@ -52,7 +52,7 @@ extension WorkoutCardStyles {
    }
    
    var alignment: NSTextAlignment {
-      return .center
+      return .Center
    }
    
    var leftIconColor: UIColor {

@@ -8,35 +8,35 @@
 
 import Foundation
 
-typealias Date = Foundation.Date
+typealias Date = NSDate
 extension Date {
    
-   var cal: Calendar {
-      return Calendar.current
+   var cal: NSCalendar {
+      return NSCalendar.currentCalendar()
    }
    
    var day: Int {
-      let cal = Calendar.current
-      let comp = (cal as NSCalendar).component(.day, from: self)
+      let cal = NSCalendar.currentCalendar()
+      let comp = (cal as NSCalendar).component(.Day, fromDate: self)
       return comp
    }
    
    var month: Int {
-      let cal = Calendar.current
-      let comp = (cal as NSCalendar).component(.month, from: self)
+      let cal = NSCalendar.currentCalendar()
+      let comp = (cal as NSCalendar).component(.Month, fromDate: self)
       return comp
    }
    
    var year: Int {
-      let cal = Calendar.current
-      let comp = (cal as NSCalendar).component(.year, from: self)
+      let cal = NSCalendar.currentCalendar()
+      let comp = (cal as NSCalendar).component(.Year, fromDate: self)
       return comp
    }
    
    func today() -> String {
       
-      let cal = Calendar.current
-      let components = (cal as NSCalendar).components([.year, .month, .day], from: self)
+      let cal = NSCalendar.currentCalendar()
+      let components = (cal as NSCalendar).components([.Year, .Month, .Day], fromDate: self)
       let year = self.currentYear(components)
       let month = self.currentMonth(components)
       let day = self.currentDay(components)
@@ -44,38 +44,38 @@ extension Date {
       
    }
    
-   func currentYear(_ comp: DateComponents) -> String {
+   func currentYear(comp: NSDateComponents) -> String {
       
-      let year = comp.year! - 2000
+      let year = comp.year - 2000
       return "\(year)"
       
    }
    
-   func currentMonth(_ comp: DateComponents) -> String {
+   func currentMonth(comp: NSDateComponents) -> String {
       
       let month = comp.month
-      guard month! > 9 else {
+      guard month > 9 else {
          return "0\(month)"
       }
       return "\(month)"
    }
    
-   func currentDay(_ comp: DateComponents) -> String {
+   func currentDay(comp: NSDateComponents) -> String {
       
       let day = comp.day
-      guard day! > 9 else {
+      guard day > 9 else {
          return "0\(day)"
       }
       return "\(day)"
       
    }
    
-   func dateAsString(_ year: Int, month: Int, day: Int) -> String {
-      let month: String = self.nameOf(month: month)
+   func dateAsString(year: Int, month: Int, day: Int) -> String {
+      let month: String = self.nameOf(month)
       return "\(month) \(day), 20\(year)"
    }
    
-   func databaseDateToReadable(_ date: String) -> String {
+   func databaseDateToReadable(date: String) -> String {
       
       let year: Int = Int(date[0...1])!
       let month: Int = Int(date[2...3])!
@@ -86,7 +86,7 @@ extension Date {
    
    func monthAsString() -> String {
       
-      let dateFormatter: DateFormatter = DateFormatter()
+      let dateFormatter: NSDateFormatter = NSDateFormatter()
       let month = dateFormatter.monthSymbols
       return month![self.month - 1]
       
@@ -100,17 +100,17 @@ extension Date {
    */
    func daysIn(month: Int, year: Int) -> Int {
       // Create a date component
-      var dateComponent: DateComponents = DateComponents()
+      let dateComponent: NSDateComponents = NSDateComponents()
       // Set the date components year
       dateComponent.year = year
       // Set the date components month
       dateComponent.month = month
       // Create a calendar
-      let cal: Calendar = Calendar.current
+      let cal: NSCalendar = NSCalendar.currentCalendar()
       // Create a date
-      let date: Foundation.Date = cal.date(from: dateComponent)!
+      let date: NSDate = cal.dateFromComponents(dateComponent)!
       // Get the range
-      let range = (cal as NSCalendar).range(of: .day, in: .month, for: date)
+      let range = (cal as NSCalendar).rangeOfUnit(.Day, inUnit: .Month, forDate: date)
       // Return the length of the range
       return range.length
    }
@@ -123,32 +123,32 @@ extension Date {
    */
    func getFirstDayOf(month: String, year: String) -> Int {
       // Create date formatter
-      let formatter: DateFormatter = DateFormatter()
+      let formatter: NSDateFormatter = NSDateFormatter()
       // Set the format for the formatter
       formatter.dateFormat = "yyyy-MM-dd"
       // Set the date to be first day of month
       let date = "\(year)-\(month)-01"
-      let firstDay = formatter.date(from: date)
+      let firstDay = formatter.dateFromString(date)
       // Create calendar
-      let cal: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+      let cal: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
       // Return the weekday
-      return (cal as NSCalendar).component(.weekday, from: firstDay!) - 1
+      return cal.component(.Weekday, fromDate: firstDay!) - 1
       
    }
    
-   func dayOfWeek(_ day: Int, inMonth month: Int, year: Int) -> String {
+   func dayOfWeek(day: Int, inMonth month: Int, year: Int) -> String {
       // Create date formatter
-      let formatter: DateFormatter = DateFormatter()
+      let formatter: NSDateFormatter = NSDateFormatter()
       // Set day format
       formatter.dateFormat = "yyyy-MM-dd"
       // Create date
       let date = "\(year)-\(month)-\(day)"
       // Create day
-      let day = formatter.date(from: date)
+      let day = formatter.dateFromString(date)
       // Create calendar
-      let cal: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+      let cal: NSCalendar = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
       // Get day of week in Int
-      let dayOfWeek = (cal as NSCalendar).component(.weekday, from: day!)
+      let dayOfWeek = cal.component(.Weekday, fromDate: day!)
       // Create dictionary that maps days to string values
       let dayOfWeekDict: [Int: String] = [1:"Sunday", 2: "Monday", 3:"Tuesday", 4:"Wednesday", 5:"Thursday", 6:"Friday", 7:"Saturday"]
       // Return the day
@@ -157,14 +157,14 @@ extension Date {
    
    func dayOfWeek() -> Int {
       
-      return (cal as NSCalendar).component(.weekday, from: self)
+      return (cal as NSCalendar).component(.Weekday, fromDate: self)
       
    }
    
    func nameOf(month: Int) -> String {
       
       // Create a day formatter
-      let dateFormatter: DateFormatter = DateFormatter()
+      let dateFormatter: NSDateFormatter = NSDateFormatter()
       // Get the month name
       let monthName: String = dateFormatter.monthSymbols[month - 1]
       // Return the name of the month

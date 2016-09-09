@@ -47,7 +47,7 @@ class SuggestionsTable : UITableView {
    func defaultSettings() {
       
       // Register the cells
-      self.register(SuggestionCell.self, forCellReuseIdentifier: "Cell")
+      self.registerClass(SuggestionCell.self, forCellReuseIdentifier: "Cell")
       
       // Set the data source and delegate
       self.dataSource = self
@@ -57,17 +57,17 @@ class SuggestionsTable : UITableView {
       self.rowHeight = 56.0
       
       // Set the seperator style
-      self.separatorStyle = .none
+      self.separatorStyle = .None
    }
    
 }
 
 extension SuggestionsTable : UITableViewDelegate {
  
-   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+   func tableView(tableView: UITableView, didSelectRowAt indexPath: NSIndexPath) {
       
       // Get the cell
-      let cell = tableView.cellForRow(at: indexPath) as! SuggestionCell
+      let cell = tableView.cellForRowAtIndexPath(indexPath) as! SuggestionCell
       // Search for the title of the cell that was selected
       self.controller.searchFor(cell.title!.text!)
       
@@ -77,13 +77,13 @@ extension SuggestionsTable : UITableViewDelegate {
 
 extension SuggestionsTable : UITableViewDataSource {
    
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      let cell: SuggestionCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SuggestionCell
+   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+      let cell: SuggestionCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SuggestionCell
       cell.add(suggestions[(indexPath as NSIndexPath).row])
       return cell
    }
    
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return self.suggestions.count
    }
    

@@ -24,7 +24,7 @@ class AccountDialog: Dialog {
      - parameter action1: The action for the far right button "Skip"
      - parameter action2: The action for the far left button "Sign in"
    */
-   init(frame: CGRect, promptFrame: CGRect, action1: @escaping ()->(), action2: @escaping ()->()) {
+   init(frame: CGRect, promptFrame: CGRect, action1: ()->(), action2: ()->()) {
       
       // Call the super initalizer
       super.init(frame: frame, promptFrame: promptFrame)
@@ -45,11 +45,11 @@ class AccountDialog: Dialog {
       - parameter action1: The action for the far right button "Skip"
       - parameter action2: The action for the far left button "Sign in"
    */
-   func createDialog(action1: @escaping ()->(), action2: @escaping ()->()) {
+   func createDialog(action1: ()->(), action2: ()->()) {
       
       self.addTopHalf()
       self.addMessages()
-      self.addButtons(action1: action1, action2: action2)
+      self.addButtons(action1, action2: action2)
       
    }
    
@@ -67,7 +67,7 @@ class AccountDialog: Dialog {
       
       let height = "Why set up an account?".heightWithConstrainedWidth(self.prompt.frame.width - 32, font: Fonts.Regular.eighteen)
       let messageFrame: CGRect = CGRect(x: 16, y: view.frame.height - (height + 16), width: self.prompt.frame.width - 32, height: height)
-      let message: UILabel = UILabel(frame: messageFrame, font: Fonts.Regular.eighteen, align: .left, color: .white)
+      let message: UILabel = UILabel(frame: messageFrame, font: Fonts.Regular.eighteen, align: .Left, color: .white)
       message.text = "Why set up an account?"
       message.multipleLines()
       view.addSubview(message)
@@ -108,7 +108,7 @@ class AccountDialog: Dialog {
       
    }
    
-   func addButtons(action1: @escaping ()->(), action2: @escaping ()->()) {
+   func addButtons(action1: ()->(), action2: ()->()) {
       
       let skipButtonFrame: CGRect = CGRect(x: self.prompt.frame.width - 88, y: self.prompt.frame.height - 56, width: 72, height: 40)
       let skipButton: Button = Button(frame: skipButtonFrame, type: .flat)
@@ -134,10 +134,15 @@ extension AccountDialog {
       self.addSubview(backgroundGrey)
       self.addSubview(prompt)
       self.backgroundGrey.show(0.26)
-      UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+      UIView.animateWithDuration(0.3, animations: {
          self.prompt.frame = self.promptFrame
          }, completion: { Bool in
-            self.createDialog(action1: { self.skipButtonAction!() }, action2: { self.signInButtonAction!() })
+            
+      })
+      UIView.animateWithDuration(0.3, animations: {
+         self.prompt.frame = self.promptFrame
+         }, completion: { Bool in
+            self.createDialog({ self.skipButtonAction!() }, action2: { self.signInButtonAction!() })
       })
    }
    
@@ -156,13 +161,13 @@ private extension UILabel {
       // Set the font
       self.font = Fonts.Regular.sixteen
       // Set the alignment
-      self.textAlignment = .left
+      self.textAlignment = .Left
       // Set the color
       self.textColor = .black
       // Set the number of lines
       self.numberOfLines = 0
       // Set the word break mode
-      self.lineBreakMode = .byWordWrapping
+      self.lineBreakMode = .ByWordWrapping
       
    }
    

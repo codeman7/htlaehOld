@@ -43,7 +43,7 @@ class SimpleDialog : UIView {
    }
    
    // MARK: Functions
-   fileprivate func addButtons() {
+   private func addButtons() {
       
       for iteration in 0..<self.buttonInit.count {
          let width: CGFloat = buttonInit[iteration].title.widthWithConstrainedHeight(48.0, font: .regular16)
@@ -60,7 +60,7 @@ class SimpleDialog : UIView {
    
    func showButtons() {
       
-      UIView.animate(withDuration: 0.025, animations: {
+      UIView.animateWithDuration( 0.025, animations: {
          for view in self.subviews {
             view.alpha = 1.0
          }
@@ -70,7 +70,7 @@ class SimpleDialog : UIView {
    
    func removeButtons() {
       
-      UIView.animate(withDuration: 0.025, animations: {
+      UIView.animateWithDuration( 0.025, animations: {
          for view in self.subviews {
             view.alpha = 0.0
          }
@@ -83,7 +83,7 @@ class SimpleDialog : UIView {
     - parameter size: The size the menu will be when shown
     - parameter direction: The direction the view will expand either Left/Right
    */
-   func show(_ direction: Direction) {
+   func show(direction: Direction) {
       
       guard direction == .right || direction == .left else {
             return
@@ -92,7 +92,7 @@ class SimpleDialog : UIView {
       self.alpha = 1.0
       let x: CGFloat = (direction == .left) ? self.frame.origin.x - self.size.width : self.frame.origin.x
       let frame: Rect = Rect(origin: CGPoint(x: x, y: self.frame.origin.y), size: self.size)
-      UIView.animate(withDuration: 0.175, animations: {
+      UIView.animateWithDuration( 0.175, animations: {
          self.frame = frame
          }, completion: { Bool in
             self.showButtons()
@@ -105,7 +105,7 @@ class SimpleDialog : UIView {
       
       self.removeButtons()
       
-      UIView.animate(withDuration: 0.2, animations: {
+      UIView.animateWithDuration( 0.2, animations: {
          let frame: Rect = Rect(origin: self.origin, size: CGSize.zero)
          self.frame = frame
          }, completion: { Bool in

@@ -75,7 +75,7 @@ class WorkoutTableView : UIView {
       - parameter set: The set of the workout that we need the titles for
       - returns: An array of strings containting the 0-Exercise name, 1-Reps, 2-Weight
    */
-   fileprivate func getTitlesFor(set: Int) -> [String] {
+   private func getTitlesFor(set: Int) -> [String] {
       
       //let exercise: String = self.workout.sets[set].exerciseName
       //let reps: String = "\(self.workout.sets[set].reps!)"
