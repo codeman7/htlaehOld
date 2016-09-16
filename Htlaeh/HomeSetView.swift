@@ -146,7 +146,7 @@ class HomeSetView : UIView {
       This function moves the rest timer up for the very last set
    */
    func finished() {
-      print("All done with set view")
+
       self.removeFromSuperview()
       
    }

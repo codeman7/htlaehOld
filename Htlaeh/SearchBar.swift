@@ -18,6 +18,8 @@ final class SearchBar : UITextField {
    lazy var clearButton: Button = self.addClearButton()
    /// The property for the controller
    var controller: Search
+   /// Property for when clear is pressed
+   var clearAction: () -> () = { print("Update clear action") }
    
    
    // MARK: Initializers
@@ -98,6 +100,8 @@ final class SearchBar : UITextField {
       self.placeholderLabel.showWithAlpha(0.0, alpha: 0.14)
       // Hide the clear button
       self.clearButton.hideWithAlpha()
+      // Call the clear action in the controller
+      self.clearAction()
       
    }
    

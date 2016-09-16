@@ -20,6 +20,7 @@ extension UIImage {
       case ChevronForward = "ChevronForward"
       case Close = "Close"
       case Cloud = "Cloud"
+      case DateRange = "DateRange"
       case Devices = "Devices"
       case Edit = "Edit"
       case Filter = "Filter"
@@ -49,6 +50,7 @@ struct Images {
    struct Action {
       
       let account: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Account)
+      let date: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.DateRange)
       let home: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Home)
       let reorder: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Reorder)
       let search: UIImage = UIImage(assetIdentifier: UIImage.AssetIdentifier.Search)

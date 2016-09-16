@@ -197,6 +197,30 @@ struct RealmQuery {
       
    }
    
+   func getRangesFor(exercise: String?) -> (rMin: Int, rMax: Int, wMin: Int, wMax: Int) {
+      
+      guard let name = exercise else {
+         return (rMin: 0, rMax: Int.max, wMin: 0, wMax: Int.max)
+      }
+      
+      var workouts: Results<RealmWorkout> = self.realm.objects(RealmWorkout).filter("name = '\(name)'")
+      
+      guard workouts.isEmpty == false else {
+         return (rMin: 0, rMax: Int.max, wMin: 0, wMax: Int.max)
+      }
+      
+      workouts = workouts.sorted("weight")
+      let wMin = workouts.first?.weight.value
+      let wMax = workouts.last?.weight.value
+
+      workouts = workouts.sorted("reps")
+      let rMin = workouts.first?.reps.value
+      let rMax = workouts.last?.reps.value
+      
+      return (rMin: rMin!, rMax: rMax!, wMin: Int(wMin!), wMax: Int(wMax!))
+      
+   }
+   
 }
 
 

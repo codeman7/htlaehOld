@@ -45,7 +45,7 @@ class BackgroundGrey: UIView {
    // MARK: Functions
    func show(alpha: CGFloat) {
       
-      UIView.animateWithDuration( 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.alpha = alpha }, completion: nil)
+      UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: { self.alpha = alpha }, completion: nil)
       
    }
    

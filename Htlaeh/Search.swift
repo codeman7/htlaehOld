@@ -25,14 +25,43 @@ class Search : Controller {
       return SearchStandardViews(controller: self).createSuggestions()
    }()
    
+   /// The property for the FAB
+   lazy var FAB: Button = SearchResultsViews(controller: self).createFAB()
+   
+   /// Property for the filter
+   lazy var filter: SearchFilter = SearchFilter(self)
+   
    /// The property for the suggestions
    var suggestions: [String] = RealmQuery().exerciseNames().mostCommon()
+   
+   var exercise: String? = nil
    
    // MARK: Functions
    override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view, typically from a nib.
       self.setupViews()
+   }
+   
+   func clearedSearch() {
+      
+      //var views: [UIView] = []
+      let views: [UIView] = self.view.subviews.filter({ $0.frame.origin.y != 0 })
+      UIView.animateWithDuration(0.15, animations: {
+         for v in views {
+            v.alpha = 0.0
+         }
+      })
+      
+      self.suggestions = RealmQuery().exerciseNames().mostCommon()
+      var standard: SearchStandardViews = SearchStandardViews(controller: self)
+      standard.layoutViews()
+      Delay().delay(0.15, closure: {
+         standard.show()
+      })
+      
+      print(self.suggestionsTable.suggestions)
+         
    }
    
    func newWorkout() {
@@ -74,6 +103,9 @@ class Search : Controller {
       // Trim down the exercise incase a space was added at the end
       let name = exercise.trimmed()
       
+      // Set the exercise property
+      self.exercise = name
+      
       // Create the struct that will hold all the views
       var loadResults: SearchResultsViews = SearchResultsViews(controller: self, exercise: name)
       
@@ -112,8 +144,20 @@ class Search : Controller {
       
    }
    
-   func filter() {
+   func showFilter() {
+      
+      self.filter.showFilter()
       print("Filter down the results")
+   }
+   
+   func refine() {
+      
+      let rMin = self.filter.sheet.values.rMin
+      let rMax = self.filter.sheet.values.rMax
+      let wMin = self.filter.sheet.values.wMin
+      let wMax = self.filter.sheet.values.wMax
+      print("Reps has to be between \(rMin) - \(rMax)\nWeight has to be between \(wMin) - \(wMax)")
+      
    }
 
 }

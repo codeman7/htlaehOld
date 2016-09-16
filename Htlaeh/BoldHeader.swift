@@ -180,6 +180,8 @@ class BoldHeader: UIView {
       // Add the search bar to the view
       self.addSubview(self.searchBar!)
       
+      self.searchBar?.clearAction = { controller.clearedSearch() }
+      
       self.addBottomLine()
       
    }

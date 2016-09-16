@@ -42,7 +42,7 @@ struct SearchResultsViews : ViewsStruct {
       self.createAndAddScroller(self.controller.header)
       
       // Get the fab and add it to the array
-      let fab: Button = self.createFAB()
+      let fab: Button = self.controller.FAB
       self.views[fab] = (delay: 0.125, alpha: 1.0)
       
       /*// Get the stats view and add it to the array
@@ -104,7 +104,7 @@ struct SearchResultsViews : ViewsStruct {
       button.add(Images.Content().filter, color: .white)
       
       // Set the action and the alpha for the button
-      button.action = { self.controller.filter() }
+      button.action = { self.controller.showFilter() }
       button.alpha = 0.0
       
       // Add the button as a subview and return it 
@@ -212,7 +212,7 @@ struct SearchResultsViews : ViewsStruct {
       let frame: Rect = Rect(x: 0, y: 80, width: self.controller.width, height: self.controller.height - 80)
       let scroller: Scroller = Scroller(frame: frame, exercise: self.exercise, header: header)
       
-      self.controller.view.addSubview(scroller)
+      self.controller.view.insertSubview(scroller, belowSubview: header)
       
    }
    

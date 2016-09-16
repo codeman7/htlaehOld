@@ -241,11 +241,6 @@ class Scroller: UIScrollView {
 // MARK: Delegate methods
 extension Scroller : UIScrollViewDelegate {
    
-   // TODO: Add scroll
-   func scrollViewDidScrollToTop(scrollView: UIScrollView) {
-      // Lower the header
-   }
-   
    func scrollViewDidScroll(scrollView: UIScrollView) {
       // Raise the header based on the amount of scrolling
       if contentOffset.y > 0 {

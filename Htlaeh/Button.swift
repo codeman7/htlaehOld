@@ -39,6 +39,7 @@ class Button: UIView {
    var action: () -> () = { print("Please set the action for the button") }
    
    var icon: Icon? = nil
+   lazy var i: Icon = self.createIcon()
    
    lazy var label: UILabel = self.createLabel()
    
@@ -120,6 +121,14 @@ class Button: UIView {
       
    }
    
+   private func createIcon() -> Icon {
+      
+      let frame: CGRect = CGRect(x: self.frame.size.width / 2 - 12, y: self.frame.size.height / 2 - 12, w: 24, h: 24)
+      let icon: Icon = Icon(frame: frame)
+      return icon
+      
+   }
+   
    func set(title text: String, color: UIColor) {
       
       let title: String = text.uppercaseString
@@ -142,7 +151,9 @@ class Button: UIView {
    
       let frame: CGRect = CGRect(x: self.frame.size.width / 2 - 12, y: self.frame.size.height / 2 - 12, width: 24, height: 24)
       icon = Icon(frame: frame, image: image, color: color)
-      self.addSubview(icon!)
+      self.i.image = image
+      self.i.color = color
+      self.addSubview(self.i)
       
    }
    

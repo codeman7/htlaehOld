@@ -64,6 +64,7 @@ class SuggestionsTable : UITableView {
 
 extension SuggestionsTable : UITableViewDelegate {
  
+   #if swift (>=3.0)
    func tableView(tableView: UITableView, didSelectRowAt indexPath: NSIndexPath) {
       
       // Get the cell
@@ -73,6 +74,17 @@ extension SuggestionsTable : UITableViewDelegate {
       
    }
    
+   #else
+   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+      
+      // Get the cell
+      let cell = tableView.cellForRowAtIndexPath(indexPath) as! SuggestionCell
+      // Search for the title of the cell that was selected
+      self.controller.searchFor(cell.title!.text!)
+      
+   }
+   
+   #endif
 }
 
 extension SuggestionsTable : UITableViewDataSource {

@@ -40,6 +40,10 @@ class Icon: UIImageView {
       self.colorImage(.black)
       
    }
+   
+   init(frame: CGRect) {
+      super.init(frame: frame)
+   }
 
    required init?(coder aDecoder: NSCoder) {
    
