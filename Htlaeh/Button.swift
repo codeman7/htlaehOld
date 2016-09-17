@@ -38,8 +38,7 @@ class Button: UIView {
    // Action to call when button is pressed
    var action: () -> () = { print("Please set the action for the button") }
    
-   var icon: Icon? = nil
-   lazy var i: Icon = self.createIcon()
+   lazy var icon: Icon = self.createIcon()
    
    lazy var label: UILabel = self.createLabel()
    
@@ -149,10 +148,8 @@ class Button: UIView {
    */
    func add(image: UIImage, color: UIColor) {
    
-      let frame: CGRect = CGRect(x: self.frame.size.width / 2 - 12, y: self.frame.size.height / 2 - 12, width: 24, height: 24)
-      icon = Icon(frame: frame, image: image, color: color)
-      self.i.image = image
-      self.i.color = color
+      self.icon.image = image
+      self.icon.color = color
       self.addSubview(self.i)
       
    }
@@ -163,12 +160,11 @@ class Button: UIView {
       - parameter alpha: The alpha for the icon
    */
    func add(image: UIImage, alpha: CGFloat) {
-      // Set the frame for the icon
-      let frame: Rect = Rect(x: self.frame.w / 2 - 12, y: self.frame.h / 2 - 12, w: 24, h: 24)
-      // Create the icon
-      self.icon = Icon(frame: frame, image: image, alpha: alpha)
-      // Add the icon to the view
-      self.addSubview(self.icon!)
+      
+      // Set the image and the color for the icon
+      self.add(image: image, color: .black)
+      // Set the alpha for the image
+      self.icon.alpha = alpha
       
    }
    
@@ -179,9 +175,13 @@ class Button: UIView {
    */
    func add(smallIcon image: UIImage, color: UIColor) {
       
+      // Create the new frame and set it to the icon's frame
       let frame: CGRect = CGRect(x: self.frame.width / 2 - 10, y: self.frame.height / 2 - 10, width: 20, height: 20)
-      icon = Icon(frame: frame, image: image, color: color)
-      self.addSubview(icon!)
+      self.icon.frame = frame
+      
+      // Add the icon with the appropriate image and color and to the self as a subview
+      self.add(image: image, color: color)
+      self.addSubview(self.icon)
       
    }
     

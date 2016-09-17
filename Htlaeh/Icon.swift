@@ -27,17 +27,12 @@ class Icon: UIImageView {
 
    }
    
-   init(frame: CGRect, image: UIImage?, alpha: CGFloat) {
-      // Set the color for the image
-      self.color = .black
-      // Call the super initializer
-      super.init(frame: frame)
-      // Set the image for the view
-      self.image = image
+   convenience init(frame: CGRect, image: UIImage?, alpha: CGFloat) {
+      
+      // Call the designated initializer
+      self.init(frame: frame, image: image, color: .black)
       // Set the alpha for the iamge
       self.alpha = alpha
-      // Set the color for the image
-      self.colorImage(.black)
       
    }
    

@@ -131,7 +131,7 @@ class DatePicker : Dialog {
       // Set up the frame for the left view
       let leftFrame: Rect = Rect(x: 4, y: 103, w: 40, h: 40)
       // Create the left button
-      let leftButton: Button = Button(frame: leftFrame, type: .flat)//, action: { self.newMonth(change: -1) })
+      let leftButton: Button = Button(frame: leftFrame, type: .flat)
       // Add the icon to the left button
       leftButton.add(Images.Navigation().chevronBack, alpha: 0.54)
       leftButton.action = { self.newMonth(-1) }
@@ -141,7 +141,7 @@ class DatePicker : Dialog {
       // Set up the frame for the right view
       let rightFrame: Rect = Rect(x: self.prompt.frame.w - 44, y: 103, w: 40, h: 40)
       // Create the right button
-      let rightButton: Button = Button(frame: rightFrame, type: .flat)//, action: { self.newMonth(change: 1) })
+      let rightButton: Button = Button(frame: rightFrame, type: .flat)
       // Add the icon to the button
       rightButton.add(Images.Navigation().chevronForward, alpha: 0.54)
       rightButton.action = { self.newMonth(1) }
